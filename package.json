@@ -1,0 +1,13 @@
+{
+  "name": "verilog-eda-studio",
+  "version": "1.0.0",
+  "description": "Unified Verilog/SystemVerilog IDE with Monaco Editor, Real-Time Icarus Simulation & Interactive Waveform Viewer",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  }
+}

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HDL EDA Studio | Verilog & VHDL All-In-One IDE</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Monaco Editor CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="top-navbar">
+    <div class="brand">
+      <div class="brand-icon">⚡</div>
+      <span>HDL EDA Studio</span>
+      <span class="brand-tag" id="engine-tag">Icarus & GHDL Engine</span>
+    </div>
+
+    <div class="nav-actions">
+      <!-- Language Mode Switcher (Verilog vs VHDL) -->
+      <div class="select-wrapper language-wrapper">
+        <label for="lang-select" class="select-label">HDL Mode:</label>
+        <select id="lang-select" class="lang-select">
+          <option value="verilog">⚡ SystemVerilog / Verilog (.sv / .v)</option>
+          <option value="vhdl">📐 VHDL (.vhd)</option>
+        </select>
+      </div>
+
+      <!-- Example Templates Dropdown -->
+      <div class="select-wrapper">
+        <select id="example-select">
+          <option value="">📂 Load Example Template...</option>
+        </select>
+      </div>
+
+      <!-- Load from Local Disk -->
+      <button class="btn btn-secondary" id="btn-load-local" title="Load design and testbench from project folder">
+        📂 Load Local Folder
+      </button>
+
+      <!-- Save to Local Disk -->
+      <button class="btn btn-secondary" id="btn-save-local" title="Save current code to disk">
+        💾 Save
+      </button>
+
+      <!-- External GTKWave Launcher -->
+      <button class="btn btn-secondary" id="btn-launch-gtkwave" title="Open current VCD in external GTKWave window">
+        🌊 Launch GTKWave
+      </button>
+
+      <!-- Run Simulation Button -->
+      <button class="btn btn-primary" id="btn-run" title="Compile & Simulate (Ctrl+Enter)">
+        ▶ Run Simulation
+      </button>
+    </div>
+  </header>
+
+  <!-- Studio Main -->
+  <main class="studio-container">
+    <!-- Top Editors Split (Design & Testbench) -->
+    <div class="editors-pane">
+      <!-- Design Editor -->
+      <div class="editor-wrapper">
+        <div class="panel-header">
+          <div class="title" id="design-tab-title">📄 design.sv <span class="badge bit">Module</span></div>
+          <div class="editor-meta" id="design-meta-badge">SystemVerilog-2012</div>
+        </div>
+        <div id="design-editor" class="editor-container"></div>
+      </div>
+
+      <!-- Testbench Editor -->
+      <div class="editor-wrapper">
+        <div class="panel-header">
+          <div class="title" id="testbench-tab-title">🧪 testbench.sv <span class="badge bus">Stimulus</span></div>
+          <div class="editor-meta" id="testbench-meta-badge">SystemVerilog-2012</div>
+        </div>
+        <div id="testbench-editor" class="editor-container"></div>
+      </div>
+    </div>
+
+    <!-- Bottom Pane: Interactive Waveform & Console Output -->
+    <div class="bottom-pane">
+      <!-- Tabs Header -->
+      <div class="bottom-tabs">
+        <div class="tab-group">
+          <button class="tab-btn active" id="tab-waveform-btn">📈 Waveform Viewer</button>
+          <button class="tab-btn" id="tab-console-btn">🖥️ Simulation Console</button>
+        </div>
+
+        <!-- Waveform specific toolbar -->
+        <div class="waveform-toolbar" id="waveform-controls">
+          <span style="font-size: 11px; color: var(--text-muted);">Cursor:</span>
+          <span id="cursor-time-display" style="font-family: monospace; font-size: 11px; color: #38bdf8; font-weight: 700; margin-right: 6px;">0 ns</span>
+
+          <label style="font-size: 11px; color: var(--text-muted);">Radix:</label>
+          <select id="radix-select" class="radix-select">
+            <option value="hex">HEX (0x..)</option>
+            <option value="bin">BIN (b..)</option>
+            <option value="dec">DEC (0..9)</option>
+          </select>
+
+          <button class="tool-btn" id="btn-zoom-in" title="Zoom In">🔍+</button>
+          <button class="tool-btn" id="btn-zoom-out" title="Zoom Out">🔍-</button>
+          <button class="tool-btn" id="btn-zoom-fit" title="Zoom to Fit">↔ Fit</button>
+        </div>
+      </div>
+
+      <!-- Waveform Tab Content -->
+      <div class="tab-content active" id="waveform-tab">
+        <div class="waveform-view">
+          <!-- Signal Names Left Panel -->
+          <div class="signal-names-panel">
+            <div class="signals-header">
+              <span>SIGNALS</span>
+              <span>VALUE</span>
+            </div>
+            <div class="signal-list" id="signal-list">
+              <!-- Dynamically populated signals -->
+            </div>
+          </div>
+
+          <!-- Waveform Canvas Right Area -->
+          <div class="waveform-canvas-area">
+            <div class="timeline-header-container" id="timeline-header"></div>
+            <div class="waveform-scroll-viewport" id="waveform-viewport"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Console Tab Content -->
+      <div class="tab-content" id="console-tab">
+        <div class="console-view" id="console-output">
+          <div class="status-line">⚡ Welcome to HDL EDA Studio. Hit "Run Simulation" or press Ctrl+Enter to compile & simulate.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Status Bar -->
+  <footer class="status-bar">
+    <div class="status-left">
+      <span><span class="status-indicator"></span> <span id="compiler-status-label">Icarus Verilog & GHDL Ready</span></span>
+      <span id="status-message">Project: /home/punit/xilinx_projects/eda_playgrounds_acts</span>
+    </div>
+    <div class="status-right">
+      <span id="hdl-std-label">Mode: SystemVerilog-2012</span>
+      <span id="sim-time-badge">Sim: -- ms</span>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="waveform.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

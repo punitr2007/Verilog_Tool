@@ -1,0 +1,8 @@
+node_modules/
+.sim_runtime/
+*.vcd
+simv
+*.o
+*.cf
+*.log
+.DS_Store
