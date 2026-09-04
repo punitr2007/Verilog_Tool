@@ -2,9 +2,9 @@
 
 # ⚡ HDL EDA Studio (`Verilog_Tool`)
 
-**A Modern, Unified, Web-Based Integrated Development Environment for Verilog, SystemVerilog & VHDL**
+**A Modern, CollectUI-Inspired Web Integrated Development Environment for SystemVerilog, Verilog & VHDL**
 
-*Real-time Native Simulation • Dual Monaco Editors • Interactive Canvas Digital Waveform Viewer • Auto-Dump Safeguards*
+*Real-Time Native Simulation • Dual Monaco Editors • Interactive High-DPI Waveform Viewer • Signal Filtering • Auto-Dump Safeguards • Image Export*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 [![Verilog Standard](https://img.shields.io/badge/Standard-SystemVerilog--2012-06b6d4?style=for-the-badge)](https://en.wikipedia.org/wiki/SystemVerilog)
@@ -21,7 +21,7 @@
 
 ## 📖 Overview
 
-**HDL EDA Studio** is an all-in-one, local browser-based EDA environment designed for digital hardware designers, FPGA engineers, and computer architecture students. It eliminates the friction of traditional command-line EDA workflows by fusing industry-standard editor capabilities with instant native compilation, testbench simulation, and interactive visual waveform inspection in a single pane of glass.
+**HDL EDA Studio** is a unified, local browser-based EDA workstation designed for digital hardware designers, FPGA engineers, and computer architecture students. It eliminates the friction of traditional multi-window command-line EDA workflows by fusing VS Code-tier Monaco editors with instant native simulation, interactive digital waveform analysis, signal search, and diagnostics in a single responsive pane.
 
 ---
 
@@ -42,14 +42,14 @@
 │                           HDL EDA STUDIO WORKFLOW                               │
 │                                                                                 │
 │  ┌───────────────────────┐  ┌───────────────────────┐  ┌─────────────────────┐  │
-│  │ Dual Monaco Editor    │  │ 1-Click / Hotkey Run  │  │ Interactive Canvas  │  │
+│  │ Dual Monaco Editor    │  │ 1-Click / Hotkey Run  │  │ Interactive High-DPI│  │
 │  │ (Design + Testbench)  │─▶│ (Native Icarus & GHDL)│─▶│ Waveform Viewer     │  │
-│  │ SystemVerilog / VHDL  │  │ + Auto-Dump Safeguard │  │ Zoom, Bus, Radix    │  │
+│  │ SystemVerilog / VHDL  │  │ + Auto-Dump Safeguard │  │ Search, Bus, Radix  │  │
 │  └───────────────────────┘  └───────────────────────┘  └─────────────────────┘  │
 │                                                                                 │
-│   ✅ 100% unified in a single responsive studio                                 │
+│   ✅ 100% unified in a single responsive glassmorphic workstation               │
 │   ✅ Auto-detects & injects waveform dumping if omitted                         │
-│   ✅ Zero context switching; instant simulation feedback                        │
+│   ✅ Real-time signal search, radix decoding, and image export                  │
 └─────────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -59,81 +59,111 @@
 
 ### 🖥️ 1. Dual Monaco Editor (VS Code Engine)
 * **Side-by-Side Split View:** Simultaneously view and edit your hardware description (`design.sv` / `design.vhd`) alongside the simulation stimulus (`testbench.sv` / `testbench.vhd`).
-* **Full Syntax Highlighting & Validation:** Powered by Microsoft's Monaco Editor with support for SystemVerilog-2012 and VHDL-2008 syntax, bracket matching, code folding, and auto-indentation.
-* **Global Hotkey:** Press `Ctrl + Enter` (or `Cmd + Enter` on macOS) anywhere inside the editors to trigger instantaneous compilation and simulation.
+* **Custom `eda-dark` Theme:** Tailored dark theme with clear contrast, font ligatures, line highlights, and syntax coloring for SystemVerilog-2012 and VHDL-2008.
+* **Quick Actions:** Dedicated Copy Code and Clear buttons on both design and testbench headers.
+* **Global Hotkey:** Press `Ctrl + Enter` (or `Cmd + Enter`) anywhere inside the studio to trigger instantaneous compilation and simulation.
+* **Direct Save:** Press `Ctrl + S` to save files directly to disk without browser dialog interruptions.
 
-### 🔄 2. Dynamic HDL Mode Switcher
-* Seamless toggle between **SystemVerilog / Verilog (`.sv` / `.v`)** and **VHDL (`.vhd`)** via the top navigation bar.
-* Automatically switches syntax highlighting, file templates, backend compiler commands, and target disk paths on the fly.
+### 🔄 2. Segmented HDL Mode Switcher
+* Seamless toggle between **SystemVerilog (`.sv` / `.v`)** and **VHDL (`.vhd`)** via the segmented top navbar.
+* Automatically updates Monaco syntax models, file naming, backend compiler commands, and target disk paths on the fly.
 
 ### ⚡ 3. Real-Time Native Simulation Engines
 * **Verilog Engine:** Native [Icarus Verilog](http://iverilog.icarus.com/) (`iverilog -g2012`) + `vvp` execution.
 * **VHDL Engine:** Native [GHDL](https://ghdl.github.io/ghdl/) (`ghdl -a --std=08`, `ghdl -e`, `ghdl -r`) execution.
-* **Console Terminal:** Real-time log streamer displaying compilation warnings, syntax error line numbers, simulation status, and `$display` / `report` outputs.
+* **Console Terminal:** Real-time log streamer displaying compilation warnings, syntax error line numbers, simulation status, and `$display` / `report` outputs with syntax coloring.
 
 ### 📈 4. Interactive In-Browser Digital Waveform Viewer
-* **High-Performance Canvas Engine:** Parses `.vcd` files directly in JavaScript and renders timing diagrams without relying on external plugins or window switching.
+* **High-DPI Canvas Engine:** Device-pixel-ratio aware 2D canvas that renders sharp timing diagrams without relying on external plugins or window switching.
+* **Signal Search & Filter:** Instant search bar in the signal sidebar to isolate specific nets and buses in large modules.
+* **Hover Row Synchronization:** Hovering over any signal in the sidebar highlights the corresponding trace and vice-versa.
 * **Digital Pulse & Bus Diamond Rendering:**
-  * 1-bit signals: Clean high/low digital square waveforms with crisp transition edges.
+  * 1-bit signals: Crisp high/low square waveforms in electric cyan.
   * Multi-bit buses: Diamond polygon transitions with decoded data labels inside bus segments.
-* **Interactive Time Cursor:** Scrub anywhere along the timeline with the mouse to see live signal values at that exact instant.
-* **Configurable Radix Display:** Switch multi-bit bus values instantly between **HEX** (`0x..`), **BINARY** (`b..`), and **DECIMAL** (`0..9`).
-* **Navigation Controls:** Dynamic timeline ruler, Zoom In (`+`), Zoom Out (`-`), and Zoom to Fit (`Fit`).
+* **Interactive Time Cursor:** Scrub anywhere along the timeline with the mouse to inspect live signal values at that exact timestamp.
+* **Configurable Radix Display:** Switch multi-bit bus values instantly between **HEX** (`0x..`), **BINARY** (`b..`), **DECIMAL** (`0..9`), and **ASCII**.
+* **Navigation Controls:** Dynamic timeline ruler, Zoom In (`+`), Zoom Out (`-`), Zoom to Fit (`Fit`), and Zoom Percentage readout.
+* **Snapshot Export:** One-click **"Export"** button generates a downloadable PNG image of the timing diagram for lab reports.
 
 ### 🛡️ 5. Auto-Dump Waveform Safeguard
 * Never suffer from empty waveforms again: If a testbench is missing `$dumpfile` or `$dumpvars`, the backend automatically injects the necessary VCD dump hooks before compilation.
 
 ### 🌊 6. External GTKWave Bridge
-* Need desktop GTKWave for deep legacy inspection? Click the **"Launch GTKWave"** button to automatically spawn GTKWave with your customized color themes on your host X11 display.
+* Need desktop GTKWave for deep legacy inspection? Click the **"GTKWave"** button to automatically spawn GTKWave with your customized color themes on your host X11 display.
 
 ### 📂 7. Pre-Built Circuit Templates
 Built-in, one-click loadable templates for rapid prototyping and learning:
 * **SystemVerilog:** Basic Logic Gates, 4-bit Synchronous Up-Counter, 1011 Mealy FSM Sequence Detector, Multi-function 8-bit ALU.
 * **VHDL:** Basic Logic Gates (Dataflow architecture), 4-bit Synchronous Counter with Reset & Enable, 4-to-1 Multiplexer.
 
-### 💾 8. Local Workspace Synchronization
-* One-click **"Load Local Folder"** and **"Save"** buttons to sync code directly with your local workspace directories.
+### 🔔 8. Non-Blocking Toast System & Shortcuts Modal
+* Replaces jarring browser alerts with sleek, auto-dismissing toast notifications.
+* Press `⌨️` or view the built-in modal for quick access to keyboard shortcuts.
 
 ---
 
 ## 🏗️ Architecture & Tech Stack
 
 ```
-verilog_tool/
-├── public/                     # Frontend Client
-│   ├── index.html              # Studio Layout & Toolbars
-│   ├── styles.css              # Cyberpunk / Dark Glassmorphic Theme
-│   ├── app.js                  # Monaco Integration & State Management
-│   └── waveform.js             # High-Performance VCD Parser & Canvas Engine
+Verilog_Tool/
+├── public/                     # Frontend Client (CollectUI & Modern Design System)
+│   ├── index.html              # Studio Layout, Segmented Switcher & Toolbars
+│   ├── styles.css              # Custom Properties, Inter & JetBrains Mono Fonts
+│   ├── app.js                  # Monaco Integration, Keybindings & State Management
+│   └── waveform.js             # High-DPI VCD Parser, Signal Search & Canvas Engine
 ├── server.js                   # Express Backend & Simulator CLI Orchestrator
 ├── launch.sh                   # Auto-start & Browser Launcher Script
 ├── package.json                # Project Dependencies & Scripts
 └── .gitignore                  # Clean Repo Boundaries
 ```
 
-* **Frontend:** Vanilla JavaScript (ES6+), HTML5 Canvas 2D API, CSS3 Flexbox/Grid, Monaco Editor CDN.
+* **Frontend:** Vanilla JavaScript (ES6+), HTML5 Canvas 2D API (High-DPI Aware), Modern CSS Custom Properties, Monaco Editor CDN.
 * **Backend:** Node.js, Express, Child Process CLI runner.
 * **Compilers & Simulators:**
   * Icarus Verilog (`iverilog`, `vvp`)
-  * GHDL (`ghdl-mcode` / `ghdl-llvm`)
-  * GTKWave (`gtkwave`)
+  * GHDL (`ghdl-mcode` / `ghdl-llvm` / `ghdl-gcc`)
+  * GTKWave (`gtkwave` / `gtkwave_light`)
 
 ---
 
-## 🚀 Quickstart Guide
+## 🚀 Quickstart & Installation Guide
 
-### Prerequisites
-Make sure you have Node.js and the HDL compilers installed on your Linux / macOS machine:
+### 1. Prerequisites
 
+Ensure Node.js and the HDL compilers are installed on your system:
+
+#### Arch Linux / CachyOS / Manjaro
 ```bash
-# On Arch Linux / CachyOS / Manjaro:
-sudo pacman -S iverilog gtkwave nodejs npm
-
-# On Ubuntu / Debian:
-sudo apt-get install iverilog gtkwave nodejs npm ghdl
+sudo pacman -S nodejs npm iverilog gtkwave
+# For VHDL (GHDL from AUR):
+yay -S ghdl-mcode
 ```
 
-### Installation
+#### Ubuntu / Debian / Linux Mint
+```bash
+sudo apt update
+sudo apt install -y nodejs npm iverilog gtkwave ghdl
+```
+
+#### Fedora / RHEL
+```bash
+sudo dnf install -y nodejs npm iverilog gtkwave ghdl
+```
+
+#### macOS (Homebrew)
+```bash
+brew install node icarus-verilog gtkwave ghdl
+```
+
+#### Windows (WSL2 - Ubuntu)
+Install Ubuntu under WSL2, then run:
+```bash
+sudo apt update && sudo apt install -y nodejs npm iverilog gtkwave ghdl
+```
+
+---
+
+### 2. Setup & Execution
 
 1. **Clone the Repository:**
 ```bash
@@ -150,21 +180,30 @@ npm install
 ```bash
 ./launch.sh
 ```
-*The script starts the backend server on port `4500` and automatically opens `http://localhost:4500` in your default browser.*
+*Or start manually with:*
+```bash
+npm start
+```
+
+4. **Open in Browser:**
+Navigate to **`http://localhost:4500`** in any modern web browser.
 
 ---
 
-## 💡 Keyboard Shortcuts & Usage
+## 💡 Keyboard Shortcuts & Controls
 
 | Action | Shortcut / Control |
 |---|---|
-| **Compile & Simulate** | `Ctrl + Enter` (or `Cmd + Enter`) |
-| **Zoom In Waveform** | `Ctrl + MouseWheel Up` or click `🔍+` |
-| **Zoom Out Waveform** | `Ctrl + MouseWheel Down` or click `🔍-` |
-| **Fit Waveform to Width** | Click `↔ Fit` |
-| **Inspect Time Slice** | Hover / Click on waveform canvas |
-| **Switch Bus Radix** | Change `Radix` dropdown (`HEX`, `BIN`, `DEC`) |
-| **Switch Language** | Change `HDL Mode` dropdown (`Verilog` / `VHDL`) |
+| **Compile & Simulate** | <kbd>Ctrl</kbd> + <kbd>Enter</kbd> (or <kbd>Cmd</kbd> + <kbd>Enter</kbd>) |
+| **Save Project to Disk** | <kbd>Ctrl</kbd> + <kbd>S</kbd> (or <kbd>Cmd</kbd> + <kbd>S</kbd>) |
+| **Zoom In Waveform** | <kbd>Ctrl</kbd> + <kbd>MouseWheel Up</kbd> or click `🔍+` |
+| **Zoom Out Waveform** | <kbd>Ctrl</kbd> + <kbd>MouseWheel Down</kbd> or click `🔍-` |
+| **Fit Waveform to Screen** | Click `↔ Fit` |
+| **Inspect Time Slice** | Hover / Click & Drag on waveform canvas |
+| **Filter Signals** | Type in the `🔍 Filter signals...` search box |
+| **Switch Bus Radix** | Change `Radix` dropdown (`HEX`, `BIN`, `DEC`, `ASCII`) |
+| **Switch HDL Mode** | Toggle `SystemVerilog` or `VHDL` in the top navbar |
+| **Export Waveform Snapshot** | Click `📷 Export` to download a PNG image |
 
 ---
 
@@ -172,8 +211,8 @@ npm install
 
 - [ ] **RTL Schematic & Netlist Visualizer:** Integrate [Yosys](https://github.com/YosysHQ/yosys) and [netlistsvg](https://github.com/nturley/netlistsvg) to generate interactive circuit block diagrams from HDL code.
 - [ ] **WebAssembly Standalone Simulator:** Compile `iverilog` and `ghdl` into WebAssembly (Wasm) for a zero-installation, purely client-side simulation option.
-- [ ] **WaveDrom / SVG Export:** Export rendered timing diagrams to SVG and WaveDrom JSON format for documentation and lab reports.
-- [ ] **Assertion & Coverage Metrics:** Real-time coverage reports for SystemVerilog assertions (`SVA`) and functional coverage.
+- [ ] **WaveDrom / JSON Export:** Export rendered timing diagrams to WaveDrom JSON format for documentation and reports.
+- [ ] **Assertion & Coverage Metrics:** Real-time coverage reports for SystemVerilog assertions (`SVA`).
 - [ ] **Multi-File Project Explorer:** Tabbed multi-module projects supporting complex hierarchical designs.
 
 ---
@@ -196,5 +235,5 @@ Distributed under the **MIT License**. See `LICENSE` for more information.
 ---
 
 <div align="center">
-  <sub>Built with ❤️ for hardware developers and open-source EDA enthusiasts.</sub>
+  <sub>Built with ❤️ for hardware developers, students, and open-source EDA enthusiasts.</sub>
 </div>

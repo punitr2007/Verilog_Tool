@@ -3,56 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HDL EDA Studio | Verilog & VHDL All-In-One IDE</title>
+  <title>HDL EDA Studio | Verilog & VHDL Unified IDE</title>
   <link rel="stylesheet" href="styles.css">
-  <!-- Monaco Editor CDN -->
+  <!-- Monaco Editor Loader -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
 </head>
 <body>
 
   <!-- Top Navbar -->
   <header class="top-navbar">
-    <div class="brand">
-      <div class="brand-icon">⚡</div>
-      <span>HDL EDA Studio</span>
-      <span class="brand-tag" id="engine-tag">Icarus & GHDL Engine</span>
+    <div class="brand-group">
+      <a href="#" class="brand-logo" onclick="return false;">
+        <div class="brand-icon-box">⚡</div>
+        <span class="brand-title">HDL EDA Studio <span class="brand-version">v2.0</span></span>
+      </a>
+      <div class="engine-status-pill" id="engine-status-pill">
+        <span class="pulse-dot"></span>
+        <span id="engine-status-text">Icarus & GHDL Engine</span>
+      </div>
     </div>
 
     <div class="nav-actions">
-      <!-- Language Mode Switcher (Verilog vs VHDL) -->
-      <div class="select-wrapper language-wrapper">
-        <label for="lang-select" class="select-label">HDL Mode:</label>
-        <select id="lang-select" class="lang-select">
-          <option value="verilog">⚡ SystemVerilog / Verilog (.sv / .v)</option>
-          <option value="vhdl">📐 VHDL (.vhd)</option>
-        </select>
+      <!-- HDL Mode Segmented Control -->
+      <div class="segmented-control" id="lang-segmented-control" role="group" aria-label="HDL Language Mode">
+        <button class="segment-btn active" data-lang="verilog" id="btn-mode-verilog" title="SystemVerilog / Verilog mode">
+          <span>⚡</span> SystemVerilog
+        </button>
+        <button class="segment-btn" data-lang="vhdl" id="btn-mode-vhdl" title="VHDL mode">
+          <span>📐</span> VHDL
+        </button>
       </div>
 
       <!-- Example Templates Dropdown -->
-      <div class="select-wrapper">
-        <select id="example-select">
-          <option value="">📂 Load Example Template...</option>
+      <div class="custom-select-wrapper">
+        <select id="example-select" class="custom-select" title="Choose a pre-built example template">
+          <option value="">📂 Load Example...</option>
         </select>
+        <span class="select-arrow">▼</span>
       </div>
 
-      <!-- Load from Local Disk -->
+      <!-- Project Actions -->
       <button class="btn btn-secondary" id="btn-load-local" title="Load design and testbench from project folder">
-        📂 Load Local Folder
+        <span>📂</span> Load Folder
       </button>
 
-      <!-- Save to Local Disk -->
-      <button class="btn btn-secondary" id="btn-save-local" title="Save current code to disk">
-        💾 Save
+      <button class="btn btn-secondary" id="btn-save-local" title="Save current source files to disk (Ctrl+S)">
+        <span>💾</span> Save <span class="kbd-shortcut">Ctrl+S</span>
       </button>
 
       <!-- External GTKWave Launcher -->
-      <button class="btn btn-secondary" id="btn-launch-gtkwave" title="Open current VCD in external GTKWave window">
-        🌊 Launch GTKWave
+      <button class="btn btn-secondary" id="btn-launch-gtkwave" title="Open current VCD in external GTKWave viewer">
+        <span>🌊</span> GTKWave
       </button>
 
       <!-- Run Simulation Button -->
       <button class="btn btn-primary" id="btn-run" title="Compile & Simulate (Ctrl+Enter)">
-        ▶ Run Simulation
+        <span>▶</span> Run Simulation <span class="kbd-shortcut">Ctrl+↵</span>
+      </button>
+
+      <!-- Shortcuts / Help Modal Trigger -->
+      <button class="btn btn-secondary btn-icon-only" id="btn-shortcuts-modal" title="Keyboard Shortcuts & Help">
+        <span>⌨️</span>
       </button>
     </div>
   </header>
@@ -64,8 +75,15 @@
       <!-- Design Editor -->
       <div class="editor-wrapper">
         <div class="panel-header">
-          <div class="title" id="design-tab-title">📄 design.sv <span class="badge bit">Module</span></div>
-          <div class="editor-meta" id="design-meta-badge">SystemVerilog-2012</div>
+          <div class="panel-title-group">
+            <span class="panel-file-icon" id="design-icon">📄</span>
+            <span class="panel-filename" id="design-filename">design.sv</span>
+            <span class="panel-badge module" id="design-badge">Module</span>
+          </div>
+          <div class="panel-actions">
+            <button class="panel-btn" id="btn-copy-design" title="Copy Design Code">📋 Copy</button>
+            <button class="panel-btn" id="btn-clear-design" title="Clear Design Editor">🗑️ Clear</button>
+          </div>
         </div>
         <div id="design-editor" class="editor-container"></div>
       </div>
@@ -73,8 +91,15 @@
       <!-- Testbench Editor -->
       <div class="editor-wrapper">
         <div class="panel-header">
-          <div class="title" id="testbench-tab-title">🧪 testbench.sv <span class="badge bus">Stimulus</span></div>
-          <div class="editor-meta" id="testbench-meta-badge">SystemVerilog-2012</div>
+          <div class="panel-title-group">
+            <span class="panel-file-icon" id="testbench-icon">🧪</span>
+            <span class="panel-filename" id="testbench-filename">testbench.sv</span>
+            <span class="panel-badge stimulus" id="testbench-badge">Stimulus</span>
+          </div>
+          <div class="panel-actions">
+            <button class="panel-btn" id="btn-copy-tb" title="Copy Testbench Code">📋 Copy</button>
+            <button class="panel-btn" id="btn-clear-tb" title="Clear Testbench Editor">🗑️ Clear</button>
+          </div>
         </div>
         <div id="testbench-editor" class="editor-container"></div>
       </div>
@@ -83,56 +108,84 @@
     <!-- Bottom Pane: Interactive Waveform & Console Output -->
     <div class="bottom-pane">
       <!-- Tabs Header -->
-      <div class="bottom-tabs">
-        <div class="tab-group">
-          <button class="tab-btn active" id="tab-waveform-btn">📈 Waveform Viewer</button>
-          <button class="tab-btn" id="tab-console-btn">🖥️ Simulation Console</button>
+      <div class="bottom-tabs-header">
+        <div class="tab-nav">
+          <button class="tab-nav-btn active" id="tab-waveform-btn">
+            <span>📈</span> Waveform Viewer
+          </button>
+          <button class="tab-nav-btn" id="tab-console-btn">
+            <span>🖥️</span> Simulation Console
+          </button>
         </div>
 
-        <!-- Waveform specific toolbar -->
+        <!-- Waveform Toolbar -->
         <div class="waveform-toolbar" id="waveform-controls">
-          <span style="font-size: 11px; color: var(--text-muted);">Cursor:</span>
-          <span id="cursor-time-display" style="font-family: monospace; font-size: 11px; color: #38bdf8; font-weight: 700; margin-right: 6px;">0 ns</span>
+          <div class="cursor-pill">
+            <span class="label">Time:</span>
+            <span class="value" id="cursor-time-display">0 ns</span>
+          </div>
 
-          <label style="font-size: 11px; color: var(--text-muted);">Radix:</label>
-          <select id="radix-select" class="radix-select">
-            <option value="hex">HEX (0x..)</option>
-            <option value="bin">BIN (b..)</option>
-            <option value="dec">DEC (0..9)</option>
-          </select>
+          <div class="toolbar-group">
+            <span style="font-size: 11px; color: var(--text-muted); margin-right: 2px;">Radix:</span>
+            <div class="custom-select-wrapper">
+              <select id="radix-select" class="custom-select" style="padding-top: 3px; padding-bottom: 3px;">
+                <option value="hex">HEX (0x..)</option>
+                <option value="bin">BIN (b..)</option>
+                <option value="dec">DEC (0..9)</option>
+                <option value="ascii">ASCII</option>
+              </select>
+              <span class="select-arrow">▼</span>
+            </div>
+          </div>
 
-          <button class="tool-btn" id="btn-zoom-in" title="Zoom In">🔍+</button>
-          <button class="tool-btn" id="btn-zoom-out" title="Zoom Out">🔍-</button>
-          <button class="tool-btn" id="btn-zoom-fit" title="Zoom to Fit">↔ Fit</button>
+          <div class="toolbar-group">
+            <button class="toolbar-btn" id="btn-zoom-in" title="Zoom In (+)">🔍+</button>
+            <button class="toolbar-btn" id="btn-zoom-out" title="Zoom Out (-)">🔍-</button>
+            <span class="zoom-indicator" id="zoom-indicator-text">100%</span>
+            <button class="toolbar-btn" id="btn-zoom-fit" title="Zoom to Fit">↔ Fit</button>
+            <button class="toolbar-btn" id="btn-export-waveform" title="Export Waveform Image (PNG)">📷 Export</button>
+          </div>
         </div>
       </div>
 
       <!-- Waveform Tab Content -->
-      <div class="tab-content active" id="waveform-tab">
-        <div class="waveform-view">
+      <div class="tab-pane active" id="waveform-tab">
+        <div class="waveform-workspace">
           <!-- Signal Names Left Panel -->
-          <div class="signal-names-panel">
-            <div class="signals-header">
-              <span>SIGNALS</span>
-              <span>VALUE</span>
+          <div class="signal-sidebar">
+            <div class="signal-search-bar">
+              <input type="text" id="signal-search-input" class="signal-search-input" placeholder="🔍 Filter signals..." autocomplete="off">
             </div>
-            <div class="signal-list" id="signal-list">
+            <div class="signal-columns-header">
+              <span>Signal</span>
+              <span>Value</span>
+            </div>
+            <div class="signal-list-scroll" id="signal-list">
               <!-- Dynamically populated signals -->
             </div>
           </div>
 
           <!-- Waveform Canvas Right Area -->
-          <div class="waveform-canvas-area">
-            <div class="timeline-header-container" id="timeline-header"></div>
-            <div class="waveform-scroll-viewport" id="waveform-viewport"></div>
+          <div class="waveform-canvas-container">
+            <div class="timeline-header-box" id="timeline-header"></div>
+            <div class="waveform-viewport-box" id="waveform-viewport"></div>
           </div>
         </div>
       </div>
 
       <!-- Console Tab Content -->
-      <div class="tab-content" id="console-tab">
-        <div class="console-view" id="console-output">
-          <div class="status-line">⚡ Welcome to HDL EDA Studio. Hit "Run Simulation" or press Ctrl+Enter to compile & simulate.</div>
+      <div class="tab-pane" id="console-tab">
+        <div class="console-wrapper">
+          <div class="console-action-bar">
+            <span class="console-status-chip" id="console-status-chip">Compiler Output & Logs</span>
+            <div class="toolbar-group">
+              <button class="toolbar-btn" id="btn-copy-console" title="Copy Console Logs">📋 Copy Logs</button>
+              <button class="toolbar-btn" id="btn-clear-console" title="Clear Console">🗑️ Clear</button>
+            </div>
+          </div>
+          <div class="console-output-area" id="console-output">
+            <div class="log-line info">⚡ HDL EDA Studio Ready. Press "Run Simulation" or Ctrl+Enter to compile & simulate.</div>
+          </div>
         </div>
       </div>
     </div>
@@ -140,15 +193,63 @@
 
   <!-- Bottom Status Bar -->
   <footer class="status-bar">
-    <div class="status-left">
-      <span><span class="status-indicator"></span> <span id="compiler-status-label">Icarus Verilog & GHDL Ready</span></span>
-      <span id="status-message">Project: /home/punit/xilinx_projects/eda_playgrounds_acts</span>
+    <div class="status-section">
+      <div class="status-item">
+        <span class="status-dot"></span>
+        <span id="compiler-status-label">Icarus Verilog & GHDL Ready</span>
+      </div>
+      <div class="status-item">
+        <span id="status-message">Project: /home/punit/xilinx_projects/eda_playgrounds_acts</span>
+      </div>
     </div>
-    <div class="status-right">
-      <span id="hdl-std-label">Mode: SystemVerilog-2012</span>
-      <span id="sim-time-badge">Sim: -- ms</span>
+    <div class="status-section">
+      <div class="status-item">
+        <span id="hdl-std-label">Mode: SystemVerilog-2012</span>
+      </div>
+      <div class="status-item">
+        <span id="sim-time-badge" style="font-family: var(--font-mono); color: var(--accent-cyan); font-weight: 600;">Sim: -- ms</span>
+      </div>
     </div>
   </footer>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="modal-overlay" id="shortcuts-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">⌨️ Keyboard Shortcuts & Tips</div>
+        <button class="modal-close-btn" id="btn-close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="shortcut-row">
+          <span>Run Simulation & Compile</span>
+          <div class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>Enter</kbd></div>
+        </div>
+        <div class="shortcut-row">
+          <span>Save Design & Testbench</span>
+          <div class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>S</kbd></div>
+        </div>
+        <div class="shortcut-row">
+          <span>Zoom In / Out Waveform</span>
+          <div class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>Wheel</kbd></div>
+        </div>
+        <div class="shortcut-row">
+          <span>Scrub Waveform Cursor</span>
+          <div class="shortcut-keys"><kbd>Click & Drag</kbd> on Canvas</div>
+        </div>
+        <div class="shortcut-row">
+          <span>Filter Signals in Sidebar</span>
+          <div class="shortcut-keys">Type in Search Box</div>
+        </div>
+        <div class="shortcut-row">
+          <span>Change Display Radix</span>
+          <div class="shortcut-keys"><kbd>Radix Dropdown</kbd></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script src="waveform.js"></script>
