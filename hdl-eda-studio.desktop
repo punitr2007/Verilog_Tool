@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=HDL EDA Studio
+Comment=Standalone Native Workstation for SystemVerilog, Verilog & VHDL Simulation
+Exec=/home/punit/Local_Codebase/Projects/Verilog_Tool/src-tauri/target/debug/hdl-eda-studio
+Icon=/home/punit/Local_Codebase/Projects/Verilog_Tool/src-tauri/icons/128x128.png
+Terminal=false
+Type=Application
+Categories=Development;Engineering;Electronics;IDE;
+Keywords=verilog;systemverilog;vhdl;eda;simulator;gtkwave;ltspice;
+StartupNotify=true

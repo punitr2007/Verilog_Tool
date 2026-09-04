@@ -1,0 +1,21 @@
+[package]
+name = "hdl-eda-studio"
+version = "2.0.0"
+description = "HDL EDA Studio - Standalone Native Desktop EDA Workstation"
+authors = ["Punit Ranjan"]
+edition = "2021"
+rust-version = "1.77.2"
+
+[lib]
+name = "hdl_eda_studio_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.6.3", features = [] }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+rfd = "0.15"
+tauri = { version = "2.11.3", features = [] }
+which = "6.0"

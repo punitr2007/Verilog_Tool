@@ -1,13 +1,19 @@
 {
-  "name": "verilog-eda-studio",
-  "version": "1.0.0",
-  "description": "Unified Verilog/SystemVerilog IDE with Monaco Editor, Real-Time Icarus Simulation & Interactive Waveform Viewer",
+  "name": "hdl-eda-studio",
+  "version": "2.0.0",
+  "description": "Unified Verilog/SystemVerilog & VHDL IDE with Monaco Editor, Real-Time Native Simulation & Interactive Waveform Viewer",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "tauri": "tauri",
+    "desktop": "tauri dev",
+    "desktop:build": "tauri build"
   },
   "dependencies": {
-    "express": "^4.19.2",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.11.4"
   }
 }

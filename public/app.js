@@ -1,6 +1,6 @@
 /**
  * HDL EDA Studio - Core Application Logic
- * Unified SystemVerilog & VHDL Workstation
+ * Unified SystemVerilog & VHDL Desktop Workstation (Tauri v2 + Web Ready)
  */
 
 let designEditor = null;
@@ -9,6 +9,119 @@ let waveformEngine = null;
 let currentLanguage = 'verilog'; // 'verilog' or 'vhdl'
 let examplesData = {};
 let currentProjectPath = '/home/punit/xilinx_projects/eda_playgrounds_acts';
+
+// Detection for Tauri Desktop Environment
+function isTauri() {
+  return Boolean(window.__TAURI_INTERNALS__ || window.__TAURI__);
+}
+
+// Unified Backend Bridge (Tauri Rust IPC <-> Web Express API)
+const Backend = {
+  async runSimulation(payload) {
+    if (isTauri()) {
+      return await window.__TAURI__.core.invoke('run_simulation', {
+        design: payload.design,
+        testbench: payload.testbench,
+        targetDir: payload.targetDir,
+        lang: payload.lang
+      });
+    }
+    const res = await fetch('/api/simulate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    return await res.json();
+  },
+
+  async loadProject(dirPath, lang) {
+    if (isTauri()) {
+      return await window.__TAURI__.core.invoke('load_project', {
+        dirPath,
+        lang
+      });
+    }
+    const res = await fetch(`/api/project/load?path=${encodeURIComponent(dirPath)}&lang=${lang}`);
+    return await res.json();
+  },
+
+  async saveProject(dirPath, design, testbench, lang) {
+    if (isTauri()) {
+      return await window.__TAURI__.core.invoke('save_project', {
+        dirPath,
+        design,
+        testbench,
+        lang
+      });
+    }
+    const res = await fetch('/api/project/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ dirPath, design, testbench, lang })
+    });
+    return await res.json();
+  },
+
+  async launchGTKWave(targetDir) {
+    if (isTauri()) {
+      try {
+        const msg = await window.__TAURI__.core.invoke('launch_gtkwave', { targetDir });
+        return { success: true, message: msg };
+      } catch (err) {
+        return { success: false, error: err };
+      }
+    }
+    const res = await fetch('/api/open-gtkwave', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ targetDir })
+    });
+    return await res.json();
+  },
+
+  async selectFolder() {
+    if (isTauri()) {
+      try {
+        return await window.__TAURI__.core.invoke('select_folder');
+      } catch (e) {
+        return null;
+      }
+    }
+    return null;
+  }
+};
+
+// Built-in offline fallback templates for standalone native execution
+const STATIC_EXAMPLES = {
+  verilog: {
+    logic_gates: {
+      title: "Basic Logic Gates (SV)",
+      description: "AND, OR, NOT, NAND, NOR, XOR, XNOR implementation with stimulus testbench",
+      design: `// SystemVerilog: Basic Logic Gates\nmodule basic_gates (\n    input a, \n    input b,\n    output yAND,\n    output yOR,\n    output yNOT,\n    output yNAND,\n    output yNOR,\n    output yXOR,\n    output yXNOR\n);\n\n    assign yAND  = a & b;       // AND gate\n    assign yOR   = a | b;       // OR gate\n    assign yNOT  = ~a;          // NOT gate\n    assign yNAND = ~(a & b);    // NAND gate\n    assign yNOR  = ~(a | b);    // NOR gate\n    assign yXOR  = a ^ b;       // XOR gate\n    assign yXNOR = ~(a ^ b);    // XNOR gate\n\nendmodule\n`,
+      testbench: `\`timescale 1ns/1ps\n\nmodule tb_basic_gates;\n    reg a, b;\n    wire yAND, yOR, yNOT, yNAND, yNOR, yXOR, yXNOR;\n\n    basic_gates uut (\n        .a(a), .b(b),\n        .yAND(yAND), .yOR(yOR), .yNOT(yNOT),\n        .yNAND(yNAND), .yNOR(yNOR), .yXOR(yXOR), .yXNOR(yXNOR)\n    );\n\n    initial begin\n        $dumpfile("dump.vcd");\n        $dumpvars(0, tb_basic_gates);\n\n        $monitor("Time=%0t | a=%b b=%b | AND=%b OR=%b NOT=%b NAND=%b NOR=%b XOR=%b XNOR=%b", \n                 $time, a, b, yAND, yOR, yNOT, yNAND, yNOR, yXOR, yXNOR);\n        \n        a = 0; b = 0; #10;\n        a = 0; b = 1; #10;\n        a = 1; b = 0; #10;\n        a = 1; b = 1; #10;\n        $finish;\n    end\nendmodule\n`
+    },
+    counter_4bit: {
+      title: "4-bit Counter (SV)",
+      description: "Synchronous up-counter with active-low reset and terminal count",
+      design: `// 4-bit Synchronous Up-Counter\nmodule counter_4bit (\n    input  logic       clk,\n    input  logic       rst_n,\n    input  logic       enable,\n    output logic [3:0] count,\n    output logic       tc\n);\n\n    always_ff @(posedge clk or negedge rst_n) begin\n        if (!rst_n) begin\n            count <= 4'b0000;\n        end else if (enable) begin\n            count <= count + 1'b1;\n        end\n    end\n\n    assign tc = (count == 4'b1111) && enable;\n\nendmodule\n`,
+      testbench: `\`timescale 1ns/1ps\n\nmodule testbench;\n    logic       clk;\n    logic       rst_n;\n    logic       enable;\n    logic [3:0] count;\n    logic       tc;\n\n    counter_4bit dut (\n        .clk(clk),\n        .rst_n(rst_n),\n        .enable(enable),\n        .count(count),\n        .tc(tc)\n    );\n\n    always #5 clk = ~clk;\n\n    initial begin\n        $dumpfile("dump.vcd");\n        $dumpvars(0, testbench);\n\n        clk = 0; rst_n = 0; enable = 0;\n        #12 rst_n = 1;\n        #10 enable = 1;\n        #180;\n        enable = 0; #20;\n        enable = 1; #40;\n        $finish;\n    end\nendmodule\n`
+    },
+    fsm_detector: {
+      title: "1011 Sequence Detector (SV)",
+      description: "Mealy FSM bit pattern detector",
+      design: `// Mealy FSM: Detects '1011'\nmodule sequence_detector_1011 (\n    input  logic clk,\n    input  logic rst,\n    input  logic din,\n    output logic dout\n);\n    typedef enum logic [1:0] { S0 = 2'b00, S1 = 2'b01, S2 = 2'b10, S3 = 2'b11 } state_t;\n    state_t state, next_state;\n\n    always_ff @(posedge clk or posedge rst) begin\n        if (rst) state <= S0;\n        else     state <= next_state;\n    end\n\n    always_comb begin\n        next_state = state;\n        dout = 1'b0;\n        case (state)\n            S0: next_state = din ? S1 : S0;\n            S1: next_state = din ? S1 : S2;\n            S2: next_state = din ? S3 : S0;\n            S3: begin\n                if (din) begin\n                    dout = 1'b1;\n                    next_state = S1;\n                end else next_state = S2;\n            end\n            default: next_state = S0;\n        endcase\n    end\nendmodule\n`,
+      testbench: `\`timescale 1ns/1ps\n\nmodule testbench;\n    logic clk, rst, din, dout;\n\n    sequence_detector_1011 dut (\n        .clk(clk), .rst(rst), .din(din), .dout(dout)\n    );\n\n    always #5 clk = ~clk;\n\n    initial begin\n        $dumpfile("dump.vcd");\n        $dumpvars(0, testbench);\n\n        clk = 0; rst = 1; din = 0; #15 rst = 0;\n\n        @(posedge clk); din = 1;\n        @(posedge clk); din = 0;\n        @(posedge clk); din = 1;\n        @(posedge clk); din = 1; // Match 1\n        @(posedge clk); din = 0;\n        @(posedge clk); din = 1;\n        @(posedge clk); din = 1; // Match 2\n        @(posedge clk); din = 0;\n        #20;\n        $finish;\n    end\nendmodule\n`
+    }
+  },
+  vhdl: {
+    logic_gates_vhdl: {
+      title: "Basic Logic Gates (VHDL)",
+      description: "AND, OR, NOT, NAND, NOR, XOR, XNOR entity & architecture with stimulus",
+      design: `-- VHDL: Basic Logic Gates\nlibrary IEEE;\nuse IEEE.STD_LOGIC_1164.ALL;\n\nentity basic_gates is\n    Port ( \n        a         : in  STD_LOGIC;\n        b         : in  STD_LOGIC;\n        c         : in  STD_LOGIC;\n        y_and     : out STD_LOGIC;\n        y_or      : out STD_LOGIC;\n        y_nand    : out STD_LOGIC;\n        y_nor     : out STD_LOGIC;\n        y_xor     : out STD_LOGIC;\n        y_xnor    : out STD_LOGIC;\n        y_complex : out STD_LOGIC\n    );\nend basic_gates;\n\narchitecture Dataflow of basic_gates is\nbegin\n    y_and     <= a and b;\n    y_or      <= a or b;\n    y_nand    <= not (a and b);\n    y_nor     <= not (a or b);\n    y_xor     <= a xor b;\n    y_xnor    <= not (a xor b);\n    y_complex <= (a and b) or (not c);\nend Dataflow;\n`,
+      testbench: `-- VHDL: Testbench for Basic Logic Gates\nlibrary IEEE;\nuse IEEE.STD_LOGIC_1164.ALL;\n\nentity testbench is\nend testbench;\n\narchitecture Behavioral of testbench is\n    signal a         : STD_LOGIC := '0';\n    signal b         : STD_LOGIC := '0';\n    signal c         : STD_LOGIC := '0';\n    signal y_and     : STD_LOGIC;\n    signal y_or      : STD_LOGIC;\n    signal y_nand    : STD_LOGIC;\n    signal y_nor     : STD_LOGIC;\n    signal y_xor     : STD_LOGIC;\n    signal y_xnor    : STD_LOGIC;\n    signal y_complex : STD_LOGIC;\nbegin\n\n    dut: entity work.basic_gates\n        port map (\n            a         => a,\n            b         => b,\n            c         => c,\n            y_and     => y_and,\n            y_or      => y_or,\n            y_nand    => y_nand,\n            y_nor     => y_nor,\n            y_xor     => y_xor,\n            y_xnor    => y_xnor,\n            y_complex => y_complex\n        );\n\n    stim_proc: process\n    begin\n        a <= '0'; b <= '0'; c <= '0'; wait for 10 ns;\n        a <= '0'; b <= '1'; c <= '1'; wait for 10 ns;\n        a <= '1'; b <= '0'; c <= '0'; wait for 10 ns;\n        a <= '1'; b <= '1'; c <= '1'; wait for 10 ns;\n        \n        report "VHDL Simulation Finished Successfully!";\n        wait;\n    end process;\n\nend Behavioral;\n`
+    }
+  }
+};
 
 // Toast Notification Manager
 const Toast = {
@@ -23,7 +136,6 @@ const Toast = {
     if (!this.container) this.init();
     if (!this.container) return;
 
-    // Limit active toasts
     while (this.container.children.length >= this.maxToasts) {
       this.container.removeChild(this.container.firstElementChild);
     }
@@ -85,7 +197,6 @@ function initMonaco() {
   require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs' } });
 
   require(['vs/editor/editor.main'], function () {
-    // Define modern dark theme matching our UI tokens
     monaco.editor.defineTheme('eda-dark', {
       base: 'vs-dark',
       inherit: true,
@@ -167,12 +278,10 @@ function initMonaco() {
 
 function initGlobalShortcuts() {
   window.addEventListener('keydown', (e) => {
-    // Intercept Ctrl+S / Cmd+S globally to prevent browser save dialog
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
       e.preventDefault();
       saveProjectToDisk();
     }
-    // Intercept Ctrl+Enter / Cmd+Enter globally
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
       e.preventDefault();
       runSimulation();
@@ -181,7 +290,6 @@ function initGlobalShortcuts() {
 }
 
 function initUIEvents() {
-  // Segmented Language Mode Control
   const btnModeVerilog = document.getElementById('btn-mode-verilog');
   const btnModeVhdl = document.getElementById('btn-mode-vhdl');
 
@@ -201,11 +309,28 @@ function initUIEvents() {
     }
   });
 
-  // Action Buttons
   document.getElementById('btn-run').addEventListener('click', runSimulation);
   document.getElementById('btn-launch-gtkwave').addEventListener('click', launchGTKWave);
   document.getElementById('btn-save-local').addEventListener('click', saveProjectToDisk);
-  document.getElementById('btn-load-local').addEventListener('click', () => loadProjectFromDisk());
+
+  // Load local folder (Native OS dialog in Desktop mode / Prompt in browser)
+  document.getElementById('btn-load-local').addEventListener('click', async () => {
+    if (isTauri()) {
+      try {
+        const folder = await Backend.selectFolder();
+        if (folder) {
+          loadProjectFromDisk(folder);
+        }
+      } catch (err) {
+        loadProjectFromDisk();
+      }
+    } else {
+      const folder = prompt('Enter project folder path to load:', currentProjectPath);
+      if (folder && folder.trim()) {
+        loadProjectFromDisk(folder.trim());
+      }
+    }
+  });
 
   // Panel copy / clear actions
   document.getElementById('btn-copy-design').addEventListener('click', () => {
@@ -330,7 +455,6 @@ function switchLanguageMode(newLang) {
   const isVHDL = (currentLanguage === 'vhdl');
   const monacoLang = isVHDL ? 'vhdl' : 'systemverilog';
 
-  // Update Monaco syntax models
   if (designEditor && designEditor.getModel()) {
     monaco.editor.setModelLanguage(designEditor.getModel(), monacoLang);
   }
@@ -338,13 +462,11 @@ function switchLanguageMode(newLang) {
     monaco.editor.setModelLanguage(testbenchEditor.getModel(), monacoLang);
   }
 
-  // Update UI Labels & Badges
   document.getElementById('design-filename').innerText = isVHDL ? 'design.vhd' : 'design.sv';
   document.getElementById('testbench-filename').innerText = isVHDL ? 'testbench.vhd' : 'testbench.sv';
   document.getElementById('design-badge').innerText = isVHDL ? 'Entity & Arch' : 'Module';
   document.getElementById('hdl-std-label').innerText = isVHDL ? 'Mode: VHDL-2008 (GHDL)' : 'Mode: SystemVerilog-2012 (Icarus)';
 
-  // Update Project Directory
   currentProjectPath = isVHDL
     ? '/home/punit/xilinx_projects/VHDL_Basics/Lab_Acts/01_logic_gates'
     : '/home/punit/xilinx_projects/eda_playgrounds_acts';
@@ -353,16 +475,19 @@ function switchLanguageMode(newLang) {
 
   Toast.show('info', 'Mode Switched', `Active HDL mode: ${isVHDL ? 'VHDL (GHDL)' : 'SystemVerilog (Icarus)'}`);
 
-  // Refresh examples and load corresponding folder
   fetchExamples();
   loadProjectFromDisk(currentProjectPath);
 }
 
-// Fetch Examples from server
+// Fetch Examples from server or static fallback
 async function fetchExamples() {
   try {
-    const res = await fetch(`/api/examples?lang=${currentLanguage}`);
-    examplesData = await res.json();
+    if (isTauri()) {
+      examplesData = STATIC_EXAMPLES[currentLanguage] || STATIC_EXAMPLES.verilog;
+    } else {
+      const res = await fetch(`/api/examples?lang=${currentLanguage}`);
+      examplesData = await res.json();
+    }
     const select = document.getElementById('example-select');
     select.innerHTML = '<option value="">📂 Load Example...</option>';
     for (const [key, item] of Object.entries(examplesData)) {
@@ -372,7 +497,7 @@ async function fetchExamples() {
       select.appendChild(opt);
     }
   } catch (err) {
-    console.error('Failed to load examples:', err);
+    examplesData = STATIC_EXAMPLES[currentLanguage] || STATIC_EXAMPLES.verilog;
   }
 }
 
@@ -380,21 +505,20 @@ async function fetchExamples() {
 async function loadProjectFromDisk(dirPath = currentProjectPath) {
   try {
     logConsole(`Loading ${currentLanguage.toUpperCase()} project from: ${dirPath}...`);
-    const res = await fetch(`/api/project/load?path=${encodeURIComponent(dirPath)}&lang=${currentLanguage}`);
-    const data = await res.json();
+    const data = await Backend.loadProject(dirPath, currentLanguage);
     if (data.success) {
       if (designEditor && data.design) designEditor.setValue(data.design);
       if (testbenchEditor && data.testbench) testbenchEditor.setValue(data.testbench);
+      currentProjectPath = dirPath;
       document.getElementById('status-message').innerText = `Project: ${dirPath}`;
       logConsole(`Loaded source files (${data.design.length} bytes design, ${data.testbench.length} bytes tb).`);
       Toast.show('success', 'Project Loaded', `Loaded files from ${dirPath}`);
       
-      // Auto run simulation
       setTimeout(runSimulation, 400);
     }
   } catch (err) {
-    logConsole(`Error loading project: ${err.message}`, 'stderr');
-    Toast.show('error', 'Load Failed', err.message);
+    logConsole(`Error loading project: ${err.message || err}`, 'stderr');
+    Toast.show('error', 'Load Failed', err.message || err);
   }
 }
 
@@ -403,19 +527,17 @@ async function saveProjectToDisk() {
   try {
     const design = designEditor ? designEditor.getValue() : '';
     const testbench = testbenchEditor ? testbenchEditor.getValue() : '';
-    const res = await fetch('/api/project/save', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ dirPath: currentProjectPath, design, testbench, lang: currentLanguage })
-    });
-    const data = await res.json();
+    const data = await Backend.saveProject(currentProjectPath, design, testbench, currentLanguage);
     if (data.success) {
       logConsole(`✅ ${data.message}`, 'success');
       Toast.show('success', 'Saved Successfully', `Saved files to ${currentProjectPath}`);
+    } else {
+      logConsole(`❌ Error saving: ${data.error}`, 'stderr');
+      Toast.show('error', 'Save Failed', data.error);
     }
   } catch (err) {
-    logConsole(`❌ Error saving: ${err.message}`, 'stderr');
-    Toast.show('error', 'Save Failed', err.message);
+    logConsole(`❌ Error saving: ${err.message || err}`, 'stderr');
+    Toast.show('error', 'Save Failed', err.message || err);
   }
 }
 
@@ -432,44 +554,43 @@ async function runSimulation() {
   logConsole(`\n[${new Date().toLocaleTimeString()}] Starting ${currentLanguage.toUpperCase()} compilation & simulation...`, 'info');
 
   try {
-    const res = await fetch('/api/simulate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        design,
-        testbench,
-        targetDir: currentProjectPath,
-        lang: currentLanguage
-      })
+    const data = await Backend.runSimulation({
+      design,
+      testbench,
+      targetDir: currentProjectPath,
+      lang: currentLanguage
     });
 
-    const data = await res.json();
-    simTimeBadge.innerText = `Sim: ${data.executionTimeMs || 0} ms`;
+    const execTime = data.execution_time_ms || data.executionTimeMs || 0;
+    simTimeBadge.innerText = `Sim: ${execTime} ms`;
 
     if (!data.success) {
       logConsole(`❌ SIMULATION ERROR (${data.stage}):`, 'stderr');
       logConsole(data.stderr || data.error || data.stdout, 'stderr');
-      Toast.show('error', 'Simulation Error', `Failed at ${data.stage}. Check console for details.`);
+      Toast.show('error', 'Simulation Error', `Failed at ${data.stage}. Check console.`);
       document.getElementById('tab-console-btn').click();
     } else {
-      logConsole(`✅ ${currentLanguage.toUpperCase()} SIMULATION SUCCESS (${data.executionTimeMs}ms)`, 'success');
-      Toast.show('success', 'Simulation Successful', `Completed in ${data.executionTimeMs} ms`);
+      logConsole(`✅ ${currentLanguage.toUpperCase()} SIMULATION SUCCESS (${execTime}ms)`, 'success');
+      Toast.show('success', 'Simulation Successful', `Completed in ${execTime} ms`);
 
       if (data.stdout) {
         logConsole(`--- Simulator Output ---\n${data.stdout}`, 'stdout');
       }
 
-      if (data.hasVcd && data.vcdContent) {
-        logConsole(`📊 Waveform generated (${data.vcdContent.length} bytes). Rendering timing diagram...`, 'info');
-        waveformEngine.parseVCD(data.vcdContent);
+      const vcd = data.vcd_content || data.vcdContent;
+      const hasVcd = data.has_vcd || data.hasVcd;
+
+      if (hasVcd && vcd) {
+        logConsole(`📊 Waveform generated (${vcd.length} bytes). Rendering timing diagram...`, 'info');
+        waveformEngine.parseVCD(vcd);
         document.getElementById('tab-waveform-btn').click();
       } else {
         logConsole(`⚠️ Note: No dump.vcd detected.`, 'warning');
       }
     }
   } catch (err) {
-    logConsole(`❌ Server error: ${err.message}`, 'stderr');
-    Toast.show('error', 'Server Error', err.message);
+    logConsole(`❌ Backend error: ${err.message || err}`, 'stderr');
+    Toast.show('error', 'Simulator Error', err.message || err);
   } finally {
     runBtn.innerHTML = `<span>▶</span> Run Simulation <span class="kbd-shortcut">Ctrl+↵</span>`;
     runBtn.disabled = false;
@@ -480,12 +601,7 @@ async function runSimulation() {
 async function launchGTKWave() {
   try {
     logConsole('Launching external GTKWave...', 'info');
-    const res = await fetch('/api/open-gtkwave', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ targetDir: currentProjectPath })
-    });
-    const data = await res.json();
+    const data = await Backend.launchGTKWave(currentProjectPath);
     if (data.success) {
       logConsole(`🌊 ${data.message}`, 'success');
       Toast.show('success', 'GTKWave', data.message);
@@ -494,8 +610,8 @@ async function launchGTKWave() {
       Toast.show('warning', 'GTKWave', data.error);
     }
   } catch (err) {
-    logConsole(`❌ Failed to launch GTKWave: ${err.message}`, 'stderr');
-    Toast.show('error', 'GTKWave Error', err.message);
+    logConsole(`❌ Failed to launch GTKWave: ${err.message || err}`, 'stderr');
+    Toast.show('error', 'GTKWave Error', err.message || err);
   }
 }
 

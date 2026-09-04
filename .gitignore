@@ -1,5 +1,6 @@
 node_modules/
 .sim_runtime/
+src-tauri/target/
 *.vcd
 simv
 *.o
