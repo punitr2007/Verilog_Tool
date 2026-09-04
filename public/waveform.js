@@ -175,20 +175,32 @@ class WaveformEngine {
     let currentScope = [];
     let inDefinitions = true;
 
+    // 1. Extract timescale across multi-line or single-line declarations
+    let timescaleUnit = 'ns';
+    let timescaleMultiplier = 1;
+    const timescaleMatch = vcdText.match(/\$timescale\s+([0-9]+)?\s*([a-zA-Z]+)\s*\$end/);
+    if (timescaleMatch) {
+      timescaleMultiplier = parseInt(timescaleMatch[1] || '1', 10);
+      timescaleUnit = timescaleMatch[2].toLowerCase();
+    }
+
+    const unitToSec = {
+      's': 1,
+      'ms': 1e-3,
+      'us': 1e-6,
+      'ns': 1e-9,
+      'ps': 1e-12,
+      'fs': 1e-15
+    };
+    const tickInSeconds = (timescaleMultiplier || 1) * (unitToSec[timescaleUnit] || 1e-9);
+
     for (let i = 0; i < lines.length; i++) {
       let line = lines[i].trim();
       if (!line) continue;
 
       // Definitions stage
       if (inDefinitions) {
-        if (line.startsWith('$timescale')) {
-          const match = line.match(/\$timescale\s+([^\$]+)\s+\$end/);
-          if (match) {
-            let ts = match[1].trim();
-            if (ts === '1s') ts = 'ns';
-            this.timeScale = ts;
-          }
-        } else if (line.startsWith('$scope')) {
+        if (line.startsWith('$scope')) {
           const parts = line.split(/\s+/);
           if (parts[2]) currentScope.push(parts[2]);
         } else if (line.startsWith('$upscope')) {
@@ -250,6 +262,40 @@ class WaveformEngine {
       }
     }
 
+    // Determine optimal human display unit (ps, ns, us, ms, s)
+    const totalSimDurationSec = maxTimeFound * tickInSeconds;
+    let displayUnit = 'ns';
+    let scaleToDisplay = 1;
+
+    if (totalSimDurationSec === 0) {
+      displayUnit = timescaleUnit || 'ns';
+      scaleToDisplay = 1;
+    } else if (totalSimDurationSec < 1e-9) {
+      displayUnit = 'ps';
+      scaleToDisplay = tickInSeconds / 1e-12;
+    } else if (totalSimDurationSec < 1e-6) {
+      displayUnit = 'ns';
+      scaleToDisplay = tickInSeconds / 1e-9;
+    } else if (totalSimDurationSec < 1e-3) {
+      displayUnit = 'us';
+      scaleToDisplay = tickInSeconds / 1e-6;
+    } else if (totalSimDurationSec < 1) {
+      displayUnit = 'ms';
+      scaleToDisplay = tickInSeconds / 1e-3;
+    } else {
+      displayUnit = 's';
+      scaleToDisplay = tickInSeconds / 1;
+    }
+
+    this.timeScale = displayUnit;
+
+    // Scale all changes to the display unit
+    this.signals.forEach(sig => {
+      sig.changes.forEach(c => {
+        c.time = Math.round(c.time * scaleToDisplay * 1000) / 1000;
+      });
+    });
+
     // Deduplicate redundant nets, keeping top-level signals
     const seenNames = new Set();
     const uniqueSignals = [];
@@ -265,7 +311,7 @@ class WaveformEngine {
     this.visibleSignals = [...this.signals];
 
     this.minTime = 0;
-    this.maxTime = maxTimeFound > 0 ? maxTimeFound : 40;
+    this.maxTime = maxTimeFound > 0 ? (Math.round(maxTimeFound * scaleToDisplay * 1000) / 1000) : 40;
     this.cursorTime = 0;
 
     this.renderSignalList();
