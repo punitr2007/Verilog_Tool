@@ -1,6 +1,6 @@
 /**
  * High-Performance Interactive Digital Waveform Engine & VCD Parser
- * CollectUI / Modern EDA Edition
+ * CollectUI / Modern EDA Edition with Drag-and-Drop Signal Reordering
  */
 class WaveformEngine {
   constructor(canvasContainer, signalListContainer, timelineHeader) {
@@ -311,6 +311,36 @@ class WaveformEngine {
     return lastVal;
   }
 
+  reorderSignals(fromIndex, toIndex, isAfter) {
+    if (fromIndex < 0 || fromIndex >= this.visibleSignals.length) return;
+    if (toIndex < 0 || toIndex >= this.visibleSignals.length) return;
+
+    const movedSignal = this.visibleSignals[fromIndex];
+    this.visibleSignals.splice(fromIndex, 1);
+
+    let insertIndex = toIndex;
+    if (fromIndex < toIndex) {
+      insertIndex = isAfter ? toIndex : toIndex - 1;
+    } else {
+      insertIndex = isAfter ? toIndex + 1 : toIndex;
+    }
+    insertIndex = Math.max(0, Math.min(this.visibleSignals.length, insertIndex));
+
+    this.visibleSignals.splice(insertIndex, 0, movedSignal);
+
+    // Sync master list order
+    const masterFrom = this.signals.indexOf(movedSignal);
+    if (masterFrom !== -1) {
+      this.signals.splice(masterFrom, 1);
+      const nextVisible = this.visibleSignals[insertIndex + 1];
+      const masterTo = nextVisible ? this.signals.indexOf(nextVisible) : this.signals.length;
+      this.signals.splice(masterTo === -1 ? this.signals.length : masterTo, 0, movedSignal);
+    }
+
+    this.renderSignalList();
+    this.render();
+  }
+
   renderSignalList() {
     this.signalListContainer.innerHTML = '';
     if (this.visibleSignals.length === 0) {
@@ -328,6 +358,8 @@ class WaveformEngine {
       const item = document.createElement('div');
       item.className = 'signal-row';
       item.style.height = `${this.rowHeight}px`;
+      item.draggable = true;
+      item.dataset.index = idx;
 
       const typeBadge = sig.width > 1 
         ? `<span class="sig-type-pill bus">[${sig.width}]</span>` 
@@ -335,6 +367,7 @@ class WaveformEngine {
 
       item.innerHTML = `
         <div class="signal-info" title="${sig.name}">
+          <span class="drag-handle" title="Drag to reorder signal">≡</span>
           ${typeBadge}
           <span class="sig-name-text">${sig.shortName}</span>
         </div>
@@ -344,6 +377,50 @@ class WaveformEngine {
       item.addEventListener('mouseenter', () => {
         this.setHoveredRow(idx);
         this.render();
+      });
+
+      // Drag and Drop Events for Reordering
+      item.addEventListener('dragstart', (e) => {
+        item.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', String(idx));
+      });
+
+      item.addEventListener('dragend', () => {
+        item.classList.remove('dragging');
+        const rows = this.signalListContainer.querySelectorAll('.signal-row');
+        rows.forEach(r => r.classList.remove('drop-before', 'drop-after'));
+      });
+
+      item.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        const rect = item.getBoundingClientRect();
+        const midY = rect.top + rect.height / 2;
+        if (e.clientY < midY) {
+          item.classList.add('drop-before');
+          item.classList.remove('drop-after');
+        } else {
+          item.classList.add('drop-after');
+          item.classList.remove('drop-before');
+        }
+      });
+
+      item.addEventListener('dragleave', () => {
+        item.classList.remove('drop-before', 'drop-after');
+      });
+
+      item.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const fromIndex = parseInt(e.dataTransfer.getData('text/plain'), 10);
+        const toIndex = idx;
+        const rect = item.getBoundingClientRect();
+        const isAfter = (e.clientY >= rect.top + rect.height / 2);
+
+        if (!isNaN(fromIndex) && fromIndex !== toIndex) {
+          this.reorderSignals(fromIndex, toIndex, isAfter);
+        }
+        item.classList.remove('drop-before', 'drop-after');
       });
 
       this.signalListContainer.appendChild(item);
