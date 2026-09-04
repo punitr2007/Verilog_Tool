@@ -355,6 +355,29 @@ app.post('/api/project/save', (req, res) => {
   }
 });
 
+// Helper to find any VCD file in simDir (custom $dumpfile name or dump.vcd or any *.vcd)
+function findVcdFile(simDir, testbench = '') {
+  if (!fs.existsSync(simDir)) return null;
+  // 1. Try regex on testbench for $dumpfile("...")
+  if (testbench) {
+    const match = testbench.match(/\$dumpfile\s*\(\s*["']([^"']+)["']\s*\)/);
+    if (match && match[1]) {
+      const customPath = path.isAbsolute(match[1]) ? match[1] : path.join(simDir, match[1]);
+      if (fs.existsSync(customPath)) return customPath;
+    }
+  }
+  // 2. Try standard dump.vcd
+  const defaultPath = path.join(simDir, 'dump.vcd');
+  if (fs.existsSync(defaultPath)) return defaultPath;
+  // 3. Scan directory for any .vcd file
+  try {
+    const files = fs.readdirSync(simDir);
+    const vcd = files.find(f => f.endsWith('.vcd'));
+    if (vcd) return path.join(simDir, vcd);
+  } catch (e) {}
+  return null;
+}
+
 // API: Run Simulation (Verilog / VHDL)
 app.post('/api/simulate', (req, res) => {
   let { design, testbench, targetDir, lang = 'verilog' } = req.body;
@@ -365,12 +388,11 @@ app.post('/api/simulate', (req, res) => {
   const designFile = path.join(simDir, isVHDL ? 'design.vhd' : 'design.sv');
   const tbFile = path.join(simDir, isVHDL ? 'testbench.vhd' : 'testbench.sv');
   const simvFile = path.join(simDir, 'simv');
-  const vcdFile = path.join(simDir, 'dump.vcd');
+  const defaultVcdFile = path.join(simDir, 'dump.vcd');
 
   try {
     // For Verilog: If testbench is missing $dumpfile, auto-inject it so waveforms are guaranteed
     if (!isVHDL && !testbench.includes('$dumpfile')) {
-      // Inject auto-dump into the testbench initial block
       if (testbench.includes('initial begin')) {
         testbench = testbench.replace('initial begin', 'initial begin\n        $dumpfile("dump.vcd");\n        $dumpvars(0);');
       } else {
@@ -378,22 +400,26 @@ app.post('/api/simulate', (req, res) => {
       }
     }
 
+    // Clean old VCD and simv files before running
+    if (fs.existsSync(simvFile)) fs.unlinkSync(simvFile);
+    try {
+      const oldFiles = fs.readdirSync(simDir);
+      oldFiles.filter(f => f.endsWith('.vcd')).forEach(f => {
+        try { fs.unlinkSync(path.join(simDir, f)); } catch (e) {}
+      });
+    } catch (e) {}
+
     fs.writeFileSync(designFile, design, 'utf8');
     fs.writeFileSync(tbFile, testbench, 'utf8');
 
-    if (fs.existsSync(simvFile)) fs.unlinkSync(simvFile);
-    if (fs.existsSync(vcdFile)) fs.unlinkSync(vcdFile);
-
     if (isVHDL) {
       const topEntity = 'testbench';
-      const ghdlCmd = `ghdl -a --std=08 "${designFile}" "${tbFile}" && ghdl -e --std=08 ${topEntity} && ghdl -r --std=08 ${topEntity} --vcd="${vcdFile}" --stop-time=1000ns`;
+      const ghdlCmd = `ghdl -a --std=08 "${designFile}" "${tbFile}" && ghdl -e --std=08 ${topEntity} && ghdl -r --std=08 ${topEntity} --vcd="${defaultVcdFile}" --stop-time=1000ns`;
 
       exec(ghdlCmd, { cwd: simDir, env: process.env, timeout: 10000 }, (err, stdout, stderr) => {
         const executionTimeMs = Date.now() - startTime;
-        let vcdContent = '';
-        if (fs.existsSync(vcdFile)) {
-          vcdContent = fs.readFileSync(vcdFile, 'utf8');
-        }
+        const foundVcd = findVcdFile(simDir, testbench);
+        let vcdContent = foundVcd && fs.existsSync(foundVcd) ? fs.readFileSync(foundVcd, 'utf8') : '';
 
         if (err && !vcdContent) {
           return res.json({
@@ -433,13 +459,11 @@ app.post('/api/simulate', (req, res) => {
         const simCmd = `vvp "${simvFile}"`;
         exec(simCmd, { cwd: simDir, env: process.env, timeout: 10000 }, (simErr, simStdout, simStderr) => {
           const executionTimeMs = Date.now() - startTime;
-          let vcdContent = '';
-          if (fs.existsSync(vcdFile)) {
-            vcdContent = fs.readFileSync(vcdFile, 'utf8');
-          }
+          const foundVcd = findVcdFile(simDir, testbench);
+          let vcdContent = foundVcd && fs.existsSync(foundVcd) ? fs.readFileSync(foundVcd, 'utf8') : '';
 
           res.json({
-            success: !simErr,
+            success: !simErr || Boolean(vcdContent),
             stage: 'simulation',
             stdout: simStdout,
             stderr: simStderr || (simErr ? simErr.message : ''),
@@ -464,18 +488,18 @@ app.post('/api/simulate', (req, res) => {
 app.post('/api/open-gtkwave', (req, res) => {
   const { targetDir } = req.body;
   const simDir = targetDir && fs.existsSync(targetDir) ? targetDir : RUNTIME_DIR;
-  const vcdFile = path.join(simDir, 'dump.vcd');
+  const vcdPath = findVcdFile(simDir);
 
-  if (!fs.existsSync(vcdFile)) {
-    return res.status(404).json({ success: false, error: 'dump.vcd not found. Please run a simulation first.' });
+  if (!vcdPath || !fs.existsSync(vcdPath)) {
+    return res.status(404).json({ success: false, error: 'No .vcd waveform file found. Please run a simulation first.' });
   }
 
-  const cmd = `(gtkwave_light "${vcdFile}" || gtkwave "${vcdFile}") >/dev/null 2>&1 &`;
+  const cmd = `(gtkwave_light "${vcdPath}" || gtkwave "${vcdPath}") >/dev/null 2>&1 &`;
   exec(cmd, { env: process.env }, (err) => {
     if (err) {
       return res.status(500).json({ success: false, error: err.message });
     }
-    res.json({ success: true, message: 'GTKWave launched successfully' });
+    res.json({ success: true, message: `GTKWave launched with ${path.basename(vcdPath)}` });
   });
 });
 

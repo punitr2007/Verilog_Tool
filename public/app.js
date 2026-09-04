@@ -585,7 +585,7 @@ async function runSimulation() {
         waveformEngine.parseVCD(vcd);
         document.getElementById('tab-waveform-btn').click();
       } else {
-        logConsole(`⚠️ Note: No dump.vcd detected.`, 'warning');
+        logConsole(`⚠️ Note: No .vcd waveform detected. Ensure $dumpfile("...") and $dumpvars(...) are present in your testbench.`, 'warning');
       }
     }
   } catch (err) {

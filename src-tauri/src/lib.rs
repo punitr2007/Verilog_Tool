@@ -161,6 +161,49 @@ fn save_project(dir_path: Option<String>, design: String, testbench: String, lan
     }
 }
 
+fn find_vcd_file(sim_dir: &Path, testbench: &str) -> Option<PathBuf> {
+    if !sim_dir.exists() {
+        return None;
+    }
+
+    // 1. Try finding $dumpfile("...") in testbench
+    if let Some(start) = testbench.find("$dumpfile") {
+        let after = &testbench[start..];
+        if let Some(open_quote) = after.find('"').or_else(|| after.find('\'')) {
+            let after_quote = &after[open_quote + 1..];
+            if let Some(close_quote) = after_quote.find('"').or_else(|| after_quote.find('\'')) {
+                let filename = &after_quote[..close_quote];
+                let custom_path = if Path::new(filename).is_absolute() {
+                    PathBuf::from(filename)
+                } else {
+                    sim_dir.join(filename)
+                };
+                if custom_path.exists() {
+                    return Some(custom_path);
+                }
+            }
+        }
+    }
+
+    // 2. Try default dump.vcd
+    let default_vcd = sim_dir.join("dump.vcd");
+    if default_vcd.exists() {
+        return Some(default_vcd);
+    }
+
+    // 3. Scan directory for any .vcd file
+    if let Ok(entries) = fs::read_dir(sim_dir) {
+        for entry in entries.flatten() {
+            let p = entry.path();
+            if p.extension().map_or(false, |ext| ext == "vcd") {
+                return Some(p);
+            }
+        }
+    }
+
+    None
+}
+
 #[tauri::command]
 fn launch_gtkwave(target_dir: Option<String>) -> Result<String, String> {
     let sim_dir = target_dir
@@ -168,10 +211,11 @@ fn launch_gtkwave(target_dir: Option<String>) -> Result<String, String> {
         .map(PathBuf::from)
         .unwrap_or_else(get_runtime_dir);
 
-    let vcd_file = sim_dir.join("dump.vcd");
-    if !vcd_file.exists() {
-        return Err("dump.vcd not found. Please run a simulation first.".to_string());
-    }
+    let vcd_file = find_vcd_file(&sim_dir, "");
+    let vcd_file = match vcd_file {
+        Some(f) => f,
+        None => return Err("No .vcd waveform file found. Please run a simulation first.".to_string()),
+    };
 
     let env_path = get_enhanced_path();
     let vcd_str = vcd_file.to_string_lossy().to_string();
@@ -188,7 +232,7 @@ fn launch_gtkwave(target_dir: Option<String>) -> Result<String, String> {
         });
 
     match spawn_res {
-        Ok(_) => Ok("GTKWave launched successfully".to_string()),
+        Ok(_) => Ok(format!("GTKWave launched with {}", vcd_file.file_name().unwrap_or_default().to_string_lossy())),
         Err(e) => Err(format!("Failed to launch GTKWave: {}", e)),
     }
 }
@@ -212,7 +256,7 @@ fn run_simulation(
     let design_file = sim_dir.join(if is_vhdl { "design.vhd" } else { "design.sv" });
     let tb_file = sim_dir.join(if is_vhdl { "testbench.vhd" } else { "testbench.sv" });
     let simv_file = sim_dir.join("simv");
-    let vcd_file = sim_dir.join("dump.vcd");
+    let default_vcd_file = sim_dir.join("dump.vcd");
 
     // Auto-inject $dumpfile if missing in Verilog testbench
     if !is_vhdl && !testbench.contains("$dumpfile") {
@@ -223,6 +267,17 @@ fn run_simulation(
             );
         } else {
             testbench.push_str("\nmodule __auto_dumper;\n  initial begin\n    $dumpfile(\"dump.vcd\");\n    $dumpvars(0);\n  end\nendmodule\n");
+        }
+    }
+
+    // Clean old simv and *.vcd files in sim_dir
+    let _ = fs::remove_file(&simv_file);
+    if let Ok(entries) = fs::read_dir(&sim_dir) {
+        for entry in entries.flatten() {
+            let p = entry.path();
+            if p.extension().map_or(false, |ext| ext == "vcd") {
+                let _ = fs::remove_file(p);
+            }
         }
     }
 
@@ -250,9 +305,6 @@ fn run_simulation(
         };
     }
 
-    let _ = fs::remove_file(&simv_file);
-    let _ = fs::remove_file(&vcd_file);
-
     if is_vhdl {
         let top_entity = "testbench";
         let ghdl_cmd = format!(
@@ -261,7 +313,7 @@ fn run_simulation(
             tb_file.display(),
             top_entity,
             top_entity,
-            vcd_file.display()
+            default_vcd_file.display()
         );
 
         let output = Command::new("sh")
@@ -272,7 +324,11 @@ fn run_simulation(
             .output();
 
         let execution_time_ms = start_time.elapsed().as_millis() as u64;
-        let vcd_content = fs::read_to_string(&vcd_file).unwrap_or_default();
+        let found_vcd = find_vcd_file(&sim_dir, &testbench);
+        let vcd_content = found_vcd
+            .as_ref()
+            .and_then(|p| fs::read_to_string(p).ok())
+            .unwrap_or_default();
         let has_vcd = !vcd_content.is_empty();
 
         match output {
@@ -335,7 +391,11 @@ fn run_simulation(
                     .output();
 
                 let execution_time_ms = start_time.elapsed().as_millis() as u64;
-                let vcd_content = fs::read_to_string(&vcd_file).unwrap_or_default();
+                let found_vcd = find_vcd_file(&sim_dir, &testbench);
+                let vcd_content = found_vcd
+                    .as_ref()
+                    .and_then(|p| fs::read_to_string(p).ok())
+                    .unwrap_or_default();
                 let has_vcd = !vcd_content.is_empty();
 
                 match sim_out {
