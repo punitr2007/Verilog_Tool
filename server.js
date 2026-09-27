@@ -1224,6 +1224,10 @@ app.post('/api/open-gtkwave', (req, res) => {
   });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 HDL EDA Studio with SEQUEL Engine running at: http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 HDL EDA Studio with SEQUEL Engine running at: http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
