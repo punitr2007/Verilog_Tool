@@ -209,7 +209,7 @@ class WaveformEngine {
           currentScope.pop();
         } else if (line.startsWith('$var')) {
           const parts = line.split(/\s+/);
-          const type = parts[1];
+          const type = (parts[1] || '').toLowerCase();
           const width = parseInt(parts[2], 10) || 1;
           const id = parts[3];
           const name = parts[4];
@@ -217,6 +217,7 @@ class WaveformEngine {
           const scopeStr = currentScope.length ? currentScope.join('.') : '';
           const fullName = (scopeStr ? scopeStr + '.' : '') + name + (bitRange ? ' ' + bitRange : '');
 
+          const isRealType = type === 'real' || type === 'analog';
           const sigObj = {
             id,
             name: fullName,
@@ -225,6 +226,7 @@ class WaveformEngine {
             depth: currentScope.length,
             width,
             type,
+            isAnalog: isRealType,
             changes: []
           };
 
@@ -246,13 +248,27 @@ class WaveformEngine {
         if (currentTime > maxTimeFound) maxTimeFound = currentTime;
       } else if (line.startsWith('$dumpvars') || line.startsWith('$end') || line.startsWith('$comment') || line.startsWith('$dumpall')) {
         continue;
-      } else if (line.startsWith('b') || line.startsWith('B') || line.startsWith('r') || line.startsWith('R')) {
-        const parts = line.split(/\s+/);
-        const val = parts[0].substring(1);
+      } else if (line.startsWith('r') || line.startsWith('R')) {
+        // Real / Floating Point Analog VCD Dump (e.g. r12.45 !)
+        const parts = line.substring(1).trim().split(/\s+/);
+        const val = parseFloat(parts[0]);
         const id = parts[1];
         const sigList = idMap.get(id);
         if (sigList) {
-          sigList.forEach(s => s.changes.push({ time: currentTime, val: val.toLowerCase() }));
+          sigList.forEach(s => {
+            s.isAnalog = true;
+            s.changes.push({ time: currentTime, val: isNaN(val) ? 0 : val });
+          });
+        }
+      } else if (line.startsWith('b') || line.startsWith('B')) {
+        const parts = line.split(/\s+/);
+        const rawVal = parts[0].substring(1);
+        const id = parts[1];
+        const sigList = idMap.get(id);
+        if (sigList) {
+          sigList.forEach(s => {
+            s.changes.push({ time: currentTime, val: rawVal.toLowerCase() });
+          });
         }
       } else if (line.length >= 2) {
         const val = line[0].toLowerCase();
@@ -296,6 +312,45 @@ class WaveformEngine {
       sig.changes.forEach(c => {
         c.time = Math.round(c.time * scaleToDisplay * 1000000) / 1000000;
       });
+
+      // Auto-detect analog signals from names or numeric value patterns if not already flagged
+      if (!sig.isAnalog) {
+        const lowerName = sig.name.toLowerCase();
+        const isAnalogName = lowerName.startsWith('v_') || lowerName.startsWith('i_') || 
+                             lowerName.includes('.v_') || lowerName.includes('.i_') ||
+                             lowerName.startsWith('v(') || lowerName.startsWith('i(') ||
+                             lowerName.includes('vout') || lowerName.includes('v_out') ||
+                             lowerName.includes('i_ind') || lowerName.includes('v_sw') ||
+                             lowerName.includes('vc') || lowerName.includes('ic');
+        if (isAnalogName && sig.changes.length > 0) {
+          sig.isAnalog = true;
+        }
+      }
+
+      // If analog, convert all string changes to numbers and compute min / max span
+      if (sig.isAnalog && sig.changes.length > 0) {
+        let min = Infinity;
+        let max = -Infinity;
+        sig.changes.forEach(c => {
+          let numVal = typeof c.val === 'number' ? c.val : parseFloat(c.val);
+          if (isNaN(numVal) && typeof c.val === 'string') {
+            const clean = c.val.replace(/^b/i, '');
+            const parsedInt = parseInt(clean, 2);
+            if (!isNaN(parsedInt)) numVal = parsedInt / 1000.0;
+          }
+          if (isNaN(numVal)) numVal = 0;
+          c.val = numVal;
+          if (numVal < min) min = numVal;
+          if (numVal > max) max = numVal;
+        });
+
+        sig.minVal = isFinite(min) ? min : 0;
+        sig.maxVal = isFinite(max) ? max : 1;
+        if (sig.maxVal === sig.minVal) {
+          sig.minVal -= (Math.abs(sig.maxVal) * 0.2 || 1);
+          sig.maxVal += (Math.abs(sig.maxVal) * 0.2 || 1);
+        }
+      }
     });
 
     // Deduplicate nets sharing the same VCD id while preserving clear names
@@ -324,15 +379,35 @@ class WaveformEngine {
     return true;
   }
 
-  formatValue(val, width, radix = this.radixMode) {
-    if (!val) return 'x';
+  formatValue(val, width, radix = this.radixMode, sig = null) {
+    if (val === null || val === undefined) return 'x';
+
+    // Handle Analog Floating Point Signals
+    if (typeof val === 'number' || (sig && sig.isAnalog)) {
+      const num = typeof val === 'number' ? val : parseFloat(val);
+      if (isNaN(num)) return 'x';
+      const sName = sig ? sig.name.toLowerCase() : '';
+      let unit = '';
+      if (sName.startsWith('v_') || sName.includes('v(') || sName.includes('vout') || sName.includes('vsw') || sName.includes('vc')) {
+        unit = ' V';
+      } else if (sName.startsWith('i_') || sName.includes('i(') || sName.includes('i_ind') || sName.includes('ic') || sName.includes('il')) {
+        unit = ' A';
+      }
+
+      if (Math.abs(num) >= 100) return num.toFixed(1) + unit;
+      if (Math.abs(num) >= 10) return num.toFixed(2) + unit;
+      if (Math.abs(num) >= 0.001) return num.toFixed(3) + unit;
+      if (num === 0) return '0.00' + unit;
+      return num.toExponential(2) + unit;
+    }
+
     if (val === 'x' || val === 'z') return val.toUpperCase();
     if (width === 1) return val;
 
     try {
-      const cleanBinary = val.replace(/[^01]/g, '0');
+      const cleanBinary = String(val).replace(/[^01]/g, '0');
       const num = parseInt(cleanBinary, 2);
-      if (isNaN(num)) return val;
+      if (isNaN(num)) return String(val);
 
       if (radix === 'hex') {
         const hexDigits = Math.ceil(width / 4);
@@ -342,15 +417,37 @@ class WaveformEngine {
       } else if (radix === 'ascii') {
         return String.fromCharCode(num & 0xFF) || val;
       } else {
-        return val.padStart(width, '0');
+        return String(val).padStart(width, '0');
       }
     } catch (e) {
-      return val;
+      return String(val);
     }
   }
 
   getValueAtTime(signal, t) {
     if (!signal.changes || signal.changes.length === 0) return 'x';
+
+    // Smooth Linear Interpolation for Continuous Analog Signals
+    if (signal.isAnalog) {
+      const changes = signal.changes;
+      if (t <= changes[0].time) return changes[0].val;
+      if (t >= changes[changes.length - 1].time) return changes[changes.length - 1].val;
+
+      for (let i = 0; i < changes.length - 1; i++) {
+        const c1 = changes[i];
+        const c2 = changes[i + 1];
+        if (t >= c1.time && t <= c2.time) {
+          const dt = c2.time - c1.time;
+          const ratio = dt > 0 ? (t - c1.time) / dt : 0;
+          const v1 = typeof c1.val === 'number' ? c1.val : parseFloat(c1.val) || 0;
+          const v2 = typeof c2.val === 'number' ? c2.val : parseFloat(c2.val) || 0;
+          return v1 + ratio * (v2 - v1);
+        }
+      }
+      return changes[changes.length - 1].val;
+    }
+
+    // Step function for discrete digital signals
     let lastVal = signal.changes[0].val;
     for (let i = 0; i < signal.changes.length; i++) {
       if (signal.changes[i].time <= t) {
@@ -412,9 +509,12 @@ class WaveformEngine {
       item.draggable = true;
       item.dataset.index = idx;
 
-      const typeBadge = sig.width > 1 
-        ? `<span class="sig-type-pill bus">[${sig.width}]</span>` 
-        : `<span class="sig-type-pill wire">1b</span>`;
+      let typeBadge = `<span class="sig-type-pill wire">1b</span>`;
+      if (sig.isAnalog) {
+        typeBadge = `<span class="sig-type-pill" style="background:rgba(16,185,129,0.18);color:#10b981;border:1px solid rgba(16,185,129,0.35);font-size:9px;padding:1px 4px;">∿ Analog</span>`;
+      } else if (sig.width > 1) {
+        typeBadge = `<span class="sig-type-pill bus">[${sig.width}]</span>`;
+      }
 
       item.innerHTML = `
         <div class="signal-info" title="${sig.name}">
@@ -484,11 +584,12 @@ class WaveformEngine {
       const el = document.getElementById(`sig-val-${idx}`);
       if (el) {
         const rawVal = this.getValueAtTime(sig, this.cursorTime);
-        const formatted = this.formatValue(rawVal, sig.width);
+        const formatted = this.formatValue(rawVal, sig.width, this.radixMode, sig);
         el.innerText = formatted;
         
         let valClass = 'val-low';
-        if (rawVal === '1') valClass = 'val-high';
+        if (sig.isAnalog) valClass = 'val-high';
+        else if (rawVal === '1') valClass = 'val-high';
         else if (rawVal === 'x') valClass = 'val-x';
         else if (rawVal === 'z') valClass = 'val-z';
         
@@ -609,7 +710,9 @@ class WaveformEngine {
       ctx.lineTo(width, yBase + this.rowHeight);
       ctx.stroke();
 
-      if (sig.width === 1) {
+      if (sig.isAnalog) {
+        this.renderAnalogWave(ctx, sig, yBase, width);
+      } else if (sig.width === 1) {
         this.renderSingleBitWave(ctx, sig, yBase, width);
       } else {
         this.renderBusWave(ctx, sig, yBase, width);
@@ -626,6 +729,101 @@ class WaveformEngine {
     ctx.lineTo(cursorX, height);
     ctx.stroke();
     ctx.setLineDash([]);
+  }
+
+  renderAnalogWave(ctx, sig, yBase, totalWidth = 0) {
+    const topY = yBase + 6;
+    const botY = yBase + this.rowHeight - 6;
+    const heightSpan = botY - topY;
+
+    const changes = sig.changes.length > 0 ? sig.changes : [{ time: 0, val: 0 }];
+    const endLimit = Math.max(this.maxTime, (totalWidth || 0) / this.zoom);
+
+    const minV = sig.minVal !== undefined ? sig.minVal : 0;
+    const maxV = sig.maxVal !== undefined ? sig.maxVal : 1;
+    const vRange = (maxV - minV) || 1;
+
+    // Determine theme colors based on signal name
+    const sName = sig.name.toLowerCase();
+    let strokeColor = '#38bdf8'; // Cyan default
+    let fillColorTop = 'rgba(56, 189, 248, 0.25)';
+    let fillColorBot = 'rgba(56, 189, 248, 0.02)';
+
+    if (sName.startsWith('i_') || sName.includes('i_ind') || sName.includes('i(') || sName.includes('ic')) {
+      strokeColor = '#10b981'; // Emerald for Current
+      fillColorTop = 'rgba(16, 185, 129, 0.25)';
+      fillColorBot = 'rgba(16, 185, 129, 0.02)';
+    } else if (sName.includes('sw') || sName.includes('gate') || sName.includes('pwm')) {
+      strokeColor = '#f59e0b'; // Amber for Switches
+      fillColorTop = 'rgba(245, 158, 11, 0.25)';
+      fillColorBot = 'rgba(245, 158, 11, 0.02)';
+    }
+
+    // Zero-crossing baseline if in range
+    if (minV < 0 && maxV > 0) {
+      const zeroY = botY - ((0 - minV) / vRange) * heightSpan;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([2, 4]);
+      ctx.beginPath();
+      ctx.moveTo(0, zeroY);
+      ctx.lineTo(endLimit * this.zoom, zeroY);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // Calculate (x, y) points
+    const points = [];
+    for (let i = 0; i < changes.length; i++) {
+      const cur = changes[i];
+      const valNum = typeof cur.val === 'number' ? cur.val : (parseFloat(cur.val) || 0);
+      const x = cur.time * this.zoom;
+      const norm = (valNum - minV) / vRange;
+      const y = botY - Math.max(0, Math.min(1, norm)) * heightSpan;
+      points.push({ x, y });
+    }
+
+    if (points.length === 0) return;
+
+    // Extend to endLimit
+    const lastPt = points[points.length - 1];
+    if (lastPt.x < endLimit * this.zoom) {
+      points.push({ x: endLimit * this.zoom, y: lastPt.y });
+    }
+
+    // Draw Filled Area below curve
+    const grad = ctx.createLinearGradient(0, topY, 0, botY);
+    grad.addColorStop(0, fillColorTop);
+    grad.addColorStop(1, fillColorBot);
+
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, botY);
+    ctx.lineTo(points[0].x, points[0].y);
+    for (let i = 1; i < points.length; i++) {
+      ctx.lineTo(points[i].x, points[i].y);
+    }
+    ctx.lineTo(points[points.length - 1].x, botY);
+    ctx.closePath();
+    ctx.fill();
+
+    // Draw Smooth Waveform Trace
+    ctx.strokeStyle = strokeColor;
+    ctx.lineWidth = 2.0;
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    for (let i = 1; i < points.length; i++) {
+      ctx.lineTo(points[i].x, points[i].y);
+    }
+    ctx.stroke();
+
+    // Min / Max range label on the right
+    const labelX = Math.min(width - 45, Math.max(20, (this.maxTime * this.zoom) + 10));
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+    ctx.font = '9px "JetBrains Mono", monospace';
+    ctx.textAlign = 'left';
+    ctx.fillText(`${maxV.toFixed(1)}`, labelX, topY + 8);
+    ctx.fillText(`${minV.toFixed(1)}`, labelX, botY - 2);
   }
 
   renderSingleBitWave(ctx, sig, yBase, totalWidth = 0) {
@@ -709,7 +907,7 @@ class WaveformEngine {
         ctx.font = '10px "JetBrains Mono", monospace';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        const formatted = this.formatValue(cur.val, sig.width);
+        const formatted = this.formatValue(cur.val, sig.width, this.radixMode, sig);
         ctx.fillText(formatted, startX + segmentWidth / 2, midY);
       }
     }

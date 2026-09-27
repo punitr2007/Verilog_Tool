@@ -86,7 +86,7 @@ function convertSequelDatToVCD(cctText, datText) {
   const symbols = ['!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3'];
   for (let i = 0; i < varNames.length; i++) {
     const sym = symbols[i % symbols.length] + (i >= symbols.length ? Math.floor(i / symbols.length) : '');
-    vcd.push(`$var wire 16 ${sym} ${varNames[i]} [15:0] $end`);
+    vcd.push(`$var real 64 ${sym} ${varNames[i]} $end`);
   }
   vcd.push('$upscope $end');
   vcd.push('$enddefinitions $end');
@@ -97,9 +97,7 @@ function convertSequelDatToVCD(cctText, datText) {
   for (let i = 0; i < varNames.length; i++) {
     const sym = symbols[i % symbols.length] + (i >= symbols.length ? Math.floor(i / symbols.length) : '');
     const val = (rows[0] && rows[0][i] !== undefined) ? rows[0][i] : 0;
-    const valInt = Math.min(32767, Math.max(-32768, Math.round(val * 1000))) & 0xFFFF;
-    const binStr = valInt.toString(2).padStart(16, '0');
-    vcd.push(`b${binStr} ${sym}`);
+    vcd.push(`r${val} ${sym}`);
   }
 
   // Dump time sequence
@@ -108,10 +106,8 @@ function convertSequelDatToVCD(cctText, datText) {
     vcd.push(`#${tick}`);
     for (let i = 0; i < varNames.length; i++) {
       const sym = symbols[i % symbols.length] + (i >= symbols.length ? Math.floor(i / symbols.length) : '');
-      const val = rows[idx][i];
-      const valInt = Math.min(32767, Math.max(-32768, Math.round(val * 1000))) & 0xFFFF;
-      const binStr = valInt.toString(2).padStart(16, '0');
-      vcd.push(`b${binStr} ${sym}`);
+      const val = (rows[idx] && rows[idx][i] !== undefined) ? rows[idx][i] : 0;
+      vcd.push(`r${val} ${sym}`);
     }
   }
 
@@ -779,10 +775,25 @@ app.get('/api/examples', (req, res) => {
   res.json(EXAMPLES[lang] || EXAMPLES.verilog);
 });
 
+// Helper: Find static asset file across multiple runtime directories
+function findPublicFile(relPath) {
+  const candidates = [
+    path.join(__dirname, 'public', relPath),
+    path.join(process.cwd(), 'public', relPath),
+    path.join(__dirname, relPath),
+    path.join(process.cwd(), relPath),
+    path.join(__dirname, '..', 'public', relPath)
+  ];
+  for (const c of candidates) {
+    if (fs.existsSync(c)) return c;
+  }
+  return null;
+}
+
 // API: Get SEQUEL Circuits Catalog
 app.get('/api/sequel/circuits', (req, res) => {
-  const indexPath = path.join(__dirname, 'public', 'sequel_hub', 'circuits_index.json');
-  if (fs.existsSync(indexPath)) {
+  const indexPath = findPublicFile(path.join('sequel_hub', 'circuits_index.json'));
+  if (indexPath && fs.existsSync(indexPath)) {
     try {
       const data = JSON.parse(fs.readFileSync(indexPath, 'utf8'));
       const cat = req.query.category;
@@ -799,8 +810,8 @@ app.get('/api/sequel/circuits', (req, res) => {
 
 // API: Get SEQUEL Animations Catalog
 app.get('/api/sequel/animations', (req, res) => {
-  const indexPath = path.join(__dirname, 'public', 'sequel_hub', 'animations_index.json');
-  if (fs.existsSync(indexPath)) {
+  const indexPath = findPublicFile(path.join('sequel_hub', 'animations_index.json'));
+  if (indexPath && fs.existsSync(indexPath)) {
     try {
       const data = JSON.parse(fs.readFileSync(indexPath, 'utf8'));
       return res.json(data);

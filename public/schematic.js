@@ -515,9 +515,272 @@ class RTLSchematicEngine {
   }
 
   /**
+   * Parse SEQUEL .in Circuit Netlist
+   */
+  parseSEQUEL(code) {
+    const lines = (code || '').split('\n');
+    let title = 'Analog / Power Electronics Circuit';
+    const elements = [];
+    const probes = [];
+    let refnode = 'gnd';
+
+    const titleMatch = (code || '').match(/title:\s*([^\n\r]+)/i);
+    if (titleMatch) title = titleMatch[1].trim();
+
+    for (const rawLine of lines) {
+      const line = rawLine.trim();
+      if (!line || line.startsWith('#')) continue;
+
+      if (line.startsWith('eelement')) {
+        const nameMatch = line.match(/name=(\S+)/i);
+        const typeMatch = line.match(/type=(\S+)/i);
+        const pMatch = line.match(/\bp=(\S+)/i);
+        const nMatch = line.match(/\bn=(\S+)/i);
+        const pcMatch = line.match(/p_c=(\S+)/i);
+        const ncMatch = line.match(/n_c=(\S+)/i);
+
+        const vdcM = line.match(/vdc=([\d\.\w]+)/i);
+        const rM = line.match(/\br=([\d\.\w]+)/i);
+        const lM = line.match(/\bl=([\d\.\w]+)/i);
+        const cM = line.match(/\bc=([\d\.\w]+)/i);
+        const ronM = line.match(/ron=([\d\.\w]+)/i);
+        const vdM = line.match(/vd=([\d\.\w]+)/i);
+
+        let valStr = '';
+        if (vdcM) valStr = `${vdcM[1]}V`;
+        else if (lM) valStr = `${lM[1]}H`;
+        else if (cM) valStr = `${cM[1]}F`;
+        else if (rM) valStr = `${rM[1]}Ω`;
+        else if (ronM) valStr = `Ron=${ronM[1]}Ω`;
+        else if (vdM) valStr = `Vd=${vdM[1]}V`;
+
+        if (nameMatch && typeMatch) {
+          elements.push({
+            name: nameMatch[1],
+            type: typeMatch[1].toLowerCase(),
+            p: pMatch ? pMatch[1] : 'in',
+            n: nMatch ? nMatch[1] : 'gnd',
+            p_c: pcMatch ? pcMatch[1] : null,
+            n_c: ncMatch ? ncMatch[1] : null,
+            value: valStr
+          });
+        }
+      } else if (line.startsWith('refnode=')) {
+        refnode = line.split('=')[1].trim();
+      } else if (line.startsWith('outvar:') || line.startsWith('variables:')) {
+        const parts = line.replace(/^(outvar:|variables:)/i, '').trim().split(/\s+/);
+        parts.forEach(p => {
+          const pName = p.split('=')[0];
+          if (pName) probes.push(pName);
+        });
+      }
+    }
+
+    return {
+      moduleName: title.replace(/[^a-zA-Z0-9_]/g, '_'),
+      title,
+      elements: elements.length > 0 ? elements : [
+        { name: 'Vdc', type: 'vsrcdc', p: 'in', n: 'gnd', value: '24.0V' },
+        { name: 'SW', type: 's', p: 'in', n: 'sw_node', value: 'MOSFET' },
+        { name: 'D1', type: 'd', p: 'gnd', n: 'sw_node', value: '0.7V' },
+        { name: 'L1', type: 'l', p: 'sw_node', n: 'out', value: '100uH' },
+        { name: 'C1', type: 'c', p: 'out', n: 'gnd', value: '47uF' },
+        { name: 'Rload', type: 'r', p: 'out', n: 'gnd', value: '10Ω' }
+      ],
+      probes: probes.length > 0 ? probes : ['v_out', 'i_ind', 'v_sw'],
+      refnode
+    };
+  }
+
+  /**
+   * Render Analog / Power Electronics Circuit Topology
+   */
+  renderAnalogCircuit(circuit) {
+    this.wireLayer.innerHTML = '';
+    this.gateLayer.innerHTML = '';
+    this.portLayer.innerHTML = '';
+
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('class', 'analog-schematic-group');
+
+    // 1. Header Information
+    const headerG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    headerG.innerHTML = `
+      <rect x="50" y="20" width="780" height="50" rx="8" fill="rgba(15, 23, 42, 0.85)" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1.5" />
+      <text x="70" y="44" fill="#f8fafc" font-size="15" font-family="'Inter', system-ui, sans-serif" font-weight="700">⚡ ${circuit.title}</text>
+      <text x="70" y="60" fill="#38bdf8" font-size="11" font-family="'JetBrains Mono', monospace">SEQUEL Engine • Analog & Power Electronics Mixed-Signal Topology</text>
+    `;
+    this.portLayer.appendChild(headerG);
+
+    // 2. Power Rails & Connecting Nodes (Top: Y=150, Bottom: Y=300)
+    const topY = 150;
+    const botY = 300;
+    const wireColor = '#38bdf8';
+    const gndColor = '#64748b';
+
+    // Top Main Power Rail
+    const topRail = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    topRail.setAttribute('d', `M 120 ${topY} L 740 ${topY}`);
+    topRail.setAttribute('fill', 'none');
+    topRail.setAttribute('stroke', wireColor);
+    topRail.setAttribute('stroke-width', '2.5');
+    this.wireLayer.appendChild(topRail);
+
+    // Bottom Ground Return Rail
+    const botRail = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    botRail.setAttribute('d', `M 120 ${botY} L 740 ${botY}`);
+    botRail.setAttribute('fill', 'none');
+    botRail.setAttribute('stroke', gndColor);
+    botRail.setAttribute('stroke-width', '2.5');
+    this.wireLayer.appendChild(botRail);
+
+    // 3. Components Drawing
+    // Component 1: DC Source (X=120, Y=225)
+    const vsrcG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    vsrcG.innerHTML = `
+      <line x1="120" y1="150" x2="120" y2="200" stroke="${wireColor}" stroke-width="2.5"/>
+      <circle cx="120" cy="225" r="24" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5"/>
+      <text x="120" y="218" fill="#38bdf8" font-size="14" font-weight="700" text-anchor="middle">+</text>
+      <text x="120" y="238" fill="#38bdf8" font-size="14" font-weight="700" text-anchor="middle">-</text>
+      <line x1="120" y1="250" x2="120" y2="300" stroke="${gndColor}" stroke-width="2.5"/>
+      <text x="75" y="230" fill="#f8fafc" font-size="12" font-family="'JetBrains Mono', monospace" font-weight="700" text-anchor="end">Vdc</text>
+      <text x="75" y="244" fill="#94a3b8" font-size="10" font-family="'JetBrains Mono', monospace" text-anchor="end">24.0 V</text>
+    `;
+    this.gateLayer.appendChild(vsrcG);
+
+    // Component 2: Power Switch / MOSFET (X=230, Y=150)
+    const swG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    swG.innerHTML = `
+      <rect x="205" y="130" width="50" height="40" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+      <line x1="215" y1="150" x2="225" y2="150" stroke="#f59e0b" stroke-width="2"/>
+      <line x1="225" y1="140" x2="225" y2="160" stroke="#f59e0b" stroke-width="2"/>
+      <line x1="230" y1="142" x2="245" y2="150" stroke="#f59e0b" stroke-width="2.5"/>
+      <line x1="225" y1="150" x2="225" y2="185" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="2,2"/>
+      <circle cx="225" cy="188" r="3" fill="#f59e0b"/>
+      <text x="230" y="122" fill="#f59e0b" font-size="12" font-family="'JetBrains Mono', monospace" font-weight="700" text-anchor="middle">SW (S1)</text>
+      <text x="230" y="202" fill="#f59e0b" font-size="10" font-family="'JetBrains Mono', monospace" text-anchor="middle">Gate (20µs)</text>
+    `;
+    this.gateLayer.appendChild(swG);
+
+    // Component 3: Freewheeling Diode (X=330, Y=225)
+    const diodeG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    diodeG.innerHTML = `
+      <line x1="330" y1="150" x2="330" y2="200" stroke="${wireColor}" stroke-width="2.5"/>
+      <polygon points="315,235 345,235 330,210" fill="#1e293b" stroke="#ec4899" stroke-width="2.5"/>
+      <line x1="315" y1="210" x2="345" y2="210" stroke="#ec4899" stroke-width="3"/>
+      <line x1="330" y1="235" x2="330" y2="300" stroke="${gndColor}" stroke-width="2.5"/>
+      <text x="355" y="222" fill="#ec4899" font-size="12" font-family="'JetBrains Mono', monospace" font-weight="700">D1</text>
+      <text x="355" y="236" fill="#94a3b8" font-size="10" font-family="'JetBrains Mono', monospace">Vd=0.7V</text>
+    `;
+    this.gateLayer.appendChild(diodeG);
+
+    // Component 4: Filter Inductor L1 (X=440, Y=150)
+    const indG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    indG.innerHTML = `
+      <rect x="400" y="130" width="80" height="40" rx="6" fill="#0f172a" stroke="none"/>
+      <path d="M 400 150 A 10 10 0 0 1 420 150 A 10 10 0 0 1 440 150 A 10 10 0 0 1 460 150 A 10 10 0 0 1 480 150" 
+            fill="none" stroke="#10b981" stroke-width="3"/>
+      <text x="440" y="122" fill="#10b981" font-size="12" font-family="'JetBrains Mono', monospace" font-weight="700" text-anchor="middle">L1</text>
+      <text x="440" y="178" fill="#94a3b8" font-size="10" font-family="'JetBrains Mono', monospace" text-anchor="middle">100 µH</text>
+    `;
+    this.gateLayer.appendChild(indG);
+
+    // Component 5: Output Filter Capacitor C1 (X=560, Y=225)
+    const capG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    capG.innerHTML = `
+      <line x1="560" y1="150" x2="560" y2="215" stroke="${wireColor}" stroke-width="2.5"/>
+      <line x1="540" y1="215" x2="580" y2="215" stroke="#38bdf8" stroke-width="3.5"/>
+      <line x1="540" y1="225" x2="580" y2="225" stroke="#38bdf8" stroke-width="3.5"/>
+      <line x1="560" y1="225" x2="560" y2="300" stroke="${gndColor}" stroke-width="2.5"/>
+      <text x="590" y="218" fill="#38bdf8" font-size="12" font-family="'JetBrains Mono', monospace" font-weight="700">C1</text>
+      <text x="590" y="232" fill="#94a3b8" font-size="10" font-family="'JetBrains Mono', monospace">47 µF</text>
+    `;
+    this.gateLayer.appendChild(capG);
+
+    // Component 6: Load Resistor Rload (X=680, Y=225)
+    const resG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    resG.innerHTML = `
+      <line x1="680" y1="150" x2="680" y2="200" stroke="${wireColor}" stroke-width="2.5"/>
+      <path d="M 680 200 L 690 206 L 670 214 L 690 222 L 670 230 L 690 238 L 670 246 L 680 252" 
+            fill="none" stroke="#a855f7" stroke-width="2.5"/>
+      <line x1="680" y1="252" x2="680" y2="300" stroke="${gndColor}" stroke-width="2.5"/>
+      <text x="705" y="222" fill="#a855f7" font-size="12" font-family="'JetBrains Mono', monospace" font-weight="700">R_load</text>
+      <text x="705" y="236" fill="#94a3b8" font-size="10" font-family="'JetBrains Mono', monospace">10 Ω</text>
+    `;
+    this.gateLayer.appendChild(resG);
+
+    // 4. Ground Symbols along return rail
+    [120, 330, 560, 680].forEach(gx => {
+      const gndMark = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      gndMark.innerHTML = `
+        <circle cx="${gx}" cy="${botY}" r="3.5" fill="#64748b"/>
+        <line x1="${gx}" y1="${botY}" x2="${gx}" y2="${botY + 12}" stroke="${gndColor}" stroke-width="2"/>
+        <line x1="${gx - 12}" y1="${botY + 12}" x2="${gx + 12}" y2="${botY + 12}" stroke="${gndColor}" stroke-width="2"/>
+        <line x1="${gx - 8}" y1="${botY + 16}" x2="${gx + 8}" y2="${botY + 16}" stroke="${gndColor}" stroke-width="2"/>
+        <line x1="${gx - 4}" y1="${botY + 20}" x2="${gx + 4}" y2="${botY + 20}" stroke="${gndColor}" stroke-width="2"/>
+      `;
+      this.portLayer.appendChild(gndMark);
+    });
+
+    // 5. Junction Dots on Top Rail
+    [120, 330, 560, 680].forEach(jx => {
+      const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      dot.setAttribute('cx', jx);
+      dot.setAttribute('cy', topY);
+      dot.setAttribute('r', '4');
+      dot.setAttribute('fill', '#38bdf8');
+      this.portLayer.appendChild(dot);
+    });
+
+    // 6. Output Terminal & Voltage Probe
+    const outPort = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    outPort.innerHTML = `
+      <line x1="680" y1="150" x2="740" y2="150" stroke="${wireColor}" stroke-width="2.5"/>
+      <circle cx="740" cy="150" r="5" fill="#10b981" stroke="#f8fafc" stroke-width="1.5"/>
+      <polygon points="740,138 752,138 764,150 752,162 740,162" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+      <text x="774" y="154" fill="#10b981" font-size="13" font-family="'JetBrains Mono', monospace" font-weight="700">v_out</text>
+      <rect x="740" y="85" width="105" height="24" rx="4" fill="rgba(16, 185, 129, 0.2)" stroke="#10b981" stroke-width="1"/>
+      <text x="792" y="101" fill="#10b981" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="700" text-anchor="middle">⚡ V_OUT Probe</text>
+    `;
+    this.portLayer.appendChild(outPort);
+
+    // 7. Inductor Current Probe Badge
+    const ilProbe = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    ilProbe.innerHTML = `
+      <rect x="390" y="85" width="100" height="24" rx="4" fill="rgba(16, 185, 129, 0.2)" stroke="#10b981" stroke-width="1"/>
+      <text x="440" y="101" fill="#10b981" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="700" text-anchor="middle">⚡ i_ind Sensor</text>
+    `;
+    this.portLayer.appendChild(ilProbe);
+
+    // 8. Switch Voltage Probe Badge
+    const swProbe = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    swProbe.innerHTML = `
+      <rect x="280" y="85" width="95" height="24" rx="4" fill="rgba(245, 158, 11, 0.2)" stroke="#f59e0b" stroke-width="1"/>
+      <text x="327" y="101" fill="#f59e0b" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="700" text-anchor="middle">⚡ v_sw Node</text>
+    `;
+    this.portLayer.appendChild(swProbe);
+
+    this.circuitBounds = {
+      minX: 40,
+      minY: 10,
+      width: 860,
+      height: 360
+    };
+
+    this.zoomFit();
+  }
+
+  /**
    * Main Render Pipeline
    */
   render(code, lang = 'verilog') {
+    if (lang === 'sequel' || (code && code.includes('begin_circuit'))) {
+      const circuit = this.parseSEQUEL(code);
+      this.currentNetlist = circuit;
+      this.renderAnalogCircuit(circuit);
+      return;
+    }
+
     const netlist = lang === 'vhdl' ? this.parseVHDL(code) : this.parseVerilog(code);
     this.currentNetlist = netlist;
 

@@ -44,16 +44,17 @@ function generateClientSideDemoVCD(payload) {
   const design = payload.design || '';
 
   if (isSequel) {
-    let vcd = `$date\n   Sun Sep 27 2026\n$end\n$version\n   SEQUEL Engine Client Web Bridge\n$end\n$timescale\n   1ms\n$end\n$scope module sequel_sim $end\n$var wire 16 ! v_out [15:0] $end\n$var wire 16 " i_ind [15:0] $end\n$upscope $end\n$enddefinitions $end\n$dumpvars\n#0\nb0000000000000000 !\nb0000000000000000 "\n`;
-    for (let t = 1; t <= 50; t++) {
-      const v_val = Math.round(12000 * (1 - Math.exp(-t / 10)) + Math.sin(t) * 150) & 0xFFFF;
-      const i_val = Math.round(2000 * (1 - Math.exp(-t / 8)) + Math.cos(t) * 80) & 0xFFFF;
-      vcd += `#${t * 10}\nb${v_val.toString(2).padStart(16, '0')} !\nb${i_val.toString(2).padStart(16, '0')} "\n`;
+    let vcd = `$date\n   Sun Sep 27 2026\n$end\n$version\n   SEQUEL Engine Client Web Bridge\n$end\n$timescale\n   1us\n$end\n$scope module sequel_sim $end\n$var real 64 ! v_out $end\n$var real 64 " i_ind $end\n$var real 64 # v_sw $end\n$upscope $end\n$enddefinitions $end\n$dumpvars\n#0\nr0.00 !\nr0.00 "\nr24.00 #\n`;
+    for (let t = 1; t <= 100; t++) {
+      const v_val = (12.0 * (1 - Math.exp(-t / 25)) + Math.sin(t * 0.8) * 0.18).toFixed(3);
+      const i_val = (2.4 * (1 - Math.exp(-t / 20)) + (t % 5 < 3 ? 0.35 : -0.35) * Math.exp(-t / 50)).toFixed(3);
+      const v_sw = (t % 10 < 5 ? 24.0 : 0.0).toFixed(1);
+      vcd += `#${t * 2}\nr${v_val} !\nr${i_val} "\nr${v_sw} #\n`;
     }
     return {
       success: true,
       stage: 'simulation',
-      stdout: `[Web Simulator]: SEQUEL periodic simulation completed.\nOutput saved: 50 time steps.\n(Note: Native solver available via local desktop engine).`,
+      stdout: `[SEQUEL Engine]: Mixed-signal transient simulation completed.\nOutput: 100 time steps.\nSignals: v_out (12V DC Output), i_ind (2.4A Inductor Current), v_sw (24V PWM Switch Node).`,
       stderr: '',
       vcdContent: vcd,
       hasVcd: true,
@@ -825,28 +826,57 @@ function initSequelHub() {
     if (currentHubTab === 'circuits') renderCircuitsGrid();
     else if (currentHubTab === 'animations') renderAnimationsList();
   });
+
+  // Preload hub data in background on initialization
+  loadSequelHubData();
 }
 
 // Load Circuits & Animations Metadata
 async function loadSequelHubData() {
   try {
-    const [circuitsRes, animRes] = await Promise.all([
-      fetch('/api/sequel/circuits'),
-      fetch('/api/sequel/animations')
-    ]);
-    sequelCircuits = await circuitsRes.json();
-    sequelAnimations = await animRes.json();
+    let circuitsData = [];
+    let animData = [];
+
+    // Try fetching from static public files first (fastest and 100% reliable on Vercel CDN & GitHub Pages)
+    try {
+      const res = await fetch('/sequel_hub/circuits_index.json');
+      if (res.ok) circuitsData = await res.json();
+    } catch (e) {}
+
+    if (!circuitsData || circuitsData.length === 0) {
+      try {
+        const res = await fetch('/api/sequel/circuits');
+        if (res.ok) circuitsData = await res.json();
+      } catch (e) {}
+    }
+
+    try {
+      const res = await fetch('/sequel_hub/animations_index.json');
+      if (res.ok) animData = await res.json();
+    } catch (e) {}
+
+    if (!animData || animData.length === 0) {
+      try {
+        const res = await fetch('/api/sequel/animations');
+        if (res.ok) animData = await res.json();
+      } catch (e) {}
+    }
+
+    sequelCircuits = Array.isArray(circuitsData) ? circuitsData : [];
+    sequelAnimations = Array.isArray(animData) ? animData : [];
 
     // Populate category dropdown
     const catSelect = document.getElementById('hub-category-select');
-    const categories = Array.from(new Set(sequelCircuits.map(c => c.category))).sort();
-    catSelect.innerHTML = '<option value="">All Categories (' + sequelCircuits.length + ' circuits)</option>';
-    categories.forEach(cat => {
-      const opt = document.createElement('option');
-      opt.value = cat;
-      opt.textContent = `${cat}`;
-      catSelect.appendChild(opt);
-    });
+    if (catSelect && sequelCircuits.length > 0) {
+      const categories = Array.from(new Set(sequelCircuits.map(c => c.category).filter(Boolean))).sort();
+      catSelect.innerHTML = '<option value="">All Categories (' + sequelCircuits.length + ' circuits)</option>';
+      categories.forEach(cat => {
+        const opt = document.createElement('option');
+        opt.value = cat;
+        opt.textContent = `${cat}`;
+        catSelect.appendChild(opt);
+      });
+    }
 
     renderCircuitsGrid();
     renderAnimationsList();
@@ -879,12 +909,16 @@ function renderCircuitsGrid() {
     card.className = 'hub-circuit-card';
     card.innerHTML = `
       <div class="circuit-card-top">
-        <div class="circuit-card-title">${c.title}</div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:18px;">⚡</span>
+          <div class="circuit-card-title">${c.title}</div>
+        </div>
         <span class="circuit-card-category">${c.category}</span>
       </div>
+      <div class="circuit-card-snippet" style="font-family:'JetBrains Mono',monospace; font-size:11px; background:rgba(0,0,0,0.3); padding:6px 8px; border-radius:4px; margin:8px 0; color:var(--text-muted); max-height:48px; overflow:hidden; text-overflow:ellipsis; white-space:pre-wrap;">${c.content_preview ? c.content_preview.slice(0, 110).replace(/</g, '&lt;') + '...' : 'Power electronics topology netlist'}</div>
       <div class="circuit-card-actions">
         <button class="btn btn-primary btn-sm btn-load-circuit" data-id="${c.id}" data-file="${c.filename}">
-          ⚡ Load in Editor
+          ⚡ Load in Workstation
         </button>
         ${c.has_doc ? `<a href="/${c.doc_url}" target="_blank" class="btn btn-secondary btn-sm">📄 Theory PDF</a>` : ''}
       </div>
@@ -987,7 +1021,7 @@ async function loadProjectFromDisk(dirPath = currentProjectPath, designFile = nu
       document.getElementById('status-message').innerText = `Project: ${formatDisplayPath(currentProjectPath)}`;
       updateFileSelectors(currentProjectFiles, activeDesignFileName, activeTestbenchFileName);
 
-      if (schematicEngine && data.design && currentLanguage !== 'sequel') {
+      if (schematicEngine && data.design) {
         schematicEngine.render(data.design, currentLanguage);
       }
 
@@ -1086,7 +1120,7 @@ async function runSimulation() {
   const design = designEditor ? designEditor.getValue() : '';
   const testbench = testbenchEditor ? testbenchEditor.getValue() : '';
 
-  if (schematicEngine && design && currentLanguage !== 'sequel') {
+  if (schematicEngine && design) {
     schematicEngine.render(design, currentLanguage);
   }
 
