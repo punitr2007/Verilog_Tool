@@ -9,10 +9,23 @@ let waveformEngine = null;
 let schematicEngine = null;
 let currentLanguage = 'verilog'; // 'verilog', 'vhdl', or 'sequel'
 let examplesData = {};
-let currentProjectPath = '/home/punit/Local_Codebase/Projects/Verilog_Tool/workspace/01_basic_gates';
+let currentProjectPath = 'workspace/01_basic_gates';
 let currentProjectFiles = [];
 let activeDesignFileName = 'design.sv';
 let activeTestbenchFileName = 'testbench.sv';
+
+// Format project path for display (clean relative path, strips user home / local machine paths)
+function formatDisplayPath(pathStr) {
+  if (!pathStr || typeof pathStr !== 'string') return 'workspace/01_basic_gates';
+  const norm = pathStr.replace(/\\/g, '/');
+  const wsIdx = norm.indexOf('workspace/');
+  if (wsIdx !== -1) {
+    return norm.substring(wsIdx);
+  }
+  return norm.replace(/^\/home\/[^/]+\/[^/]+\/[^/]+\/Verilog_Tool\/?/, '')
+             .replace(/^\/var\/task\/?/, '')
+             .replace(/^\/tmp\/?/, '') || 'workspace/01_basic_gates';
+}
 
 // SEQUEL Hub State
 let sequelCircuits = [];
@@ -120,7 +133,7 @@ const Backend = {
       const first = Object.values(def)[0];
       return {
         success: true,
-        dirPath: dirPath || 'workspace/demo',
+        dirPath: formatDisplayPath(dirPath) || 'workspace/01_basic_gates',
         lang,
         files: [],
         activeDesignFile: lang === 'vhdl' ? 'design.vhd' : (lang === 'sequel' ? 'circuit.in' : 'design.sv'),
@@ -394,7 +407,7 @@ function initGlobalShortcuts() {
 function openFolderModal() {
   const modal = document.getElementById('folder-modal');
   if (modal) {
-    document.getElementById('folder-path-input').value = currentProjectPath;
+    document.getElementById('folder-path-input').value = formatDisplayPath(currentProjectPath);
     modal.classList.add('active');
   }
 }
@@ -713,26 +726,26 @@ function switchLanguageMode(newLang) {
     document.getElementById('design-badge').innerText = 'Entity & Arch';
     document.getElementById('testbench-badge').innerText = 'Stimulus';
     document.getElementById('hdl-std-label').innerText = 'Mode: VHDL-2008 (GHDL)';
-    currentProjectPath = '/home/punit/Local_Codebase/Projects/Verilog_Tool/workspace/05_vhdl_logic_gates';
+    currentProjectPath = 'workspace/05_vhdl_logic_gates';
   } else if (isSequel) {
     activeDesignFileName = 'circuit.in';
     activeTestbenchFileName = 'solve.in';
     document.getElementById('design-badge').innerText = 'Circuit Netlist';
     document.getElementById('testbench-badge').innerText = 'Solve Directives';
     document.getElementById('hdl-std-label').innerText = 'Mode: SEQUEL (IIT Bombay Mixed-Signal)';
-    currentProjectPath = '/home/punit/Local_Codebase/Projects/Verilog_Tool/workspace/06_sequel_buck_ssw';
+    currentProjectPath = 'workspace/06_sequel_buck_ssw';
   } else {
     activeDesignFileName = 'design.sv';
     activeTestbenchFileName = 'testbench.sv';
     document.getElementById('design-badge').innerText = 'Module';
     document.getElementById('testbench-badge').innerText = 'Stimulus';
     document.getElementById('hdl-std-label').innerText = 'Mode: SystemVerilog-2012 (Icarus)';
-    currentProjectPath = '/home/punit/Local_Codebase/Projects/Verilog_Tool/workspace/01_basic_gates';
+    currentProjectPath = 'workspace/01_basic_gates';
   }
 
   document.getElementById('design-filename').innerText = activeDesignFileName;
   document.getElementById('testbench-filename').innerText = activeTestbenchFileName;
-  document.getElementById('status-message').innerText = `Project: ${currentProjectPath}`;
+  document.getElementById('status-message').innerText = `Project: ${formatDisplayPath(currentProjectPath)}`;
 
   let modeName = isSequel ? 'SEQUEL Mixed-Signal' : (isVHDL ? 'VHDL (GHDL)' : 'SystemVerilog (Icarus)');
   Toast.show('info', 'Mode Switched', `Active engine: ${modeName}`);
@@ -953,13 +966,14 @@ function playAnimation(anim) {
 // Load Project from local disk
 async function loadProjectFromDisk(dirPath = currentProjectPath, designFile = null, testbenchFile = null) {
   try {
-    logConsole(`Loading ${currentLanguage.toUpperCase()} project from: ${dirPath}...`);
+    logConsole(`Loading ${currentLanguage.toUpperCase()} project from: ${formatDisplayPath(dirPath)}...`);
     const data = await Backend.loadProject(dirPath, currentLanguage, designFile, testbenchFile);
     if (data.success) {
       if (designEditor && data.design) designEditor.setValue(data.design);
       if (testbenchEditor && data.testbench) testbenchEditor.setValue(data.testbench);
       
-      currentProjectPath = data.dir_path || data.dirPath || dirPath;
+      const rawDir = data.dir_path || data.dirPath || dirPath;
+      currentProjectPath = formatDisplayPath(rawDir);
       currentProjectFiles = data.files || [];
       activeDesignFileName = data.active_design_file || data.activeDesignFile || (currentLanguage === 'vhdl' ? 'design.vhd' : (currentLanguage === 'sequel' ? 'circuit.in' : 'design.sv'));
       activeTestbenchFileName = data.active_testbench_file || data.activeTestbenchFile || (currentLanguage === 'vhdl' ? 'testbench.vhd' : (currentLanguage === 'sequel' ? 'solve.in' : 'testbench.sv'));
@@ -970,15 +984,15 @@ async function loadProjectFromDisk(dirPath = currentProjectPath, designFile = nu
         else document.getElementById('btn-mode-verilog').click();
       }
 
-      document.getElementById('status-message').innerText = `Project: ${currentProjectPath}`;
+      document.getElementById('status-message').innerText = `Project: ${formatDisplayPath(currentProjectPath)}`;
       updateFileSelectors(currentProjectFiles, activeDesignFileName, activeTestbenchFileName);
 
       if (schematicEngine && data.design && currentLanguage !== 'sequel') {
         schematicEngine.render(data.design, currentLanguage);
       }
 
-      logConsole(`Loaded source files (${activeDesignFileName}, ${activeTestbenchFileName} in ${currentProjectPath}).`);
-      Toast.show('success', 'Project Loaded', `Loaded files from ${currentProjectPath}`);
+      logConsole(`Loaded source files (${activeDesignFileName}, ${activeTestbenchFileName} in ${formatDisplayPath(currentProjectPath)}).`);
+      Toast.show('success', 'Project Loaded', `Loaded files from ${formatDisplayPath(currentProjectPath)}`);
       
       setTimeout(runSimulation, 400);
     } else {
@@ -1051,7 +1065,7 @@ async function saveProjectToDisk() {
     );
     if (data.success) {
       logConsole(`✅ ${data.message}`, 'success');
-      Toast.show('success', 'Saved Successfully', `Saved files to ${currentProjectPath}`);
+      Toast.show('success', 'Saved Successfully', `Saved files to ${formatDisplayPath(currentProjectPath)}`);
     } else {
       logConsole(`❌ Error saving: ${data.error}`, 'stderr');
       Toast.show('error', 'Save Failed', data.error);

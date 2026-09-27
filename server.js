@@ -8,8 +8,10 @@ const app = express();
 const PORT = process.env.PORT || 4500;
 
 // Ensure local tool paths are in PATH (ghdl/bin first for standard IEEE library bindings)
-const HOME_DIR = process.env.HOME || '/home/punit';
-process.env.PATH = `${HOME_DIR}/.local/ghdl/bin:${HOME_DIR}/.local/bin:${process.env.PATH}`;
+const HOME_DIR = process.env.HOME || process.env.USERPROFILE || '/tmp';
+if (process.env.HOME) {
+  process.env.PATH = `${HOME_DIR}/.local/ghdl/bin:${HOME_DIR}/.local/bin:${process.env.PATH || ''}`;
+}
 
 app.use(cors());
 app.use(express.json({ limit: '20mb' }));
@@ -859,6 +861,23 @@ function scanDirectoryHdl(dirPath) {
   return { files, dirPath };
 }
 
+// Helper: Format paths into clean relative workspace paths for API responses
+function toDisplayPath(p) {
+  if (!p) return 'workspace/01_basic_gates';
+  try {
+    const rel = path.relative(__dirname, p);
+    if (!rel.startsWith('..') && !path.isAbsolute(rel)) {
+      return rel;
+    }
+  } catch (e) {}
+  return String(p)
+    .replace(/.*\/workspace\//, 'workspace/')
+    .replace(/.*\\workspace\\/, 'workspace/')
+    .replace(/^\/home\/[^/]+\/[^/]+\/[^/]+\/Verilog_Tool\/?/, '')
+    .replace(/^\/var\/task\/?/, '')
+    .replace(/^\/tmp\/?/, '') || 'workspace/01_basic_gates';
+}
+
 // API: Load existing files from disk (supports arbitrary folder and multi-file discovery)
 app.get('/api/project/load', (req, res) => {
   const requestedLang = req.query.lang || 'verilog';
@@ -868,11 +887,12 @@ app.get('/api/project/load', (req, res) => {
   } else if (requestedLang === 'sequel') {
     defaultDir = path.join(__dirname, 'workspace', '06_sequel_buck_ssw');
   }
-  const dirPath = req.query.path || defaultDir;
+  const rawPath = req.query.path || defaultDir;
+  const dirPath = path.isAbsolute(rawPath) ? rawPath : path.resolve(__dirname, rawPath);
 
   try {
     if (!fs.existsSync(dirPath)) {
-      return res.status(404).json({ success: false, error: `Directory not found: ${dirPath}` });
+      return res.status(404).json({ success: false, error: `Directory not found: ${toDisplayPath(dirPath)}` });
     }
 
     const { files } = scanDirectoryHdl(dirPath);
@@ -924,7 +944,7 @@ app.get('/api/project/load', (req, res) => {
 
     res.json({
       success: true,
-      dirPath,
+      dirPath: toDisplayPath(dirPath),
       lang,
       files: files.map(f => ({ name: f.name, isTestbench: f.isTestbench, lang: f.lang, size: f.size })),
       activeDesignFile: activeDesign ? activeDesign.name : defaultDesName,
@@ -948,7 +968,8 @@ app.post('/api/project/save', (req, res) => {
   if (isVHDL) defaultDir = path.join(__dirname, 'workspace', '05_vhdl_logic_gates');
   else if (isSequel) defaultDir = path.join(__dirname, 'workspace', '06_sequel_buck_ssw');
 
-  const targetDir = dirPath || defaultDir;
+  const rawTarget = dirPath || defaultDir;
+  const targetDir = path.isAbsolute(rawTarget) ? rawTarget : path.resolve(__dirname, rawTarget);
 
   try {
     if (!fs.existsSync(targetDir)) {
@@ -965,7 +986,7 @@ app.post('/api/project/save', (req, res) => {
 
     if (design !== undefined) fs.writeFileSync(designFile, design, 'utf8');
     if (testbench !== undefined) fs.writeFileSync(tbFile, testbench, 'utf8');
-    res.json({ success: true, message: `Saved ${designName} and ${tbName} to ${targetDir}` });
+    res.json({ success: true, message: `Saved ${designName} and ${tbName} to ${toDisplayPath(targetDir)}` });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
@@ -998,7 +1019,8 @@ function findVcdFile(simDir, testbench = '') {
 // API: Run Simulation (Verilog / VHDL / SEQUEL)
 app.post('/api/simulate', (req, res) => {
   let { design, testbench, targetDir, lang = 'verilog', designFileName, testbenchFileName } = req.body;
-  const simDir = targetDir && fs.existsSync(targetDir) ? targetDir : RUNTIME_DIR;
+  const resolvedTarget = targetDir ? (path.isAbsolute(targetDir) ? targetDir : path.resolve(__dirname, targetDir)) : RUNTIME_DIR;
+  const simDir = resolvedTarget && fs.existsSync(resolvedTarget) ? resolvedTarget : RUNTIME_DIR;
   const startTime = Date.now();
   const isVHDL = lang === 'vhdl';
   const isSequel = lang === 'sequel';

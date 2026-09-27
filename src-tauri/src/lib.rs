@@ -53,7 +53,7 @@ pub struct ToolsStatus {
 }
 
 fn get_enhanced_path() -> String {
-    let home = std::env::var("HOME").unwrap_or_else(|_| "/home/punit".to_string());
+    let home = std::env::var("HOME").unwrap_or_else(|_| ".".to_string());
     let current_path = std::env::var("PATH").unwrap_or_default();
     format!("{}/.local/ghdl/bin:{}/.local/bin:{}", home, home, current_path)
 }
@@ -97,9 +97,9 @@ fn load_project(
 ) -> LoadProjectResult {
     let is_vhdl_init = lang == "vhdl";
     let default_dir = if is_vhdl_init {
-        "/home/punit/Local_Codebase/Projects/Verilog_Tool/workspace/05_vhdl_logic_gates"
+        "workspace/05_vhdl_logic_gates"
     } else {
-        "/home/punit/Local_Codebase/Projects/Verilog_Tool/workspace/01_basic_gates"
+        "workspace/01_basic_gates"
     };
 
     let target_dir = dir_path.unwrap_or_else(|| default_dir.to_string());
@@ -216,9 +216,9 @@ fn save_project(
 ) -> SaveProjectResult {
     let is_vhdl = lang == "vhdl";
     let default_dir = if is_vhdl {
-        "/home/punit/Local_Codebase/Projects/Verilog_Tool/workspace/05_vhdl_logic_gates"
+        "workspace/05_vhdl_logic_gates"
     } else {
-        "/home/punit/Local_Codebase/Projects/Verilog_Tool/workspace/01_basic_gates"
+        "workspace/01_basic_gates"
     };
 
     let target_dir = dir_path.unwrap_or_else(|| default_dir.to_string());
