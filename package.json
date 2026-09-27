@@ -1,10 +1,10 @@
 {
   "name": "hdl-eda-studio",
-  "version": "2.0.0",
-  "description": "Unified Verilog/SystemVerilog & VHDL IDE with Monaco Editor, Real-Time Native Simulation & Interactive Waveform Viewer",
-  "main": "server.js",
+  "version": "2.1.0",
+  "description": "Unified SystemVerilog, VHDL & SEQUEL Mixed-Signal IDE with Monaco Editor & Interactive Waveform Viewer",
+  "main": "app.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node app.js",
     "tauri": "tauri",
     "desktop": "tauri dev",
     "desktop:build": "tauri build"
