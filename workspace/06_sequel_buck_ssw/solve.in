@@ -1,0 +1,18 @@
+begin_solve
+   solve_type=startup
+   initial_sol initialize
+   set_stparm v0sv_of_c1=12.0
+   method: t_startup=0
+end_solve
+
+begin_solve
+   solve_type=trns
+   initial_sol previous
+   begin_output
+      filename=buck.dat
+      variables: v_out i_ind v_sw
+   end_output
+   method: trapezoidal=yes
++    t_start=0 t_end=200u delt_const=0.2u
+end_solve
+end_cf

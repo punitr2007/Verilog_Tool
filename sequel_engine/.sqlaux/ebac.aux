@@ -1,0 +1,65 @@
+ebe_ac name=c
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  c=1.0
++  k_scale=1
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=mos_bsim1
+nodes: term1 term2 gate bulk
+ind_nodes:
+ind_branches:
+iparms: ac_parm_be=0
+sparms:
+rparms:
+aux_var:
+main_var:
+no_functions=4
+f_kcl_term1: v(term1) v(term2) v(gate) v(bulk)
+f_kcl_term2: v(term1) v(term2) v(gate) v(bulk)
+f_kcl_gate: v(term1) v(term2) v(gate) v(bulk)
+f_kcl_bulk: v(term1) v(term2) v(gate) v(bulk)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=mos_r
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: r=0.0 rsh=0 nsquares=0
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=vsrcac
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: a=0. phi=0
+aux_var: cur_p
+main_var:
+no_functions=3
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+C: compiled
+endC
+endebe_ac

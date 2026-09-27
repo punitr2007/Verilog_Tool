@@ -1,0 +1,214 @@
+xbe_ac name=d_filter_z0_p1
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  b0=1
++  b1=1
++  delt_sample=0.001
+aux_vars:
+no_functions=1
+f_1:  x y
+C: compiled
+endC
+endxbe_ac
+xbe_ac name=d_filter_z0_p2
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  b0=1
++  b1=1
++  b2=1
++  delt_sample=0.001
+aux_vars:
+no_functions=1
+f_1:  x y
+C: compiled
+endC
+endxbe_ac
+xbe_ac name=d_filter_z1
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  delt_sample=0.001
+aux_vars:
+no_functions=1
+f_1:  x y
+C: compiled
+endC
+endxbe_ac
+xbe_ac name=d_filter_z1_p1
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  a1=1
++  b0=1
++  b1=1
++  delt_sample=0.001
+aux_vars:
+no_functions=1
+f_1:  x y
+C: compiled
+endC
+endxbe_ac
+xbe_ac name=d_filter_z2_p2
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  a1=1
++  a2=1
++  b0=1
++  b1=1
++  b2=1
++  delt_sample=0.001
+aux_vars:
+no_functions=1
+f_1:  x y
+C: compiled
+endC
+endxbe_ac
+xbe_ac name=diff_2
+main_vars:  x1 x2 y
+iparms:
+sparms:
+rparms: k1=1 k2=1
+aux_vars:
+no_functions=1
+f_1: x1 x2 y
+C: compiled
+endC
+endxbe_ac
+xbe_ac name=filter_1
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  a1=0
++  a2=0
++  a3=0
++  a4=0
++  a5=0
++  b0=1
++  b1=0
++  b2=0
++  b3=0
++  b4=0
++  b5=0
+aux_vars:
+no_functions=1
+f_1:  x y
+C: compiled
+endC
+endxbe_ac
+xbe_ac name=filter_z0_p1
+main_vars: x y
+iparms:
++  flag_asympt=0
+sparms:
+rparms:
++  a0=1
++  b0=1
++  b1=1
++  f0=0.159155
+aux_vars:
+no_functions=1
+f_1:  x y
+C: compiled
+endC
+endxbe_ac
+xbe_ac name=filter_z1_p1
+main_vars: x y
+iparms:
++  flag_asympt=0
+sparms:
+rparms:
++  a0=1
++  a1=1
++  b0=1
++  b1=1
++  f0=0.159155
+aux_vars:
++  x1
+no_functions=2
+f_1:  x x1
+f_2:  x y x1
+C: compiled
+endC
+endxbe_ac
+xbe_ac name=pstprc_div2 postproc=yes
+main_vars:  x1 x2 y
+iparms:
+sparms:
+rparms:
+aux_vars:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endxbe_ac
+xbe_ac name=srcac
+main_vars: y
+iparms:
+sparms:
+rparms:
++  a=0
++  phi_deg=0
+aux_vars:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endxbe_ac
+xbe_ac name=multscl
+main_vars:  x y
+iparms:
+sparms:
+rparms: k=1
+aux_vars:
+no_functions=1
+f_1: x y
+C: compiled
+endC
+endxbe_ac
+xbe_ac name=divscl
+main_vars:  x y
+iparms:
+sparms:
+rparms: k=1
+aux_vars:
+no_functions=1
+f_1: x y
+C: compiled
+endC
+endxbe_ac
+xbe_ac name=sum_2
+main_vars:  x1 x2 y
+iparms:
+sparms:
+rparms: k1=1 k2=1
+aux_vars:
+no_functions=1
+f_1: x1 x2 y
+C: compiled
+endC
+endxbe_ac
+xbe_ac name=sum_3
+main_vars:  x1 x2 x3 y
+iparms:
+sparms:
+rparms: k1=1 k2=1 k3=1
+aux_vars:
+no_functions=1
+f_1: x1 x2 x3 y
+C: compiled
+endC
+endxbe_ac

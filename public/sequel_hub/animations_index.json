@@ -1,0 +1,1514 @@
+[
+  {
+    "id": "Animation_VSC_bi_4",
+    "filename": "Animation_VSC_bi_4.html",
+    "title": "Animation_VSC_bi_4",
+    "category": "Converter Systems (VSC)",
+    "url": "sequel_hub/animations/Animation_VSC_bi_4.html"
+  },
+  {
+    "id": "Animation_VSC_bi_4A",
+    "filename": "Animation_VSC_bi_4A.html",
+    "title": "Animation_VSC_bi_4A",
+    "category": "Converter Systems (VSC)",
+    "url": "sequel_hub/animations/Animation_VSC_bi_4A.html"
+  },
+  {
+    "id": "Animation_boost_1",
+    "filename": "Animation_boost_1.html",
+    "title": "Animation_boost_1",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/Animation_boost_1.html"
+  },
+  {
+    "id": "Animation_phasor_3A",
+    "filename": "Animation_phasor_3A.html",
+    "title": "Animation_phasor_3A",
+    "category": "Space Vector & Phasors",
+    "url": "sequel_hub/animations/Animation_phasor_3A.html"
+  },
+  {
+    "id": "Animation_phasor_3B",
+    "filename": "Animation_phasor_3B.html",
+    "title": "Animation_phasor_3B",
+    "category": "Space Vector & Phasors",
+    "url": "sequel_hub/animations/Animation_phasor_3B.html"
+  },
+  {
+    "id": "Animation_space_vector_1",
+    "filename": "Animation_space_vector_1.html",
+    "title": "Animation_space_vector_1",
+    "category": "Space Vector & Phasors",
+    "url": "sequel_hub/animations/Animation_space_vector_1.html"
+  },
+  {
+    "id": "Animation_space_vector_2",
+    "filename": "Animation_space_vector_2.html",
+    "title": "Animation_space_vector_2",
+    "category": "Space Vector & Phasors",
+    "url": "sequel_hub/animations/Animation_space_vector_2.html"
+  },
+  {
+    "id": "Animation_space_vector_3",
+    "filename": "Animation_space_vector_3.html",
+    "title": "Animation_space_vector_3",
+    "category": "Space Vector & Phasors",
+    "url": "sequel_hub/animations/Animation_space_vector_3.html"
+  },
+  {
+    "id": "CSI_1ph_1",
+    "filename": "CSI_1ph_1.html",
+    "title": "CSI_1ph_1",
+    "category": "Current Source Inverters (CSI)",
+    "url": "sequel_hub/animations/CSI_1ph_1.html"
+  },
+  {
+    "id": "CSI_3ph_1",
+    "filename": "CSI_3ph_1.html",
+    "title": "CSI_3ph_1",
+    "category": "Current Source Inverters (CSI)",
+    "url": "sequel_hub/animations/CSI_3ph_1.html"
+  },
+  {
+    "id": "SEPIC_ccm_1",
+    "filename": "SEPIC_ccm_1.html",
+    "title": "SEPIC_ccm_1",
+    "category": "General",
+    "url": "sequel_hub/animations/SEPIC_ccm_1.html"
+  },
+  {
+    "id": "VSC_bi_1",
+    "filename": "VSC_bi_1.html",
+    "title": "VSC_bi_1",
+    "category": "Converter Systems (VSC)",
+    "url": "sequel_hub/animations/VSC_bi_1.html"
+  },
+  {
+    "id": "VSC_bi_2",
+    "filename": "VSC_bi_2.html",
+    "title": "VSC_bi_2",
+    "category": "Converter Systems (VSC)",
+    "url": "sequel_hub/animations/VSC_bi_2.html"
+  },
+  {
+    "id": "VSC_bi_3",
+    "filename": "VSC_bi_3.html",
+    "title": "VSC_bi_3",
+    "category": "Converter Systems (VSC)",
+    "url": "sequel_hub/animations/VSC_bi_3.html"
+  },
+  {
+    "id": "VSC_bi_5",
+    "filename": "VSC_bi_5.html",
+    "title": "VSC_bi_5",
+    "category": "Converter Systems (VSC)",
+    "url": "sequel_hub/animations/VSC_bi_5.html"
+  },
+  {
+    "id": "VSC_bi_6",
+    "filename": "VSC_bi_6.html",
+    "title": "VSC_bi_6",
+    "category": "Converter Systems (VSC)",
+    "url": "sequel_hub/animations/VSC_bi_6.html"
+  },
+  {
+    "id": "VSC_bi_7",
+    "filename": "VSC_bi_7.html",
+    "title": "VSC_bi_7",
+    "category": "Converter Systems (VSC)",
+    "url": "sequel_hub/animations/VSC_bi_7.html"
+  },
+  {
+    "id": "VSC_bi_8",
+    "filename": "VSC_bi_8.html",
+    "title": "VSC_bi_8",
+    "category": "Converter Systems (VSC)",
+    "url": "sequel_hub/animations/VSC_bi_8.html"
+  },
+  {
+    "id": "VSC_bi_9",
+    "filename": "VSC_bi_9.html",
+    "title": "VSC_bi_9",
+    "category": "Converter Systems (VSC)",
+    "url": "sequel_hub/animations/VSC_bi_9.html"
+  },
+  {
+    "id": "VSI_1ph_1",
+    "filename": "VSI_1ph_1.html",
+    "title": "VSI_1ph_1",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_1ph_1.html"
+  },
+  {
+    "id": "VSI_1ph_10",
+    "filename": "VSI_1ph_10.html",
+    "title": "VSI_1ph_10",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_1ph_10.html"
+  },
+  {
+    "id": "VSI_1ph_11",
+    "filename": "VSI_1ph_11.html",
+    "title": "VSI_1ph_11",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_1ph_11.html"
+  },
+  {
+    "id": "VSI_1ph_12",
+    "filename": "VSI_1ph_12.html",
+    "title": "VSI_1ph_12",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_1ph_12.html"
+  },
+  {
+    "id": "VSI_1ph_13",
+    "filename": "VSI_1ph_13.html",
+    "title": "VSI_1ph_13",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_1ph_13.html"
+  },
+  {
+    "id": "VSI_1ph_14",
+    "filename": "VSI_1ph_14.html",
+    "title": "VSI_1ph_14",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_1ph_14.html"
+  },
+  {
+    "id": "VSI_1ph_15",
+    "filename": "VSI_1ph_15.html",
+    "title": "VSI_1ph_15",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_1ph_15.html"
+  },
+  {
+    "id": "VSI_1ph_16",
+    "filename": "VSI_1ph_16.html",
+    "title": "VSI_1ph_16",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_1ph_16.html"
+  },
+  {
+    "id": "VSI_1ph_2",
+    "filename": "VSI_1ph_2.html",
+    "title": "VSI_1ph_2",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_1ph_2.html"
+  },
+  {
+    "id": "VSI_1ph_3",
+    "filename": "VSI_1ph_3.html",
+    "title": "VSI_1ph_3",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_1ph_3.html"
+  },
+  {
+    "id": "VSI_1ph_4",
+    "filename": "VSI_1ph_4.html",
+    "title": "VSI_1ph_4",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_1ph_4.html"
+  },
+  {
+    "id": "VSI_1ph_5",
+    "filename": "VSI_1ph_5.html",
+    "title": "VSI_1ph_5",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_1ph_5.html"
+  },
+  {
+    "id": "VSI_1ph_6",
+    "filename": "VSI_1ph_6.html",
+    "title": "VSI_1ph_6",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_1ph_6.html"
+  },
+  {
+    "id": "VSI_1ph_7",
+    "filename": "VSI_1ph_7.html",
+    "title": "VSI_1ph_7",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_1ph_7.html"
+  },
+  {
+    "id": "VSI_1ph_8",
+    "filename": "VSI_1ph_8.html",
+    "title": "VSI_1ph_8",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_1ph_8.html"
+  },
+  {
+    "id": "VSI_1ph_9",
+    "filename": "VSI_1ph_9.html",
+    "title": "VSI_1ph_9",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_1ph_9.html"
+  },
+  {
+    "id": "VSI_3ph_1",
+    "filename": "VSI_3ph_1.html",
+    "title": "VSI_3ph_1",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_3ph_1.html"
+  },
+  {
+    "id": "VSI_3ph_10",
+    "filename": "VSI_3ph_10.html",
+    "title": "VSI_3ph_10",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_3ph_10.html"
+  },
+  {
+    "id": "VSI_3ph_11",
+    "filename": "VSI_3ph_11.html",
+    "title": "VSI_3ph_11",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_3ph_11.html"
+  },
+  {
+    "id": "VSI_3ph_12",
+    "filename": "VSI_3ph_12.html",
+    "title": "VSI_3ph_12",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_3ph_12.html"
+  },
+  {
+    "id": "VSI_3ph_13",
+    "filename": "VSI_3ph_13.html",
+    "title": "VSI_3ph_13",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_3ph_13.html"
+  },
+  {
+    "id": "VSI_3ph_14",
+    "filename": "VSI_3ph_14.html",
+    "title": "VSI_3ph_14",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_3ph_14.html"
+  },
+  {
+    "id": "VSI_3ph_15",
+    "filename": "VSI_3ph_15.html",
+    "title": "VSI_3ph_15",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_3ph_15.html"
+  },
+  {
+    "id": "VSI_3ph_16",
+    "filename": "VSI_3ph_16.html",
+    "title": "VSI_3ph_16",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_3ph_16.html"
+  },
+  {
+    "id": "VSI_3ph_2",
+    "filename": "VSI_3ph_2.html",
+    "title": "VSI_3ph_2",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_3ph_2.html"
+  },
+  {
+    "id": "VSI_3ph_3",
+    "filename": "VSI_3ph_3.html",
+    "title": "VSI_3ph_3",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_3ph_3.html"
+  },
+  {
+    "id": "VSI_3ph_4",
+    "filename": "VSI_3ph_4.html",
+    "title": "VSI_3ph_4",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_3ph_4.html"
+  },
+  {
+    "id": "VSI_3ph_5",
+    "filename": "VSI_3ph_5.html",
+    "title": "VSI_3ph_5",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_3ph_5.html"
+  },
+  {
+    "id": "VSI_3ph_6",
+    "filename": "VSI_3ph_6.html",
+    "title": "VSI_3ph_6",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_3ph_6.html"
+  },
+  {
+    "id": "VSI_3ph_8",
+    "filename": "VSI_3ph_8.html",
+    "title": "VSI_3ph_8",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_3ph_8.html"
+  },
+  {
+    "id": "VSI_3ph_9",
+    "filename": "VSI_3ph_9.html",
+    "title": "VSI_3ph_9",
+    "category": "Inverters (VSI)",
+    "url": "sequel_hub/animations/VSI_3ph_9.html"
+  },
+  {
+    "id": "boost_ccm_1",
+    "filename": "boost_ccm_1.html",
+    "title": "boost_ccm_1",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/boost_ccm_1.html"
+  },
+  {
+    "id": "boost_ccm_10",
+    "filename": "boost_ccm_10.html",
+    "title": "boost_ccm_10",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/boost_ccm_10.html"
+  },
+  {
+    "id": "boost_ccm_11",
+    "filename": "boost_ccm_11.html",
+    "title": "boost_ccm_11",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/boost_ccm_11.html"
+  },
+  {
+    "id": "boost_ccm_2",
+    "filename": "boost_ccm_2.html",
+    "title": "boost_ccm_2",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/boost_ccm_2.html"
+  },
+  {
+    "id": "boost_ccm_3",
+    "filename": "boost_ccm_3.html",
+    "title": "boost_ccm_3",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/boost_ccm_3.html"
+  },
+  {
+    "id": "boost_ccm_4",
+    "filename": "boost_ccm_4.html",
+    "title": "boost_ccm_4",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/boost_ccm_4.html"
+  },
+  {
+    "id": "boost_ccm_5",
+    "filename": "boost_ccm_5.html",
+    "title": "boost_ccm_5",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/boost_ccm_5.html"
+  },
+  {
+    "id": "boost_ccm_6",
+    "filename": "boost_ccm_6.html",
+    "title": "boost_ccm_6",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/boost_ccm_6.html"
+  },
+  {
+    "id": "boost_ccm_7",
+    "filename": "boost_ccm_7.html",
+    "title": "boost_ccm_7",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/boost_ccm_7.html"
+  },
+  {
+    "id": "boost_ccm_8",
+    "filename": "boost_ccm_8.html",
+    "title": "boost_ccm_8",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/boost_ccm_8.html"
+  },
+  {
+    "id": "boost_ccm_9",
+    "filename": "boost_ccm_9.html",
+    "title": "boost_ccm_9",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/boost_ccm_9.html"
+  },
+  {
+    "id": "boost_dcm_1",
+    "filename": "boost_dcm_1.html",
+    "title": "boost_dcm_1",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/boost_dcm_1.html"
+  },
+  {
+    "id": "boost_dcm_2",
+    "filename": "boost_dcm_2.html",
+    "title": "boost_dcm_2",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/boost_dcm_2.html"
+  },
+  {
+    "id": "boost_dcm_3",
+    "filename": "boost_dcm_3.html",
+    "title": "boost_dcm_3",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/boost_dcm_3.html"
+  },
+  {
+    "id": "boost_dcm_4",
+    "filename": "boost_dcm_4.html",
+    "title": "boost_dcm_4",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/boost_dcm_4.html"
+  },
+  {
+    "id": "bridge_dcdc_1",
+    "filename": "bridge_dcdc_1.html",
+    "title": "bridge_dcdc_1",
+    "category": "General",
+    "url": "sequel_hub/animations/bridge_dcdc_1.html"
+  },
+  {
+    "id": "bridge_dcdc_2",
+    "filename": "bridge_dcdc_2.html",
+    "title": "bridge_dcdc_2",
+    "category": "General",
+    "url": "sequel_hub/animations/bridge_dcdc_2.html"
+  },
+  {
+    "id": "bridge_dcdc_3",
+    "filename": "bridge_dcdc_3.html",
+    "title": "bridge_dcdc_3",
+    "category": "General",
+    "url": "sequel_hub/animations/bridge_dcdc_3.html"
+  },
+  {
+    "id": "bridge_dcdc_4",
+    "filename": "bridge_dcdc_4.html",
+    "title": "bridge_dcdc_4",
+    "category": "General",
+    "url": "sequel_hub/animations/bridge_dcdc_4.html"
+  },
+  {
+    "id": "buck_boost_ccm_1",
+    "filename": "buck_boost_ccm_1.html",
+    "title": "buck_boost_ccm_1",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/buck_boost_ccm_1.html"
+  },
+  {
+    "id": "buck_boost_ccm_2",
+    "filename": "buck_boost_ccm_2.html",
+    "title": "buck_boost_ccm_2",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/buck_boost_ccm_2.html"
+  },
+  {
+    "id": "buck_boost_ccm_3",
+    "filename": "buck_boost_ccm_3.html",
+    "title": "buck_boost_ccm_3",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/buck_boost_ccm_3.html"
+  },
+  {
+    "id": "buck_boost_ccm_4",
+    "filename": "buck_boost_ccm_4.html",
+    "title": "buck_boost_ccm_4",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/buck_boost_ccm_4.html"
+  },
+  {
+    "id": "buck_boost_ccm_5",
+    "filename": "buck_boost_ccm_5.html",
+    "title": "buck_boost_ccm_5",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/buck_boost_ccm_5.html"
+  },
+  {
+    "id": "buck_boost_ccm_6",
+    "filename": "buck_boost_ccm_6.html",
+    "title": "buck_boost_ccm_6",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/buck_boost_ccm_6.html"
+  },
+  {
+    "id": "buck_boost_dcm_1",
+    "filename": "buck_boost_dcm_1.html",
+    "title": "buck_boost_dcm_1",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/buck_boost_dcm_1.html"
+  },
+  {
+    "id": "buck_ccm_1",
+    "filename": "buck_ccm_1.html",
+    "title": "buck_ccm_1",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/buck_ccm_1.html"
+  },
+  {
+    "id": "buck_ccm_2",
+    "filename": "buck_ccm_2.html",
+    "title": "buck_ccm_2",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/buck_ccm_2.html"
+  },
+  {
+    "id": "buck_ccm_3",
+    "filename": "buck_ccm_3.html",
+    "title": "buck_ccm_3",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/buck_ccm_3.html"
+  },
+  {
+    "id": "buck_ccm_4",
+    "filename": "buck_ccm_4.html",
+    "title": "buck_ccm_4",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/buck_ccm_4.html"
+  },
+  {
+    "id": "buck_ccm_5",
+    "filename": "buck_ccm_5.html",
+    "title": "buck_ccm_5",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/buck_ccm_5.html"
+  },
+  {
+    "id": "buck_ccm_6",
+    "filename": "buck_ccm_6.html",
+    "title": "buck_ccm_6",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/buck_ccm_6.html"
+  },
+  {
+    "id": "buck_ccm_7",
+    "filename": "buck_ccm_7.html",
+    "title": "buck_ccm_7",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/buck_ccm_7.html"
+  },
+  {
+    "id": "buck_dcm_1",
+    "filename": "buck_dcm_1.html",
+    "title": "buck_dcm_1",
+    "category": "DC-DC Converters",
+    "url": "sequel_hub/animations/buck_dcm_1.html"
+  },
+  {
+    "id": "control_1",
+    "filename": "control_1.html",
+    "title": "control_1",
+    "category": "General",
+    "url": "sequel_hub/animations/control_1.html"
+  },
+  {
+    "id": "controlled_rectifier_1ph_1",
+    "filename": "controlled_rectifier_1ph_1.html",
+    "title": "controlled_rectifier_1ph_1",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/controlled_rectifier_1ph_1.html"
+  },
+  {
+    "id": "controlled_rectifier_1ph_2",
+    "filename": "controlled_rectifier_1ph_2.html",
+    "title": "controlled_rectifier_1ph_2",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/controlled_rectifier_1ph_2.html"
+  },
+  {
+    "id": "controlled_rectifier_1ph_3",
+    "filename": "controlled_rectifier_1ph_3.html",
+    "title": "controlled_rectifier_1ph_3",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/controlled_rectifier_1ph_3.html"
+  },
+  {
+    "id": "controlled_rectifier_1ph_4",
+    "filename": "controlled_rectifier_1ph_4.html",
+    "title": "controlled_rectifier_1ph_4",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/controlled_rectifier_1ph_4.html"
+  },
+  {
+    "id": "controlled_rectifier_1ph_5",
+    "filename": "controlled_rectifier_1ph_5.html",
+    "title": "controlled_rectifier_1ph_5",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/controlled_rectifier_1ph_5.html"
+  },
+  {
+    "id": "controlled_rectifier_1ph_6",
+    "filename": "controlled_rectifier_1ph_6.html",
+    "title": "controlled_rectifier_1ph_6",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/controlled_rectifier_1ph_6.html"
+  },
+  {
+    "id": "controlled_rectifier_1ph_7",
+    "filename": "controlled_rectifier_1ph_7.html",
+    "title": "controlled_rectifier_1ph_7",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/controlled_rectifier_1ph_7.html"
+  },
+  {
+    "id": "controlled_rectifier_3ph_1",
+    "filename": "controlled_rectifier_3ph_1.html",
+    "title": "controlled_rectifier_3ph_1",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/controlled_rectifier_3ph_1.html"
+  },
+  {
+    "id": "controlled_rectifier_3ph_2",
+    "filename": "controlled_rectifier_3ph_2.html",
+    "title": "controlled_rectifier_3ph_2",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/controlled_rectifier_3ph_2.html"
+  },
+  {
+    "id": "controlled_rectifier_3ph_3",
+    "filename": "controlled_rectifier_3ph_3.html",
+    "title": "controlled_rectifier_3ph_3",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/controlled_rectifier_3ph_3.html"
+  },
+  {
+    "id": "controlled_rectifier_3ph_4",
+    "filename": "controlled_rectifier_3ph_4.html",
+    "title": "controlled_rectifier_3ph_4",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/controlled_rectifier_3ph_4.html"
+  },
+  {
+    "id": "controlled_rectifier_3ph_5",
+    "filename": "controlled_rectifier_3ph_5.html",
+    "title": "controlled_rectifier_3ph_5",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/controlled_rectifier_3ph_5.html"
+  },
+  {
+    "id": "controlled_rectifier_3ph_6",
+    "filename": "controlled_rectifier_3ph_6.html",
+    "title": "controlled_rectifier_3ph_6",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/controlled_rectifier_3ph_6.html"
+  },
+  {
+    "id": "controlled_rectifier_3ph_7",
+    "filename": "controlled_rectifier_3ph_7.html",
+    "title": "controlled_rectifier_3ph_7",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/controlled_rectifier_3ph_7.html"
+  },
+  {
+    "id": "controlled_rectifier_3ph_8",
+    "filename": "controlled_rectifier_3ph_8.html",
+    "title": "controlled_rectifier_3ph_8",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/controlled_rectifier_3ph_8.html"
+  },
+  {
+    "id": "cuk_ccm_1",
+    "filename": "cuk_ccm_1.html",
+    "title": "cuk_ccm_1",
+    "category": "General",
+    "url": "sequel_hub/animations/cuk_ccm_1.html"
+  },
+  {
+    "id": "dc_circuit_1",
+    "filename": "dc_circuit_1.html",
+    "title": "dc_circuit_1",
+    "category": "General",
+    "url": "sequel_hub/animations/dc_circuit_1.html"
+  },
+  {
+    "id": "dc_circuit_10",
+    "filename": "dc_circuit_10.html",
+    "title": "dc_circuit_10",
+    "category": "General",
+    "url": "sequel_hub/animations/dc_circuit_10.html"
+  },
+  {
+    "id": "dc_circuit_11",
+    "filename": "dc_circuit_11.html",
+    "title": "dc_circuit_11",
+    "category": "General",
+    "url": "sequel_hub/animations/dc_circuit_11.html"
+  },
+  {
+    "id": "dc_circuit_12",
+    "filename": "dc_circuit_12.html",
+    "title": "dc_circuit_12",
+    "category": "General",
+    "url": "sequel_hub/animations/dc_circuit_12.html"
+  },
+  {
+    "id": "dc_circuit_2",
+    "filename": "dc_circuit_2.html",
+    "title": "dc_circuit_2",
+    "category": "General",
+    "url": "sequel_hub/animations/dc_circuit_2.html"
+  },
+  {
+    "id": "dc_circuit_3",
+    "filename": "dc_circuit_3.html",
+    "title": "dc_circuit_3",
+    "category": "General",
+    "url": "sequel_hub/animations/dc_circuit_3.html"
+  },
+  {
+    "id": "dc_circuit_4",
+    "filename": "dc_circuit_4.html",
+    "title": "dc_circuit_4",
+    "category": "General",
+    "url": "sequel_hub/animations/dc_circuit_4.html"
+  },
+  {
+    "id": "dc_circuit_5",
+    "filename": "dc_circuit_5.html",
+    "title": "dc_circuit_5",
+    "category": "General",
+    "url": "sequel_hub/animations/dc_circuit_5.html"
+  },
+  {
+    "id": "dc_circuit_6",
+    "filename": "dc_circuit_6.html",
+    "title": "dc_circuit_6",
+    "category": "General",
+    "url": "sequel_hub/animations/dc_circuit_6.html"
+  },
+  {
+    "id": "dc_circuit_7",
+    "filename": "dc_circuit_7.html",
+    "title": "dc_circuit_7",
+    "category": "General",
+    "url": "sequel_hub/animations/dc_circuit_7.html"
+  },
+  {
+    "id": "dc_circuit_8",
+    "filename": "dc_circuit_8.html",
+    "title": "dc_circuit_8",
+    "category": "General",
+    "url": "sequel_hub/animations/dc_circuit_8.html"
+  },
+  {
+    "id": "dc_circuit_9",
+    "filename": "dc_circuit_9.html",
+    "title": "dc_circuit_9",
+    "category": "General",
+    "url": "sequel_hub/animations/dc_circuit_9.html"
+  },
+  {
+    "id": "dcmc_1",
+    "filename": "dcmc_1.html",
+    "title": "dcmc_1",
+    "category": "General",
+    "url": "sequel_hub/animations/dcmc_1.html"
+  },
+  {
+    "id": "dcmc_2",
+    "filename": "dcmc_2.html",
+    "title": "dcmc_2",
+    "category": "General",
+    "url": "sequel_hub/animations/dcmc_2.html"
+  },
+  {
+    "id": "flyback_1",
+    "filename": "flyback_1.html",
+    "title": "flyback_1",
+    "category": "General",
+    "url": "sequel_hub/animations/flyback_1.html"
+  },
+  {
+    "id": "flyback_2",
+    "filename": "flyback_2.html",
+    "title": "flyback_2",
+    "category": "General",
+    "url": "sequel_hub/animations/flyback_2.html"
+  },
+  {
+    "id": "flyback_3",
+    "filename": "flyback_3.html",
+    "title": "flyback_3",
+    "category": "General",
+    "url": "sequel_hub/animations/flyback_3.html"
+  },
+  {
+    "id": "forward_1",
+    "filename": "forward_1.html",
+    "title": "forward_1",
+    "category": "General",
+    "url": "sequel_hub/animations/forward_1.html"
+  },
+  {
+    "id": "forward_2",
+    "filename": "forward_2.html",
+    "title": "forward_2",
+    "category": "General",
+    "url": "sequel_hub/animations/forward_2.html"
+  },
+  {
+    "id": "forward_3",
+    "filename": "forward_3.html",
+    "title": "forward_3",
+    "category": "General",
+    "url": "sequel_hub/animations/forward_3.html"
+  },
+  {
+    "id": "indmc_1",
+    "filename": "indmc_1.html",
+    "title": "indmc_1",
+    "category": "General",
+    "url": "sequel_hub/animations/indmc_1.html"
+  },
+  {
+    "id": "misc_1",
+    "filename": "misc_1.html",
+    "title": "misc_1",
+    "category": "General",
+    "url": "sequel_hub/animations/misc_1.html"
+  },
+  {
+    "id": "misc_10",
+    "filename": "misc_10.html",
+    "title": "misc_10",
+    "category": "General",
+    "url": "sequel_hub/animations/misc_10.html"
+  },
+  {
+    "id": "misc_2",
+    "filename": "misc_2.html",
+    "title": "misc_2",
+    "category": "General",
+    "url": "sequel_hub/animations/misc_2.html"
+  },
+  {
+    "id": "misc_3",
+    "filename": "misc_3.html",
+    "title": "misc_3",
+    "category": "General",
+    "url": "sequel_hub/animations/misc_3.html"
+  },
+  {
+    "id": "misc_4",
+    "filename": "misc_4.html",
+    "title": "misc_4",
+    "category": "General",
+    "url": "sequel_hub/animations/misc_4.html"
+  },
+  {
+    "id": "misc_5",
+    "filename": "misc_5.html",
+    "title": "misc_5",
+    "category": "General",
+    "url": "sequel_hub/animations/misc_5.html"
+  },
+  {
+    "id": "misc_6",
+    "filename": "misc_6.html",
+    "title": "misc_6",
+    "category": "General",
+    "url": "sequel_hub/animations/misc_6.html"
+  },
+  {
+    "id": "misc_7",
+    "filename": "misc_7.html",
+    "title": "misc_7",
+    "category": "General",
+    "url": "sequel_hub/animations/misc_7.html"
+  },
+  {
+    "id": "misc_8",
+    "filename": "misc_8.html",
+    "title": "misc_8",
+    "category": "General",
+    "url": "sequel_hub/animations/misc_8.html"
+  },
+  {
+    "id": "misc_9",
+    "filename": "misc_9.html",
+    "title": "misc_9",
+    "category": "General",
+    "url": "sequel_hub/animations/misc_9.html"
+  },
+  {
+    "id": "phasor_1",
+    "filename": "phasor_1.html",
+    "title": "phasor_1",
+    "category": "Space Vector & Phasors",
+    "url": "sequel_hub/animations/phasor_1.html"
+  },
+  {
+    "id": "phasor_10",
+    "filename": "phasor_10.html",
+    "title": "phasor_10",
+    "category": "Space Vector & Phasors",
+    "url": "sequel_hub/animations/phasor_10.html"
+  },
+  {
+    "id": "phasor_11",
+    "filename": "phasor_11.html",
+    "title": "phasor_11",
+    "category": "Space Vector & Phasors",
+    "url": "sequel_hub/animations/phasor_11.html"
+  },
+  {
+    "id": "phasor_12",
+    "filename": "phasor_12.html",
+    "title": "phasor_12",
+    "category": "Space Vector & Phasors",
+    "url": "sequel_hub/animations/phasor_12.html"
+  },
+  {
+    "id": "phasor_2",
+    "filename": "phasor_2.html",
+    "title": "phasor_2",
+    "category": "Space Vector & Phasors",
+    "url": "sequel_hub/animations/phasor_2.html"
+  },
+  {
+    "id": "phasor_3",
+    "filename": "phasor_3.html",
+    "title": "phasor_3",
+    "category": "Space Vector & Phasors",
+    "url": "sequel_hub/animations/phasor_3.html"
+  },
+  {
+    "id": "phasor_4",
+    "filename": "phasor_4.html",
+    "title": "phasor_4",
+    "category": "Space Vector & Phasors",
+    "url": "sequel_hub/animations/phasor_4.html"
+  },
+  {
+    "id": "phasor_5",
+    "filename": "phasor_5.html",
+    "title": "phasor_5",
+    "category": "Space Vector & Phasors",
+    "url": "sequel_hub/animations/phasor_5.html"
+  },
+  {
+    "id": "phasor_6",
+    "filename": "phasor_6.html",
+    "title": "phasor_6",
+    "category": "Space Vector & Phasors",
+    "url": "sequel_hub/animations/phasor_6.html"
+  },
+  {
+    "id": "phasor_7",
+    "filename": "phasor_7.html",
+    "title": "phasor_7",
+    "category": "Space Vector & Phasors",
+    "url": "sequel_hub/animations/phasor_7.html"
+  },
+  {
+    "id": "phasor_8",
+    "filename": "phasor_8.html",
+    "title": "phasor_8",
+    "category": "Space Vector & Phasors",
+    "url": "sequel_hub/animations/phasor_8.html"
+  },
+  {
+    "id": "phasor_9",
+    "filename": "phasor_9.html",
+    "title": "phasor_9",
+    "category": "Space Vector & Phasors",
+    "url": "sequel_hub/animations/phasor_9.html"
+  },
+  {
+    "id": "pll_1",
+    "filename": "pll_1.html",
+    "title": "pll_1",
+    "category": "Phase Locked Loops (PLL)",
+    "url": "sequel_hub/animations/pll_1.html"
+  },
+  {
+    "id": "pll_2",
+    "filename": "pll_2.html",
+    "title": "pll_2",
+    "category": "Phase Locked Loops (PLL)",
+    "url": "sequel_hub/animations/pll_2.html"
+  },
+  {
+    "id": "pll_3",
+    "filename": "pll_3.html",
+    "title": "pll_3",
+    "category": "Phase Locked Loops (PLL)",
+    "url": "sequel_hub/animations/pll_3.html"
+  },
+  {
+    "id": "pll_4",
+    "filename": "pll_4.html",
+    "title": "pll_4",
+    "category": "Phase Locked Loops (PLL)",
+    "url": "sequel_hub/animations/pll_4.html"
+  },
+  {
+    "id": "pll_5",
+    "filename": "pll_5.html",
+    "title": "pll_5",
+    "category": "Phase Locked Loops (PLL)",
+    "url": "sequel_hub/animations/pll_5.html"
+  },
+  {
+    "id": "pll_6",
+    "filename": "pll_6.html",
+    "title": "pll_6",
+    "category": "Phase Locked Loops (PLL)",
+    "url": "sequel_hub/animations/pll_6.html"
+  },
+  {
+    "id": "push_pull_1",
+    "filename": "push_pull_1.html",
+    "title": "push_pull_1",
+    "category": "General",
+    "url": "sequel_hub/animations/push_pull_1.html"
+  },
+  {
+    "id": "push_pull_2",
+    "filename": "push_pull_2.html",
+    "title": "push_pull_2",
+    "category": "General",
+    "url": "sequel_hub/animations/push_pull_2.html"
+  },
+  {
+    "id": "pwm_1",
+    "filename": "pwm_1.html",
+    "title": "pwm_1",
+    "category": "General",
+    "url": "sequel_hub/animations/pwm_1.html"
+  },
+  {
+    "id": "pwm_2",
+    "filename": "pwm_2.html",
+    "title": "pwm_2",
+    "category": "General",
+    "url": "sequel_hub/animations/pwm_2.html"
+  },
+  {
+    "id": "pwm_3",
+    "filename": "pwm_3.html",
+    "title": "pwm_3",
+    "category": "General",
+    "url": "sequel_hub/animations/pwm_3.html"
+  },
+  {
+    "id": "pwm_4",
+    "filename": "pwm_4.html",
+    "title": "pwm_4",
+    "category": "General",
+    "url": "sequel_hub/animations/pwm_4.html"
+  },
+  {
+    "id": "pwm_5",
+    "filename": "pwm_5.html",
+    "title": "pwm_5",
+    "category": "General",
+    "url": "sequel_hub/animations/pwm_5.html"
+  },
+  {
+    "id": "pwm_6",
+    "filename": "pwm_6.html",
+    "title": "pwm_6",
+    "category": "General",
+    "url": "sequel_hub/animations/pwm_6.html"
+  },
+  {
+    "id": "pwm_7",
+    "filename": "pwm_7.html",
+    "title": "pwm_7",
+    "category": "General",
+    "url": "sequel_hub/animations/pwm_7.html"
+  },
+  {
+    "id": "pwm_8",
+    "filename": "pwm_8.html",
+    "title": "pwm_8",
+    "category": "General",
+    "url": "sequel_hub/animations/pwm_8.html"
+  },
+  {
+    "id": "rectifier_1ph_1",
+    "filename": "rectifier_1ph_1.html",
+    "title": "rectifier_1ph_1",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_1ph_1.html"
+  },
+  {
+    "id": "rectifier_1ph_10",
+    "filename": "rectifier_1ph_10.html",
+    "title": "rectifier_1ph_10",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_1ph_10.html"
+  },
+  {
+    "id": "rectifier_1ph_11",
+    "filename": "rectifier_1ph_11.html",
+    "title": "rectifier_1ph_11",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_1ph_11.html"
+  },
+  {
+    "id": "rectifier_1ph_12",
+    "filename": "rectifier_1ph_12.html",
+    "title": "rectifier_1ph_12",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_1ph_12.html"
+  },
+  {
+    "id": "rectifier_1ph_13",
+    "filename": "rectifier_1ph_13.html",
+    "title": "rectifier_1ph_13",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_1ph_13.html"
+  },
+  {
+    "id": "rectifier_1ph_14",
+    "filename": "rectifier_1ph_14.html",
+    "title": "rectifier_1ph_14",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_1ph_14.html"
+  },
+  {
+    "id": "rectifier_1ph_2",
+    "filename": "rectifier_1ph_2.html",
+    "title": "rectifier_1ph_2",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_1ph_2.html"
+  },
+  {
+    "id": "rectifier_1ph_3",
+    "filename": "rectifier_1ph_3.html",
+    "title": "rectifier_1ph_3",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_1ph_3.html"
+  },
+  {
+    "id": "rectifier_1ph_4",
+    "filename": "rectifier_1ph_4.html",
+    "title": "rectifier_1ph_4",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_1ph_4.html"
+  },
+  {
+    "id": "rectifier_1ph_5",
+    "filename": "rectifier_1ph_5.html",
+    "title": "rectifier_1ph_5",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_1ph_5.html"
+  },
+  {
+    "id": "rectifier_1ph_6",
+    "filename": "rectifier_1ph_6.html",
+    "title": "rectifier_1ph_6",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_1ph_6.html"
+  },
+  {
+    "id": "rectifier_1ph_7",
+    "filename": "rectifier_1ph_7.html",
+    "title": "rectifier_1ph_7",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_1ph_7.html"
+  },
+  {
+    "id": "rectifier_1ph_8",
+    "filename": "rectifier_1ph_8.html",
+    "title": "rectifier_1ph_8",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_1ph_8.html"
+  },
+  {
+    "id": "rectifier_1ph_9",
+    "filename": "rectifier_1ph_9.html",
+    "title": "rectifier_1ph_9",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_1ph_9.html"
+  },
+  {
+    "id": "rectifier_3ph_1",
+    "filename": "rectifier_3ph_1.html",
+    "title": "rectifier_3ph_1",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_3ph_1.html"
+  },
+  {
+    "id": "rectifier_3ph_2",
+    "filename": "rectifier_3ph_2.html",
+    "title": "rectifier_3ph_2",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_3ph_2.html"
+  },
+  {
+    "id": "rectifier_3ph_3",
+    "filename": "rectifier_3ph_3.html",
+    "title": "rectifier_3ph_3",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_3ph_3.html"
+  },
+  {
+    "id": "rectifier_3ph_4",
+    "filename": "rectifier_3ph_4.html",
+    "title": "rectifier_3ph_4",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_3ph_4.html"
+  },
+  {
+    "id": "rectifier_3ph_5",
+    "filename": "rectifier_3ph_5.html",
+    "title": "rectifier_3ph_5",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_3ph_5.html"
+  },
+  {
+    "id": "rectifier_3ph_6",
+    "filename": "rectifier_3ph_6.html",
+    "title": "rectifier_3ph_6",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_3ph_6.html"
+  },
+  {
+    "id": "rectifier_3ph_7",
+    "filename": "rectifier_3ph_7.html",
+    "title": "rectifier_3ph_7",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_3ph_7.html"
+  },
+  {
+    "id": "rectifier_3ph_8",
+    "filename": "rectifier_3ph_8.html",
+    "title": "rectifier_3ph_8",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_3ph_8.html"
+  },
+  {
+    "id": "rectifier_3ph_9",
+    "filename": "rectifier_3ph_9.html",
+    "title": "rectifier_3ph_9",
+    "category": "Rectifiers",
+    "url": "sequel_hub/animations/rectifier_3ph_9.html"
+  },
+  {
+    "id": "solar_1",
+    "filename": "solar_1.html",
+    "title": "solar_1",
+    "category": "General",
+    "url": "sequel_hub/animations/solar_1.html"
+  },
+  {
+    "id": "solar_2",
+    "filename": "solar_2.html",
+    "title": "solar_2",
+    "category": "General",
+    "url": "sequel_hub/animations/solar_2.html"
+  },
+  {
+    "id": "solar_3",
+    "filename": "solar_3.html",
+    "title": "solar_3",
+    "category": "General",
+    "url": "sequel_hub/animations/solar_3.html"
+  },
+  {
+    "id": "solar_4",
+    "filename": "solar_4.html",
+    "title": "solar_4",
+    "category": "General",
+    "url": "sequel_hub/animations/solar_4.html"
+  },
+  {
+    "id": "solar_5",
+    "filename": "solar_5.html",
+    "title": "solar_5",
+    "category": "General",
+    "url": "sequel_hub/animations/solar_5.html"
+  },
+  {
+    "id": "solar_6",
+    "filename": "solar_6.html",
+    "title": "solar_6",
+    "category": "General",
+    "url": "sequel_hub/animations/solar_6.html"
+  },
+  {
+    "id": "switched_cap_1",
+    "filename": "switched_cap_1.html",
+    "title": "switched_cap_1",
+    "category": "General",
+    "url": "sequel_hub/animations/switched_cap_1.html"
+  },
+  {
+    "id": "switched_cap_2",
+    "filename": "switched_cap_2.html",
+    "title": "switched_cap_2",
+    "category": "General",
+    "url": "sequel_hub/animations/switched_cap_2.html"
+  },
+  {
+    "id": "switching_1",
+    "filename": "switching_1.html",
+    "title": "switching_1",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/switching_1.html"
+  },
+  {
+    "id": "switching_10",
+    "filename": "switching_10.html",
+    "title": "switching_10",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/switching_10.html"
+  },
+  {
+    "id": "switching_2",
+    "filename": "switching_2.html",
+    "title": "switching_2",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/switching_2.html"
+  },
+  {
+    "id": "switching_3",
+    "filename": "switching_3.html",
+    "title": "switching_3",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/switching_3.html"
+  },
+  {
+    "id": "switching_4",
+    "filename": "switching_4.html",
+    "title": "switching_4",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/switching_4.html"
+  },
+  {
+    "id": "switching_5",
+    "filename": "switching_5.html",
+    "title": "switching_5",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/switching_5.html"
+  },
+  {
+    "id": "switching_6",
+    "filename": "switching_6.html",
+    "title": "switching_6",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/switching_6.html"
+  },
+  {
+    "id": "switching_7",
+    "filename": "switching_7.html",
+    "title": "switching_7",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/switching_7.html"
+  },
+  {
+    "id": "switching_8",
+    "filename": "switching_8.html",
+    "title": "switching_8",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/switching_8.html"
+  },
+  {
+    "id": "switching_9",
+    "filename": "switching_9.html",
+    "title": "switching_9",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/switching_9.html"
+  },
+  {
+    "id": "time_constant_1",
+    "filename": "time_constant_1.html",
+    "title": "time_constant_1",
+    "category": "General",
+    "url": "sequel_hub/animations/time_constant_1.html"
+  },
+  {
+    "id": "time_constant_2",
+    "filename": "time_constant_2.html",
+    "title": "time_constant_2",
+    "category": "General",
+    "url": "sequel_hub/animations/time_constant_2.html"
+  },
+  {
+    "id": "time_constant_3",
+    "filename": "time_constant_3.html",
+    "title": "time_constant_3",
+    "category": "General",
+    "url": "sequel_hub/animations/time_constant_3.html"
+  },
+  {
+    "id": "time_constant_4",
+    "filename": "time_constant_4.html",
+    "title": "time_constant_4",
+    "category": "General",
+    "url": "sequel_hub/animations/time_constant_4.html"
+  },
+  {
+    "id": "time_constant_5",
+    "filename": "time_constant_5.html",
+    "title": "time_constant_5",
+    "category": "General",
+    "url": "sequel_hub/animations/time_constant_5.html"
+  },
+  {
+    "id": "waveforms_1",
+    "filename": "waveforms_1.html",
+    "title": "waveforms_1",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/waveforms_1.html"
+  },
+  {
+    "id": "waveforms_10",
+    "filename": "waveforms_10.html",
+    "title": "waveforms_10",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/waveforms_10.html"
+  },
+  {
+    "id": "waveforms_2",
+    "filename": "waveforms_2.html",
+    "title": "waveforms_2",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/waveforms_2.html"
+  },
+  {
+    "id": "waveforms_3",
+    "filename": "waveforms_3.html",
+    "title": "waveforms_3",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/waveforms_3.html"
+  },
+  {
+    "id": "waveforms_4",
+    "filename": "waveforms_4.html",
+    "title": "waveforms_4",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/waveforms_4.html"
+  },
+  {
+    "id": "waveforms_5",
+    "filename": "waveforms_5.html",
+    "title": "waveforms_5",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/waveforms_5.html"
+  },
+  {
+    "id": "waveforms_6",
+    "filename": "waveforms_6.html",
+    "title": "waveforms_6",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/waveforms_6.html"
+  },
+  {
+    "id": "waveforms_7",
+    "filename": "waveforms_7.html",
+    "title": "waveforms_7",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/waveforms_7.html"
+  },
+  {
+    "id": "waveforms_8",
+    "filename": "waveforms_8.html",
+    "title": "waveforms_8",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/waveforms_8.html"
+  },
+  {
+    "id": "waveforms_9",
+    "filename": "waveforms_9.html",
+    "title": "waveforms_9",
+    "category": "PWM & Waveforms",
+    "url": "sequel_hub/animations/waveforms_9.html"
+  }
+]

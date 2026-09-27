@@ -1,0 +1,13 @@
+title: Buck Converter Steady-State Analysis (SEQUEL)
+
+begin_circuit
+   eelement name=vdc type=vsrcdc p=in n=gnd vdc=24.0
+   eelement name=sw type=s p=in n=sw_node p_c=gate n_c=gnd ron=0.05 roff=1e6
+   eelement name=vgate type=vsrcp p=gate n=gnd v0=0 v1=10 t1=0 t2=10u t3=10u t4=20u period=20u
+   eelement name=d1 type=d p=gnd n=sw_node ron=0.05 roff=1e6 vd=0.7
+   eelement name=l1 type=l p=sw_node n=out l=100u
+   eelement name=c1 type=c p=out n=gnd c=47u
+   eelement name=rload type=r p=out n=gnd r=10
+   refnode=gnd
+   outvar: v_out=v1_of_c1 i_ind=i1_of_l1 v_sw=v1_of_sw
+end_circuit

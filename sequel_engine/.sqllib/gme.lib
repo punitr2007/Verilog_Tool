@@ -1,0 +1,1506 @@
+gme name=battery_1 group=power_electronics allow_ac=no
+mainnodes_anlg: p n
+auxnodes_anlg: p0 a1 a2 a3 a4
+stparms_anlg: v0_soc=1
+igparms_anlg:
+main_var:
+aux_var: IBatt soc
+iparms:
+sparms:
+rparms:
++  c_capacity=3060
++  r_self_discharge=1M
++  a0_rs=0.07446
++  b0_rs=0.1562
++  b1_rs=24.37
++  a0_rts=0.04669
++  b0_rts=0.3208
++  b1_rts=29.14
++  a0_cts=703.6
++  b0_cts=-752.9
++  b1_cts=13.51
++  a0_rtl=0.04984
++  b0_rtl=6.603
++  b1_rtl=155.2
++  a0_ctl=4475
++  b0_ctl=-6056
++  b1_ctl=27.12
++  a0_vsrc=3.685
++  a1_vsrc=0.2156
++  a2_vsrc=-0.1178
++  a3_vsrc=0.3201
++  b0_vsrc=-1.031
++  b1_vsrc=35
++  soc_min=0.05
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
++  soc=var_of_soc
++  IBatt=var_of_IBatt
+outvar_dgtl:
+outvar_ac:
+  callece r name=r_discharge
++    p=p0 n=n r=r_self_discharge
+  callece c name=c_discharge
++    p=p0 n=n c=c_capacity v0sv=v0_soc
+  callece isrc_1 name=isrc
++    p=n n=p0 x=IBatt
+  callece voltmeter_fb name=vm1
++    p=p0 m=n v_fb=soc
+  callgce dummy x=IBatt
+  callgce dummy x=soc
+  callece battery_vsrc name=v_soc
++    p=a1 n=n soc=soc
++    a0=a0_vsrc
++    a1=a1_vsrc
++    a2=a2_vsrc
++    a3=a3_vsrc
++    b0=b0_vsrc
++    b1=b1_vsrc
+  callece battery_r name=rs
++    p=a1 n=a2 soc=soc
++    a0=a0_rs
++    b0=b0_rs
++    b1=b1_rs
+  callece battery_r name=rts
++    p=a2 n=a3 soc=soc
++    a0=a0_rts
++    b0=b0_rts
++    b1=b1_rts
+  callece battery_r name=rtl
++    p=a3 n=a4 soc=soc
++    a0=a0_rtl
++    b0=b0_rtl
++    b1=b1_rtl
+  callece battery_c name=cts
++    p=a2 n=a3 soc=soc
++    a0=a0_cts
++    b0=b0_cts
++    b1=b1_cts
+  callece battery_c name=ctl
++    p=a3 n=a4 soc=soc
++    a0=a0_ctl
++    b0=b0_ctl
++    b1=b1_ctl
+  callece ammeter_fb name=am1
++    p=a4 m=p i_fb=IBatt
+endgme
+gme name=bldc1 group=machines allow_ac=no
+mainnodes_anlg: a b c
+auxnodes_anlg:
+stparms_anlg:
++  wm0=0
++  theta0=0
+igparms_anlg:
+main_var:
++  ia
++  ib
++  ic
++  we
++  wm
++  tl
++  theta_e
+aux_var:
++  e_a
++  e_b
++  e_c
++  e0_a
++  e0_b
++  e0_c
++  tem
+iparms:
++  poles=6
+sparms:
+rparms:
++  rs=0.98
++  ls=8.035m
++  j=21e-4
++  ke=0.5637
++  b_damp=0
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
++  ia=var_of_ia
++  ib=var_of_ib
++  ic=var_of_ic
++  e0_a=var_of_e0_a
++  e0_b=var_of_e0_b
++  e0_c=var_of_e0_c
++  theta_e=var_of_theta_e
++  tem=var_of_tem
+outvar_dgtl:
+outvar_ac:
+callece bldc1
++  a=a b=b c=c
++  ia=ia ib=ib ic=ic
++  e_a=e_a e_b=e_b e_c=e_c
++  e0_a=e0_a e0_b=e0_b e0_c=e0_c
++  we=we wm=wm
++  tem=tem tl=tl
++  poles=poles
++  rs=rs ls=ls j=j ke=ke b_damp=b_damp
++  wm0=wm0
+callgce intgrtr x=we y=theta_e y_sv=theta0
+callgce modulo_twopi x=theta_e
+callgce bldc_trz
++  theta=theta_e
++  e1=e0_a e2=e0_b e3=e0_c
+callgce dummy x=wm
+callgce dummy x=tl
+callgce dummy x=ia
+callgce dummy x=ib
+callgce dummy x=ic
+callgce dummy x=e_a
+callgce dummy x=e_b
+callgce dummy x=e_c
+callgce dummy x=tem
+endgme
+gme name=cmprtr_1 group=comparators allow_ac=no
+mainnodes_anlg: p n
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var: x1 x2
+aux_var: y
+iparms: flag_inverting=0
+sparms:
+rparms:
++  g_low=0
++  g_high=1
++  x0=0
++  delt_min=1.0e-6
++  delt_nrml=1.0e-3
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
+outvar_dgtl:
+outvar_ac:
+callgce cmprtr_1 x1=x1 x2=x2 y=y
++  g_low=g_low
++  g_high=g_high
++  x0=x0
++  delt_min=delt_min
++  delt_nrml=delt_nrml
++  flag_inverting=flag_inverting
+callece vsrc_1 p=p n=n x=y
+endgme
+gme name=csi3_1 group=power_electronics allow_ac=no
+mainnodes_anlg: a b c p m
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var: g1 g2 g3 g4 g5 g6
+aux_var:
+iparms:
+sparms:
+rparms:
++  r_on=1m
++  r_off=100k
++  g_high=1.0
++  cap=0.2n
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
++  is1=i1_of_s1
++  is2=i1_of_s2
++  is3=i1_of_s3
++  is4=i1_of_s4
++  is5=i1_of_s5
++  is6=i1_of_s6
+outvar_dgtl:
+outvar_ac:
+  callece switch_g1 name=s1
++    p=p n=a g_in=g1 ron=r_on roff=r_off g_high=g_high
+  callece switch_g1 name=s2
++    p=c n=m g_in=g2 ron=r_on roff=r_off g_high=g_high
+  callece switch_g1 name=s3
++    p=p n=b g_in=g3 ron=r_on roff=r_off g_high=g_high
+  callece switch_g1 name=s4
++    p=a n=m g_in=g4 ron=r_on roff=r_off g_high=g_high
+  callece switch_g1 name=s5
++    p=p n=c g_in=g5 ron=r_on roff=r_off g_high=g_high
+  callece switch_g1 name=s6
++    p=b n=m g_in=g6 ron=r_on roff=r_off g_high=g_high
+  callece c p=a n=p c=cap v0sv=0
+  callece c p=b n=p c=cap v0sv=0
+  callece c p=c n=p c=cap v0sv=0
+endgme
+gme name=csi3_2 group=power_electronics allow_ac=no
+mainnodes_anlg: a b c p m
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var:
+aux_var: g1 g2 g3 g4 g5 g6
+iparms:
++  flag_frequency=1
++  flag_period=0
+sparms:
+rparms:
++  r_on=1m
++  r_off=100k
++  g_high=1.0
++  t_period=20m
++  frequency=50
++  tw_deg=10
++  alpha=0
++  dt=0.1u
++  cap=0.2n
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
++  g1=var_of_g1
++  g2=var_of_g2
++  g3=var_of_g3
++  g4=var_of_g4
++  g5=var_of_g5
++  g6=var_of_g6
++  is1=i1_of_s1
++  is2=i1_of_s2
++  is3=i1_of_s3
++  is4=i1_of_s4
++  is5=i1_of_s5
++  is6=i1_of_s6
+outvar_dgtl:
+outvar_ac:
+  callece switch_g1 name=s1
++    p=p n=a g_in=g1 ron=r_on roff=r_off g_high=g_high
+  callece switch_g1 name=s2
++    p=c n=m g_in=g2 ron=r_on roff=r_off g_high=g_high
+  callece switch_g1 name=s3
++    p=p n=b g_in=g3 ron=r_on roff=r_off g_high=g_high
+  callece switch_g1 name=s4
++    p=a n=m g_in=g4 ron=r_on roff=r_off g_high=g_high
+  callece switch_g1 name=s5
++    p=p n=c g_in=g5 ron=r_on roff=r_off g_high=g_high
+  callece switch_g1 name=s6
++    p=b n=m g_in=g6 ron=r_on roff=r_off g_high=g_high
+  callece c p=a n=p c=cap v0sv=0
+  callece c p=b n=p c=cap v0sv=0
+  callece c p=c n=p c=cap v0sv=0
+  callgce clock_thyr_6 name=clock1
++   y1=g1 y2=g2 y3=g3 y4=g4 y5=g5 y6=g6
++   g_high=g_high
++   flag_frequency=flag_frequency
++   flag_period=flag_period
++   t_period=t_period
++   frequency=frequency
++   tw_deg=tw_deg
++   alpha=alpha
++   dt=dt
+endgme
+gme name=csi3_3 group=power_electronics allow_ac=no
+mainnodes_anlg: a b c p m
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var: g1
+aux_var: g2 g3 g4 g5 g6
+iparms:
++  flag_frequency=1
++  flag_period=0
+sparms:
+rparms:
++  r_on=1m
++  r_off=100k
++  g_high=1.0
++  t_period=20m
++  frequency=50
++  cap=0.2n
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
++  g1=var_of_g1
++  g2=var_of_g2
++  g3=var_of_g3
++  g4=var_of_g4
++  g5=var_of_g5
++  g6=var_of_g6
++  is1=i1_of_s1
++  is2=i1_of_s2
++  is3=i1_of_s3
++  is4=i1_of_s4
++  is5=i1_of_s5
++  is6=i1_of_s6
+outvar_dgtl:
+outvar_ac:
+  callece switch_g1 name=s1
++    p=p n=a g_in=g1 ron=r_on roff=r_off g_high=g_high
+  callece switch_g1 name=s2
++    p=c n=m g_in=g2 ron=r_on roff=r_off g_high=g_high
+  callece switch_g1 name=s3
++    p=p n=b g_in=g3 ron=r_on roff=r_off g_high=g_high
+  callece switch_g1 name=s4
++    p=a n=m g_in=g4 ron=r_on roff=r_off g_high=g_high
+  callece switch_g1 name=s5
++    p=p n=c g_in=g5 ron=r_on roff=r_off g_high=g_high
+  callece switch_g1 name=s6
++    p=b n=m g_in=g6 ron=r_on roff=r_off g_high=g_high
+  callece c p=a n=p c=cap v0sv=0
+  callece c p=b n=p c=cap v0sv=0
+  callece c p=c n=p c=cap v0sv=0
+  callgce clock_delay_1
++    x=g1 y=g2
++    g_low=0
++    g_high=g_high
++    t_period=t_period
++    frequency=frequency
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    n_delay=1
++    theta_delay=60
++    theta_delay_1=0
+  callgce clock_delay_1
++    x=g1 y=g3
++    g_low=0
++    g_high=g_high
++    t_period=t_period
++    frequency=frequency
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    n_delay=2
++    theta_delay=60
++    theta_delay_1=0
+  callgce clock_delay_1
++    x=g1 y=g4
++    g_low=0
++    g_high=g_high
++    t_period=t_period
++    frequency=frequency
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    n_delay=3
++    theta_delay=60
++    theta_delay_1=0
+  callgce clock_delay_1
++    x=g1 y=g5
++    g_low=0
++    g_high=g_high
++    t_period=t_period
++    frequency=frequency
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    n_delay=4
++    theta_delay=60
++    theta_delay_1=0
+  callgce clock_delay_1
++    x=g1 y=g6
++    g_low=0
++    g_high=g_high
++    t_period=t_period
++    frequency=frequency
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    n_delay=5
++    theta_delay=60
++    theta_delay_1=0
+endgme
+gme name=g_to_d group=converters allow_ac=no
+mainnodes_anlg: ground
+auxnodes_anlg: a
+stparms_anlg:
+igparms_anlg:
+main_var: g
+aux_var:
+iparms:
+sparms:
+rparms: vref=1 dly=10n
+rparms_derived:
+mainnodes_dgtl: d
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
+outvar_dgtl:
+outvar_ac:
+callece vsrc_1 p=a n=ground x=g
+calldce adc1 vin=a d0=d vref=vref dly=dly
+endgme
+gme name=ic555a group=electronics allow_ac=no
+mainnodes_anlg: ground trig out reset control thresh disch vcc
+auxnodes_anlg: b
+stparms_anlg:
+igparms_anlg:
+main_var:
+aux_var:
+iparms:
+sparms:
+rparms: v0=5 r=10k
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl: r1 s1 r s q qbar d0 d0bar
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
+outvar_dgtl:
++  r=dvar_of_r
++  s=dvar_of_s
++  q=dvar_of_q
++  qbar=dvar_of_qbar
+outvar_ac:
+callece r p=vcc     n=control r=r
+callece r p=control n=b       r=r
+callece r p=b       n=ground  r=r
+calldce cmprtr1 vplus=thresh vminus=control d_out=r1
+calldce cmprtr1 vplus=b      vminus=trig    d_out=s1
+calldce rsff_nor r=r s=s q=q qbar=qbar
+callece dac1a p=out n=ground d0=q vref=v0
+callece switch_d p=disch n=ground d_in=qbar
+calldce adc1 vin=reset d0=d0 vref=v0 dly=10n
+calldce and_2 a1=d0 a2=s1 b=s dlyhl=10n dlylh=10n
+calldce not a=d0 abar=d0bar dlyhl=10n dlylh=10n
+calldce or_2  a1=d0bar a2=r1 b=r dlyhl=10n dlylh=10n
+endgme
+gme name=multiplier_1 group=electronics allow_ac=no
+mainnodes_anlg: x1 x2 y1 y2 z1 z2 out ground
+auxnodes_anlg: plus minus
+stparms_anlg:
+igparms_anlg:
+main_var:
+aux_var: delx dely delz y1
+iparms:
+sparms:
+rparms: sf=10 vcc=15
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
+outvar_dgtl:
+outvar_ac:
+callgme voltmeter_scale name=vm_x p=x1 m=x2 v_out=delx k=1
+callgme voltmeter_scale name=vm_y p=y1 m=y2 v_out=dely k=1
+callgme voltmeter_scale name=vm_z p=z1 m=z2 v_out=delz k=1
+callgce mult_2a x1=delx x2=dely y=y1 a1=1 a2=sf
+callece vsrc_1 p=plus  n=ground x=y1
+callece vsrc_1 p=minus n=ground x=delz
+callece opamp1_a plus=plus minus=minus out=out
++  v_cc=vcc rin=10M rout=10 av=1e5
+endgme
+gme name=power_meter_1p group=power_electronics allow_ac=no
+mainnodes_anlg: p m
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var: v1 i1 pwr pwr_avg
+aux_var: y1 y2
+iparms:
+sparms:
+rparms: f0=5
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
+outvar_dgtl:
+outvar_ac:
+callece voltmeter_fb p=p m=m v_fb=v1
+callgce mult_2 x1=v1 x2=i1 y=pwr
+callgce filter_z0_p1 x=pwr y=y1
++     a0=1
++     b0=1      b1=1
++     f0=f0
+callgce filter_z0_p2 x=y1 y=y2
++     a0=1
++     b0=1      b1=1.618  b2=1
++     f0=f0
+callgce filter_z0_p2 x=y2 y=pwr_avg
++     a0=1
++     b0=1      b1=1.618  b2=1
++     f0=f0
+endgme
+gme name=power_meter_3p group=power_electronics allow_ac=no
+mainnodes_anlg: node1 node2 node3 node_ref
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var:
++  v1 i1
++  v2 i2
++  v3 i3
++  pwr pwr_avg
+aux_var:
++  pwr1 pwr2 pwr3
++  y1 y2
+iparms:
+sparms:
+rparms: f0=5
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
+outvar_dgtl:
+outvar_ac:
+callece voltmeter_fb p=node1 m=node_ref v_fb=v1
+callece voltmeter_fb p=node2 m=node_ref v_fb=v2
+callece voltmeter_fb p=node3 m=node_ref v_fb=v3
+callgce mult_2 x1=v1 x2=i1 y=pwr1
+callgce mult_2 x1=v2 x2=i2 y=pwr2
+callgce mult_2 x1=v3 x2=i3 y=pwr3
+callgce sum_3 x1=pwr1 x2=pwr2 x3=pwr3 y=pwr
+callgce filter_z0_p1 x=pwr y=y1
++     a0=1
++     b0=1      b1=1
++     f0=f0
+callgce filter_z0_p2 x=y1 y=y2
++     a0=1
++     b0=1      b1=1.618  b2=1
++     f0=f0
+callgce filter_z0_p2 x=y2 y=pwr_avg
++     a0=1
++     b0=1      b1=1.618  b2=1
++     f0=f0
+endgme
+gme name=sc_ac_meter group=switched_cap allow_ac=yes
+mainnodes_anlg: node1 node2 node_ref
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var: v_out
+aux_var: v1 v2
+iparms:
+sparms:
+rparms:
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
+outvar_dgtl:
+outvar_ac:
+callece voltmeter_fb p=node1 m=node_ref v_fb=v1
+callece voltmeter_fb p=node2 m=node_ref v_fb=v2
+callgce sum_2 x1=v1 x2=v2 y=v_out
+endgme
+gme name=srm group=machines allow_ac=no
+mainnodes_anlg: a1 b1 c1 a2 b2 c2
+auxnodes_anlg: a01 a02 b01 b02 c01 c02
+stparms_anlg:
+igparms_anlg:
+main_var:
++  tl      wr      tem
++  ia      ib      ic
++  theta_a theta_b theta_c
+aux_var:
++  tem_a  tem_b  tem_c
++  alpha
+iparms: ns=6 nr=4
+sparms:
+rparms:
++   lmin_a=1.1m
++   lmax_a=5.5m
++   r_a=0.0573
++   lmin_b=1.1m
++   lmax_b=5.5m
++   r_b=0.0573
++   lmin_c=1.1m
++   lmax_c=5.5m
++   r_c=0.0573
++   beta_s_deg=35
++   beta_r_deg=36.5
++   j=0.00171
++   fn=0.0009534
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
+outvar_dgtl:
+outvar_ac:
+callece ammeter_fb p=a02 m=a2 i_fb=ia
+callece ammeter_fb p=b02 m=b2 i_fb=ib
+callece ammeter_fb p=c02 m=c2 i_fb=ic
+callece l_theta name=l_a
++  p=a1 n=a01
++  theta=theta_a tem_phase=tem_a
++  ns=ns nr=nr
++  lmin=lmin_a lmax=lmax_a
++  beta_s_deg=beta_s_deg
++  beta_r_deg=beta_r_deg
+callece l_theta name=l_b
++  p=b1 n=b01
++  theta=theta_b tem_phase=tem_b
++  ns=ns nr=nr
++  lmin=lmin_b lmax=lmax_b
++  beta_s_deg=beta_s_deg
++  beta_r_deg=beta_r_deg
+callece l_theta name=l_c
++  p=c1 n=c01
++  theta=theta_c tem_phase=tem_c
++  ns=ns nr=nr
++  lmin=lmin_c lmax=lmax_c
++  beta_s_deg=beta_s_deg
++  beta_r_deg=beta_r_deg
+callece r r=r_a p=a01 n=a02
+callece r r=r_b p=b01 n=b02
+callece r r=r_c p=c01 n=c02
+callgce const y=alpha c=0.5236
+callgce intgrtr x=wr y=theta_a
+callgce sum_2 x1=theta_a x2=alpha y=theta_b
+callgce sum_2 x1=theta_b x2=alpha y=theta_c
+callgce sum_3 x1=tem_a x2=tem_b x3=tem_c y=tem
+callgce torque1 wr=wr tl=tl tem=tem wr0=0
++  j=j fn=fn
+endgme
+gme name=syncmc_delta group=machines allow_ac=no
+mainnodes_anlg: a b c
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var:
++  omega
++  tem
++  efd
++  theta
++  delta
++  delta_lp
++  delta_hp
++  omega_lp
++  omega_hp
+aux_var:
++  t1
+iparms:
++   i_compute_strt=1
++   i_flag_network=1
+sparms:
+rparms:
++   xd=1.79
++   xq=1.71
++   xdp=0.169
++   xqp=0.228
++   xdpp=0.135
++   xqpp=0.2
++   ra=0.001
++   td0p=4.3
++   tq0p=0.85
++   td0pp=0.032
++   tq0pp=0.05
++   h0=0.05
++   d0=0.3
++   fb=50
++   f0=50
++   vg0=1.0
++   thetag0_deg=30
++   e_src=1.0
++   xl=0.5
++   r_parallel=100
++   ka_static=100
++   xc=0.4
++   r_line=0.01
++   k_hi=19.303
++   k_ila=34.929
++   k_lab=52.038
++   k_lbg=70.858
++   k_ge=2.82
++   d_hi=0.01
++   d_ila=0.01
++   d_lab=0.01
++   d_lbg=0.01
++   d_ge=0.01
++   d_h=0.2
++   d_i=0.2
++   d_la=0.2
++   d_lb=0.2
++   d_e=0.2
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
++   ia=ia_of_sm1
++   ib=ib_of_sm1
++   ic=ic_of_sm1
++   id=id_of_sm1
++   iq=iq_of_sm1
++   vd=vd_of_sm1
++   vq=vq_of_sm1
++   psid=psid_of_sm1
++   psiq=psiq_of_sm1
++   psif=psif_of_sm1
++   psih=psih_of_sm1
++   psig=psig_of_sm1
++   psik=psik_of_sm1
++   t1=var_of_t1
+outvar_dgtl:
+outvar_ac:
+callece syncmc_1 name=sm1
++   a=a b=b c=c
++   omega=omega
++   tem=tem
++   efd=efd
++   theta=theta
++   tmech=t1
++   i_compute_strt=i_compute_strt
++   i_flag_network=i_flag_network
++   xd=xd
++   xq=xq
++   xdp=xdp
++   xqp=xqp
++   xdpp=xdpp
++   xqpp=xqpp
++   ra=ra
++   td0p=td0p
++   tq0p=tq0p
++   td0pp=td0pp
++   tq0pp=tq0pp
++   h0=h0
++   d0=d0
++   fb=fb
++   f0=f0
++   vg0=vg0
++   thetag0_deg=thetag0_deg
++   e_src=e_src
++   xl=xl
++   r_parallel=r_parallel
++   ka_static=ka_static
++   xc=xc
++   r_line=r_line
++   k_hi=k_hi
++   k_ila=k_ila
++   k_lab=k_lab
++   k_lbg=k_lbg
++   k_ge=k_ge
++   d_h=d_h
++   d_i=d_i
++   d_la=d_la
++   d_lb=d_lb
++   d_e=d_e
+callgce syncmc_delta
++   delta=delta
++   omega=omega
++   delta_hp=delta_hp
++   delta_lp=delta_lp
++   omega_hp=omega_hp
++   omega_lp=omega_lp
++   t1=t1
++   i_compute_strt=i_compute_strt
++   delta_sv=0
++   fb=fb
++   f0=f0
++   k_hp=k_lbg
++   k_lp=k_ge
++   d_hp=d_lbg
++   d_lp=d_ge
+endgme
+gme name=thyristor_bridge_1ph_1 group=power_electronics allow_ac=no
+mainnodes_anlg: a b p m
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var: g1 g2
+aux_var:
+iparms:
+sparms:
+rparms:
++  r_on=1m
++  r_off=100k
++  g_high=1.0
++  cap=0.2n
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
++  g1=var_of_g1
++  g2=var_of_g2
++  i_T1=i1_of_t1
++  i_T2=i1_of_t2
++  i_T3=i1_of_t3
++  i_T4=i1_of_t4
+outvar_dgtl:
+outvar_ac:
+  callece thyristor_g name=t1
++    anode=a cathode=p gate=g1 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t2
++    anode=m cathode=b gate=g1 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t3
++    anode=b cathode=p gate=g2 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t4
++    anode=m cathode=a gate=g2 ron=r_on roff=r_off g_high=g_high
+  callece c p=a n=m c=cap
+  callece c p=b n=m c=cap
+endgme
+gme name=thyristor_bridge_1ph_2 group=power_electronics allow_ac=no
+mainnodes_anlg: a b p m
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var:
+aux_var: g1 g2
+iparms:
++  flag_frequency=1
++  flag_period=0
+sparms:
+rparms:
++  r_on=1m
++  r_off=100k
++  g_high=1.0
++  t_period=20m
++  frequency=50
++  tw_deg=10
++  alpha=0
++  dt=0.1u
++  cap=0.2n
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
++  g1=var_of_g1
++  g2=var_of_g2
++  i_T1=i1_of_t1
++  i_T2=i1_of_t2
++  i_T3=i1_of_t3
++  i_T4=i1_of_t4
+outvar_dgtl:
+outvar_ac:
+  callece thyristor_g name=t1
++    anode=a cathode=p gate=g1 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t2
++    anode=m cathode=b gate=g1 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t3
++    anode=b cathode=p gate=g2 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t4
++    anode=m cathode=a gate=g2 ron=r_on roff=r_off g_high=g_high
+  callece c p=a n=m c=cap
+  callece c p=b n=m c=cap
+  callgce clock_thyr_2 name=clock1
++   y1=g1 y2=g2
++   g_high=g_high
++   flag_frequency=flag_frequency
++   flag_period=flag_period
++   t_period=t_period
++   frequency=frequency
++   tw_deg=tw_deg
++   alpha=alpha
++   dt=dt
+endgme
+gme name=thyristor_bridge_1ph_3 group=power_electronics allow_ac=no
+mainnodes_anlg: a b p m
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var: g1
+aux_var: g2
+iparms:
++  flag_frequency=1
++  flag_period=0
+sparms:
+rparms:
++  r_on=1m
++  r_off=100k
++  g_high=1.0
++  t_period=20m
++  frequency=50
++  cap=0.2n
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
++  g1=var_of_g1
++  g2=var_of_g2
++  i_T1=i1_of_t1
++  i_T2=i1_of_t2
++  i_T3=i1_of_t3
++  i_T4=i1_of_t4
+outvar_dgtl:
+outvar_ac:
+  callece thyristor_g name=t1
++    anode=a cathode=p gate=g1 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t2
++    anode=m cathode=b gate=g1 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t3
++    anode=b cathode=p gate=g2 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t4
++    anode=m cathode=a gate=g2 ron=r_on roff=r_off g_high=g_high
+  callece c p=a n=m c=cap
+  callece c p=b n=m c=cap
+  callgce clock_delay_1
++    x=g1 y=g2
++    g_low=0
++    g_high=g_high
++    t_period=t_period
++    frequency=frequency
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    n_delay=1
++    theta_delay=180
++    theta_delay_1=0
+endgme
+gme name=thyristor_bridge_3ph_1 group=power_electronics allow_ac=no
+mainnodes_anlg: a b c p m
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var: g1 g2 g3 g4 g5 g6
+aux_var:
+iparms:
+sparms:
+rparms:
++  r_on=1m
++  r_off=100k
++  g_high=1.0
++  cap=0.2n
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
++  i_T1=i1_of_t1
++  i_T2=i1_of_t2
++  i_T3=i1_of_t3
++  i_T4=i1_of_t4
++  i_T5=i1_of_t5
++  i_T6=i1_of_t6
+outvar_dgtl:
+outvar_ac:
+  callece thyristor_g name=t1
++    anode=a cathode=p gate=g1 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t2
++    anode=m cathode=c gate=g2 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t3
++    anode=b cathode=p gate=g3 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t4
++    anode=m cathode=a gate=g4 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t5
++    anode=c cathode=p gate=g5 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t6
++    anode=m cathode=b gate=g6 ron=r_on roff=r_off g_high=g_high
+  callece c p=a n=m c=cap
+  callece c p=b n=m c=cap
+  callece c p=c n=m c=cap
+endgme
+gme name=thyristor_bridge_3ph_2 group=power_electronics allow_ac=no
+mainnodes_anlg: a b c p m
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var:
+aux_var: g1 g2 g3 g4 g5 g6
+iparms:
++  flag_frequency=1
++  flag_period=0
+sparms:
+rparms:
++  r_on=1m
++  r_off=100k
++  g_high=1.0
++  t_period=20m
++  frequency=50
++  tw_deg=10
++  alpha=0
++  dt=0.1u
++  cap=0.2n
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
++  g1=var_of_g1
++  g2=var_of_g2
++  g3=var_of_g3
++  g4=var_of_g4
++  g5=var_of_g5
++  g6=var_of_g6
++  i_T1=i1_of_t1
++  i_T2=i1_of_t2
++  i_T3=i1_of_t3
++  i_T4=i1_of_t4
++  i_T5=i1_of_t5
++  i_T6=i1_of_t6
+outvar_dgtl:
+outvar_ac:
+  callece thyristor_g name=t1
++    anode=a cathode=p gate=g1 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t2
++    anode=m cathode=c gate=g2 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t3
++    anode=b cathode=p gate=g3 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t4
++    anode=m cathode=a gate=g4 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t5
++    anode=c cathode=p gate=g5 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t6
++    anode=m cathode=b gate=g6 ron=r_on roff=r_off g_high=g_high
+  callece c p=a n=m c=cap
+  callece c p=b n=m c=cap
+  callece c p=c n=m c=cap
+  callgce clock_thyr_6 name=clock1
++   y1=g1 y2=g2 y3=g3 y4=g4 y5=g5 y6=g6
++   g_high=g_high
++   flag_frequency=flag_frequency
++   flag_period=flag_period
++   t_period=t_period
++   frequency=frequency
++   tw_deg=tw_deg
++   alpha=alpha
++   dt=dt
+endgme
+gme name=thyristor_bridge_3ph_3 group=power_electronics allow_ac=no
+mainnodes_anlg: a b c p m
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var: g1
+aux_var: g2 g3 g4 g5 g6
+iparms:
++  flag_frequency=1
++  flag_period=0
+sparms:
+rparms:
++  r_on=1m
++  r_off=100k
++  g_high=1.0
++  t_period=20m
++  frequency=50
++  cap=0.2n
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
++  g1=var_of_g1
++  g2=var_of_g2
++  g3=var_of_g3
++  g4=var_of_g4
++  g5=var_of_g5
++  g6=var_of_g6
++  i_T1=i1_of_t1
++  i_T2=i1_of_t2
++  i_T3=i1_of_t3
++  i_T4=i1_of_t4
++  i_T5=i1_of_t5
++  i_T6=i1_of_t6
+outvar_dgtl:
+outvar_ac:
+  callece thyristor_g name=t1
++    anode=a cathode=p gate=g1 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t2
++    anode=m cathode=c gate=g2 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t3
++    anode=b cathode=p gate=g3 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t4
++    anode=m cathode=a gate=g4 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t5
++    anode=c cathode=p gate=g5 ron=r_on roff=r_off g_high=g_high
+  callece thyristor_g name=t6
++    anode=m cathode=b gate=g6 ron=r_on roff=r_off g_high=g_high
+  callece c p=a n=m c=cap
+  callece c p=b n=m c=cap
+  callece c p=c n=m c=cap
+  callgce clock_delay_1
++    x=g1 y=g2
++    g_low=0
++    g_high=g_high
++    t_period=t_period
++    frequency=frequency
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    n_delay=1
++    theta_delay=60
++    theta_delay_1=0
+  callgce clock_delay_1
++    x=g1 y=g3
++    g_low=0
++    g_high=g_high
++    t_period=t_period
++    frequency=frequency
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    n_delay=2
++    theta_delay=60
++    theta_delay_1=0
+  callgce clock_delay_1
++    x=g1 y=g4
++    g_low=0
++    g_high=g_high
++    t_period=t_period
++    frequency=frequency
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    n_delay=3
++    theta_delay=60
++    theta_delay_1=0
+  callgce clock_delay_1
++    x=g1 y=g5
++    g_low=0
++    g_high=g_high
++    t_period=t_period
++    frequency=frequency
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    n_delay=4
++    theta_delay=60
++    theta_delay_1=0
+  callgce clock_delay_1
++    x=g1 y=g6
++    g_low=0
++    g_high=g_high
++    t_period=t_period
++    frequency=frequency
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    n_delay=5
++    theta_delay=60
++    theta_delay_1=0
+endgme
+gme name=voltmeter_scale group=meters allow_ac=yes
+mainnodes_anlg: p m
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var: v_out
+aux_var: v_fb
+iparms:
+sparms:
+rparms: k=1
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
+outvar_dgtl:
+outvar_ac:
+callece voltmeter_fb p=p m=m v_fb=v_fb
+callgce multscl x=v_fb y=v_out a=k
+endgme
+gme name=vsi3_1 group=power_electronics allow_ac=no
+mainnodes_anlg: a b c p m
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var: g1 g2 g3 g4 g5 g6
+aux_var:
+iparms:
+sparms:
+rparms:
++  r_on=1m
++  r_off=100k
++  g_high=1.0
++  r_snubber=0.01
++  c_snubber=10p
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
++  is1=is_of_s1
++  id1=id_of_s1
++  is2=is_of_s2
++  id2=id_of_s2
++  is3=is_of_s3
++  id3=id_of_s3
++  is4=is_of_s4
++  id4=id_of_s4
++  is5=is_of_s5
++  id5=id_of_s5
++  is6=is_of_s6
++  id6=id_of_s6
+outvar_dgtl:
+outvar_ac:
+  callece switch_diode_g name=s1
++    c=p e=a g=g1 ron=r_on roff=r_off g_high=g_high
++    r_snubber=r_snubber c_snubber=c_snubber
+  callece switch_diode_g name=s2
++    c=c e=m g=g2 ron=r_on roff=r_off g_high=g_high
++    r_snubber=r_snubber c_snubber=c_snubber
+  callece switch_diode_g name=s3
++    c=p e=b g=g3 ron=r_on roff=r_off g_high=g_high
++    r_snubber=r_snubber c_snubber=c_snubber
+  callece switch_diode_g name=s4
++    c=a e=m g=g4 ron=r_on roff=r_off g_high=g_high
++    r_snubber=r_snubber c_snubber=c_snubber
+  callece switch_diode_g name=s5
++    c=p e=c g=g5 ron=r_on roff=r_off g_high=g_high
++    r_snubber=r_snubber c_snubber=c_snubber
+  callece switch_diode_g name=s6
++    c=b e=m g=g6 ron=r_on roff=r_off g_high=g_high
++    r_snubber=r_snubber c_snubber=c_snubber
+endgme
+gme name=vsi3_3 group=power_electronics allow_ac=no
+mainnodes_anlg: a b c p m
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var: g1
+aux_var: g2 g3 g4 g5 g6
+iparms:
++  flag_frequency=1
++  flag_period=0
+sparms:
+rparms:
++  r_on=1m
++  r_off=100k
++  g_high=1.0
++  t_period=20m
++  frequency=50
++  r_snubber=0.01
++  c_snubber=10p
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
++  g1=var_of_g1
++  g2=var_of_g2
++  g3=var_of_g3
++  g4=var_of_g4
++  g5=var_of_g5
++  g6=var_of_g6
++  is1=is_of_s1
++  id1=id_of_s1
++  is2=is_of_s2
++  id2=id_of_s2
++  is3=is_of_s3
++  id3=id_of_s3
++  is4=is_of_s4
++  id4=id_of_s4
++  is5=is_of_s5
++  id5=id_of_s5
++  is6=is_of_s6
++  id6=id_of_s6
+outvar_dgtl:
+outvar_ac:
+  callece switch_diode_g name=s1
++    c=p e=a g=g1 ron=r_on roff=r_off g_high=g_high
++    r_snubber=r_snubber c_snubber=c_snubber
+  callece switch_diode_g name=s2
++    c=c e=m g=g2 ron=r_on roff=r_off g_high=g_high
++    r_snubber=r_snubber c_snubber=c_snubber
+  callece switch_diode_g name=s3
++    c=p e=b g=g3 ron=r_on roff=r_off g_high=g_high
++    r_snubber=r_snubber c_snubber=c_snubber
+  callece switch_diode_g name=s4
++    c=a e=m g=g4 ron=r_on roff=r_off g_high=g_high
++    r_snubber=r_snubber c_snubber=c_snubber
+  callece switch_diode_g name=s5
++    c=p e=c g=g5 ron=r_on roff=r_off g_high=g_high
++    r_snubber=r_snubber c_snubber=c_snubber
+  callece switch_diode_g name=s6
++    c=b e=m g=g6 ron=r_on roff=r_off g_high=g_high
++    r_snubber=r_snubber c_snubber=c_snubber
+  callgce clock_delay_2
++    x=g1 y=g2
++    n_delay=1
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    g_low=0
++    g_high=g_high
++    frequency=frequency
++    t_period=t_period
++    theta_delay=60
++    theta_delay_1=0
+  callgce clock_delay_2
++    x=g1 y=g3
++    n_delay=1
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    g_low=0
++    g_high=g_high
++    frequency=frequency
++    t_period=t_period
++    theta_delay=120
++    theta_delay_1=0
+  callgce clock_delay_2
++    x=g1 y=g4
++    n_delay=1
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    g_low=0
++    g_high=g_high
++    frequency=frequency
++    t_period=t_period
++    theta_delay=180
++    theta_delay_1=0
+  callgce clock_delay_2
++    x=g1 y=g5
++    n_delay=1
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    g_low=0
++    g_high=g_high
++    frequency=frequency
++    t_period=t_period
++    theta_delay=240
++    theta_delay_1=0
+  callgce clock_delay_2
++    x=g1 y=g6
++    n_delay=1
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    g_low=0
++    g_high=g_high
++    frequency=frequency
++    t_period=t_period
++    theta_delay=300
++    theta_delay_1=0
+endgme
+gme name=vsi3_ideal_1 group=power_electronics allow_ac=no
+mainnodes_anlg: a b c m
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var: g1 g2 g3 g4 g5 g6
+aux_var:
+iparms:
+sparms:
+rparms:
++  vdc=100
++  g_high=1
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
+outvar_dgtl:
+outvar_ac:
+  callece vsrc_1a p=a n=m vdc=vdc g_high=g_high g_top=g1 g_bot=g4
+  callece vsrc_1a p=b n=m vdc=vdc g_high=g_high g_top=g3 g_bot=g6
+  callece vsrc_1a p=c n=m vdc=vdc g_high=g_high g_top=g5 g_bot=g2
+endgme
+gme name=vsi3_ideal_3 group=power_electronics allow_ac=no
+mainnodes_anlg: a b c m
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var: g1
+aux_var: g2 g3 g4 g5 g6
+iparms:
++  flag_frequency=1
++  flag_period=0
+sparms:
+rparms:
++  g_high=1.0
++  t_period=20m
++  frequency=50
++  vdc=100
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
++  g1=var_of_g1
++  g2=var_of_g2
++  g3=var_of_g3
++  g4=var_of_g4
++  g5=var_of_g5
++  g6=var_of_g6
+outvar_dgtl:
+outvar_ac:
+  callece vsrc_1a p=a n=m vdc=vdc g_high=g_high g_top=g1 g_bot=g4
+  callece vsrc_1a p=b n=m vdc=vdc g_high=g_high g_top=g3 g_bot=g6
+  callece vsrc_1a p=c n=m vdc=vdc g_high=g_high g_top=g5 g_bot=g2
+  callgce clock_delay_2
++    x=g1 y=g2
++    n_delay=1
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    g_low=0
++    g_high=g_high
++    frequency=frequency
++    t_period=t_period
++    theta_delay=60
++    theta_delay_1=0
+  callgce clock_delay_2
++    x=g1 y=g3
++    n_delay=1
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    g_low=0
++    g_high=g_high
++    frequency=frequency
++    t_period=t_period
++    theta_delay=120
++    theta_delay_1=0
+  callgce clock_delay_2
++    x=g1 y=g4
++    n_delay=1
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    g_low=0
++    g_high=g_high
++    frequency=frequency
++    t_period=t_period
++    theta_delay=180
++    theta_delay_1=0
+  callgce clock_delay_2
++    x=g1 y=g5
++    n_delay=1
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    g_low=0
++    g_high=g_high
++    frequency=frequency
++    t_period=t_period
++    theta_delay=240
++    theta_delay_1=0
+  callgce clock_delay_2
++    x=g1 y=g6
++    n_delay=1
++    flag_frequency=flag_frequency
++    flag_period=flag_period
++    g_low=0
++    g_high=g_high
++    frequency=frequency
++    t_period=t_period
++    theta_delay=300
++    theta_delay_1=0
+endgme
+gme name=vsrc_table_1 group=sources allow_ac=no
+mainnodes_anlg: p n
+auxnodes_anlg:
+stparms_anlg:
+igparms_anlg:
+main_var:
+aux_var: x
+iparms:
+sparms: file_name=none
+rparms:
+rparms_derived:
+mainnodes_dgtl:
+auxnodes_dgtl:
+stparms_dgtl:
+igparms_dgtl:
+outvar_anlg:
+outvar_dgtl:
+outvar_ac:
+callece vsrc_1 p=p n=n x=x
+callgce src_table_1 file_name=file_name x=x
+endgme

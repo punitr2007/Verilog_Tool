@@ -1,0 +1,55 @@
+title: ic555a.in (monostable multivibrator with 555 timer)
+
+greal vcc=5
+
+begin_circuit
+   eelement type=vsrcdc p=vcc n=0 vdc=vcc
+   eelement name=r1 type=r p=vcc n=a r=1k
+   eelement name=c1 type=c p=a   n=0 c=1u
+   gmelement type=ic555 name=ic555
++     thresh=a trig=trig ground=0 out=out disch=a v0=vcc
+   eelement type=vpulse20 i0=1 n1=2 p=trig n=0
++     v_low=0 v_high=vcc t_rise=10n t_fall=10n
++     t1=50u t2=70u
+   refnode=0
+   outvar:
++    vout=nodev_of_out
++    vc=nodev_of_a
++    trig=nodev_of_trig
+   outvar:
++    dr=r_of_ic555
++    ds=s_of_ic555
++    dq=q_of_ic555
++    dqbar=qbar_of_ic555
+end_circuit
+
+begin_solve
+   solve_type=dc
+   initial_sol initialize
+   method: t_dc=0
+   begin_output
+      filename=ic555a_sol.dat
+      variables: solution
+   end_output
+   method: norm_2=1e-9
+   method: write_rhs2=yes
+#  method: wrt_debug_smat=yes iter_debug_newton=1
+end_solve
+
+begin_solve
+   solve_type=trns
+   initial_sol previous
+   begin_output
+      filename=ic555a1.dat limit_lines=4000
+      variables: vout vc trig
+   end_output
+   begin_output
+      filename=ic555a2.dat limit_lines=4000
+      variables: dr ds dq dqbar
+   end_output
+   method: norm_2=1e-9
+   method: back_euler=yes itmax_trns=8000
++    t_start=0 t_end=2m delt_const=1u
+end_solve
+
+end_cf

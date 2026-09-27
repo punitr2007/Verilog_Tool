@@ -1,0 +1,4195 @@
+gbe name=abc_to_alphabeta
+Jacobian: constant
+main_vars: a b c alpha beta
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1:  alpha a b c
+f_2:  beta b c
+C: compiled
+endC
+endgbe
+gbe name=abc_to_alphabeta_1
+Jacobian: constant
+main_vars: a b c alpha beta
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1:  alpha a
+f_2:  beta b c
+C: compiled
+endC
+endgbe
+gbe name=abc_to_alphabeta_2
+Jacobian: constant
+main_vars: a b c alpha beta
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1:  alpha a b c
+f_2:  beta b c
+C: compiled
+endC
+endgbe
+gbe name=abc_to_alphabeta_3
+Jacobian: constant
+main_vars: a b c alpha beta
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1:  alpha a b c
+f_2:  beta b c
+C: compiled
+endC
+endgbe
+gbe name=abc_to_dq0_1
+Jacobian: variable
+main_vars: xa xb xc xd xq x0 c s
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=3
+f_1: xd xa xb xc c s
+f_2: xq xa xb xc c s
+f_3: x0 xa xb xc
+C: compiled
+endC
+endgbe
+gbe name=abc_to_dq0_2
+Jacobian: variable
+main_vars: xa xb xc xd xq x0 theta
+iparms:
+sparms:
+rparms:
+aux_vars: c s
+xvar:
+stparms:
+igparms:
+no_functions=5
+f_1: xd xa xb xc c s
+f_2: xq xa xb xc c s
+f_3: x0 xa xb xc
+f_4: c theta
+f_5: s theta
+C: compiled
+endC
+endgbe
+gbe name=abc_to_dq_2
+Jacobian: variable
+main_vars: a b c d q cost sint
+iparms:
+sparms:
+rparms:
+aux_vars: alpha beta
+xvar:
+stparms:
+igparms:
+no_functions=4
+f_1: alpha a
+f_2: beta b c
+f_3: q cost sint alpha beta
+f_4: d cost sint alpha beta
+C: compiled
+endC
+endgbe
+gbe name=abctodq
+Jacobian: constant
+main_vars: van vbn vcn vqs vds
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1:  vqs van vbn vcn
+f_2:  vds vbn vcn
+C: compiled
+endC
+endgbe
+gbe name=abs
+Jacobian: variable
+main_vars: x y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  y x
+C: compiled
+endC
+endgbe
+gbe name=acos_deg
+Jacobian: variable
+main_vars: x y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=acos_rad
+Jacobian: variable
+main_vars: x y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=and_2
+Jacobian: variable
+main_vars: x1 x2 y
+iparms:
+sparms:
+rparms:
++  g_high=1.0
++  ghby2=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=and_3
+Jacobian: variable
+main_vars: x1 x2 x3 y
+iparms:
+sparms:
+rparms:
++  g_high=1.0
++  ghby2=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=asin_deg
+Jacobian: variable
+main_vars: x y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=asin_rad
+Jacobian: variable
+main_vars: x y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=atan2_deg
+Jacobian: variable
+main_vars: x y theta
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: theta
+C: compiled
+endC
+endgbe
+gbe name=atan2_rad
+Jacobian: variable
+main_vars: x y theta
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: theta
+C: compiled
+endC
+endgbe
+gbe name=average save_history=yes allow_ssw=no
+Jacobian: variable
+main_vars: x_in x_out x_cntrl
+iparms:
+sparms:
+rparms:
++  x_int=0
++  x_cntrl_last=0
++  time_last=0
++  x_out_value=0
++  time_ttl=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: x_out
+C: compiled
+endC
+endgbe
+gbe name=average_1
+Jacobian: variable
+main_vars:
++  x_in
++  x_avg
+iparms:
+sparms:
+rparms:
++  t0=0
++  r=10G
++  c=1
++  k1=0
++  k2=0
+aux_vars: x_a t1
+xvar:
+stparms:
+igparms:
+no_functions=3
+f_1: d_dt(x_a) x_a x_in
+f_2: d_dt(t1)
+f_3: x_avg x_a t1
+C: compiled
+endC
+endgbe
+gbe name=average_mv save_history=yes allow_ssw=no
+Jacobian: variable
+main_vars: x_in x_out x_cntrl
+iparms:
++  n_samples=20
++  index=-1
++  flag_start=0
++  n_count=0
+sparms:
+rparms:
++  x_int=0
++  x_cntrl_last=0
++  delt=1
++  x_out_value=0
++  time_ttl=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: x_out
+C: compiled
+endC
+endgbe
+gbe name=bldc_clock_1
+Jacobian: variable
+main_vars: theta g1t g1b g3t g3b g5t g5b
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: g1t
+f_2: g1b
+f_3: g3t
+f_4: g3b
+f_5: g5t
+f_6: g5b
+C: compiled
+endC
+endgbe
+gbe name=bldc_trz
+Jacobian: variable
+main_vars: theta e1 e2 e3
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=3
+f_1: e1
+f_2: e2
+f_3: e3
+C: compiled
+endC
+endgbe
+gbe name=calculator_1
+Jacobian: constant
+main_vars: y
+iparms:
+sparms:
+rparms:
++  a1=1
++  a2=1
++  a3=1
++  a4=1
++  a5=1
++  a6=1
++  b1=1
++  b2=1
++  b3=1
++  b4=1
++  b5=1
++  b6=1
++  c=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  y
+C: compiled
+endC
+endgbe
+gbe name=calculator_2
+Jacobian: constant
+main_vars: y
+iparms:
+sparms:
+rparms:
++  a1=1
++  a2=1
++  b1=1
++  b2=1
++  c=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  y
+C: compiled
+endC
+endgbe
+gbe name=ceil
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=clock limit_tstep=yes
+Jacobian: constant
+main_vars: y
+iparms: i0=1
+sparms:
+rparms:
++ t1=1
++ t2=2
++ tperiod=0
++ t0=0
++ g_high=1.0
++ dt1=0.01
++ dt2=0.01
++ slp1=0
++ slp2=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=clock2 limit_tstep=yes
+Jacobian: constant
+main_vars: y
+iparms:
++ i0=1
++ indx1=1
+sparms:
+rparms:
++ t1=1
++ t2=2
++ tperiod=0
++ alpha=0
++ g_high=1.0
++ dt1=0.01
++ dt2=0.01
++ slp1=0
++ slp2=0
++ t0=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=clock_1 limit_tstep=yes
+Jacobian: constant
+main_vars: y
+iparms: i0=1
+sparms:
+rparms:
++ t1=1
++ t2=2
++ tperiod=0
++ t0=0
++ g_high=1.0
++ dt1=0.01
++ dt2=0.01
++ slp1=0
++ slp2=0
++ frequency=1e3
++ duty_cycle=0.5
++ epsl=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=clock_3 limit_tstep=yes
+Jacobian: constant
+main_vars: y
+iparms:
++ i0=0
++ indx=1
+sparms:
+rparms:
++ t1=0
++ t2=0
++ tperiod=0.02
++ t0=0
++ g_high=1.0
++ dt1=0.01
++ dt2=0.01
++ slp1=0
++ slp2=0
++ alpha=10
++ beta=0
++ epsl=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=clock_delay_1 limit_tstep=yes save_history=yes allow_ssw=no
+Jacobian: variable
+main_vars: x y
+iparms:
++  n_delay=1
++  flag_frequency=1
++  flag_period=0
++  flag_zero_delay=0
+sparms:
+rparms:
++  g_low=0
++  g_high=1
++  frequency=0
++  t_period=0
++  theta_delay=0.0
++  theta_delay_1=0.0
++  t_delay=0
++  x_last=0.0
++  t_low_to_high=0
++  t_high_to_low=0
++  x_cross=0
++  epsl2=0
++  epsl3=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=clock_delay_2 limit_tstep=yes save_history=yes allow_ssw=no
+Jacobian: variable
+main_vars: x y
+iparms:
++  index1=0
++  n_delay=1
++  flag_frequency=1
++  flag_period=0
++  flag_zero_delay=0
+sparms:
+rparms:
++  g_low=0
++  g_high=1
++  frequency=0
++  t_period=0
++  theta_delay=0.0
++  theta_delay_1=0.0
++  t_delay=0
++  x_last=0.0
++  t_low_to_high=0
++  t_high_to_low=0
++  x_cross=0
++  epsl2=0
++  epsl3=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=clock_gnrl limit_tstep=yes
+Jacobian: constant
+main_vars: y
+iparms:
+sparms:
+rparms:
++  t1=1
++  t2=2
++  t3=3
++  t4=4
++  v1=1
++  v2=2
++  v3=3
++  v4=4
++  tperiod=5
++  slp1=0
++  slp2=0
++  slp3=0
++  slp4=0
++  epsl=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=clock_pwl20 limit_tstep=yes
+Jacobian: constant
+main_vars: y
+iparms: n=2
+sparms:
+rparms:
++   t1 =1  t2 =2  t3 =3  t4 =4  t5 =5
++   t6 =6  t7 =7  t8 =8  t9 =9  t10=10
++   t11=11 t12=12 t13=13 t14=14 t15=15
++   t16=16 t17=17 t18=18 t19=19 t20=20
++   v1 =1  v2 =2  v3 =3  v4 =4  v5 =5
++   v6 =6  v7 =7  v8 =8  v9 =9  v10=10
++   v11=11 v12=12 v13=13 v14=14 v15=15
++   v16=16 v17=17 v18=18 v19=19 v20=20
++   tperiod=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=clock_thyr limit_tstep=yes
+Jacobian: constant
+main_vars: y
+iparms:
++  i0=1
++  flag_frequency=0
++  flag_period=1
++  flag_tw_degrees=0
+sparms:
+rparms:
++  g_low=0
++  g_high=1.0
++  frequency=0
++  t_period=1m
++  tw_deg=10
++  tw=10u
++  alpha=0
++  dt=0.1u
++  t1=1
++  t2=2
++  dt1=0
++  dt2=0
++  slp1=0
++  slp2=0
++  t0=0
++  epsl=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=clock_thyr_1 limit_tstep=yes
+Jacobian: constant
+main_vars: y
+iparms:
++  i0=0
++  flag_frequency=0
++  flag_period=1
++  flag_tw_degrees=0
+sparms:
+rparms:
++  g_high=1.0
++  frequency=0
++  t_period=1m
++  tw_deg=10
++  tw=10u
++  alpha=0
++  dt=0.1u
++  t1=1
++  t2=2
++  dt1=0
++  dt2=0
++  slp1=0
++  slp2=0
++  t0=0
++  beta=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=clock_trz limit_tstep=yes
+Jacobian: constant
+main_vars: y
+iparms:
+sparms:
+rparms:
++ frequency=100
++ theta=30
++ theta_delay=0
++ g_high=1
++ tperiod=0
++ t0=0
++ dt=0
++ slp=0
++ epsl=0
++ epsl1=0
++ tp1=0
++ tp2=0
++ tp3=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=cmprtr
+Jacobian: variable
+main_vars: x1 x2 y
+iparms:
+sparms:
+rparms:
++  g_low=0
++  g_high=1.0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=cmprtr_1 save_history=yes limit_tstep=yes allow_ssw=yes
+Jacobian: variable
+main_vars: x1 x2 y
+iparms:
+sparms:
+rparms:
++  g_low=0
++  g_high=1
++  x1_prev_1=0
++  x1_prev_2=0
++  x2_prev_1=0
++  x2_prev_2=0
++  t_prev_1=0
++  t_prev_2=0
++  epsl=1.0e-6
++  delt_min=1.0e-6
++  delt_nrml=1m
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=cmprtr_1a save_history=yes limit_tstep=yes allow_ssw=no
+Jacobian: variable
+main_vars: x1 x2 y1 y2
+iparms:
+sparms:
+rparms:
++  g_low=0
++  g_high=1
++  x1_prev_1=0
++  x1_prev_2=0
++  x2_prev_1=0
++  x2_prev_2=0
++  t_prev_1=0
++  t_prev_2=0
++  epsl=1.0e-6
++  delt_min=1.0e-6
++  delt_nrml=1m
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: y1
+f_2: y2
+C: compiled
+endC
+endgbe
+gbe name=cmprtr_1b save_history=yes limit_tstep=yes allow_ssw=yes
+Jacobian: variable
+main_vars: x y1 y2
+iparms: flag_inverting=0
+sparms:
+rparms:
++  g_low=0
++  g_high=1
++  x0=0
++  delt_min=1.0e-6
++  delt_nrml=1m
++  x_prev_1=0
++  x_prev_2=0
++  t_prev_1=0
++  t_prev_2=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: y1
+f_2: y2
+C: compiled
+endC
+endgbe
+gbe name=cmprtr_1c allow_ssw=no
+Jacobian: variable
+main_vars: x y1 y2
+iparms: flag_inverting=0
+sparms:
+rparms:
++  g_low=0
++  g_high=1
++  x0=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: y1
+f_2: y2
+C: compiled
+endC
+endgbe
+gbe name=cmprtr_2 save_history=yes limit_tstep=yes allow_ssw=yes
+Jacobian: variable
+main_vars: x y
+iparms: flag_inverting=0
+sparms:
+rparms:
++  g_low=0
++  g_high=1
++  x0=0
++  delt_min=1.0e-6
++  delt_nrml=1m
++  x_prev_1=0
++  x_prev_2=0
++  t_prev_1=0
++  t_prev_2=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=cmprtr_hyst_1 save_history=yes limit_tstep=yes allow_ssw=no
+Jacobian: variable
+main_vars: x1 x2 y
+iparms:
+sparms:
+rparms:
++  g_low=1.0
++  g_high=1.0
++  x1_prev_1=0
++  x1_prev_2=0
++  x2_prev_1=0
++  x2_prev_2=0
++  t_prev_1=0
++  t_prev_2=0
++  epsl=1.0e-6
++  delt_min=1.0e-6
++  delt_nrml=1m
++  x0=0
++  h=0.01
++  hby2=0
++  y_old=0.0
++  y_half=0.0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=cmprtr_hyst_2 save_history=yes limit_tstep=yes allow_ssw=no
+Jacobian: variable
+main_vars: x y
+iparms: flag_inverting=0
+sparms:
+rparms:
++  g_low=1.0
++  g_high=1.0
++  delt_min=1.0e-6
++  delt_nrml=1m
++  x_prev_1=0
++  x_prev_2=0
++  t_prev_1=0
++  t_prev_2=0
++  x0=0
++  h=0.01
++  hby2=0
++  y_old=0.0
++  y_half=0.0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=cmprtr_hyst_2b save_history=yes limit_tstep=yes allow_ssw=no
+Jacobian: variable
+main_vars: x y
+iparms:
++  flag_x0=0
++  flag_inverting=0
+sparms:
+rparms:
++  g_low=1.0
++  g_high=1.0
++  delt_min=1.0e-6
++  delt_nrml=1m
++  x_prev_1=0
++  x_prev_2=0
++  t_prev_1=0
++  t_prev_2=0
++  x0=0
++  h=0.01
++  hby2=0
++  y_old=0.0
++  y_half=0.0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=const
+Jacobian: constant
+main_vars: y
+iparms:
+sparms:
+rparms: c=0 k_scale=1
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  y
+C: compiled
+endC
+endgbe
+gbe name=const_pi_1
+Jacobian: constant
+main_vars: y
+iparms:
+sparms:
+rparms: a1=1 a2=1 k=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  y
+C: compiled
+endC
+endgbe
+gbe name=const_1
+Jacobian: constant
+main_vars: y
+iparms:
+sparms:
+rparms: c=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  y
+C: compiled
+endC
+endgbe
+gbe name=const_syncmc
+Jacobian: constant
+main_vars: y
+iparms: indx=0
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=const_tmech_turbine
+Jacobian: constant
+main_vars: y
+iparms:
++  i_flag_turbine=1
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=cosine
+Jacobian: variable
+main_vars: x y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  x y
+C: compiled
+endC
+endgbe
+gbe name=d_filter_z0_p1 limit_tstep=yes save_history=yes allow_ssw=no
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  delt_sample=10
++  offs_sample=0
++  eps1=0
++  a0=1.0
++  b0=1.0
++  b1=1.0
++  y_1=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=d_filter_z0_p2 allow_ssw=no
+Jacobian: constant
+main_vars: x y y_1 y_2
+iparms:
+sparms:
+rparms:
++  a0=1.0
++  b0=1.0
++  b1=1.0
++  b2=1.0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: x y y_1 y_2
+C: compiled
+endC
+endgbe
+gbe name=d_filter_z1 limit_tstep=yes save_history=yes allow_ssw=no
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  delt_sample=10
++  offs_sample=0
++  eps1=0
++  x_1=0
++  y_1=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=d_filter_z1_p1 allow_ssw=no
+Jacobian: constant
+main_vars: x y x_1 y_1
+iparms:
+sparms:
+rparms:
++  a0=1.0
++  a1=1.0
++  b0=1.0
++  b1=1.0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: x y x_1 y_1
+C: compiled
+endC
+endgbe
+gbe name=d_filter_z2_p2 allow_ssw=no
+Jacobian: constant
+main_vars: x y x_1 x_2 y_1 y_2
+iparms:
+sparms:
+rparms:
++  a0=1.0
++  a1=1.0
++  a2=1.0
++  b0=1.0
++  b1=1.0
++  b2=1.0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: x y x_1 x_2 y_1 y_2
+C: compiled
+endC
+endgbe
+gbe name=ddt
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms: x_sv=0
+igparms:
+no_functions=1
+f_1:  d_dt(x) y
+C: compiled
+endC
+endgbe
+gbe name=ddt_1
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms: k=1
+aux_vars:
+xvar:
+stparms: x_sv=0
+igparms:
+no_functions=1
+f_1:  d_dt(x) y
+C: compiled
+endC
+endgbe
+gbe name=deg_to_rad
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms: a=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: x y
+C: compiled
+endC
+endgbe
+gbe name=delay_2
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  t0=1
++  rt0=0
++  t_delay=1
+aux_vars:
+xvar:
+stparms: y_sv=0
+igparms: y_ig=0
+no_functions=1
+f_1:  d_dt(y) x y
+C: compiled
+endC
+endgbe
+gbe name=delay_onestep limit_tstep=no save_history=yes allow_ssw=no
+Jacobian: variable
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  x_last=0.0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=diff_2
+Jacobian: constant
+main_vars: x1 x2 y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  y x1 x2
+C: compiled
+endC
+endgbe
+gbe name=divscl
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a=1
++  a_inv=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  y x
+C: compiled
+endC
+endgbe
+gbe name=dq0_to_abc_1
+Jacobian: variable
+main_vars: xd xq x0 xa xb xc c s
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=3
+f_1: xa xd xq x0 c s
+f_2: xb xd xq x0 c s
+f_3: xc xd xq x0 c s
+C: compiled
+endC
+endgbe
+gbe name=dq0_to_abc_2
+Jacobian: variable
+main_vars: xd xq x0 xa xb xc theta
+iparms:
+sparms:
+rparms:
+aux_vars: c s
+xvar:
+stparms:
+igparms:
+no_functions=5
+f_1: xa xd xq x0 c s
+f_2: xb xd xq x0 c s
+f_3: xc xd xq x0 c s
+f_4: c theta
+f_5: s theta
+C: compiled
+endC
+endgbe
+gbe name=dq_to_abc
+Jacobian: variable
+main_vars: d q cost sint a b c
+iparms:
+sparms:
+rparms:
+aux_vars: alpha beta
+xvar:
+stparms:
+igparms:
+no_functions=5
+f_1: alpha cost sint d q
+f_2: beta cost sint d q
+f_3: a alpha
+f_4: b alpha beta
+f_5: c alpha beta
+C: compiled
+endC
+endgbe
+gbe name=dtc_1
+Jacobian: variable
+main_vars:
++  psis_alpha
++  vs_alpha
++  is_alpha
++  psis_beta
++  vs_beta
++  is_beta
++  md_est
+iparms:
++  poles=4
+sparms:
+rparms:
++  rs=1
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=3
+f_1:  d_dt(psis_alpha) vs_alpha is_alpha
+f_2:  d_dt(psis_beta)  vs_beta  is_beta
+f_3:  md_est psis_alpha is_beta psis_beta is_alpha
+C: compiled
+endC
+endgbe
+gbe name=dtc_2
+Jacobian: constant
+main_vars:
++  sa sb sc vs_alpha vs_beta
+iparms:
+sparms:
+rparms:
++  vdc=100
++  k1=0
++  k2=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: vs_alpha sa sb sc
+f_2: vs_beta sb sc
+C: compiled
+endC
+endgbe
+gbe name=dtc_3
+Jacobian: constant
+main_vars:
++  sa
++  sb
++  sc
++  f0
++  t0
++  s
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=3
+f_1: sa
+f_2: sb
+f_3: sc
+C: compiled
+endC
+endgbe
+gbe name=dtc_4
+Jacobian: variable
+main_vars:
++  x y r s
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: r x y
+f_2: s
+C: compiled
+endC
+endgbe
+gbe name=dummy
+Jacobian: constant
+main_vars: x
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=0
+C: compiled
+endC
+endgbe
+gbe name=eff_d
+Jacobian: variable
+main_vars: eff_d wmr isq
+iparms:
+sparms:
+rparms:
++  sigma=0.0834
++  ls=0.1455m
++  vdc=615
++  k=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  eff_d wmr isq
+C: compiled
+endC
+endgbe
+gbe name=eff_q
+Jacobian: variable
+main_vars: eff_q wmr isd imr
+iparms:
+sparms:
+rparms:
++  sigma=0.0834
++  ls=0.1455m
++  vdc=615
++  k1=0
++  k2=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  eff_q wmr isd imr
+C: compiled
+endC
+endgbe
+gbe name=exc_rotor
+Jacobian: constant
+main_vars:
++  delta
++  omega
++  delta_hp
++  omega_hp
+iparms:
++  i_compute_strt=1
+sparms:
+rparms:
++  h0=0.05
++  d0=0.1
++  k_hp=20
++  d_hp=0.3
++  fb=50
++  wp=0
++  kp_hp=0
++  dp0=0
++  dp_hp=0
++  wb=0
++  f0=50
++  w0=0
+aux_vars:
+xvar:
+stparms:
++  delta_sv=0
++  omega_sv=0
+igparms:
+no_functions=2
+f_1:  d_dt(delta) omega
+f_2:  d_dt(omega)
++     delta delta_hp
++     omega omega_hp
+C: compiled
+endC
+endgbe
+gbe name=filter_bp2
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  c1=0
++  d0=0
++  d1=0
++  f0=1
++  k=1
++  B=0.5
+aux_vars:
++  x1
++  y1
+xvar:
+stparms:
++  x_sv=0
++  y_sv=0
++  y1_sv=0
+igparms:
+no_functions=3
+f_1:  d_dt(y)  y1
+f_2:  d_dt(x)  x1
+f_3:  d_dt(y1) y y1 x1
+C: compiled
+endC
+endgbe
+gbe name=filter_bs2
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  c0=0
++  c2=0
++  d0=0
++  d1=0
++  f0=1
++  k=1
++  B=0.5
+aux_vars:
++  x1
++  x2
++  y1
+xvar:
+stparms:
++  x_sv=0
++  x1_sv=0
++  y_sv=0
++  y1_sv=0
+igparms:
+no_functions=4
+f_1:  d_dt(y)  y1
+f_2:  d_dt(x)  x1
+f_3:  d_dt(x1) x2
+f_4:  d_dt(y1) x y y1 x2
+C: compiled
+endC
+endgbe
+gbe name=filter_hp2
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  c2=0
++  d0=0
++  d1=0
++  fc=1
++  k=1
++  xi=0.1
+aux_vars:
++  x1
++  x2
++  y1
+xvar:
+stparms:
++  x_sv=0
++  x1_sv=0
++  y_sv=0
++  y1_sv=0
+igparms:
+no_functions=4
+f_1:  d_dt(y)  y1
+f_2:  d_dt(x)  x1
+f_3:  d_dt(x1) x2
+f_4:  d_dt(y1) y y1 x2
+C: compiled
+endC
+endgbe
+gbe name=filter_lp2
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  c0=0
++  d0=0
++  d1=0
++  fc=1
++  k=1
++  xi=0.1
+aux_vars: y1
+xvar:
+stparms:
++  y_sv=0
++  y1_sv=0
+igparms:
+no_functions=2
+f_1:  d_dt(y) y1
+f_2:  d_dt(y1) x y y1
+C: compiled
+endC
+endgbe
+gbe name=filter_z0_p1
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  b0=1
++  b1=1
++  c0=0
++  d0=0
++  f0=0.159155
+aux_vars:
+xvar:
+stparms: y_sv=0
+igparms:
+no_functions=1
+f_1:  d_dt(y) x y
+C: compiled
+endC
+endgbe
+gbe name=filter_z0_p1_efd
+Jacobian: constant
+main_vars: x y
+iparms:
++  i_compute_strt=1
+sparms:
+rparms:
++  a0=1
++  b0=1
++  b1=1
++  c0=0
++  d0=0
+aux_vars:
+xvar:
+stparms: y_sv=0
+igparms:
+no_functions=1
+f_1:  d_dt(y) x y
+C: compiled
+endC
+endgbe
+gbe name=filter_z0_p2
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  b0=1
++  b1=1
++  b2=1
++  c0=0
++  d0=0
++  d1=0
++  f0=0.159155
+aux_vars: y1
+xvar:
+stparms:
++  y_sv=0
++  y1_sv=0
+igparms:
+no_functions=2
+f_1:  d_dt(y) y1
+f_2:  d_dt(y1) x y y1
+C: compiled
+endC
+endgbe
+gbe name=filter_z0_p3
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  b0=1
++  b1=1
++  b2=1
++  b3=1
++  c0=0
++  d0=0
++  d1=0
++  d2=0
++  f0=0.159155
+aux_vars:
++  y1
++  y2
+xvar:
+stparms:
++  y_sv=0
++  y1_sv=0
++  y2_sv=0
+igparms:
+no_functions=3
+f_1:  d_dt(y) y1
+f_2:  d_dt(y1) y2
+f_3:  d_dt(y2) x y y1 y2
+C: compiled
+endC
+endgbe
+gbe name=filter_z0_p4
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  b0=1
++  b1=1
++  b2=1
++  b3=1
++  b4=1
++  c0=0
++  d0=0
++  d1=0
++  d2=0
++  d3=0
++  f0=0.159155
+aux_vars:
++  y1
++  y2
++  y3
+xvar:
+stparms:
++  y_sv=0
++  y1_sv=0
++  y2_sv=0
++  y3_sv=0
+igparms:
+no_functions=4
+f_1:  d_dt(y) y1
+f_2:  d_dt(y1) y2
+f_3:  d_dt(y2) y3
+f_4:  d_dt(y3) x y y1 y2 y3
+C: compiled
+endC
+endgbe
+gbe name=filter_z0_p5
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  b0=1
++  b1=1
++  b2=1
++  b3=1
++  b4=1
++  b5=1
++  c0=0
++  d0=0
++  d1=0
++  d2=0
++  d3=0
++  d4=0
++  f0=0.159155
+aux_vars:
++  y1
++  y2
++  y3
++  y4
+xvar:
+stparms:
++  y_sv=0
++  y1_sv=0
++  y2_sv=0
++  y3_sv=0
++  y4_sv=0
+igparms:
+no_functions=5
+f_1:  d_dt(y) y1
+f_2:  d_dt(y1) y2
+f_3:  d_dt(y2) y3
+f_4:  d_dt(y3) y4
+f_5:  d_dt(y4) x y y1 y2 y3 y4
+C: compiled
+endC
+endgbe
+gbe name=filter_z1
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  a1=1
++  c0=0
++  c1=0
++  f0=0.159155
+aux_vars:
++  x1
+xvar:
+stparms:
++  x_sv=0
++  y_sv=0
+igparms:
+no_functions=2
+f_1:  d_dt(x)  x1
+f_2:  x y x1
+C: compiled
+endC
+endgbe
+gbe name=filter_z1_p1
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  a1=1
++  b0=1
++  b1=1
++  c0=0
++  c1=0
++  d0=0
++  f0=0.159155
+aux_vars:
++  x1
+xvar:
+stparms:
++  x_sv=0
++  y_sv=0
+igparms:
+no_functions=2
+f_1:  d_dt(x) x1
+f_2:  d_dt(y) x y x1
+C: compiled
+endC
+endgbe
+gbe name=filter_z1_p2
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  a1=1
++  b0=1
++  b1=1
++  b2=1
++  c0=0
++  c1=0
++  d0=0
++  d1=0
++  f0=0.159155
+aux_vars:
++  x1
++  y1
+xvar:
+stparms:
++  x_sv=0
++  y_sv=0
++  y1_sv=0
+igparms:
+no_functions=3
+f_1:  d_dt(y)  y1
+f_2:  d_dt(x)  x1
+f_3:  d_dt(y1) x y y1 x1
+C: compiled
+endC
+endgbe
+gbe name=filter_z2
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  a1=1
++  a2=1
++  c0=0
++  c1=0
++  c2=0
++  f0=0.159155
+aux_vars:
++  x1
++  x2
+xvar:
+stparms:
++  x_sv=0
++  x1_sv=0
++  y_sv=0
+igparms:
+no_functions=3
+f_1:  d_dt(x)  x1
+f_2:  d_dt(x1) x2
+f_3:  x y x1 x2
+C: compiled
+endC
+endgbe
+gbe name=filter_z2_p2
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  a1=1
++  a2=1
++  b0=1
++  b1=1
++  b2=1
++  c0=0
++  c1=0
++  c2=0
++  d0=0
++  d1=0
++  f0=0.159155
+aux_vars:
++  x1
++  x2
++  y1
+xvar:
+stparms:
++  x_sv=0
++  x1_sv=0
++  y_sv=0
++  y1_sv=0
+igparms:
+no_functions=4
+f_1:  d_dt(y)  y1
+f_2:  d_dt(x)  x1
+f_3:  d_dt(x1) x2
+f_4:  d_dt(y1) x y y1 x1 x2
+C: compiled
+endC
+endgbe
+gbe name=filter_z3_p3
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  a1=1
++  a2=1
++  a3=1
++  b0=1
++  b1=1
++  b2=1
++  b3=1
++  c0=0
++  c1=1
++  c2=1
++  c3=1
++  d0=0
++  d1=0
++  d2=0
++  f0=0.159155
+aux_vars:
++  x1
++  x2
++  x3
++  y1
++  y2
+xvar:
+stparms:
++  x_sv=0
++  x1_sv=0
++  x2_sv=0
++  y_sv=0
++  y1_sv=0
++  y2_sv=0
+igparms:
+no_functions=6
+f_1:  d_dt(y) y1
+f_2:  d_dt(y1) y2
+f_3:  d_dt(x)  x1
+f_4:  d_dt(x1) x2
+f_5:  d_dt(x2) x3
+f_6:  d_dt(y2) x y y1 y2 x1 x2 x3
+C: compiled
+endC
+endgbe
+gbe name=filter_z4_p4
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  a1=1
++  a2=1
++  a3=1
++  a4=1
++  b0=1
++  b1=1
++  b2=1
++  b3=1
++  b4=1
++  c0=0
++  c1=1
++  c2=1
++  c3=1
++  c4=1
++  d0=0
++  d1=0
++  d2=0
++  d3=0
++  f0=0.159155
+aux_vars:
++  x1
++  x2
++  x3
++  x4
++  y1
++  y2
++  y3
+xvar:
+stparms:
++  x_sv=0
++  x1_sv=0
++  x2_sv=0
++  x3_sv=0
++  y_sv=0
++  y1_sv=0
++  y2_sv=0
++  y3_sv=0
+igparms:
+no_functions=8
+f_1:  d_dt(y) y1
+f_2:  d_dt(y1) y2
+f_3:  d_dt(y2) y3
+f_4:  d_dt(x)  x1
+f_5:  d_dt(x1) x2
+f_6:  d_dt(x2) x3
+f_7:  d_dt(x3) x4
+f_8:  d_dt(y3) x y y1 y2 y3 x1 x2 x3 x4
+C: compiled
+endC
+endgbe
+gbe name=filter_z5_p5
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  a1=1
++  a2=1
++  a3=1
++  a4=1
++  a5=1
++  b0=1
++  b1=1
++  b2=1
++  b3=1
++  b4=1
++  b5=1
++  c0=0
++  c1=1
++  c2=1
++  c3=1
++  c4=1
++  c5=1
++  d0=0
++  d1=0
++  d2=0
++  d3=0
++  d4=0
++  f0=0.159155
+aux_vars:
++  x1
++  x2
++  x3
++  x4
++  x5
++  y1
++  y2
++  y3
++  y4
+xvar:
+stparms:
++  x_sv=0
++  x1_sv=0
++  x2_sv=0
++  x3_sv=0
++  x4_sv=0
++  y_sv=0
++  y1_sv=0
++  y2_sv=0
++  y3_sv=0
++  y4_sv=0
+igparms:
+no_functions=10
+f_1:   d_dt(y)  y1
+f_2:   d_dt(y1) y2
+f_3:   d_dt(y2) y3
+f_4:   d_dt(y3) y4
+f_5:   d_dt(x)  x1
+f_6:   d_dt(x1) x2
+f_7:   d_dt(x2) x3
+f_8:   d_dt(x3) x4
+f_9:   d_dt(x4) x5
+f_10:  d_dt(y4) x y y1 y2 y3 y4 x1 x2 x3 x4 x5
+C: compiled
+endC
+endgbe
+gbe name=floor
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=fmod
+Jacobian: variable
+main_vars: x1 x2 y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=int_nearest
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=intgrtr
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms: k=1
+aux_vars:
+xvar:
+stparms: y_sv=0
+igparms: y_ig=0
+no_functions=1
+f_1:  d_dt(y) x
+C: compiled
+endC
+endgbe
+gbe name=intgrtr2
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  k=1
++  tau=1
++  ki=0
+aux_vars:
+xvar:
+stparms: y_sv=0
+igparms: y_ig=0
+no_functions=1
+f_1: d_dt(y) x
+C: compiled
+endC
+endgbe
+gbe name=intgrtr_reset allow_reset=yes
+Jacobian: variable
+main_vars: x y r
+iparms:
+sparms:
+rparms:
++  k1=1
++  g_high=1
++  ghby2=0
+aux_vars:
+xvar:
+stparms: y_sv=0
+igparms:
+no_functions=1
+f_1:  d_dt(y) x r
+C: compiled
+endC
+endgbe
+gbe name=intgrtr_reset_1 save_history=yes allow_ssw=no allow_reset=yes
++  limit_tstep=yes
+Jacobian: variable
+main_vars: x y r
+iparms:
++  active_pos_edge=1
++  active_neg_edge=0
+sparms:
+rparms:
++  k1=1
++  g_high=1
++  r_prev=0
++  ghby2=0
++  delt_min=1u
++  tnext=1e6
+aux_vars:
+xvar:
+stparms: y_sv=0
+igparms:
+no_functions=1
+f_1: d_dt(y) x
+C: compiled
+endC
+endgbe
+gbe name=lag_1
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  tr=1
++  k=1
+aux_vars:
+xvar:
+stparms: y0sv=0
+igparms:
+no_functions=1
+f_1:  d_dt(y) x y
+C: compiled
+endC
+endgbe
+gbe name=linear_1
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++   a1=1
++   a2=1
++   b1=1
++   b2=1
++   c1=0
++   c2=1
++   a=0
++   b=0
++   c=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  y x
+C: compiled
+endC
+endgbe
+gbe name=lmtr
+Jacobian: variable
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  xmin=-1
++  xmax=1
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: x y
+C: compiled
+endC
+endgbe
+gbe name=lut_file_1_to_3
+Jacobian: variable
+main_vars: x y1 y2 y3
+iparms:
++  i_file=-1
+sparms: file_name=none
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=3
+f_1: y1
+f_2: y2
+f_3: y3
+C: compiled
+endC
+endgbe
+gbe name=lut_file_2_to_1
+Jacobian: variable
+main_vars: x1 x2 y1
+iparms:
++  i_file=-1
+sparms: file_name=none
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y1
+C: compiled
+endC
+endgbe
+gbe name=lut_file_3_to_1
+Jacobian: variable
+main_vars: x1 x2 x3 y1
+iparms:
++  i_file=-1
+sparms: file_name=none
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y1
+C: compiled
+endC
+endgbe
+gbe name=lut_file_4_to_1
+Jacobian: variable
+main_vars: x1 x2 x3 x4 y1
+iparms:
++  i_file=-1
+sparms: file_name=none
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y1
+C: compiled
+endC
+endgbe
+gbe name=max_2
+Jacobian: variable
+main_vars: x1 x2 y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=max_3
+Jacobian: variable
+main_vars: x1 x2 x3 y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=max_4
+Jacobian: variable
+main_vars: x1 x2 x3 x4 y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=min_2
+Jacobian: variable
+main_vars: x1 x2 y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=min_3
+Jacobian: variable
+main_vars: x1 x2 x3 y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=min_4
+Jacobian: variable
+main_vars: x1 x2 x3 x4 y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=modulo_twopi limit_modulo=yes
+Jacobian: constant
+main_vars: x
+iparms:
+sparms:
+rparms: x1=0 x2=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=0
+C: compiled
+endC
+endgbe
+gbe name=monostable save_history=yes limit_tstep=yes allow_ssw=no
+Jacobian: variable
+main_vars: x_in y x_enable
+iparms:
++  active_pos_edge=1
++  active_neg_edge=0
++  active_edge_found=0
+sparms:
+rparms:
++  T=0.1
++  x_low=0
++  x_high=1
++  y_low=0
++  y_high=1
++  x_in_prev=0
++  t2=0
++  x_cross=0
++  y_cross=0
++  epsl=0
++  epsl1=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=monostable_1 save_history=yes limit_tstep=yes allow_ssw=no
+Jacobian: variable
+main_vars: x y
+iparms:
++  active_pos_edge=1
++  active_neg_edge=0
++  active_edge_found=0
+sparms:
+rparms:
++  beta=20
++  frequency=50
++  x_low=0
++  x_high=1
++  y_low=0
++  y_high=1
++  T=0.1
++  x_prev=0
++  t2=0
++  x_cross=0
++  y_cross=0
++  epsl=0
++  epsl1=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=monostable_1a save_history=yes limit_tstep=yes allow_ssw=no
+Jacobian: variable
+main_vars: x_in y
+iparms:
++  active_pos_edge=1
++  active_neg_edge=0
++  active_edge_found=0
+sparms:
+rparms:
++  T=0.1
++  x_low=0
++  x_high=1
++  y_low=0
++  y_high=1
++  x_in_prev=0
++  t2=0
++  x_cross=0
++  y_cross=0
++  epsl=0
++  epsl1=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=mult_2
+Jacobian: variable
+main_vars: x1 x2 y
+iparms:
+sparms:
+rparms: k=1
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  y x1 x2
+C: compiled
+endC
+endgbe
+gbe name=mult_2a
+Jacobian: variable
+main_vars: x1 x2 y
+iparms:
+sparms:
+rparms: a1=1.0 a2=1.0 k=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  y x1 x2
+C: compiled
+endC
+endgbe
+gbe name=mult_3a
+Jacobian: variable
+main_vars: x1 x2 x3 y
+iparms:
+sparms:
+rparms: a1=1.0 a2=1.0 k=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  y x1 x2 x3
+C: compiled
+endC
+endgbe
+gbe name=multscl
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms: a=1
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  y x
+C: compiled
+endC
+endgbe
+gbe name=mux
+Jacobian: variable
+main_vars: x1 x2 y c
+iparms:
+sparms:
+rparms: c0=0.5
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=nand_2
+Jacobian: variable
+main_vars: x1 x2 y
+iparms:
+sparms:
+rparms:
++  g_high=1.0
++  ghby2=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=nor_2
+Jacobian: variable
+main_vars: x1 x2 y
+iparms:
+sparms:
+rparms:
++  g_high=1.0
++  ghby2=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=not
+Jacobian: variable
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  g_high=1.0
++  ghby2=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=or_2
+Jacobian: variable
+main_vars: x1 x2 y
+iparms:
+sparms:
+rparms:
++  g_high=1.0
++  ghby2=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=or_3
+Jacobian: variable
+main_vars: x1 x2 x3 y
+iparms:
+sparms:
+rparms:
++  g_high=1.0
++  ghby2=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=peak_detector
+Jacobian: variable
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  tau=1.0e-6
++  k=0
+aux_vars:
+xvar:
+stparms: y_sv=0
+igparms:
+no_functions=1
+f_1:  d_dt(y) x y
+C: compiled
+endC
+endgbe
+gbe name=pll_1a
+Jacobian: variable
+main_vars: va vb vc dem s c
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  dem va vb vc s c
+C: compiled
+endC
+endgbe
+gbe name=pole_2_b
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  f0=50
++  k=1
++  c2=0
++  c3=0
+aux_vars: y1
+xvar:
+stparms: y_sv=0 y1_sv=0
+igparms: y_ig=0
+no_functions=2
+f_1:  d_dt(y1) x y y1
+f_2:  d_dt(y) y1
+C: compiled
+endC
+endgbe
+gbe name=poly_4
+Jacobian: variable
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=0
++  a1=1
++  a2=0
++  a3=0
++  a4=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: x y
+C: compiled
+endC
+endgbe
+gbe name=pstprc_div2
+Jacobian: variable
+main_vars: x1 x2 y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=pulse limit_tstep=yes
+Jacobian: constant
+main_vars: y
+iparms:
+sparms:
+rparms:
++  t1=1
++  t2=2
++  val1=0
++  val2=0
++  val3=0
++  delt1=0.01
++  delt2=0.01
++  slp1=0
++  slp2=0
++  tp1=0
++  tp2=0
++  epsl=0
++  epsl1=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=pulse20 limit_tstep=yes
+Jacobian: constant
+main_vars: y
+iparms: i0=0 n1=2
+sparms:
+rparms:
++  t1 =1  t2 =2  t3 =3  t4 =4  t5 =5
++  t6 =6  t7 =7  t8 =8  t9 =9  t10=10
++  t11=11 t12=12 t13=13 t14=14 t15=15
++  t16=16 t17=17 t18=18 t19=19 t20=20
++  g_low=0 g_high=5 t_rise=10n t_fall=10n
++  epsl=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=pwl10_xy
+Jacobian: variable
+main_vars: x y
+iparms: n=2
+sparms:
+rparms:
++  x1=1 x2=1 x3=1 x4=1 x5=1
++  x6=1 x7=1 x8=1 x9=1 x10=1
++  y1=1 y2=1 y3=1 y4=1 y5=1
++  y6=1 y7=1 y8=1 y9=1 y10=1
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=pwl20 limit_tstep=yes
+Jacobian: constant
+main_vars: y
+iparms: n=2
+sparms:
+rparms:
++   t1 =1  t2 =2  t3 =3  t4 =4  t5 =5
++   t6 =6  t7 =7  t8 =8  t9 =9  t10=10
++   t11=11 t12=12 t13=13 t14=14 t15=15
++   t16=16 t17=17 t18=18 t19=19 t20=20
++   v1 =1  v2 =2  v3 =3  v4 =4  v5 =5
++   v6 =6  v7 =7  v8 =8  v9 =9  v10=10
++   v11=11 v12=12 v13=13 v14=14 v15=15
++   v16=16 v17=17 v18=18 v19=19 v20=20
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=pwl_file limit_tstep=yes allow_ssw=no save_history=yes
+Jacobian: variable
+main_vars: x
+iparms:
++  i_file=-1
++  index_last=0
++  index1=0
+sparms: file_name=none
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: x
+C: compiled
+endC
+endgbe
+gbe name=pwl_file_xy_1 allow_ssw=yes
+Jacobian: variable
+main_vars: x y
+iparms:
++  i_file=-1
++  index_last=0
++  index1=0
+sparms: file_name=none
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=pwm20_1 limit_tstep=yes save_history=yes allow_ssw=no
+Jacobian: variable
+main_vars: x
+iparms:
++  ndata=2
++  index_last=0
++  level_0minus=0
+sparms:
+rparms:
++  t_1=0
++  t_2=0
++  t_3=0
++  t_4=0
++  t_5=0
++  t_6=0
++  t_7=0
++  t_8=0
++  t_9=0
++  t_10=0
++  t_11=0
++  t_12=0
++  t_13=0
++  t_14=0
++  t_15=0
++  t_16=0
++  t_17=0
++  t_18=0
++  t_19=0
++  t_20=0
++  theta_1=0
++  theta_2=0
++  theta_3=0
++  theta_4=0
++  theta_5=0
++  theta_6=0
++  theta_7=0
++  theta_8=0
++  theta_9=0
++  theta_10=0
++  theta_11=0
++  theta_12=0
++  theta_13=0
++  theta_14=0
++  theta_15=0
++  theta_16=0
++  theta_17=0
++  theta_18=0
++  theta_19=0
++  theta_20=0
++  frequency=1
++  g_low=0
++  g_high=1
++  theta_delay=0.0
++  t_delay=0
++  t_period=0
++  epsl1=0
++  epsl2=0
++  epsl3=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: x
+C: compiled
+endC
+endgbe
+gbe name=pwm20_2 limit_tstep=yes save_history=yes allow_ssw=no
+Jacobian: variable
+main_vars: sync x
+iparms:
++  ndata=2
++  index_last=0
++  level_0minus=0
++  flag_tp_at_zero=0
+sparms:
+rparms:
++  t_1=0
++  t_2=0
++  t_3=0
++  t_4=0
++  t_5=0
++  t_6=0
++  t_7=0
++  t_8=0
++  t_9=0
++  t_10=0
++  t_11=0
++  t_12=0
++  t_13=0
++  t_14=0
++  t_15=0
++  t_16=0
++  t_17=0
++  t_18=0
++  t_19=0
++  t_20=0
++  theta_1=0
++  theta_2=0
++  theta_3=0
++  theta_4=0
++  theta_5=0
++  theta_6=0
++  theta_7=0
++  theta_8=0
++  theta_9=0
++  theta_10=0
++  theta_11=0
++  theta_12=0
++  theta_13=0
++  theta_14=0
++  theta_15=0
++  theta_16=0
++  theta_17=0
++  theta_18=0
++  theta_19=0
++  theta_20=0
++  frequency=1
++  g_low=0
++  g_high=1
++  sync_low=0
++  sync_high=1
++  sync_last=0.0
++  t_active_edge=0
++  t_period=0
++  epsl2=0
++  epsl3=0
++  sync_cross=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: x
+C: compiled
+endC
+endgbe
+gbe name=pwm_file_1 limit_tstep=yes save_history=yes allow_ssw=no
+Jacobian: variable
+main_vars: x
+iparms:
++  i_file=-1
++  index_last=0
++  level_0minus=0
+sparms: file_name=none
+rparms:
++  frequency=1
++  g_low=0
++  g_high=1
++  theta_delay=0.0
++  t_delay=0
++  t_period=0
++  epsl1=0
++  epsl2=0
++  epsl3=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: x
+C: compiled
+endC
+endgbe
+gbe name=pwm_file_2 limit_tstep=yes save_history=yes allow_ssw=no
+Jacobian: variable
+main_vars: sync x
+iparms:
++  i_file=-1
++  index_last=0
++  level_0minus=0
++  flag_tp_at_zero=0
+sparms: file_name=none
+rparms:
++  frequency=1
++  g_low=0
++  g_high=1
++  sync_low=0
++  sync_high=1
++  sync_last=0.0
++  t_active_edge=0
++  t_period=0
++  epsl2=0
++  epsl3=0
++  sync_cross=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: x
+C: compiled
+endC
+endgbe
+gbe name=rad_to_deg
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms: a=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: x y
+C: compiled
+endC
+endgbe
+gbe name=reciprocal
+Jacobian: variable
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a1=1
++  a2=1
++  a3=1
++  a4=1
++  k=1
++  delta=1.0e-10
++  kk=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: x y
+C: compiled
+endC
+endgbe
+gbe name=rms save_history=yes allow_ssw=no
+Jacobian: variable
+main_vars: x_in x_out x_cntrl
+iparms:
+sparms:
+rparms:
++  x_int=0
++  x_cntrl_last=0
++  time_last=0
++  x_out_value=0
++  time_ttl=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: x_out
+C: compiled
+endC
+endgbe
+gbe name=rms_3ph_1
+Jacobian: variable
+main_vars:
++  a
++  b
++  c
++  v_rms
+iparms:
+sparms:
+rparms: delta=1e-6
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  v_rms a b c
+C: compiled
+endC
+endgbe
+gbe name=rms_mv save_history=yes allow_ssw=no
+Jacobian: variable
+main_vars: x_in x_out x_cntrl
+iparms:
++  n_samples=20
++  index=-1
++  flag_start=0
++  n_count=0
+sparms:
+rparms:
++  x_int=0
++  x_cntrl_last=0
++  delt=1
++  x_out_value=0
++  time_ttl=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: x_out
+C: compiled
+endC
+endgbe
+gbe name=sampler1 limit_tstep=yes
+Jacobian: variable
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  delt_sample=10
++  offs_sample=0
++  y_previous=0
++  eps1=0
+aux_vars:
+xvar:
+stparms: y_startup=0
+igparms: y_init=0
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=sampler2 limit_tstep=yes save_history=yes
+Jacobian: variable
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  tperiod=10u
++  t0=0
++  v_previous=0
++  dt=1u
++  epsl1=0
++  epsl2=0
+aux_vars:
+xvar:
+stparms: y_startup=0
+igparms: y_init=0
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=sampler3 save_history=yes
+Jacobian: variable
+main_vars: x y
+iparms: n_delay=1
+sparms:
+rparms:
++  tperiod=10u
++  t0=0
++  y_current=0
++  dt=1u
++  y_old_1=0
++  y_old_2=0
++  y_old_3=0
++  y_old_4=0
++  epsl1=0
++  epsl2=0
+aux_vars:
+xvar:
+stparms: y_startup=0
+igparms: y_init=0
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=set_rparm set_rparm_1=yes
+Jacobian: constant
+main_vars: x
+iparms:
+sparms:
++  element_name=none
++  rparm_name=none
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=0
+C: compiled
+endC
+endgbe
+gbe name=sine
+Jacobian: variable
+main_vars: x y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  x y
+C: compiled
+endC
+endgbe
+gbe name=slip
+Jacobian: variable
+main_vars: w2 isq imr wrm wmr
+iparms: poles=4
+sparms:
+rparms:
++  tr=0.1257
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: isq w2 imr
+f_2: wmr wrm w2
+C: compiled
+endC
+endgbe
+gbe name=sqr
+Jacobian: variable
+main_vars: x y
+iparms:
+sparms:
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms: x_ig=0.01
+no_functions=1
+f_1: y x
+C: compiled
+endC
+endgbe
+gbe name=sqrt
+Jacobian: variable
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  delta=1.0e-10
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y x
+C: compiled
+endC
+endgbe
+gbe name=src_table_1 save_history=yes allow_ssw=no
+Jacobian: variable
+main_vars: x
+iparms:
++  i_file=-1
++  index_last=0
++  index1=0
+sparms: file_name=none
+rparms:
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: x
+C: compiled
+endC
+endgbe
+gbe name=srcac
+Jacobian: constant
+main_vars: y
+iparms:
+sparms:
+rparms:
++  a=1
++  f_hz=1
++  phi=0
++  t0=0
++  omega=0
++  phi_rad=0
++  offset=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=srcac_fwr
+Jacobian: constant
+main_vars: vxn
+iparms:
+sparms:
+rparms:
++  a=1
++  f_hz=1
++  phi=0
++  t0=0
++  omega=0
++  phi_rad=0
++  offset=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: vxn
+C: compiled
+endC
+endgbe
+gbe name=srm_logic
+Jacobian: constant
+main_vars:
++  theta g
+iparms:
++  ns=6
++  nr=4
+sparms:
+rparms:
++  theta_ov_deg=5
++  theta_start_deg=0
++  theta_1=0
++  theta_2=0
++  tau_r=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: g
+C: compiled
+endC
+endgbe
+gbe name=step limit_tstep=yes
+Jacobian: constant
+main_vars: y
+iparms:
+sparms:
+rparms:
++  t_change=1
++  val1=0
++  val2=0
++  delt=0.01
++  slp1=0
++  tp1=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=sum_2
+Jacobian: constant
+main_vars: x1 x2 y
+iparms:
+sparms:
+rparms: k1=1 k2=1
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  y x1 x2
+C: compiled
+endC
+endgbe
+gbe name=sum_3
+Jacobian: constant
+main_vars: x1 x2 x3 y
+iparms:
+sparms:
+rparms: k1=1 k2=1 k3=1
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  y x1 x2 x3
+C: compiled
+endC
+endgbe
+gbe name=sum_5
+Jacobian: constant
+main_vars: x1 x2 x3 x4 x5 y
+iparms:
+sparms:
+rparms:
++  k1=1
++  k2=1
++  k3=1
++  k4=1
++  k5=1
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  y x1 x2 x3 x4 x5
+C: compiled
+endC
+endgbe
+gbe name=syncmc_delta
+Jacobian: constant
+main_vars:
++  delta
++  omega
++  delta_hp
++  delta_lp
++  omega_hp
++  omega_lp
++  t1
+iparms:
++  i_compute_strt=1
+sparms:
+rparms:
++  k_hp=20
++  k_lp=20
++  d_hp=0.3
++  d_lp=0.3
++  fb=50
++  wb=0
++  f0=50
++  w0=0
+aux_vars:
+xvar:
+stparms:
++  delta_sv=0
+igparms:
+no_functions=2
+f_1:  d_dt(delta) omega
+f_2:  t1
++     delta delta_lp delta_hp
++     omega omega_lp omega_hp
+C: compiled
+endC
+endgbe
+gbe name=tanh
+Jacobian: variable
+main_vars: x y
+iparms:
+sparms:
+rparms: a0=1
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  x y
+C: compiled
+endC
+endgbe
+gbe name=torque1
+Jacobian: variable
+main_vars:
++  wr tem tl
+iparms:
+sparms:
+rparms:
++  j=0.00171
++  fn=0.0009534
+aux_vars:
+xvar:
+stparms: wr0=0
+igparms:
+no_functions=1
+f_1: d_dt(wr) tem tl wr
+C: compiled
+endC
+endgbe
+gbe name=triangle_1 limit_tstep=yes
+Jacobian: constant
+main_vars: y
+iparms: i0=0
+sparms:
+rparms:
++  t1=1
++  t2=1
++  tperiod=0
++  t0=0
++  g_high=1.0
++  g_low=-1.0
++  slp1=0
++  slp2=0
++  epsl=1.0e-9
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=triangle_2 limit_tstep=yes
+Jacobian: constant
+main_vars: y
+iparms:
++  i0=0
++  flag_frequency=0
++  flag_period=1
+sparms:
+rparms:
++  t1=1
++  t2=1
++  frequency=50
++  t_period=20e-3
++  t0=0
++  g_high=1.0
++  g_low=-1.0
++  slp1=0
++  slp2=0
++  epsl=1.0e-9
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=triangle_2a limit_tstep=yes
+Jacobian: constant
+main_vars: t ref
+iparms:
++  flag_frequency=0
++  flag_period=1
+sparms:
+rparms:
++  duty_cycle=0.5
++  offset=0.1
++  t_period=20m
++  frequency=50
++  g_high=1.0
++  t1=1
++  t2=1
++  t0=0
++  slp1=0
++  slp2=0
++  epsl=1.0e-9
++  x0=0.5
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: t
+f_2: ref
+C: compiled
+endC
+endgbe
+gbe name=triangle_3 limit_tstep=yes
+Jacobian: constant
+main_vars: y
+iparms:
++  i0=0
++  flag_frequency=1
++  flag_period=0
+sparms:
+rparms:
++  t1=1
++  t2=1
++  t_period=10m
++  frequency=1k
++  t0=0
++  g_high=1.0
++  g_low=-1.0
++  slp1=0
++  slp2=0
++  epsl=1.0e-9
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe
+gbe name=turbine_gnrl
+Jacobian: constant
+main_vars:
++  delta
++  omega
++  delta_hp
++  delta_lp
++  omega_hp
++  omega_lp
++  tm
+iparms:
++  i_compute_strt=1
++  i_flag_turbine=2
+sparms:
+rparms:
++  h0=0.05
++  d0=0.1
++  k_hp=20
++  k_lp=20
++  d_hp=0.3
++  d_lp=0.3
++  fb=50
++  wp=0
++  kp_hp=0
++  kp_lp=0
++  dp0=0
++  dp_hp=0
++  dp_lp=0
++  wb=0
++  f0=50
++  w0=0
+aux_vars:
+xvar:
+stparms:
++  delta_sv=0
++  omega_sv=0
+igparms:
+no_functions=2
+f_1:  d_dt(delta) omega
+f_2:  d_dt(omega) tm
++     delta delta_lp delta_hp
++     omega omega_lp omega_hp
+C: compiled
+endC
+endgbe
+gbe name=turbine_hp
+Jacobian: constant
+main_vars:
++  delta
++  omega
++  delta_lp
++  omega_lp
++  tm
+iparms:
++  i_compute_strt=1
+sparms:
+rparms:
++  h0=0.05
++  d0=0.1
++  k_lp=20
++  d_lp=0.3
++  fb=50
++  wp=0
++  kp_lp=0
++  dp0=0
++  dp_lp=0
++  wb=0
++  f0=50
++  w0=0
+aux_vars:
+xvar:
+stparms:
++  delta_sv=0
++  omega_sv=0
+igparms:
+no_functions=2
+f_1:  d_dt(delta) omega
+f_2:  d_dt(omega) tm
++     delta delta_lp
++     omega omega_lp
+C: compiled
+endC
+endgbe
+gbe name=user_function_12_1
+Jacobian: variable
+main_vars:
++  x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12
++  y1
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y1
+C: compiled
+endC
+endgbe
+gbe name=user_function_12_12
+Jacobian: variable
+main_vars:
++  x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12
++  y1 y2 y3 y4 y5 y6 y7 y8 y9 y10 y11 y12
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=12
+f_1: y1
+f_2: y2
+f_3: y3
+f_4: y4
+f_5: y5
+f_6: y6
+f_7: y7
+f_8: y8
+f_9: y9
+f_10: y10
+f_11: y11
+f_12: y12
+C: compiled
+endC
+endgbe
+gbe name=user_function_1_1
+Jacobian: variable
+main_vars: x1 y1
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y1
+C: compiled
+endC
+endgbe
+gbe name=user_function_1_3
+Jacobian: variable
+main_vars: x1 y1 y2 y3
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=3
+f_1: y1
+f_2: y2
+f_3: y3
+C: compiled
+endC
+endgbe
+gbe name=user_function_2_1
+Jacobian: variable
+main_vars: x1 x2 y1
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y1
+C: compiled
+endC
+endgbe
+gbe name=user_function_2_2
+Jacobian: variable
+main_vars: x1 x2 y1 y2
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: y1
+f_2: y2
+C: compiled
+endC
+endgbe
+gbe name=user_function_3_1
+Jacobian: variable
+main_vars: x1 x2 x3 y1
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y1
+C: compiled
+endC
+endgbe
+gbe name=user_function_3_3
+Jacobian: variable
+main_vars: x1 x2 x3 y1 y2 y3
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=3
+f_1: y1
+f_2: y2
+f_3: y3
+C: compiled
+endC
+endgbe
+gbe name=user_function_6_1
+Jacobian: variable
+main_vars: x1 x2 x3 x4 x5 x6 y1
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1: y1
+C: compiled
+endC
+endgbe
+gbe name=user_function_6_3
+Jacobian: variable
+main_vars: x1 x2 x3 x4 x5 x6 y1 y2 y3
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=3
+f_1: y1
+f_2: y2
+f_3: y3
+C: compiled
+endC
+endgbe
+gbe name=user_function_6_6
+Jacobian: variable
+main_vars: x1 x2 x3 x4 x5 x6 y1 y2 y3 y4 y5 y6
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: y1
+f_2: y2
+f_3: y3
+f_4: y4
+f_5: y5
+f_6: y6
+C: compiled
+endC
+endgbe
+gbe name=vtof1
+Jacobian: variable
+main_vars: v w
+iparms:
+sparms:
+rparms:
++  vmin=1
++  vmax=4
++  fmin=1e6
++  fmax=2e6
++  kvco=0
++  wmin=0
++  wmax=0
+aux_vars:
+xvar:
+stparms:
+igparms:
+no_functions=1
+f_1:  v w
+C: compiled
+endC
+endgbe
+gbe name=xtog
+Jacobian: constant
+main_vars: y
+iparms:
+sparms:
+rparms: k=1
+aux_vars:
+xvar: x
+stparms:
+igparms:
+no_functions=1
+f_1:  y
+C: compiled
+endC
+endgbe
+gbe name=zero_2_b
+Jacobian: constant
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  f0=50
++  k=1
++  c2=0
+aux_vars: x1
+xvar:
+stparms: y_sv=0 x1_sv=0
+igparms: y_ig=0
+no_functions=2
+f_1:  d_dt(x1) y x
+f_2:  d_dt(x) x1
+C: compiled
+endC
+endgbe

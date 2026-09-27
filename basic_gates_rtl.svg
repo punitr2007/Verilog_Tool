@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="cursor: grab; background-color: rgb(11, 15, 25);"><g transform="translate(761, 57) scale(0.4)"><rect width="10000" height="10000" x="-5000" y="-5000" fill="url(#eda-grid)"/><g id="schematic-wires"><path d="M 135 94 L 340 94" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="135" cy="94" r="3.5" fill="#10b981"/><path d="M 135 116 L 340 116" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="135" cy="116" r="3.5" fill="#10b981"/><path d="M 405 105 L 680 105" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="680" cy="105" r="3.5" fill="#10b981"/><path d="M 135 179 L 350 179" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="135" cy="179" r="3.5" fill="#10b981"/><path d="M 135 201 L 350 201" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="135" cy="201" r="3.5" fill="#10b981"/><path d="M 415 190 L 680 190" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="680" cy="190" r="3.5" fill="#10b981"/><path d="M 135 275 L 340 275" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="135" cy="275" r="3.5" fill="#10b981"/><path d="M 394 275 L 680 275" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="680" cy="275" r="3.5" fill="#10b981"/><path d="M 135 349 L 340 349" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="135" cy="349" r="3.5" fill="#10b981"/><path d="M 135 371 L 340 371" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="135" cy="371" r="3.5" fill="#10b981"/><path d="M 405 360 L 680 360" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="680" cy="360" r="3.5" fill="#10b981"/><path d="M 135 434 L 350 434" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="135" cy="434" r="3.5" fill="#10b981"/><path d="M 135 456 L 350 456" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="135" cy="456" r="3.5" fill="#10b981"/><path d="M 415 445 L 680 445" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="680" cy="445" r="3.5" fill="#10b981"/><path d="M 135 519 L 348 519" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="135" cy="519" r="3.5" fill="#10b981"/><path d="M 135 541 L 348 541" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="135" cy="541" r="3.5" fill="#10b981"/><path d="M 420 530 L 680 530" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="680" cy="530" r="3.5" fill="#10b981"/><path d="M 135 604 L 348 604" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="135" cy="604" r="3.5" fill="#10b981"/><path d="M 135 626 L 348 626" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="135" cy="626" r="3.5" fill="#10b981"/><path d="M 420 615 L 680 615" fill="none" stroke="#10b981" stroke-width="2.2"/><circle cx="680" cy="615" r="3.5" fill="#10b981"/></g><g id="schematic-components"><g class="schematic-gate" id="gate_0"><g>
+        <path d="M 340 80 L 380 80 A 25 25 0 0 1 380 130 L 340 130 Z" fill="#fef08a" stroke="#0f172a" stroke-width="2"/>
+        
+        <text x="355" y="74" font-size="11" font-family="monospace" fill="#94a3b8">yAND_inst</text>
+        <text x="355" y="144" font-size="10" font-family="monospace" fill="#64748b" font-weight="bold">AND</text>
+      </g></g><g class="schematic-gate" id="gate_1"><g>
+        <path d="M 340 165 Q 360 190 340 215 &#xA;                 Q 385 215 415 190 &#xA;                 Q 385 165 340 165 Z" fill="#fef08a" stroke="#0f172a" stroke-width="2"/>
+        
+        <text x="358" y="159" font-size="11" font-family="monospace" fill="#94a3b8">yOR_inst</text>
+        <text x="358" y="229" font-size="10" font-family="monospace" fill="#64748b" font-weight="bold">OR</text>
+      </g></g><g class="schematic-gate" id="gate_2"><g>
+        <polygon points="340,260 385,275 340,290" fill="#fef08a" stroke="#0f172a" stroke-width="2"/>
+        <circle cx="390" cy="275" r="4" fill="#fef08a" stroke="#0f172a" stroke-width="2"/>
+        <text x="350" y="252" font-size="11" font-family="monospace" fill="#94a3b8">yNOT_inst</text>
+        <text x="350" y="304" font-size="10" font-family="monospace" fill="#64748b" font-weight="bold">INV</text>
+      </g></g><g class="schematic-gate" id="gate_3"><g>
+        <path d="M 340 335 L 380 335 A 25 25 0 0 1 380 385 L 340 385 Z" fill="#fef08a" stroke="#0f172a" stroke-width="2"/>
+        
+        <text x="355" y="329" font-size="11" font-family="monospace" fill="#94a3b8">yNAND_inst</text>
+        <text x="355" y="399" font-size="10" font-family="monospace" fill="#64748b" font-weight="bold">AND</text>
+      </g></g><g class="schematic-gate" id="gate_4"><g>
+        <path d="M 340 420 Q 360 445 340 470 &#xA;                 Q 385 470 415 445 &#xA;                 Q 385 420 340 420 Z" fill="#fef08a" stroke="#0f172a" stroke-width="2"/>
+        
+        <text x="358" y="414" font-size="11" font-family="monospace" fill="#94a3b8">yNOR_inst</text>
+        <text x="358" y="484" font-size="10" font-family="monospace" fill="#64748b" font-weight="bold">OR</text>
+      </g></g><g class="schematic-gate" id="gate_5"><g>
+        <path d="M 340 505 Q 365 530 340 555 &#xA;                 Q 385 555 420 530 &#xA;                 Q 385 505 340 505 Z" fill="#fef08a" stroke="#0f172a" stroke-width="2"/>
+        <path d="M 334 505 Q 359 530 334 555" fill="none" stroke="#0f172a" stroke-width="2"/>
+        <text x="362" y="499" font-size="11" font-family="monospace" fill="#94a3b8">yXOR_inst</text>
+        <text x="362" y="569" font-size="10" font-family="monospace" fill="#64748b" font-weight="bold">RTL_XOR</text>
+      </g></g><g class="schematic-gate" id="gate_6"><g>
+        <path d="M 340 590 Q 365 615 340 640 &#xA;                 Q 385 640 420 615 &#xA;                 Q 385 590 340 590 Z" fill="#fef08a" stroke="#0f172a" stroke-width="2"/>
+        <path d="M 334 590 Q 359 615 334 640" fill="none" stroke="#0f172a" stroke-width="2"/>
+        <text x="362" y="584" font-size="11" font-family="monospace" fill="#94a3b8">yXNOR_inst</text>
+        <text x="362" y="654" font-size="10" font-family="monospace" fill="#64748b" font-weight="bold">RTL_XOR</text>
+      </g></g></g><g id="schematic-labels"><g class="schematic-port input-port" data-port="a">
+        <polygon points="60,80 85,80 95,90 85,100 60,100" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+        <text x="50" y="94" fill="#f8fafc" font-size="12" font-family="monospace" text-anchor="end" font-weight="600">
+          a
+        </text>
+      </g><g class="schematic-port input-port" data-port="input  logic b">
+        <polygon points="60,155 85,155 95,165 85,175 60,175" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+        <text x="50" y="169" fill="#f8fafc" font-size="12" font-family="monospace" text-anchor="end" font-weight="600">
+          input  logic b
+        </text>
+      </g><g class="schematic-port input-port" data-port="output logic yAND">
+        <polygon points="60,230 85,230 95,240 85,250 60,250" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+        <text x="50" y="244" fill="#f8fafc" font-size="12" font-family="monospace" text-anchor="end" font-weight="600">
+          output logic yAND
+        </text>
+      </g><g class="schematic-port input-port" data-port="output logic yOR">
+        <polygon points="60,305 85,305 95,315 85,325 60,325" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+        <text x="50" y="319" fill="#f8fafc" font-size="12" font-family="monospace" text-anchor="end" font-weight="600">
+          output logic yOR
+        </text>
+      </g><g class="schematic-port input-port" data-port="output logic yNOT">
+        <polygon points="60,380 85,380 95,390 85,400 60,400" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+        <text x="50" y="394" fill="#f8fafc" font-size="12" font-family="monospace" text-anchor="end" font-weight="600">
+          output logic yNOT
+        </text>
+      </g><g class="schematic-port input-port" data-port="output logic yNAND">
+        <polygon points="60,455 85,455 95,465 85,475 60,475" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+        <text x="50" y="469" fill="#f8fafc" font-size="12" font-family="monospace" text-anchor="end" font-weight="600">
+          output logic yNAND
+        </text>
+      </g><g class="schematic-port input-port" data-port="output logic yNOR">
+        <polygon points="60,530 85,530 95,540 85,550 60,550" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+        <text x="50" y="544" fill="#f8fafc" font-size="12" font-family="monospace" text-anchor="end" font-weight="600">
+          output logic yNOR
+        </text>
+      </g><g class="schematic-port input-port" data-port="output logic yXOR">
+        <polygon points="60,605 85,605 95,615 85,625 60,625" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+        <text x="50" y="619" fill="#f8fafc" font-size="12" font-family="monospace" text-anchor="end" font-weight="600">
+          output logic yXOR
+        </text>
+      </g><g class="schematic-port input-port" data-port="output logic yXNOR">
+        <polygon points="60,680 85,680 95,690 85,700 60,700" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+        <text x="50" y="694" fill="#f8fafc" font-size="12" font-family="monospace" text-anchor="end" font-weight="600">
+          output logic yXNOR
+        </text>
+      </g></g></g><defs>
+      <pattern id="eda-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1"/>
+      </pattern>
+      <marker id="bus-arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#10b981"/>
+      </marker>
+    </defs></svg>

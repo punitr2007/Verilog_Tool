@@ -1,0 +1,661 @@
+ebe_ac name=ammeter_fb
+nodes: p m
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: k_scale=1
+aux_var:
+main_var: i_fb
+no_functions=3
+f_1: i_fb
+f_2: i_fb
+f_3: v(p) v(m)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=ammeter
+nodes: p m
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
+aux_var: cur_p
+main_var:
+no_functions=3
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(m)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=bjt_spice_2
+nodes: cp bp ep
+ind_nodes:
+ind_branches:
+iparms: ac_parm_be=0
+sparms:
+rparms:
+aux_var:
+main_var:
+no_functions=3
+f_1: v(cp) v(bp) v(ep)
+f_2: v(cp) v(bp) v(ep)
+f_3: v(cp) v(bp) v(ep)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=c
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  c=1.0
++  k_scale=1
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=c_crystal
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  f0=3.58e6
++  q=1000
++  rs=160
++  c=0
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=c_delay
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  c=1.0
++  tau=1e-6
++  r=1e3
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=cccs
+nodes: n p
+ind_nodes:
+ind_branches: cccsbr
+iparms:
+sparms:
+rparms: beta=1.0
+aux_var:
+main_var:
+no_functions=2
+f_1: cur(cccsbr)
+f_2: cur(cccsbr)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=cccs_5
+nodes: n p
+ind_nodes:
+ind_branches:
++  cccsbr1
++  cccsbr2
++  cccsbr3
++  cccsbr4
++  cccsbr5
+iparms:
+sparms:
+rparms:
++  beta1=0.0
++  beta2=0.0
++  beta3=0.0
++  beta4=0.0
++  beta5=0.0
+aux_var:
+main_var:
+no_functions=2
+f_1:
++  cur(cccsbr1)
++  cur(cccsbr2)
++  cur(cccsbr3)
++  cur(cccsbr4)
++  cur(cccsbr5)
+f_2:
++  cur(cccsbr1)
++  cur(cccsbr2)
++  cur(cccsbr3)
++  cur(cccsbr4)
++  cur(cccsbr5)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=ccvs
+nodes: p n
+ind_nodes:
+ind_branches: ccvsbr
+iparms:
+sparms:
+rparms: rm=1
+aux_var: cur_p
+main_var:
+no_functions=3
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n) cur(ccvsbr)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=diode_spice_1
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms: ac_parm_be=0
+sparms:
+rparms:
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=g
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: g=1.0
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=ground_dummy_1
+nodes: c
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
+aux_var:
+main_var:
+no_functions=0
+C: compiled
+endC
+endebe_ac
+ebe_ac name=isrcac
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  a=0.0
++  phi=0
+aux_var:
+main_var:
+no_functions=2
+f_1:
+f_2:
+C: compiled
+endC
+endebe_ac
+ebe_ac name=jfet_spice_1
+nodes: g d s
+ind_nodes:
+ind_branches:
+iparms: ac_parm_be=0
+sparms:
+rparms:
+aux_var:
+main_var:
+no_functions=3
+f_1: v(g) v(d) v(s)
+f_2: v(g) v(d) v(s)
+f_3: v(g) v(d) v(s)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=l
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  l=1.0
++  k_scale=1
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=l_crystal
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  f0=3.58e6
++  q=1000
++  rs=160
++  l=0
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=mos_bsim1
+nodes: term1 term2 gate bulk
+ind_nodes:
+ind_branches:
+iparms: ac_parm_be=0
+sparms:
+rparms:
+aux_var:
+main_var:
+no_functions=4
+f_kcl_term1: v(term1) v(term2) v(gate) v(bulk)
+f_kcl_term2: v(term1) v(term2) v(gate) v(bulk)
+f_kcl_gate: v(term1) v(term2) v(gate) v(bulk)
+f_kcl_bulk: v(term1) v(term2) v(gate) v(bulk)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=mos_l1_r
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  r=0.0
++  rsh=0
++  nsquares=0
++  r_given=0.001
++  m=1
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=mos_l3_r
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  r=0.0
++  rsh=0
++  nsquares=0
++  r_given=0.001
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=mos_level3
+nodes: g d s b
+ind_nodes:
+ind_branches:
+iparms: ac_parm_be=0
+sparms:
+rparms:
+aux_var:
+main_var:
+no_functions=4
+f_1: v(g) v(d) v(s) v(b)
+f_2: v(g) v(d) v(s) v(b)
+f_3: v(g) v(d) v(s) v(b)
+f_4: v(g) v(d) v(s) v(b)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=mos_r
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: r=0.0 rsh=0 nsquares=0
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=r
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  r=1.0
++  tc1=0
++  tc2=0
++  tmpr_r=300.15
++  k_scale=1
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=r_area
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  r=1.0
++  area=0
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=r_jfet
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++   t1=300.15
++   tc1=0
++   tc2=0
++   r=1u
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=r_pot
+nodes: p n m
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  r=1.0
++  a=0.5
++  k_scale=1
+aux_var:
+main_var:
+no_functions=3
+f_1: v(p) v(m)
+f_2: v(m) v(n)
+f_3: v(p) v(m) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=sc_1
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: c=1.0
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=sc_2
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: c=1p tc=1u
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=sc_3
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: c=1p tc=1u
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=sc_4
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: c=1p tc=1u
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=sc_vsrcac
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  tau=0
++  sigma=0
++  tc=0
+aux_var: cur_p
+main_var:
+no_functions=3
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=spdt_boost
+nodes: p s1 s2
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  d=0.1
++  dcap=1.0
++  v_ss=1
++  i_ss=1
+aux_var: cur_p
+main_var:
+no_functions=4
+f_1: cur_p
+f_2: cur_p
+f_3: cur_p
+f_4: v(p) v(s1) v(s2)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=spdt_buck
+nodes: p s1 s2
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  d=0.1
++  dcap=1.0
++  v_ss=1
++  i_ss=1
++  phi=0
++  phi_rad=0
+aux_var: dcapin cur_p
+main_var:
+no_functions=5
+f_1: cur_p
+f_2: cur_p
+f_3: cur_p
+f_4: v(p) v(s1) v(s2)
+f_5: dcapin
+C: compiled
+endC
+endebe_ac
+ebe_ac name=vccs
+nodes: n p
+ind_nodes: vcplus vcminus
+ind_branches:
+iparms:
+sparms:
+rparms: gm=0
+aux_var:
+main_var:
+no_functions=2
+f_1: volt(vcplus) volt(vcminus)
+f_2: volt(vcplus) volt(vcminus)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=vcvs
+nodes: p n
+ind_nodes: vcplus vcminus
+ind_branches:
+iparms:
+sparms:
+rparms: alpha=0
+aux_var: cur_p
+main_var:
+no_functions=3
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n) volt(vcplus) volt(vcminus)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=voltmeter_fb
+nodes: p m
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: k_scale=1
+aux_var:
+main_var: v_fb
+no_functions=3
+f_1:
+f_2:
+f_3: v_fb v(p) v(m)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=vsrc_1
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
+aux_var: cur_p
+main_var: x
+no_functions=3
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n) x
+C: compiled
+endC
+endebe_ac
+ebe_ac name=vsrcac
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: a=0. phi=0
+aux_var: cur_p
+main_var:
+no_functions=3
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+C: compiled
+endC
+endebe_ac
+ebe_ac name=x
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: x=1
+aux_var:
+main_var:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe_ac

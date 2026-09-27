@@ -1,0 +1,9503 @@
+ece name=ammeter group=meters allow_ac=yes
+begin_dc
+  mainnodes: p m
+  auxnodes:
+  outvar: i1=cur(p)_of_am1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  ebe name=am1 type=ammeter p=p m=m
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac: i1ac=cur(p)_of_am1
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=am1 type=ammeter p=p m=m
+end_ac
+endece
+ece name=ammeter_fb group=meters allow_ac=yes
+begin_dc
+  mainnodes: p m
+  auxnodes:
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: i_fb
+  xvar:
+  iparms:
+  sparms:
+  rparms: k_scale=1
+  rparms_derived:
+  ebe type=ammeter_fb p=p m=m i_fb=i_fb k_scale=k_scale
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac type=ammeter_fb p=p m=m i_fb=i_fb k_scale=k_scale
+end_ac
+endece
+ece name=ammeter_small  group=meters allow_ac=yes
+begin_dc
+  mainnodes: p m
+  auxnodes:
+  outvar: i1=cur(p)_of_am1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  ebe name=am1 type=ammeter p=p m=m
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac: i1ac=cur(p)_of_am1
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=am1 type=ammeter p=p m=m
+end_ac
+endece
+ece name=and_2_dly group=gates allow_ac=no
+begin_dc
+  mainnodes: x1 x2 y
+  auxnodes: y1 ground
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++    v_high=5.0
++    r_input=100M
++    r=1k
++    c=10p
+  rparms_derived:
+  ebe type=r p=x1 n=ground r=r_input
+  ebe type=r p=x2 n=ground r=r_input
+  ebe type=and_2 p=y1 n=ground
++    node_x1=x1 node_x2=x2
++    v_high=v_high
+  ebe type=r p=y1 n=y      r=r
+  ebe type=c p=y  n=ground c=c
+  ebe type=ground_dummy_1 c=ground
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=battery_c group=linear allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   i1=cur(p)_of_c1
+  bias:
+  stparms: v0sv=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: soc
+  xvar:
+  iparms:
+  sparms: model_file=none
+  rparms:
++   a0=700
++   b0=-700
++   b1=20
+  rparms_derived:
+  ebe name=c1 type=battery_c p=p n=n soc=soc
++   a0=a0 b0=b0 b1=b1
++   v0sv=v0sv
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=battery_r group=linear allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   r=r_of_r1
++   i1=cur(p)_of_r1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: soc
+  xvar:
+  iparms:
+  sparms: model_file=none
+  rparms:
++   a0=0.1
++   b0=0.1
++   b1=20.0
+  rparms_derived:
+  ebe name=r1 type=battery_r p=p n=n soc=soc
++   a0=a0 b0=b0 b1=b1
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=battery_vsrc group=sources allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   i1=cur(n)_of_v0
++   v1=v1_of_v0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: soc
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   a0=3.7
++   a1=0.2
++   a2=-0.1
++   a3=0.3
++   b0=-1
++   b1=35
+  rparms_derived:
+  ebe name=v0 type=battery_vsrc p=p n=n soc=soc
++   a0=a0 a1=a1 a2=a2 a3=a3 b0=b0 b1=b1
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=bjt_npn_1 group=devices allow_ac=yes
+begin_dc
+  mainnodes: c b e
+  auxnodes: cp bp ep
+  outvar:
++   ic=cur(p)_of_rc
++   ib=cur(p)_of_rb
++   ie=cur(p)_of_re
++   v_cp=nodev_of_cp
++   v_bp=nodev_of_bp
++   v_ep=nodev_of_ep
++   ic_by_ib=ic_by_ib_of_bjt1
++   pwr_elec=pwr_elec_of_ece
+  bias:
+  stparms: vbe_sv=0 vce_sv=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
++   flag_jac=0
+  sparms: model_file=none
+  rparms:
++   tnom=300.15
++   tref=300.15
++   t1=300.15
++   is=1e-16
++   bf=100
++   nf=1
++   vaf=200
++   ikf=0
++   ise=0
++   c2=0
++   ne=1.5
++   br=1
++   nr=1
++   var=200
++   ikr=0
++   isc=0
++   c4=0
++   nc=2
++   cje=0
++   vje=0.75
++   mje=0.33
++   tf=0
++   xtf=0
++   vtf=0
++   itf=0
++   cjc=0
++   vjc=0.75
++   mjc=0.33
++   xcjc=1
++   tr=0
++   xtb=0
++   eg=1.11
++   xti=3
++   fc=0.5
++   area=1
++   rb=0.01
++   rc=0.01
++   re=0.01
++   cur_max=1e3
+  rparms_derived:
+  ebe type=bjt_spice_5 name=bjt1
++   cp=cp bp=bp ep=ep
++   flag_jac=flag_jac
++   bjt_type=1
++   vbe_sv=vbe_sv
++   vce_sv=vce_sv
++   tnom=tnom
++   tref=tref
++   t1=t1
++   is=is
++   bf=bf
++   nf=nf
++   vaf=vaf
++   ikf=ikf
++   ise=ise
++   c2=c2
++   ne=ne
++   br=br
++   nr=nr
++   var=var
++   ikr=ikr
++   isc=isc
++   c4=c4
++   nc=nc
++   cje=cje
++   vje=vje
++   mje=mje
++   tf=tf
++   xtf=xtf
++   vtf=vtf
++   itf=itf
++   cjc=cjc
++   vjc=vjc
++   mjc=mjc
++   xcjc=xcjc
++   tr=tr
++   xtb=xtb
++   eg=eg
++   xti=xti
++   fc=fc
++   area=area
++   cur_max=cur_max
+  ebe type=r name=rc p=c n=cp r=rc
+  ebe type=r name=rb p=b n=bp r=rb
+  ebe type=r name=re p=e n=ep r=re
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=bjt1 type=bjt_spice_2
++   cp=cp bp=bp ep=ep
+  ebe_ac name=rc type=r p=c n=cp r=rc
+  ebe_ac name=rb type=r p=b n=bp r=rb
+  ebe_ac name=re type=r p=e n=ep r=re
+  acparm_map: 1 1
+end_ac
+endece
+ece name=bjt_pnp_1 group=devices allow_ac=yes
+begin_dc
+  mainnodes: c b e
+  auxnodes: cp bp ep
+  outvar:
++   ic=cur(p)_of_rc
++   ib=cur(p)_of_rb
++   ie=cur(p)_of_re
++   v_cp=nodev_of_cp
++   v_bp=nodev_of_bp
++   v_ep=nodev_of_ep
++   ic_by_ib=ic_by_ib_of_bjt1
++   pwr_elec=pwr_elec_of_ece
+  bias:
+  stparms: vbe_sv=0 vce_sv=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
++   flag_jac=0
+  sparms: model_file=none
+  rparms:
++   tnom=300.15
++   tref=300.15
++   t1=300.15
++   is=1e-16
++   bf=100
++   nf=1
++   vaf=200
++   ikf=0
++   ise=0
++   c2=0
++   ne=1.5
++   br=1
++   nr=1
++   var=200
++   ikr=0
++   isc=0
++   c4=0
++   nc=2
++   cje=0
++   vje=0.75
++   mje=0.33
++   tf=0
++   xtf=0
++   vtf=0
++   itf=0
++   cjc=0
++   vjc=0.75
++   mjc=0.33
++   xcjc=1
++   tr=0
++   xtb=0
++   eg=1.11
++   xti=3
++   fc=0.5
++   area=1
++   rb=0.01
++   rc=0.01
++   re=0.01
++   cur_max=1e3
+  rparms_derived:
+ebe type=bjt_spice_5 name=bjt1
++   cp=cp bp=bp ep=ep
++   flag_jac=flag_jac
++   bjt_type=-1
++   vbe_sv=vbe_sv
++   vce_sv=vce_sv
++   tnom=tnom
++   tref=tref
++   t1=t1
++   is=is
++   bf=bf
++   nf=nf
++   vaf=vaf
++   ikf=ikf
++   ise=ise
++   c2=c2
++   ne=ne
++   br=br
++   nr=nr
++   var=var
++   ikr=ikr
++   isc=isc
++   c4=c4
++   nc=nc
++   cje=cje
++   vje=vje
++   mje=mje
++   tf=tf
++   xtf=xtf
++   vtf=vtf
++   itf=itf
++   cjc=cjc
++   vjc=vjc
++   mjc=mjc
++   xcjc=xcjc
++   tr=tr
++   xtb=xtb
++   eg=eg
++   xti=xti
++   fc=fc
++   area=area
++   cur_max=cur_max
+  ebe type=r name=rc p=c n=cp r=rc
+  ebe type=r name=rb p=b n=bp r=rb
+  ebe type=r name=re p=e n=ep r=re
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=bjt1 type=bjt_spice_2
++   cp=cp bp=bp ep=ep
+  ebe_ac name=rc type=r p=c n=cp r=rc
+  ebe_ac name=rb type=r p=b n=bp r=rb
+  ebe_ac name=re type=r p=e n=ep r=re
+  acparm_map: 1 1
+end_ac
+endece
+ece name=bldc1 group=machines allow_ac=no
+begin_dc
+  mainnodes: a b c
+  auxnodes:
+  outvar:
+  bias:
+  stparms:
++   wm0=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
++   ia
++   ib
++   ic
++   e_a
++   e_b
++   e_c
++   e0_a
++   e0_b
++   e0_c
++   we
++   wm
++   tem
++   tl
+  xvar:
+  iparms:
++   poles=6
+  sparms:
+  rparms:
++   rs=0.98
++   ls=8.035m
++   j=21e-4
++   ke=0.5637
++   b_damp=0
+  rparms_derived:
+  ebe name=bldc0 type=bldc1
++   a=a b=b c=c
++   poles=poles
++   rs=rs ls=ls j=j ke=ke b_damp=b_damp
++   wm0=wm0
++   ia=ia ib=ib ic=ic
++   e_a=e_a e_b=e_b e_c=e_c
++   e0_a=e0_a e0_b=e0_b e0_c=e0_c
++   we=we wm=wm
++   tem=tem tl=tl
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=c group=linear allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   i1=cur(p)_of_c1
++   v1=v1_of_c1
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms: v0sv=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++    c=1
++    k_scale=1
+#display: c
+  rparms_derived:
+  ebe name=c1 type=c p=p n=n
++    c=c
++    k_scale=k_scale
++    v0sv=v0sv
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
++   i1ac=cur(p)_of_c1
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=c1 type=c p=p n=n
++    c=c
++    k_scale=k_scale
+end_ac
+endece
+ece name=c_pu group=linear allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar: i1=cur(p)_of_c1 v1=v1_of_c1
+  bias:
+  stparms: v0sv=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++    x_pu=1
++    f_b=50
++    k_scale=1
+  rparms_derived:
+  ebe name=c1 type=c_pu p=p n=n
++    x_pu=x_pu
++    f_b=f_b
++    k_scale=k_scale
++    v0sv=v0sv
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=c_pu_sync group=linear allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar: i1=cur(p)_of_c1 v1=v1_of_c1
+  bias:
+  stparms: v0sv=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
++    i_compute_strt=0
++    indx=1
+  sparms:
+  rparms: x_pu=1 f_b=50
+  rparms_derived:
+  ebe name=c1 type=c_pu_sync p=p n=n
++    x_pu=x_pu f_b=f_b v0sv=v0sv
++    i_compute_strt=i_compute_strt
++    indx=indx
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=cccs group=linear allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   v1=v1_of_i0
++   i1=cur(n)_of_i0
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches: cccsbr
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: beta=0
+  rparms_derived:
+  ebe name=i0 type=cccs p=p n=n beta=beta cccsbr=cccsbr
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac: i1ac=cur(p)_of_i0
+  ind_nodes_ac:
+  ind_branches_ac: cccsbr_ac
+  ebe_ac name=i0 type=cccs p=p n=n beta=beta cccsbr=cccsbr_ac
+end_ac
+endece
+ece name=ccvs group=linear allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   v1=v1_of_v0
++   i1=cur(p)_of_v0
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches: ccvsbr
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: rm=1
+  rparms_derived:
+  ebe name=v0 type=ccvs p=p n=n rm=rm
++   ccvsbr=ccvsbr
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac: i1ac=cur(p)_of_v0
+  ind_nodes_ac:
+  ind_branches_ac: ccvsbr_ac
+  ebe_ac name=v0 type=ccvs p=p n=n rm=rm
++   ccvsbr=ccvsbr_ac
+end_ac
+endece
+ece name=clock group=sources allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar: v1=v1_of_v0 i1=cur(p)_of_v0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms: i0=0
+  sparms:
+  rparms:
++   t1=1
++   t2=2
++   t0=0
++   v_low=0
++   v_high=1.0
++   dt1=0.01
++   dt2=0.01
++   t_epsilon=1.0e-10
+  rparms_derived:
+  ebe name=v0 type=clock p=p n=n
++    i0=i0 t1=t1 t2=t2 t0=t0 v_high=v_high v_low=v_low
++    dt1=dt1 dt2=dt2
++    t_epsilon=t_epsilon
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=clock_pwl20 group=sources allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar: vsrc=vsrc_of_v0 i1=cur(p)_of_v0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms: n_points=2
+  sparms:
+  rparms:
++   t1=0 v1=1 t2=2 v2=2
++   t3=3 v3=3 t4=4 v4=4
++   t5=5 v5=5 t6=6 v6=6
++   t7=7 v7=7 t8=8 v8=8
++   t9=9 v9=9 t10=10 v10=10
++   t11=11 v11=11 t12=12 v12=12
++   t13=13 v13=13 t14=14 v14=14
++   t15=15 v15=15 t16=16 v16=16
++   t17=17 v17=17 t18=18 v18=18
++   t19=19 v19=19 t20=20 v20=20
+  rparms_derived:
+  ebe name=v0 type=clock_pwl20 p=p n=n
++   n_points=n_points
++   t1=t1 t2=t2 t3=t3 t4=t4 t5=t5
++   t6=t6 t7=t7 t8=t8 t9=t9 t10=t10
++   t11=t11 t12=t12 t13=t13 t14=t14 t15=t15
++   t16=t16 t17=t17 t18=t18 t19=t19 t20=t20
++   v1=v1 v2=v2 v3=v3 v4=v4 v5=v5
++   v6=v6 v7=v7 v8=v8 v9=v9 v10=v10
++   v11=v11 v12=v12 v13=v13 v14=v14 v15=v15
++   v16=v16 v17=v17 v18=v18 v19=v19 v20=v20
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=connector_e
+begin_dc
+  mainnodes: c
+  auxnodes:
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=cool_650_j2_var group=devices allow_ac=no compute_rparms=yes
+begin_dc
+mainnodes: dd g s Tj t1
+auxnodes: 0 ox4 ox d1 d2 d edep1 edep2 edep3 edep4 dio2 dio
+outvar:
++ Ichannel=cur(p)_of_V_Ichannel
++ V_d1=nodev_of_d1
++ I_GRdio=cur(dd)_of_G_Rdio
++ I_Dbody=id_of_Dbody
+bias:
+stparms:
+igparms:
+ind_nodes:
+ind_branches:
+digital_nodes:
+main_var:
+xvar:
+iparms:
++  flag_jac=0
+sparms:
+rparms:
++  a=1
++  dVth=0
++  dR=0
++  dgfs=0
++  Inn=1
++  Unn=1
++  Rmax=1
++  gmin=1e-9
++  Rs=1
++  Rp=1
++  dC=0
++  heat=0
++  fpar1=0.0
++  fpar2=0.5
++  fpar3=85.8u
++  fpar4=1.212
++  fpar5=0.00
++  Vth0=4.2
++  fpar6=4.7m
++  fpar7=1.4
++  fpar9=0.3
++  fpar10=0.715
++  fpar11=0
++  fpar12=-23
++  fpar13=715
++  fpar14=4.1
++  fpar15=4
++  fpar16=0
++  fpar17=0
++  fpar18=0.93
++  fpar19=3.0
++  fpar20=298
++  fpar21=273
++  fpar22=-27.57
++  fpar23=1.09
++  fpar24=93.0m
++  fpar25=1.28
++  fpar26=2u
++  fpar27=300n
++  fpar28=0.3
++  fpar29=385m
++  fpar30=10.413
++  fpar31=-2.4m
++  fpar32=2.25
++  fpar33=166p
++  fpar34=200p
++  fpar35=7.0p
++  fpar36=10.0p
++  fpar37=0.4p
++  fpar38=154p
++  fpar39=-0.556
++  fpar40=60f
++  fpar41=1.2p
++  fpar42=2.0p
++  fpar43=1.471n
++  fpar44=-0.1667
++  fpar45=3.7p
++  fpar46=-6.25m
++  fpar47=1.2f
++  fpar48=80
++  fpar49=7.535n
++  fpar50=712p
++  fpar51=345p
++  fpar52=31p
++  fpar53=-0.07
++  Vmin=3.4
++  Vmax=5.4
++  dCmax=0.33
++  Vth=0
++  r0=0
++  r1=0
++  r2=0
++  Rlim=0
++  dRd=0
++  bm=0
++  bet=0
++  dC1=0
++  x0=0
++  x1=0
++  dx=0
++  y1=0
++  a0=0
++  a1=0
++  da=0
++  aqc81=0
++  Cox1=0
++  y0=0
++  C0=0
++  C1=0
++  C2=0
++  C3=0
++  Cgs0=0
++  dRdi=0
++  y2=0
++  Dbody_BV=0
++  Dbody_CJO=0
++  Dbody_IS=0
++  Dbody_RS=0
+rparms_derived:
+ebe name=E_Edg1 type=cool_vcvs_1 p=d1 n=ox vcplus=d1 vcminus=g f0=fpar39
+ebe name=C_Cdg1 type=c p=ox n=g c=Cox1
+ebe name=E_Edg4 type=cool_vcvs_2 p=d1 n=ox4 vcplus=d1 vcminus=g
++  fpar48=fpar48 y0=y0 y1=y1 y2=y2 x0=x0 x1=x1 dx=dx
+ebe name=C_Cdg4 type=c p=ox4 n=g c=y0
+ebe name=C_Cds0 type=c p=d1 n=s c=C0
+ebe name=E_Eds1 type=cool_vcvs_1 p=d1 n=edep1 vcplus=d1 vcminus=s f0=fpar44
+ebe name=C_Cds1 type=c p=edep1 n=s c=C1
+ebe name=E_Eds2 type=cool_vcvs_1 p=d1 n=edep2 vcplus=d1 vcminus=s f0=fpar46
+ebe name=C_Cds2 type=c p=edep2 n=s c=C2
+ebe name=E_Eds3 type=cool_vcvs_1 p=d1 n=edep3 vcplus=d1 vcminus=s f0=fpar53
+ebe name=C_Cds3 type=c p=edep3 n=s c=C3
+ebe name=E_Eds4 type=cool_vcvs_3 p=d1 n=edep4 vcplus=d1 vcminus=s
++  a0=a0 a1=a1 da=da aqc81=aqc81
+ebe name=C_Cds4 type=c p=edep4 n=s c=aqc81
+ebe name=C_Cgs type=c p=g n=s c=Cgs0
+ebe name=G_chan type=cool_vccs_1
++  d=d
++  s=s
++  vc_d=d
++  vc_g=g
++  vc_s=s
++  vc_Tj=Tj
++  flag_jac=flag_jac
++  a=a
++  fpar3=fpar3
++  fpar4=fpar4
++  fpar6=fpar6
++  fpar7=fpar7
++  fpar9=fpar9
++  fpar10=fpar10
++  fpar12=fpar12
++  fpar13=fpar13
++  fpar15=fpar15
++  fpar16=fpar16
++  fpar17=fpar17
++  fpar20=fpar20
++  fpar21=fpar21
++  fpar29=fpar29
++  bet=bet
++  Vth=Vth
+ebe name=V_Ichannel type=vsrcdc p=d1 n=d vdc=0
+ebe name=V_Iepi type=vsrcdc p=dd n=d2 vdc=0
+ebe name=G_G_Rd type=cool_vccs_2
++  d2=d2
++  d1=d1
++  vc_d2=d2
++  vc_d1=d1
++  vc_t1=t1
++  br=V_Iepi
++  flag_jac=flag_jac
++  dRd=dRd
++  fpar19=fpar19
++  fpar20=fpar20
++  fpar21=fpar21
++  fpar28=fpar28
++  fpar30=fpar30
++  fpar31=fpar31
+ebe type=ground_dummy_1 c=0
+ebe name=R_R_ERd_g type=r p=d2 n=d1 r=10k
+callece diode_spice_1 name=Dbody p=s n=dio
++  m=0.3
++  n0=fpar23
++  tt=fpar26
++  bv=Dbody_BV
++  cjo=Dbody_CJO
++  is=Dbody_IS
++  rs=Dbody_RS
+ebe name=G_Rdio type=cool_vccs_3
++  dio2=dio2
++  dd=dd
++  vc_dio2=dio2
++  vc_dd=dd
++  vc_Tj=Tj
++  dRdi=dRdi
++  fpar20=fpar20
++  fpar21=fpar21
++  fpar25=fpar25
+ebe name=V_sense2 type=vsrcdc p=dio2 n=dio vdc=0
+ebe name=R1   type=r p=g   n=s    r=1G
+ebe name=Rd01 type=r p=d   n=s    r=500M
+ebe name=Rd02 type=r p=d2  n=s    r=500M
+ebe name=Rd04 type=r p=d1  n=dio2 r=1k
+ebe name=Rd05 type=r p=dio n=s    r=500M
+ebe name=G_G_Ptot_channel type=cool_vccs_4
++  zero=0
++  Tj=Tj
++  vc_d=d
++  vc_s=s
++  br=V_Ichannel
++  heat=heat
+ebe name=G_G_Ptot_Epi type=cool_vccs_5
++  zero=0
++  t1=t1
++  vc_dd=dd
++  vc_d1=d1
++  vc_s=s
++  br_Iepi=V_Iepi
++  br_Isense2=V_sense2
++  heat=heat
+end_dc
+C: compiled
+endC
+begin_ac
+outvar_ac:
+ind_nodes_ac:
+ind_branches_ac:
+end_ac
+endece
+ece name=coolmos_L1 group=devices allow_ac=no
+begin_dc
+mainnodes: drain gate source
+auxnodes: dd g s lsrs lgrg Tj w 0
+outvar:
++  Ichannel=Ichannel_of_cool1
++  V_d1=V_d1_of_cool1
++  I_GRdio=I_GRdio_of_cool1
++  I_Dbody=I_Dbody_of_cool1
+bias:
+stparms:
+igparms:
+ind_nodes:
+ind_branches:
+digital_nodes:
+main_var:
+xvar:
+iparms:
++  flag_jac=0
+sparms: model_file=none
+rparms:
++  dVth=0
++  dRdson=0
++  Rs=581.8u
++  Rg=0.97
++  Ls=2.5n
++  Ld=2.5n
++  Lg=4n
++  act=16.99
++  Inn=8.5
++  Unn=10
++  Rmax=65m
++  TMPR=27.0
+rparms_derived:
+callece cool_650_j2_var name=cool1
++  dd=dd g=g s=s Tj=Tj t1=Tj
++  flag_jac=flag_jac
++  a=act
++  dVth=dVth
++  dR=dRdson
++  Inn=Inn
++  Unn=Unn
++  Rmax=Rmax
++  Rs=Rs
++  heat=0
+ebe name=L_Ld type=l p=drain n=dd l=Ld
+ebe name=R_Ld type=r p=drain n=dd r=10
+ebe name=L_Ls type=l p=source n=lsrs l=Ls
+ebe name=R_Ls type=r p=source n=lsrs r=10
+ebe name=R_Rs type=r p=s n=lsrs r=Rs
+ebe name=L_Lg type=l p=gate n=lgrg l=Lg
+ebe name=R_Lg type=r p=gate n=lgrg r=10
+ebe name=R_Rg type=r p=lgrg n=g r=Rg
+ebe name=E1 type=vsrcdc p=Tj n=w vdc=TMPR
+ebe name=R1 type=r p=w n=0 r=1u
+ebe type=ground_dummy_1 c=0
+end_dc
+C: compiled
+endC
+begin_ac
+outvar_ac:
+ind_nodes_ac:
+ind_branches_ac:
+end_ac
+endece
+ece name=coolmos_L3 group=devices allow_ac=no compute_rparms=yes
+begin_dc
+mainnodes: drain gate source Tj Tcase
+auxnodes: dd g s lsrs lgrg 0 1 2 3 4 6 7
+outvar:
+bias:
+stparms:
+igparms:
+ind_nodes:
+ind_branches:
+digital_nodes:
+main_var:
+xvar:
+iparms:
++  flag_jac=0
+sparms: model_file=none
+rparms:
++  dVth=0
++  dRdson=0
++  Zthtype=0
++  Rs=581.8u
++  Rg=0.45
++  Ls=5n
++  Ld=3n
++  Lg=5n
++  act=58.33
++  Inn=29.2
++  Unn=10
++  Rmax=19m
++  lzth=0
++  C_CZth1_c=561.132u
++  C_CZth2_c=3.384m
++  C_CZth3_c=4.777m
++  C_CZth4_c=27.156m
++  C_CZth5_c=148.458m
++  C_CZth6_c=500m
++  C_CZth7_c=1.9
++  C_CZth8_c=2
++  R_Rth1_A=2.91m
++  R_Rth1_B=753.79u
++  R_Rth2_A=4.01m
++  R_Rth2_B=1.04m
++  R_Rth3_A=22.51m
++  R_Rth3_B=5.83m
++  R_Rth4_A=42.24m
++  R_Rth4_B=69.83m
++  R_Rth5_A=62.12m
++  R_Rth5_B=68.75m
++  R_Rth1_r=0
++  R_Rth2_r=0
++  R_Rth3_r=0
++  R_Rth4_r=0
++  R_Rth5_r=0
++  R_Rth6_r=200m
++  R_Rth7_r=6.3
+rparms_derived:
+callece cool_650_j2_var name=cool1
++  dd=dd g=g s=s Tj=Tj t1=1
++  flag_jac=flag_jac
++  a=act
++  dVth=dVth
++  dR=dRdson
++  Inn=Inn
++  Unn=Unn
++  Rmax=Rmax
++  Rs=Rs
++  heat=1
+ebe name=L_Ld type=l p=drain n=dd l=Ld
+ebe name=R_Ld type=r p=drain n=dd r=10
+ebe name=L_Ls type=l p=source n=lsrs l=Ls
+ebe name=R_Ls type=r p=source n=lsrs r=10
+ebe name=R_Rs type=r p=s      n=lsrs r=Rs
+ebe name=L_Lg type=l p=gate n=lgrg l=Lg
+ebe name=R_Lg type=r p=gate n=lgrg r=10
+ebe name=R_Rg type=r p=lgrg n=g    r=Rg
+ebe name=C_CZth1 type=c p=Tj n=0     c=C_CZth1_c
+ebe name=C_CZth2 type=c p=0  n=1     c=C_CZth2_c
+ebe name=C_CZth3 type=c p=0  n=2     c=C_CZth3_c
+ebe name=C_CZth4 type=c p=0  n=3     c=C_CZth4_c
+ebe name=C_CZth5 type=c p=0  n=4     c=C_CZth5_c
+ebe name=C_CZth6 type=c p=0  n=Tcase c=C_CZth6_c
+ebe name=C_CZth7 type=c p=0  n=6     c=C_CZth7_c
+ebe name=C_CZth8 type=c p=0  n=7     c=C_CZth8_c
+ebe name=R_Rth1 type=r p=Tj    n=1     r=R_Rth1_r
+ebe name=R_Rth2 type=r p=1     n=2     r=R_Rth2_r
+ebe name=R_Rth3 type=r p=2     n=3     r=R_Rth3_r
+ebe name=R_Rth4 type=r p=3     n=4     r=R_Rth4_r
+ebe name=R_Rth5 type=r p=4     n=Tcase r=R_Rth5_r
+ebe name=R_Rth6 type=r p=Tcase n=6     r=R_Rth6_r
+ebe name=R_Rth7 type=r p=6     n=7     r=R_Rth7_r
+ebe type=ground_dummy_1 c=0
+end_dc
+C: compiled
+endC
+begin_ac
+outvar_ac:
+ind_nodes_ac:
+ind_branches_ac:
+end_ac
+endece
+ece name=crystal allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes: p1 p2
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   f0=3.58e6
++   q=1000
++   rs=160
++   c0=1.8e-11
+  rparms_derived:
+  ebe name=lx type=l_crystal p=p n=p1
++  f0=f0 q=q rs=rs
+  ebe name=cx type=c_crystal p=p1 n=p2
++  f0=f0 q=q rs=rs
+  ebe name=rs type=r p=p2 n=n r=rs
+  ebe name=c0 type=c p=p n=n c=c0 v0sv=0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=lx type=l_crystal p=p n=p1
++  f0=f0 q=q rs=rs
+  ebe_ac name=cx type=c_crystal p=p1 n=p2
++  f0=f0 q=q rs=rs
+  ebe_ac name=rs type=r p=p2 n=n r=rs
+  ebe_ac name=c0 type=c p=p n=n c=c0
+end_ac
+endece
+ece name=dac1 group=DAC allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes: d0
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: vref=5.0
+  rparms_derived:
+  ebe name=dac1 type=dac1 p=p n=n vref=vref
++     d0=d0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=dac1a group=DAC allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes: d0
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: vref=5.0
+  rparms_derived:
+  ebe type=dac1a p=p n=n vref=vref
++     d0=d0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=dac4 group=DAC allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes: d0 d1 d2 d3
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: vref=5.0
+  rparms_derived:
+  ebe type=dac4 p=p n=n vref=vref
++     d0=d0 d1=d1 d2=d2 d3=d3
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=dac8 group=DAC allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes: d0 d1 d2 d3 d4 d5 d6 d7
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: vref=5.0
+  rparms_derived:
+  ebe type=dac8 p=p n=n vref=vref
++     d0=d0 d1=d1 d2=d2 d3=d3
++     d4=d4 d5=d5 d6=d6 d7=d7
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=dcmc group=machines allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   i1=cur(p)_of_dcmc0
++   tem=tem_of_dcmc0
+  bias:
+  stparms:
++   wrm0=0
++   ia0=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
++   wrm
++   tl
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   ra=1
++   la=1m
++   c=1
++   j=0.25
++   b_damp=0
+  rparms_derived:
+  ebe name=dcmc0 type=dcmc
++   p=p n=n
++   wrm0=wrm0
++   ia0=ia0
++   wrm=wrm
++   tl=tl
++   ra=ra
++   la=la
++   c=c
++   j=j
++   b_damp=b_damp
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=dcmc_1 group=machines allow_ac=no
+begin_dc
+  mainnodes: a1 a2 f1 f2
+  auxnodes:
+  outvar:
++   ia=cur(a1)_of_dcmc0
++   if=cur(f1)_of_dcmc0
++   tem=tem_of_dcmc0
+  bias:
+  stparms:
++   wrm_st0=0
++   ia_st0=0
++   if_st0=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
++   wrm
++   tl
+  xvar:
+  iparms:
++   compute_laf=0
+  sparms:
+  rparms:
++   ra=0.5
++   la=1.5m
++   laf=1
++   j=0.25
++   b_damp=0
++   rf=1
++   lf=1m
++   v_rated=1
++   ia_rated=1
++   w_rprm=1
++   if_rated=1
+  rparms_derived:
+  ebe name=dcmc0 type=dcmc_1
++   a1=a1 a2=a2 f1=f1 f2=f2
++   wrm_st0=wrm_st0
++   ia_st0=ia_st0
++   if_st0=if_st0
++   compute_laf=compute_laf
++   ra=ra
++   la=la
++   laf=laf
++   j=j
++   b_damp=b_damp
++   rf=rf
++   lf=lf
++   v_rated=v_rated
++   ia_rated=ia_rated
++   w_rprm=w_rprm
++   if_rated=if_rated
++   wrm=wrm
++   tl=tl
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=diode group=diodes allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes: p1
+  outvar:
++   i1=cur(p)_of_d1
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms: v0=0
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   eta=1.0
++   vt=0.026
++   is=1.0e-14
++   cur_max=1e3
++   r_series=1m
+  rparms_derived:
+  ebe type=diode name=d1 p=p n=p1 eta=eta is=is vt=vt v0=v0
++     cur_max=cur_max
+  ebe type=r name=d1 p=p1 n=n r=r_series
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=diode_bridge_1ph group=power_electronics allow_ac=no
+begin_dc
+  mainnodes: a b p m
+  auxnodes:
+  outvar:
++   id1=cur(p)_of_d1
++   id2=cur(p)_of_d2
++   id3=cur(p)_of_d3
++   id4=cur(p)_of_d4
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: r_on=1m r_off=100k v_on=0 cap=0.2n
+  rparms_derived:
+  ebe name=d1 type=diode_r p=a n=p ron=r_on roff=r_off v_on=v_on
+  ebe name=d3 type=diode_r p=b n=p ron=r_on roff=r_off v_on=v_on
+  ebe name=d4 type=diode_r p=m n=a ron=r_on roff=r_off v_on=v_on
+  ebe name=d2 type=diode_r p=m n=b ron=r_on roff=r_off v_on=v_on
+  ebe type=c p=a n=m c=cap
+  ebe type=c p=b n=m c=cap
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=diode_bridge_3ph group=power_electronics allow_ac=no
+begin_dc
+  mainnodes: a b c p m
+  auxnodes:
+  outvar:
++   id1=cur(p)_of_d1
++   id2=cur(p)_of_d2
++   id3=cur(p)_of_d3
++   id4=cur(p)_of_d4
++   id5=cur(p)_of_d5
++   id6=cur(p)_of_d6
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   r_on=1m
++   r_off=100k
++   v_on=0
++   cap=0.2n
+  rparms_derived:
+  ebe name=d1 type=diode_r p=a n=p ron=r_on roff=r_off v_on=v_on
+  ebe name=d2 type=diode_r p=m n=c ron=r_on roff=r_off v_on=v_on
+  ebe name=d3 type=diode_r p=b n=p ron=r_on roff=r_off v_on=v_on
+  ebe name=d4 type=diode_r p=m n=a ron=r_on roff=r_off v_on=v_on
+  ebe name=d5 type=diode_r p=c n=p ron=r_on roff=r_off v_on=v_on
+  ebe name=d6 type=diode_r p=m n=b ron=r_on roff=r_off v_on=v_on
+  ebe type=c p=a n=m c=cap
+  ebe type=c p=b n=m c=cap
+  ebe type=c p=c n=m c=cap
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=diode_r group=diodes allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   v1=v1_of_d1
++   i1=cur(p)_of_d1
++   pwr_elec=pwr_elec_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   ron=1m
++   roff=100k
++   v_on=0
+  rparms_derived:
+  ebe name=d1 type=diode_r p=p n=n
++     ron=ron roff=roff v_on=v_on
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=diode_r_c group=diodes allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar: v1=v1_of_d1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   ron=1m
++   roff=100k
++   cap=10n
++   v_on=0
+  rparms_derived:
+  ebe name=d1 type=diode_r p=p n=n
++     ron=ron roff=roff v_on=v_on
+  ebe type=c p=p n=n c=cap
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=diode_spice_1 group=diodes allow_ac=yes
++ compute_acp=yes
+begin_dc
+  mainnodes: p n
+  auxnodes: p1
+  outvar:
++   id=cur(p)_of_r0
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
++   flag_jac=0
+  sparms: model_file=none
+  rparms:
++   area=1.0
++   bv=100
++   cjo=1p
++   eg=1.11
++   fc=0.5
++   ibv=0.001
++   is=1e-14
++   m=0.5
++   n0=1.0
++   tt=0.0
++   vj=1.0
++   xti=3.0
++   t1=300.15
++   rs=0.01m
+  rparms_derived:
+  ebe type=diode_spice_1 name=d1
++   p=p1 n=n
++   area=area
++   bv=bv
++   cjo=cjo
++   eg=eg
++   fc=fc
++   ibv=ibv
++   is=is
++   m=m
++   n0=n0
++   tt=tt
++   vj=vj
++   xti=xti
++   t1=t1
++   flag_jac=flag_jac
+  ebe type=r name=r0 p=p n=p1 r=rs
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=d1 type=diode_spice_1
++   p=p1 n=n
+  ebe_ac name=r0 type=r p=p n=p1 r=rs
+  acparm_map: 1 1
+end_ac
+endece
+ece name=diode_zener group=diodes allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes: p1 p1a p2a
+  outvar:
++   id1=cur(p)_of_r_d1
++   id2=cur(p)_of_d2
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms: model_file=none
+  rparms:
++   vz0=4.9
++   rz=10
++   r_on_d1=0.1m
++   r_off_d1=10G
++   af=0.0
++   area=1.0
++   bv=100
++   bvj=100
++   cjo=0.0
++   eg=1.11
++   fc=0.5
++   ibv=0.05u
++   is=1e-12
++   kf=0.0
++   m=0.5
++   n0=1.0
++   tt=0.0
++   vj=1.0
++   xti=3.0
++   t1=300.15
++   rs=0.01m
+  rparms_derived:
+  ebe type=diode_spice_1 name=d2
++   p=p n=p1
++   af=af
++   area=area
++   bv=bv
++   bvj=bvj
++   cjo=cjo
++   eg=eg
++   fc=fc
++   ibv=ibv
++   is=is
++   kf=kf
++   m=m
++   n0=n0
++   tt=tt
++   vj=vj
++   xti=xti
++   t1=t1
+  ebe type=r name=r_d2 p=p1 n=n r=rs
+  ebe type=diode_r name=d1 p=n n=p2a ron=r_on_d1 roff=r_off_d1
+  ebe type=vsrcdc p=p2a n=p1a vdc=vz0
+  ebe type=r name=r_d1 p=p1a n=p r=rz
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=diode_zener_1 group=diodes allow_ac=yes
++ compute_acp=yes
+begin_dc
+  mainnodes: p n
+  auxnodes: p1
+  outvar:
++   id=cur(p)_of_r0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
++   flag_jac=0
+  sparms: model_file=none
+  rparms:
++   af=0.0
++   area=1.0
++   bv=100
++   bvj=100
++   cjo=0.0
++   eg=1.11
++   fc=0.5
++   ibv=0.001
++   is=1e-14
++   kf=0.0
++   m=0.5
++   n0=1.0
++   tt=0.0
++   vj=1.0
++   xti=3.0
++   t1=300.15
++   rs=0.01m
++   cur_max=1e3
+  rparms_derived:
+  ebe type=diode_spice_1 name=d1
++   p=p1 n=n
++   af=af
++   area=area
++   bv=bv
++   bvj=bvj
++   cjo=cjo
++   eg=eg
++   fc=fc
++   ibv=ibv
++   is=is
++   kf=kf
++   m=m
++   n0=n0
++   tt=tt
++   vj=vj
++   xti=xti
++   t1=t1
++   cur_max=cur_max
++   flag_jac=flag_jac
+  ebe type=r name=r0 p=p n=p1 r=rs
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=d1 type=diode_spice_1
++   p=p1 n=n
+  ebe_ac name=r0 type=r p=p n=p1 r=rs
+  acparm_map: 1 1
+end_ac
+endece
+ece name=diode_zener_r group=diodes allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   v1=v1_of_d1
++   pwr_elec=pwr_elec_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   r_on=1m
++   r_off=100k
++   v_on=0.7
++   v_z=5
+  rparms_derived:
+  ebe name=d1 type=diode_r p=p n=n
++     ron=r_on roff=r_off v_on=v_on
+  ebe name=d2 type=diode_r p=n n=p
++     ron=r_on roff=r_off v_on=v_z
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=filter_1 group=filters allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes: a b
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++    r_parallel=1.0
++    r=20m
++    l=42u
++    c1=6u
++    c2=50u
+  rparms_derived:
+  ebe type=r p=p n=b r=r_parallel
+  ebe type=c p=p n=a c=c1
+  callece rl p=a n=b r=r l=l i0sv=0
+  ebe type=c p=b n=n c=c2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=ground
+begin_dc
+  mainnodes: ground
+  auxnodes:
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=ground_dummy
+begin_dc
+  mainnodes: c
+  auxnodes:
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=igbt_irg7psh73k10pbf allow_ac=no
+begin_dc
+mainnodes: c g e
+auxnodes: 9 6 8 7 4 10 11 12 0 13 14
+outvar:
+bias:
+stparms:
+igparms:
+ind_nodes:
+ind_branches:
+digital_nodes:
+main_var:
+xvar:
+iparms:
+sparms:
+rparms:
+  rparms_derived:
+ecemodel name=MSUB type=mos_level1_n
++ vto=7.25709
++ kp=1.59312
++ lambda=0
++ cgso=8.9187e-05
+ecemodel name=QSUB type=bjt_pnp_1
++ is=1e-17
++ bf=27.3619
++ nf=0.980433
++ vaf=705.948
++ ikf=4105.22
++ ise=1e-17
++ ne=2.26362
++ br=0.922307
++ nr=1.5
++ var=124.296
++ ikr=999.656
++ isc=4.60574e-12
++ nc=1
++ rb=0.0001
++ re=0.0004371
++ rc=0.0009275
++ xtb=0
++ xti=3.00892
++ eg=1.2
++ cjc=4.78924e-09
++ vjc=0.4
++ mjc=0.9
++ cje=9.57849e-08
++ vje=0.4
++ mje=0.9
++ tf=9.99923e-10
+ecemodel name=DCAP type=diode_spice_1
++ is=1e-32
++ n0=50
++ cjo=5.33364e-09
++ vj=0.4
++ m=0.74727
++ fc=0.5
+ecemodel name=DL type=diode_spice_1
++ is=1e-10
++ n0=0.4
+callece mos_level1_n name=M1 model=MSUB d=9 g=6 s=8 b=8
++ l=100u
++ w=100u
+ebe name=RD type=r p=7 n=9 r=0.0001
+ebe name=RS type=r p=4 n=8 r=0.001157
+callece bjt_pnp_1 name=Q1 model=QSUB c=4 b=7 e=c
+ebe name=RDS type=r p=7 n=4 r=1e8
+ebe name=RER type=r p=4 n=e r=0.00599099
+ebe name=RG type=r p=6 n=g r=2.43432
+ebe name=RL type=r p=10 n=11 r=1
+callece diode_spice_1 name=D2 model=DCAP p=12 n=11
+callece diode_spice_1 name=D3 model=DL p=0 n=11
+ebe name=VFI2 type=vsrcdc p=12 n=0 vdc=0
+ebe name=FI2 type=cccs n=6 p=7 cccsbr=VFI2 beta=-1
+ebe name=EV type=vcvs p=10 n=0 vcplus=7 vcminus=6 alpha=1
+ebe name=CAP type=c p=10 n=13 c=1.69878e-08
+ebe name=RCAP type=r p=10 n=14 r=1
+callece diode_spice_1 name=D4 model=DL p=0 n=14
+ebe name=VFI1 type=vsrcdc p=13 n=14 vdc=0
+ebe name=FI1 type=cccs n=6 p=7 cccsbr=VFI1 beta=-1
+ebe type=ground_dummy_1 c=0
+end_dc
+C: compiled
+endC
+begin_ac
+outvar_ac:
+ind_nodes_ac:
+ind_branches_ac:
+end_ac
+endece
+ece name=indmc group=machines allow_ac=no
+begin_dc
+  mainnodes: a b c
+  auxnodes:
+  outvar:
++   ia=cur(a)_of_im0
++   ib=cur(b)_of_im0
++   ic=cur(c)_of_im0
++   tem=tem_of_im0
+  bias:
+  stparms:
++   psids0=0
++   psiqs0=0
++   psidr0=0
++   psiqr0=0
++   wrm0=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: wrm tl
+  xvar:
+  iparms: poles=4
+  sparms:
+  rparms:
++   rs=0.435 lls=0.002 lm=0.0693 llr=0.002 rr=0.816
++   j=0.089
+  rparms_derived:
+  ebe name=im0 type=indmc a=a b=b c=c
++   wrm=wrm tl=tl
++   rs=rs lls=lls lm=lm llr=llr rr=rr j=j poles=poles
++   psids0=psids0 psiqs0=psiqs0 psidr0=psidr0 psiqr0=psiqr0
++   wrm0=wrm0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=inverter_4q group=power_electronics allow_ac=no
+begin_dc
+  mainnodes: a b p m
+  auxnodes:
+  outvar:
++   is1=i1_of_s1
++   is2=i1_of_s2
++   is3=i1_of_s3
++   is4=i1_of_s4
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: g1 g2 g3 g4
+  xvar:
+  iparms:
+  sparms:
+  rparms: ron=0.1 roff=10M g_high=1.0 cap=1p
+  rparms_derived:
+  callece switch_g1 name=s1
++    p=p n=a g_in=g1 ron=ron roff=roff g_high=g_high
+  callece switch_g1 name=s2
++    p=b n=m g_in=g2 ron=ron roff=roff g_high=g_high
+  callece switch_g1 name=s3
++    p=p n=b g_in=g3 ron=ron roff=roff g_high=g_high
+  callece switch_g1 name=s4
++    p=a n=m g_in=g4 ron=ron roff=roff g_high=g_high
+  callece c p=a n=p c=cap v0sv=0
+  callece c p=b n=p c=cap v0sv=0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=ipulse group=sources allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   i1=cur(p)_of_i0
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: i_1=0 i_2=0 t_1=0 t_2=0 delt_1=0 delt_2=0
+  rparms_derived:
+  ebe name=i0 type=ipulse p=p n=n
++   i_1=i_1 i_2=i_2 t_1=t_1 t_2=t_2 delt_1=delt_1 delt_2=delt_2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=isrc_1 group=sources allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: x
+  xvar:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  ebe name=i0 type=isrc_1 p=p n=n x=x
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=isrc_pwl20 group=sources allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++    i1=cur(n)_of_i0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms: n1=2
+  sparms:
+  rparms:
++   t1=1 is1=1 t2=2 is2=2
++   t3=3 is3=3 t4=4 is4=4
++   t5=5 is5=5 t6=6 is6=6
++   t7=7 is7=7 t8=8 is8=8
++   t9=9 is9=9 t10=10 is10=10
++   t11=11 is11=11 t12=12 is12=12
++   t13=13 is13=13 t14=14 is14=14
++   t15=15 is15=15 t16=16 is16=16
++   t17=17 is17=17 t18=18 is18=18
++   t19=19 is19=19 t20=20 is20=20
+  rparms_derived:
+  ebe name=i0 type=isrc_pwl20 p=p n=n
++   n1=n1
++   t1=t1 t2=t2 t3=t3 t4=t4 t5=t5
++   t6=t6 t7=t7 t8=t8 t9=t9 t10=t10
++   t11=t11 t12=t12 t13=t13 t14=t14 t15=t15
++   t16=t16 t17=t17 t18=t18 t19=t19 t20=t20
++   is1=is1 is2=is2 is3=is3 is4=is4 is5=is5
++   is6=is6 is7=is7 is8=is8 is9=is9 is10=is10
++   is11=is11 is12=is12 is13=is13 is14=is14 is15=is15
++   is16=is16 is17=is17 is18=is18 is19=is19 is20=is20
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=isrcac group=sources allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   v1=v1_of_i0
++   i1=cur(p)_of_i0
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   a=1 f_hz=1 phi=0 t0=0
+  rparms_derived:
+  ebe name=i0 type=isrcac p=p n=n
++   a=a f_hz=f_hz phi=phi t0=t0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac: i1ac=cur(p)_of_i0
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=i0 type=isrcac p=p n=n a=a phi=phi
+end_ac
+endece
+ece name=isrcdc group=sources allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   pwr_elec=pwr_elec_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: idc=0
+#display: idc
+  rparms_derived:
+  ebe name=i0 type=isrcdc p=p n=n idc=idc
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac type=isrcac p=p n=n a=0 phi=0
+end_ac
+endece
+ece name=jfet_spice_n group=devices allow_ac=yes
+begin_dc
+  mainnodes: g d s
+  auxnodes: dp sp
+  outvar:
++   ig=cur(g)_of_fet
++   id=cur(p)_of_rd
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms: vgd_sv=0 vgs_sv=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
++   level=1
++   flag_jac=0
+  sparms: model_file=none
+  rparms:
++   t1=300.15
++   pb=1.0
++   mj=0.5
++   cgs=0.0
++   cgd=0.0
++   beta=1e-4
++   bto=0
++   bte=0
++   is=1e-14
++   xti=3.0
++   vto=-2.0
++   n=1.0
++   tt=0
++   fc=0.5
++   io=0
++   ns=1
++   lambda=0
++   lambda1=0
++   alpha=2.0
++   np=2.0
++   rd=1u
++   rs=1u
++   tc1=0
++   tc2=0
+  rparms_derived:
+  ebe type=jfet_spice_1 name=fet
++   g=g d=dp s=sp
++   level=level
++   jfet_type=1
++   flag_jac=flag_jac
++   t1=t1
++   pb=pb
++   mj=mj
++   cgs=cgs
++   cgd=cgd
++   beta=beta
++   bto=bto
++   bte=bte
++   is=is
++   xti=xti
++   vto=vto
++   n=n
++   tt=tt
++   fc=fc
++   io=io
++   ns=ns
++   lambda=lambda
++   lambda1=lambda1
++   alpha=alpha
++   np=np
+  ebe type=r_jfet name=rd p=d n=dp
++   t1=t1
++   tc1=tc1
++   tc2=tc2
++   r=rd
+  ebe type=r_jfet name=rs p=s n=sp
++   t1=t1
++   tc1=tc1
++   tc2=tc2
++   r=rs
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=fet1 type=jfet_spice_1
++   g=g d=dp s=sp
+  ebe_ac type=r_jfet name=rd p=d n=dp
++   t1=t1
++   tc1=tc1
++   tc2=tc2
++   r=rd
+  ebe_ac type=r_jfet name=rs p=s n=sp
++   t1=t1
++   tc1=tc1
++   tc2=tc2
++   r=rs
+  acparm_map: 1 1
+end_ac
+endece
+ece name=jfet_spice_p group=devices allow_ac=yes
+begin_dc
+  mainnodes: g d s
+  auxnodes: dp sp
+  outvar:
++   ig=cur(g)_of_fet
++   id=cur(p)_of_rd
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms: vgd_sv=0 vgs_sv=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
++   level=1
+  sparms: model_file=none
+  rparms:
++   t1=300.15
++   pb=1.0
++   mj=0.5
++   cgs=0.0
++   cgd=0.0
++   beta=1e-4
++   bto=0
++   bte=0
++   is=1e-14
++   xti=3.0
++   vto=-2.0
++   n=1.0
++   tt=0
++   fc=0.5
++   io=0
++   ns=1
++   lambda=0
++   lambda1=0
++   alpha=2.0
++   np=2.0
++   rd=1u
++   rs=1u
++   tc1=0
++   tc2=0
+  rparms_derived:
+  ebe type=jfet_spice_1 name=fet
++   g=g d=dp s=sp
++   level=level
++   jfet_type=0
++   t1=t1
++   pb=pb
++   mj=mj
++   cgs=cgs
++   cgd=cgd
++   beta=beta
++   bto=bto
++   bte=bte
++   is=is
++   xti=xti
++   vto=vto
++   n=n
++   tt=tt
++   fc=fc
++   io=io
++   ns=ns
++   lambda=lambda
++   lambda1=lambda1
++   alpha=alpha
++   np=np
+  ebe type=r_jfet name=rd p=d n=dp
++   t1=t1
++   tc1=tc1
++   tc2=tc2
++   r=rd
+  ebe type=r_jfet name=rs p=s n=sp
++   t1=t1
++   tc1=tc1
++   tc2=tc2
++   r=rs
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=fet1 type=jfet_spice_1
++   g=g d=dp s=sp
+  ebe_ac type=r_jfet name=rd p=d n=dp
++   t1=t1
++   tc1=tc1
++   tc2=tc2
++   r=rd
+  ebe_ac type=r_jfet name=rs p=s n=sp
++   t1=t1
++   tc1=tc1
++   tc2=tc2
++   r=rs
+  acparm_map: 1 1
+end_ac
+endece
+ece name=l group=linear allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   v1=v1_of_l1
++   i1=cur(p)_of_l1
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms: i0sv=0
+  igparms: i0ig=0
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   l=1
++   k_scale=1
+#display: l
+  rparms_derived:
+  ebe name=l1 type=l p=p n=n
++   l=l
++   k_scale=k_scale
++   i0sv=i0sv
++   i0ig=i0ig
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac: i1ac=cur(p)_of_l1
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=l1 type=l p=p n=n
++   l=l
++   k_scale=k_scale
+end_ac
+endece
+ece name=l_mutual allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar: v1=v1_of_l1 i1=cur(p)_of_l1
+  bias:
+  stparms: i0sv=0
+  igparms: i0ig=0
+  ind_nodes:
+  ind_branches: l_coupled
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   l_self=1.0
++   k=0.999
++   l_mutual=1.0
+  rparms_derived:
+  ebe name=l1 type=l_mutual p=p n=n
++   l_coupled=l_coupled
++   l_self=l_self k=k l_mutual=l_mutual
++   i0sv=i0sv i0ig=i0ig
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac: i1ac=cur(p)_of_l1
+  ind_nodes_ac:
+  ind_branches_ac: l_coupled_ac
+  ebe_ac name=l1 type=l_mutual p=p n=n
++   l_coupled=l_coupled_ac
++   l_self=l_self k=k l_mutual=l_mutual
+end_ac
+endece
+ece name=l_pu group=linear allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar: v1=v1_of_l1 i1=cur(p)_of_l1
+  bias:
+  stparms: i0sv=0
+  igparms: i0ig=0
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++    x_pu=1
++    f_b=50
++    k_scale=1
+  rparms_derived:
+  ebe name=l1 type=l_pu p=p n=n
++    x_pu=x_pu
++    f_b=f_b
++    k_scale=k_scale
++    i0sv=i0sv
++    i0ig=i0ig
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=l_pu_sync group=linear allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar: v1=v1_of_l1 i1=cur(p)_of_l1
+  bias:
+  stparms: i0sv=0
+  igparms: i0ig=0
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
++    i_compute_strt=0
++    indx=1
+  sparms:
+  rparms: x_pu=1 f_b=50
+  rparms_derived:
+  ebe name=l1 type=l_pu_sync p=p n=n
++    x_pu=x_pu f_b=f_b i0sv=i0sv i0ig=i0ig
++    i_compute_strt=i_compute_strt
++    indx=indx
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=l_theta group=power_electronics allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   v1=v1_of_l0
++   i1=cur(p)_of_l0
++   l=l_of_l0
++   dl_dtheta=dl_dtheta_of_l0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: theta tem_phase
+  xvar:
+  iparms:
++   ns=6
++   nr=4
+  sparms:
+  rparms:
++   lmin=1.1m
++   lmax=5.5m
++   beta_s_deg=35
++   beta_r_deg=36.5
+  rparms_derived:
+  ebe name=l0 type=l_theta p=p n=n
++   theta=theta tem_phase=tem_phase
++   ns=ns nr=nr
++   lmin=lmin lmax=lmax
++   beta_s_deg=beta_s_deg beta_r_deg=beta_r_deg
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=mos_bsim1_n group=devices allow_ac=yes
+begin_dc
+  mainnodes: s d g b
+  auxnodes: sprime dprime
+  outvar:
++   i1=cur(term1)_of_mos1
++   i2=cur(term2)_of_mos1
++   igate=cur(gate)_of_mos1
++   ibulk=cur(bulk)_of_mos1
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
++  xpart=1
++  limit_vds_pos=0
++  flag_jac=0
+  sparms: model_file=none
+  rparms:
++  w=5u  l=5u
++  vfb=-9.73820e-01  lvfb=3.67458e-01 wvfb=-4.72340e-02
++  phi=7.46556e-01 lphi=-1.92454e-24  wphi=8.06093e-24
++  k1=1.49134e+00 lk1=-4.98139e-01  wk1=2.78225e-01
++  k2=3.15199e-01 lk2=-6.95350e-02 wk2=-1.40057e-01
++  eta=-1.19300e-02  leta=5.44713e-02 weta=-2.67784e-02
++  muz=5.98328e+02 dl=6.38067e-01 dw=1.35520e-01
++  u0=5.27788e-02  lu0=4.85686e-02 wu0=-8.55329e-02
++  u1=1.09730e-01  lu1=7.28376e-01 wu1=-4.22283e-01
++  x2mz=7.18857e+00 lx2mz=-2.47335e+00  wx2mz=7.12327e+01
++  x2e=-3.00000e-03 lx2e=-7.20276e-03 wx2e=-5.57093e-03
++  x3e=3.71969e-04 lx3e=-3.16123e-03 wx3e=-3.80806e-03
++  x2u0=1.30153e-03  lx2u0=3.81838e-04  wx2u0=2.53131e-02
++  x2u1=-2.04836e-02  lx2u1=3.48053e-02  wx2u1=4.44747e-02
++  mus=7.79064e+02  lmus=3.62270e+02 wmus=-2.71207e+02
++  x2ms=-2.65485e+00  lx2ms=3.68637e+01  wx2ms=1.12899e+02
++  x3ms=1.18139e+01  lx3ms=7.24951e+01 wx3ms=-5.25361e+01
++  x3u1=2.12924e-02  lx3u1=5.85329e-02 wx3u1=-5.29634e-02
++  tox=4.35000e-02  temp=300.15       vdd=5.00000e+00
++  cgdo=3.79886e-010 cgso=3.79886e-010 cgbo=3.78415e-010
++  n0=1 ln0=0 wn0=0
++  nb=0 lnb=0 wnb=0
++  nd=0 lnd=0 wnd=0
++  rsh=54.7     cj=3.245600e-04     cjsw=2.543000e-10
++  js=1.000000e-08     pb=0.8
++  pbsw=0.8     mj=0.60438     mjsw=0.244194     wdf=0     dell=0
++  ad=0    as=0
++  pd=0    ps=0
++  nrs=1   nrd=1
+  rparms_derived:
+  ebe type=mos_bsim1 name=mos1
++   term1=sprime term2=dprime gate=g bulk=b
++   mostype=1 xpart=xpart
++   limit_vds_pos=limit_vds_pos
++   l=l w=w ad=ad as=as pd=pd
++   ps=ps vfb=vfb lvfb=lvfb wvfb=wvfb phi=phi
++   lphi=lphi wphi=wphi k1=k1 lk1=lk1 wk1=wk1
++   k2=k2 lk2=lk2 wk2=wk2 eta=eta leta=leta
++   weta=weta x2e=x2e lx2e=lx2e wx2e=wx2e x3e=x3e
++   lx3e=lx3e wx3e=wx3e dl=dl dw=dw muz=muz
++   x2mz=x2mz lx2mz=lx2mz wx2mz=wx2mz mus=mus x2ms=x2ms
++   lx2ms=lx2ms wx2ms=wx2ms x3ms=x3ms lx3ms=lx3ms wx3ms=wx3ms
++   u0=u0 lu0=lu0 wu0=wu0 x2u0=x2u0 lx2u0=lx2u0
++   wx2u0=wx2u0 u1=u1 lu1=lu1 wu1=wu1 x2u1=x2u1
++   lx2u1=lx2u1 wx2u1=wx2u1 x3u1=x3u1 lx3u1=lx3u1 wx3u1=wx3u1
++   n0=n0 ln0=ln0 wn0=wn0 nb=nb lnb=lnb
++   wnb=wnb nd=nd lnd=lnd wnd=wnd tox=tox
++   temp=temp vdd=vdd cgso=cgso cgdo=cgdo cgbo=cgbo
++   pb=pb mj=mj pbsw=pbsw mjsw=mjsw
++   cj=cj cjsw=cjsw wdf=wdf
++   js=js lmus=lmus wmus=wmus
++   flag_jac=flag_jac
+  ebe type=mos_r p=s n=sprime rsh=rsh nsquares=nrs
+  ebe type=mos_r p=d n=dprime rsh=rsh nsquares=nrd
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=mos1 type=mos_bsim1
++   gate=g term2=dprime term1=sprime bulk=b
+  ebe_ac type=mos_r name=rd p=d n=dprime
++   rsh=rsh nsquares=nrd
+  ebe_ac type=mos_r name=rs p=s n=sprime
++   rsh=rsh nsquares=nrs
+  acparm_map: 1 1
+end_ac
+endece
+ece name=mos_bsim1_p group=devices allow_ac=yes
+begin_dc
+  mainnodes: s d g b
+  auxnodes: sprime dprime
+  outvar:
++   i1=cur(term1)_of_mos1
++   i2=cur(term2)_of_mos1
++   igate=cur(gate)_of_mos1
++   ibulk=cur(bulk)_of_mos1
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
++  xpart=1
++  limit_vds_pos=0
+  sparms: model_file=none
+  rparms:
++  w=5u  l=5u
++  vfb=-2.65334e-01  lvfb=6.50066e-02  wvfb=1.48093e-01
++  phi=6.75823e-01 lphi=-1.61406e-24  wphi=8.03764e-24
++  k1=5.68962e-01  lk1=3.88845e-02 wk1=-5.33948e-02
++  k2=-5.52938e-02  lk2=1.17906e-01 wk2=-6.89149e-02
++  eta=-1.51784e-02  leta=5.87976e-02 weta=-7.51570e-04
++  muz=2.10669e+02 dl=8.44240e-01 dw=1.62551e-01
++  u0=1.04713e-01  lu0=5.50950e-02 wu0=-7.56659e-02
++  u1=1.46638e-02  lu1=2.13581e-01 wu1=-1.22509e-01
++  x2mz=8.76354e+00 lx2mz=-3.64793e+00  wx2mz=4.30934e+00
++  x2e=-2.13631e-03 lx2e=-2.94140e-03 wx2e=-2.48293e-03
++  x3e=2.78813e-04 lx3e=-1.60711e-03 wx3e=-4.57237e-03
++  x2u0=3.93706e-03 lx2u0=-5.66051e-04  wx2u0=5.69621e-04
++  x2u1=1.07707e-04  lx2u1=8.85125e-03  wx2u1=1.71537e-03
++  mus=2.06464e+02  lmus=1.39151e+02 wmus=-4.95671e+01
++  x2ms=5.86401e+00  lx2ms=6.98887e+00  wx2ms=5.55782e+00
++  x3ms=-2.03430e-01  lx3ms=1.16170e+01 wx3ms=-3.44342e+00
++  x3u1=-1.17893e-02  lx3u1=5.72098e-04  wx3u1=8.29791e-03
++  tox=4.35000e-02  temp=300.15       vdd=5.00000e+00
++  cgdo=5.02635e-010 cgso=5.02635e-010 cgbo=3.85017e-010
++  n0=1 ln0=0 wn0=0
++  nb=0 lnb=0 wnb=0
++  nd=0 lnd=0 wnd=0
++  rsh=27.9    cj=1.037500e-04    cjsw=2.169400e-10
++  js=1e-8    pb=0.8
++  pbsw=0.8    mj=0.66036    mjsw=0.178543    wdf=0    dell=0
++  ad=0    as=0
++  pd=0    ps=0
++  nrs=1   nrd=1
+  rparms_derived:
+  ebe type=mos_bsim1 name=mos1
++   term1=sprime term2=dprime gate=g bulk=b
++   mostype=-1 xpart=xpart
++   limit_vds_pos=limit_vds_pos
++   l=l w=w ad=ad as=as pd=pd
++   ps=ps vfb=vfb lvfb=lvfb wvfb=wvfb phi=phi
++   lphi=lphi wphi=wphi k1=k1 lk1=lk1 wk1=wk1
++   k2=k2 lk2=lk2 wk2=wk2 eta=eta leta=leta
++   weta=weta x2e=x2e lx2e=lx2e wx2e=wx2e x3e=x3e
++   lx3e=lx3e wx3e=wx3e dl=dl dw=dw muz=muz
++   x2mz=x2mz lx2mz=lx2mz wx2mz=wx2mz mus=mus x2ms=x2ms
++   lx2ms=lx2ms wx2ms=wx2ms x3ms=x3ms lx3ms=lx3ms wx3ms=wx3ms
++   u0=u0 lu0=lu0 wu0=wu0 x2u0=x2u0 lx2u0=lx2u0
++   wx2u0=wx2u0 u1=u1 lu1=lu1 wu1=wu1 x2u1=x2u1
++   lx2u1=lx2u1 wx2u1=wx2u1 x3u1=x3u1 lx3u1=lx3u1 wx3u1=wx3u1
++   n0=n0 ln0=ln0 wn0=wn0 nb=nb lnb=lnb
++   wnb=wnb nd=nd lnd=lnd wnd=wnd tox=tox
++   temp=temp vdd=vdd cgso=cgso cgdo=cgdo cgbo=cgbo
++   pb=pb mj=mj pbsw=pbsw mjsw=mjsw
++   cj=cj cjsw=cjsw wdf=wdf
++   js=js lmus=lmus wmus=wmus
+  ebe type=mos_r p=s n=sprime rsh=rsh nsquares=nrs
+  ebe type=mos_r p=d n=dprime rsh=rsh nsquares=nrd
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=mos1 type=mos_bsim1
++   gate=g term2=dprime term1=sprime bulk=b
+  ebe_ac type=mos_r name=rd p=d n=dprime
++   rsh=rsh nsquares=nrd
+  ebe_ac type=mos_r name=rs p=s n=sprime
++   rsh=rsh nsquares=nrs
+  acparm_map: 1 1
+end_ac
+endece
+ece name=mos_level1_n group=devices allow_ac=yes
+begin_dc
+  mainnodes: s d g b
+  auxnodes: sprime dprime
+  outvar:
++   i_d=cur(d)_of_mos1
++   i_g=cur(g)_of_mos1
++   i_b=cur(b)_of_mos1
++   i_s=cur(s)_of_mos1
++   qg=qg_out_of_mos1
++   qd=qd_out_of_mos1
++   qs=qs_out_of_mos1
++   qb=qb_out_of_mos1
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
++   tpg=1
+  sparms: model_file=none
+  rparms:
++   rd=1u
++   rs=1u
++   rsh=1
++   nrd=1
++   nrs=1
++   w=1.0e-6
++   l=1.0e-6
++   tnom=300.15
++   vto=-99
++   kp=-99
++   gamma=-99
++   lambda=0
++   phi=-99
++   cbs=0
++   cbd=0
++   is=1e-14
++   pb=0.8
++   cgso=0
++   cgdo=0
++   cgbo=0
++   cj=0
++   mj=0.5
++   cjsw=0
++   mjsw=0.33
++   js=0
++   tox=-99
++   ld=0
++   u0=600
++   fc=0.5
++   nsub=-99
++   nss=0
++   as=0.0
++   ad=0.0
++   pd=0.0
++   ps=0.0
++   t1=300.15
++   m=1
+  rparms_derived:
+  ebe type=mos_level1 name=mos1
++   s=sprime d=dprime g=g b=b
++   channel=1
++   tpg=tpg
++   w=w
++   l=l
++   tnom=tnom
++   vt0=vto
++   kp=kp
++   gamma=gamma
++   lambda=lambda
++   phi=phi
++   cbs=cbs
++   cbd=cbd
++   is=is
++   pb=pb
++   cgso=cgso
++   cgdo=cgdo
++   cgbo=cgbo
++   cj=cj
++   mj=mj
++   cjsw=cjsw
++   mjsw=mjsw
++   js=js
++   tox=tox
++   ld=ld
++   u0=u0
++   fc=fc
++   nsub=nsub
++   nss=nss
++   as=as
++   ad=ad
++   pd=pd
++   ps=ps
++   t1=t1
++   m=m
+  ebe type=mos_l1_r p=s n=sprime
++   rsh=rsh
++   nsquares=nrs
++   r_given=rs
++   m=m
+  ebe type=mos_l1_r p=d n=dprime
++   rsh=rsh
++   nsquares=nrd
++   r_given=rd
++   m=m
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=mos1a type=mos_level3
++   s=sprime d=dprime g=g b=b
+  ebe_ac type=mos_l1_r p=s n=sprime
++   rsh=rsh
++   nsquares=nrs
++   r_given=rs
++   m=m
+  ebe_ac type=mos_l1_r p=d n=dprime
++   rsh=rsh
++   nsquares=nrd
++   r_given=rd
++   m=m
+  acparm_map: 1 1
+end_ac
+endece
+ece name=mos_level1_p group=devices allow_ac=yes
+begin_dc
+  mainnodes: s d g b
+  auxnodes: sprime dprime
+  outvar:
++   i_d=cur(d)_of_mos1
++   i_g=cur(g)_of_mos1
++   i_b=cur(b)_of_mos1
++   i_s=cur(s)_of_mos1
++   qg=qg_out_of_mos1
++   qd=qd_out_of_mos1
++   qs=qs_out_of_mos1
++   qb=qb_out_of_mos1
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
++   tpg=1
+  sparms: model_file=none
+  rparms:
++   rd=1u
++   rs=1u
++   rsh=1
++   nrd=1
++   nrs=1
++   w=1.0e-6
++   l=1.0e-6
++   tnom=300.15
++   vto=-99
++   kp=-99
++   gamma=-99
++   lambda=0
++   phi=-99
++   cbs=0
++   cbd=0
++   is=1e-14
++   pb=0.8
++   cgso=0
++   cgdo=0
++   cgbo=0
++   cj=0
++   mj=0.5
++   cjsw=0
++   mjsw=0.33
++   js=0
++   tox=-99
++   ld=0
++   u0=600
++   fc=0.5
++   nsub=-99
++   nss=0
++   as=0.0
++   ad=0.0
++   pd=0.0
++   ps=0.0
++   t1=300.15
++   m=1
+  rparms_derived:
+  ebe type=mos_level1 name=mos1
++   s=sprime d=dprime g=g b=b
++   channel=-1
++   tpg=tpg
++   w=w
++   l=l
++   tnom=tnom
++   vt0=vto
++   kp=kp
++   gamma=gamma
++   lambda=lambda
++   phi=phi
++   cbs=cbs
++   cbd=cbd
++   is=is
++   pb=pb
++   cgso=cgso
++   cgdo=cgdo
++   cgbo=cgbo
++   cj=cj
++   mj=mj
++   cjsw=cjsw
++   mjsw=mjsw
++   js=js
++   tox=tox
++   ld=ld
++   u0=u0
++   fc=fc
++   nsub=nsub
++   nss=nss
++   as=as
++   ad=ad
++   pd=pd
++   ps=ps
++   t1=t1
++   m=m
+  ebe type=mos_l1_r p=s n=sprime
++   rsh=rsh
++   nsquares=nrs
++   r_given=rs
++   m=m
+  ebe type=mos_l1_r p=d n=dprime
++   rsh=rsh
++   nsquares=nrd
++   r_given=rd
++   m=m
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=mos1a type=mos_level3
++   s=sprime d=dprime g=g b=b
+  ebe_ac type=mos_l1_r p=s n=sprime
++   rsh=rsh
++   nsquares=nrs
++   r_given=rs
++   m=m
+  ebe_ac type=mos_l1_r p=d n=dprime
++   rsh=rsh
++   nsquares=nrd
++   r_given=rd
++   m=m
+  acparm_map: 1 1
+end_ac
+endece
+ece name=mos_level3_n group=devices allow_ac=yes
+begin_dc
+  mainnodes: s d g b
+  auxnodes: sprime dprime
+  outvar:
++   i_d=cur(d)_of_mos1
++   i_g=cur(g)_of_mos1
++   i_b=cur(b)_of_mos1
++   i_s=cur(s)_of_mos1
++   qg=qg_out_of_mos1
++   qd=qd_out_of_mos1
++   qs=qs_out_of_mos1
++   qb=qb_out_of_mos1
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
++   tpg=1
+  sparms: model_file=none
+  rparms:
++   rd=1m
++   rs=1m
++   rsh=1
++   nrd=1
++   nrs=1
++   w=10.0e-6
++   l=10.0e-6
++   as=0.0
++   ad=0.0
++   pd=0.0
++   ps=0.0
++   vto=-99
++   kp=2e-5
++   gamma=-99
++   phi=0.6
++   cbd=0
++   cbs=0
++   is=1e-14
++   pb=0.8
++   cj=0
++   mj=0.5
++   cjsw=0
++   mjsw=0.33
++   js=0
++   cgdo=0
++   cgbo=0
++   cgso=0
++   tox=1e-7
++   nsub=1e16
++   nss=0
++   nfs=0
++   xj=0
++   ld=0
++   uo=600
++   vmax=0
++   fc=0.5
++   delta=0
++   theta=0
++   eta=0
++   kappa=0.2
++   tnom=300.15
++   t1=300.15
++   rds=1000M
+  rparms_derived:
+  ebe type=mos_level3 name=mos1
++   s=sprime d=dprime g=g b=b
++   channel=1
++   tpg=tpg
++   w=w
++   l=l
++   as=as
++   ad=ad
++   pd=pd
++   ps=ps
++   vt0=vto
++   kp=kp
++   gamma=gamma
++   phi=phi
++   cbd=cbd
++   cbs=cbs
++   is=is
++   pb=pb
++   cj=cj
++   mj=mj
++   cjsw=cjsw
++   mjsw=mjsw
++   js=js
++   cgdo=cgdo
++   cgbo=cgbo
++   cgso=cgso
++   tox=tox
++   nsub=nsub
++   nss=nss
++   nfs=nfs
++   xj=xj
++   ld=ld
++   u0=uo
++   vmax=vmax
++   fc=fc
++   delta=delta
++   theta=theta
++   eta=eta
++   kappa=kappa
++   tnom=tnom
++   t1=t1
+  ebe type=mos_l3_r p=s n=sprime
++   rsh=rsh
++   nsquares=nrs
++   r_given=rs
+  ebe type=mos_l3_r p=d n=dprime
++   rsh=rsh
++   nsquares=nrd
++   r_given=rd
+  ebe type=r p=d n=s r=rds
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=mos1a type=mos_level3
++   s=sprime d=dprime g=g b=b
+  ebe_ac type=mos_l3_r p=s n=sprime
++   rsh=rsh
++   nsquares=nrs
++   r_given=rs
+  ebe_ac type=mos_l3_r p=d n=dprime
++   rsh=rsh
++   nsquares=nrd
++   r_given=rd
+  acparm_map: 1 1
+end_ac
+endece
+ece name=mos_level3_p group=devices allow_ac=yes
+begin_dc
+  mainnodes: s d g b
+  auxnodes: sprime dprime
+  outvar:
++   i_d=cur(d)_of_mos1
++   i_g=cur(g)_of_mos1
++   i_b=cur(b)_of_mos1
++   i_s=cur(s)_of_mos1
++   qg=qg_out_of_mos1
++   qd=qd_out_of_mos1
++   qs=qs_out_of_mos1
++   qb=qb_out_of_mos1
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
++   tpg=1
+  sparms: model_file=none
+  rparms:
++   rd=1m
++   rs=1m
++   rsh=1
++   nrd=1
++   nrs=1
++   w=10.0e-6
++   l=10.0e-6
++   as=0.0
++   ad=0.0
++   pd=0.0
++   ps=0.0
++   vto=-99
++   kp=2e-5
++   gamma=-99
++   phi=0.6
++   cbd=0
++   cbs=0
++   is=1e-14
++   pb=0.8
++   cj=0
++   mj=0.5
++   cjsw=0
++   mjsw=0.33
++   js=0
++   cgdo=0
++   cgbo=0
++   cgso=0
++   tox=1e-7
++   nsub=1e16
++   nss=0
++   nfs=0
++   xj=0
++   ld=0
++   uo=600
++   vmax=0
++   fc=0.5
++   delta=0
++   theta=0
++   eta=0
++   kappa=0.2
++   tnom=300.15
++   t1=300.15
++   rds=10M
+  rparms_derived:
+  ebe type=mos_level3 name=mos1
++   s=sprime d=dprime g=g b=b
++   channel=-1
++   tpg=tpg
++   w=w
++   l=l
++   as=as
++   ad=ad
++   pd=pd
++   ps=ps
++   vt0=vto
++   kp=kp
++   gamma=gamma
++   phi=phi
++   cbd=cbd
++   cbs=cbs
++   is=is
++   pb=pb
++   cj=cj
++   mj=mj
++   cjsw=cjsw
++   mjsw=mjsw
++   js=js
++   cgdo=cgdo
++   cgbo=cgbo
++   cgso=cgso
++   tox=tox
++   nsub=nsub
++   nss=nss
++   nfs=nfs
++   xj=xj
++   ld=ld
++   u0=uo
++   vmax=vmax
++   fc=fc
++   delta=delta
++   theta=theta
++   eta=eta
++   kappa=kappa
++   tnom=tnom
++   t1=t1
+  ebe type=mos_l3_r p=s n=sprime
++   rsh=rsh
++   nsquares=nrs
++   r_given=rs
+  ebe type=mos_l3_r p=d n=dprime
++   rsh=rsh
++   nsquares=nrd
++   r_given=rd
+  ebe type=r p=d n=s r=rds
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=mos1a type=mos_level3
++   s=sprime d=dprime g=g b=b
+  ebe_ac type=mos_l3_r p=s n=sprime
++   rsh=rsh
++   nsquares=nrs
++   r_given=rs
+  ebe_ac type=mos_l3_r p=d n=dprime
++   rsh=rsh
++   nsquares=nrd
++   r_given=rd
+  acparm_map: 1 1
+end_ac
+endece
+ece name=nand_2_dly group=gates allow_ac=no
+begin_dc
+  mainnodes: x1 x2 y
+  auxnodes: y1 ground
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++    v_high=5.0
++    r_input=100M
++    r=1k
++    c=10p
+  rparms_derived:
+  ebe type=r p=x1 n=ground r=r_input
+  ebe type=r p=x2 n=ground r=r_input
+  ebe type=nand_2 p=y1 n=ground
++    node_x1=x1 node_x2=x2
++    v_high=v_high
+  ebe type=r p=y1 n=y      r=r
+  ebe type=c p=y  n=ground c=c
+  ebe type=ground_dummy_1 c=ground
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=nor_2_dly group=gates allow_ac=no
+begin_dc
+  mainnodes: x1 x2 y
+  auxnodes: y1 ground
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++    v_high=5.0
++    r_input=100M
++    r=1k
++    c=10p
+  rparms_derived:
+  ebe type=r p=x1 n=ground r=r_input
+  ebe type=r p=x2 n=ground r=r_input
+  ebe type=nor_2 p=y1 n=ground
++    node_x1=x1 node_x2=x2
++    v_high=v_high
+  ebe type=r p=y1 n=y      r=r
+  ebe type=c p=y  n=ground c=c
+  ebe type=ground_dummy_1 c=ground
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=not_dly group=gates allow_ac=no
+begin_dc
+  mainnodes: x y
+  auxnodes: y1 ground
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++    v_high=5.0
++    r_input=100M
++    r=1k
++    c=10p
+  rparms_derived:
+  ebe type=r p=x n=ground r=r_input
+  ebe type=not p=y1 n=ground
++    node_x=x
++    v_high=v_high
+  ebe type=r p=y1 n=y      r=r
+  ebe type=c p=y  n=ground c=c
+  ebe type=ground_dummy_1 c=ground
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=opamp1_a group=opamps allow_ac=yes
+begin_dc
+  mainnodes:
++   plus minus out
+  auxnodes:
++   node_ro
++   ground
++   vcc vee node_s1a node_s2a
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   rin=1M
++   rout=10
++   av=1e5
++   v_cc=15
+  rparms_derived:
+  ebe name=rin  type=r    p=minus   n=plus r=rin
+  ebe name=rout type=r    p=node_ro n=ground  r=rout
+  ebe name=v0   type=vcvs p=out     n=node_ro alpha=av
++   vcplus=plus vcminus=minus
+  ebe type=ground_dummy_1 c=ground
+  callece diode name=d1 p=out n=node_s1a is=1e-14
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=0.01m
+  callece diode name=d2 p=node_s2a n=out is=1e-14
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=0.01m
+  ebe type=vsrcdc p=vcc  n=node_s1a vdc=1.5
+  ebe type=vsrcdc p=node_s2a n=vee  vdc=1.5
+  ebe name=vcc type=vsrcdc p=vcc n=ground vdc=v_cc
+  ebe name=vee type=vsrcdc n=vee p=ground vdc=v_cc
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=rin type=r p=minus n=plus r=rin
+  ebe_ac name=rout type=r p=node_ro n=ground r=rout
+  ebe_ac name=v0 type=vcvs p=out n=node_ro alpha=av
++   vcplus=plus vcminus=minus
+  ebe_ac type=ground_dummy_1 c=ground
+end_ac
+endece
+ece name=opamp1_b group=opamps allow_ac=yes
+begin_dc
+  mainnodes: plus minus out vcc vee
+  auxnodes: ground node_ro node_s1a node_s2a
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   rin=1M
++   rout=10
++   av=1e5
+  rparms_derived:
+  ebe name=rin  type=r    p=minus   n=plus r=rin
+  ebe name=rout type=r    p=node_ro n=ground  r=rout
+  ebe name=v0   type=vcvs p=out     n=node_ro alpha=av
++   vcplus=plus vcminus=minus
+  callece diode name=d1 p=out n=node_s1a is=1e-14
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=0.01m
+  callece diode name=d2 p=node_s2a n=out is=1e-14
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=0.01m
+  ebe type=vsrcdc p=vcc  n=node_s1a vdc=1.5
+  ebe type=vsrcdc p=node_s2a n=vee  vdc=1.5
+  ebe type=ground_dummy_1 c=ground
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=rin type=r p=minus n=plus r=rin
+  ebe_ac name=rout type=r p=node_ro n=ground r=rout
+  ebe_ac name=v0 type=vcvs p=out n=node_ro alpha=av
++   vcplus=plus vcminus=minus
+  ebe_ac type=ground_dummy_1 c=ground
+end_ac
+endece
+ece name=opamp2_a group=opamps allow_ac=yes
+begin_dc
+  mainnodes: plus minus out
+  auxnodes: 3 4 5 7 ground
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   rin=1M
++   rout=10
++   av=1e5
++   rp1=1k
++   cp1=1.5915u
++   v_zener=14.3
+  rparms_derived:
+  ebe name=rin type=r p=minus n=plus r=rin
+  ebe name=vcvs1 type=vcvs p=3 n=ground alpha=av
++   vcplus=plus vcminus=minus
+  ebe name=rp1 type=r p=3 n=4      r=rp1
+  ebe name=cp1 type=c p=4 n=ground c=cp1
+  ebe name=vcvs2 type=vcvs p=5 n=ground alpha=1
++   vcplus=4 vcminus=ground
+  ebe name=rout type=r p=out n=5 r=rout
+  callece diode_zener p=4      n=7 bv=100 ibv=0.001 is=1e-12
++   vz0=v_zener rz=0.001
+  callece diode_zener p=ground n=7 bv=100 ibv=0.001 is=1e-12
++   vz0=v_zener rz=0.001
+  ebe type=ground_dummy_1 c=ground
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=rin type=r p=minus n=plus r=rin
+  ebe_ac name=vcvs1 type=vcvs p=3 n=ground alpha=av
++   vcplus=plus vcminus=minus
+  ebe_ac name=rp1 type=r p=3 n=4      r=rp1
+  ebe_ac name=cp1 type=c p=4 n=ground c=cp1
+  ebe_ac name=vcvs2 type=vcvs p=5 n=ground alpha=1
++   vcplus=4 vcminus=ground
+  ebe_ac name=rout type=r p=out n=5 r=rout
+  ebe_ac type=ground_dummy_1 c=ground
+end_ac
+endece
+ece name=opamp_741_a group=opamps allow_ac=yes
+begin_dc
+  mainnodes: plus minus out
+  auxnodes: a4 a5 a6 a7 a8 a10 a80 a100 a103 a104 a105 ground vcc vee
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
++   flag_jac=0
+  sparms:
+  rparms:
++   v_cc=15
++   v_ee=-15
++   t_ramp_1=0
++   t_ramp_2=0
+  rparms_derived:
+  callece bjt_npn_1 name=q1
++   c=a5 b=plus  e=a7
++   flag_jac=flag_jac
++   bf=50000
++   tnom=300.15
++   tref=300.15
++   t1=300.15
++   is=1e-16
++   nf=1
++   vaf=200
++   ikf=0
++   ise=0
++   c2=0
++   ne=1.5
++   br=1
++   nr=1
++   var=200
++   ikr=0
++   isc=0
++   c4=0
++   nc=2
++   cje=1p
++   vje=0.75
++   mje=0.33
++   tf=0
++   xtf=0
++   vtf=0
++   itf=0
++   cjc=1p
++   vjc=0.75
++   mjc=0.33
++   xcjc=1
++   tr=0
++   xtb=0
++   eg=1.11
++   xti=3
++   fc=0.5
++   area=1
++   rb=0.01
++   rc=0.01
++   re=0.01
++   vbe_sv=0
++   vce_sv=0
+  callece bjt_npn_1 name=q2
++   c=a6 b=minus e=a8
++   flag_jac=flag_jac
++   bf=50000
++   tnom=300.15
++   tref=300.15
++   t1=300.15
++   is=1e-16
++   nf=1
++   vaf=200
++   ikf=0
++   ise=0
++   c2=0
++   ne=1.5
++   br=1
++   nr=1
++   var=200
++   ikr=0
++   isc=0
++   c4=0
++   nc=2
++   cje=1p
++   vje=0.75
++   mje=0.33
++   tf=0
++   xtf=0
++   vtf=0
++   itf=0
++   cjc=1p
++   vjc=0.75
++   mjc=0.33
++   xcjc=1
++   tr=0
++   xtb=0
++   eg=1.11
++   xti=3
++   fc=0.5
++   area=1
++   rb=0.01
++   rc=0.01
++   re=0.01
++   vbe_sv=0
++   vce_sv=0
+  ebe type=ground_dummy_1 c=ground
+  ebe type=vsrcdc p=vcc n=ground vdc=v_cc
++   t_ramp_1=t_ramp_1
++   t_ramp_2=t_ramp_2
+  ebe type=vsrcdc p=vee n=ground vdc=v_ee
++   t_ramp_1=t_ramp_1
++   t_ramp_2=t_ramp_2
+  ebe name=rc1 type=r p=vcc n=a5 r=95.49
+  ebe name=rc2 type=r p=vcc n=a6 r=95.49
+  ebe name=re1 type=r p=a7 n=a4 r=43.79
+  ebe name=re2 type=r p=a8 n=a4 r=43.79
+  ebe name=i1 type=isrcdc p=vee n=a4 idc=0.001
+  ebe name=g1 type=vccs p=a10 n=a100 vcplus=a6 vcminus=a5
++    gm=0.0104719
+  ebe name=rp1 type=r p=a10 n=a100 r=9.549M
+  ebe name=cp1 type=c p=a10 n=a100 c=0.0016667u
+  callece diode name=dp p=a10 n=a105 is=1e-15
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1m
+  callece diode name=dn n=a10 p=a104 is=1e-15
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1m
+  ebe name=vp type=vsrcdc p=vcc n=a105 vdc=2.214
+  ebe name=vn type=vsrcdc n=vee p=a104 vdc=2.214
+  ebe name=eout type=vcvs p=a80 n=a100 vcplus=a10 vcminus=a100
++    alpha=1
+  ebe name=ro type=r p=a80 n=out r=100
+  ebe name=rref1 type=r p=vcc n=a103 r=100k
+  ebe name=rref2 type=r p=vee n=a103 r=100k
+  ebe name=eref type=vcvs p=a100 n=ground vcplus=a103 vcminus=ground
++    alpha=1
+  ebe name=r100 type=r p=a100 n=ground r=1M
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  callece bjt_npn_1 name=q1
++   c=a5 b=plus  e=a7
++   rb=0.1
++   rc=0.1
++   re=0.1
+  callece bjt_npn_1 name=q2
++   c=a6 b=minus e=a8
++   rb=0.1
++   rc=0.1
++   re=0.1
+  ebe_ac type=vsrcac p=vcc    n=ground a=0
+  ebe_ac type=vsrcac p=ground n=vee    a=0
+  ebe_ac name=rc1 type=r p=vcc n=a5 r=95.49
+  ebe_ac name=rc2 type=r p=vcc n=a6 r=95.49
+  ebe_ac name=re1 type=r p=a7 n=a4 r=43.79
+  ebe_ac name=re2 type=r p=a8 n=a4 r=43.79
+  ebe_ac name=i1 type=isrcac p=vee n=a4 a=0
+  ebe_ac name=g1 type=vccs p=a10 n=a100 vcplus=a6 vcminus=a5
++    gm=0.0104719
+  ebe_ac name=rp1 type=r p=a10 n=a100 r=9.549M
+  ebe_ac name=cp1 type=c p=a10 n=a100 c=0.0016667u
+  ebe_ac type=r name=dp p=a10 n=a105 r=1e12
+  ebe_ac type=r name=dn n=a10 p=a104 r=1e12
+  ebe_ac name=vp type=vsrcac p=vcc n=a105 a=0
+  ebe_ac name=vn type=vsrcac n=vee p=a104 a=0
+  ebe_ac name=eout type=vcvs p=a80 n=a100 vcplus=a10
++    vcminus=a100
++    alpha=1
+  ebe_ac name=ro type=r p=a80 n=out r=100
+  ebe_ac name=rref1 type=r p=vcc n=a103 r=100k
+  ebe_ac name=rref2 type=r p=vee n=a103 r=100k
+  ebe_ac name=eref type=vcvs p=a100 n=ground vcplus=a103
++    vcminus=ground
++    alpha=1
+  ebe_ac name=r100 type=r p=a100 n=ground r=1M
+  ebe_ac type=ground_dummy_1 c=ground
+  acparm_map: 1 1 5 5
+end_ac
+endece
+ece name=opamp_741_b group=opamps allow_ac=yes
+begin_dc
+  mainnodes: plus minus out vcc vee
+  auxnodes: a4 a5 a6 a7 a8 a10 a80 a100 a103 a104 a105 ground
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
++   flag_jac=0
+  sparms:
+  rparms:
+  rparms_derived:
+  callece bjt_npn_1 name=q1
++   c=a5 b=plus  e=a7
++   flag_jac=flag_jac
++   bf=50000
++   tnom=300.15
++   tref=300.15
++   t1=300.15
++   is=1e-16
++   nf=1
++   vaf=200
++   ikf=0
++   ise=0
++   c2=0
++   ne=1.5
++   br=1
++   nr=1
++   var=200
++   ikr=0
++   isc=0
++   c4=0
++   nc=2
++   cje=1p
++   vje=0.75
++   mje=0.33
++   tf=0
++   xtf=0
++   vtf=0
++   itf=0
++   cjc=1p
++   vjc=0.75
++   mjc=0.33
++   xcjc=1
++   tr=0
++   xtb=0
++   eg=1.11
++   xti=3
++   fc=0.5
++   area=1
++   rb=0.01
++   rc=0.01
++   re=0.01
++   vbe_sv=0
++   vce_sv=0
+  callece bjt_npn_1 name=q2
++   c=a6 b=minus e=a8
++   flag_jac=flag_jac
++   bf=50000
++   tnom=300.15
++   tref=300.15
++   t1=300.15
++   is=1e-16
++   nf=1
++   vaf=200
++   ikf=0
++   ise=0
++   c2=0
++   ne=1.5
++   br=1
++   nr=1
++   var=200
++   ikr=0
++   isc=0
++   c4=0
++   nc=2
++   cje=1p
++   vje=0.75
++   mje=0.33
++   tf=0
++   xtf=0
++   vtf=0
++   itf=0
++   cjc=1p
++   vjc=0.75
++   mjc=0.33
++   xcjc=1
++   tr=0
++   xtb=0
++   eg=1.11
++   xti=3
++   fc=0.5
++   area=1
++   rb=0.01
++   rc=0.01
++   re=0.01
++   vbe_sv=0
++   vce_sv=0
+  ebe type=ground_dummy_1 c=ground
+  ebe name=rc1 type=r p=vcc n=a5 r=95.49
+  ebe name=rc2 type=r p=vcc n=a6 r=95.49
+  ebe name=re1 type=r p=a7 n=a4 r=43.79
+  ebe name=re2 type=r p=a8 n=a4 r=43.79
+  ebe name=i1 type=isrcdc p=vee n=a4 idc=0.001
+  ebe name=g1 type=vccs p=a10 n=a100 vcplus=a6 vcminus=a5
++    gm=0.0104719
+  ebe name=rp1 type=r p=a10 n=a100 r=9.549M
+  ebe name=cp1 type=c p=a10 n=a100 c=0.0016667u
+  callece diode name=dp p=a10 n=a105 is=1e-15
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1m
+  callece diode name=dn n=a10 p=a104 is=1e-15
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1m
+  ebe name=vp type=vsrcdc p=vcc n=a105 vdc=2.214
+  ebe name=vn type=vsrcdc n=vee p=a104 vdc=2.214
+  ebe name=eout type=vcvs p=a80 n=a100 vcplus=a10 vcminus=a100
++    alpha=1
+  ebe name=ro type=r p=a80 n=out r=100
+  ebe name=rref1 type=r p=vcc n=a103 r=100k
+  ebe name=rref2 type=r p=vee n=a103 r=100k
+  ebe name=eref type=vcvs p=a100 n=ground vcplus=a103 vcminus=ground
++    alpha=1
+  ebe name=r100 type=r p=a100 n=ground r=1M
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  callece bjt_npn_1 name=q1
++   c=a5 b=plus  e=a7
++   rb=0.1
++   rc=0.1
++   re=0.1
+  callece bjt_npn_1 name=q2
++   c=a6 b=minus e=a8
++   rb=0.1
++   rc=0.1
++   re=0.1
+  ebe_ac name=rc1 type=r p=vcc n=a5 r=95.49
+  ebe_ac name=rc2 type=r p=vcc n=a6 r=95.49
+  ebe_ac name=re1 type=r p=a7 n=a4 r=43.79
+  ebe_ac name=re2 type=r p=a8 n=a4 r=43.79
+  ebe_ac name=i1 type=isrcac p=vee n=a4 a=0
+  ebe_ac name=g1 type=vccs p=a10 n=a100 vcplus=a6 vcminus=a5
++    gm=0.0104719
+  ebe_ac name=rp1 type=r p=a10 n=a100 r=9.549M
+  ebe_ac name=cp1 type=c p=a10 n=a100 c=0.0016667u
+  ebe_ac type=r name=dp p=a10 n=a105 r=1e12
+  ebe_ac type=r name=dn n=a10 p=a104 r=1e12
+  ebe_ac name=vp type=vsrcac p=vcc n=a105 a=0
+  ebe_ac name=vn type=vsrcac n=vee p=a104 a=0
+  ebe_ac name=eout type=vcvs p=a80 n=a100 vcplus=a10
++    vcminus=a100
++    alpha=1
+  ebe_ac name=ro type=r p=a80 n=out r=100
+  ebe_ac name=rref1 type=r p=vcc n=a103 r=100k
+  ebe_ac name=rref2 type=r p=vee n=a103 r=100k
+  ebe_ac name=eref type=vcvs p=a100 n=ground vcplus=a103
++    vcminus=ground
++    alpha=1
+  ebe_ac name=r100 type=r p=a100 n=ground r=1M
+  ebe_ac type=ground_dummy_1 c=ground
+  acparm_map: 1 1 5 5
+end_ac
+endece
+ece name=opamp_lf411_a group=opamps allow_ac=yes
+begin_dc
+  mainnodes: plus minus out
+  auxnodes: vcc vee 6 7 8 9 10 11 12 53 54 90 91 92 99 ground
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++    v_cc=15
++    v_ee=-15
++    t_ramp_1=0
++    t_ramp_2=0
+  rparms_derived:
+  ebe name=j1 type=jfet_spice_1 d=11 g=minus s=10 jfet_type=1
++     is=12.50e-12 beta=743.3e-6 vto=-1
+  ebe name=j2 type=jfet_spice_1 d=12 g=plus  s=10 jfet_type=1
++     is=12.50e-12 beta=743.3e-6 vto=-1
+  ebe type=ground_dummy_1 c=ground
+  ebe type=vsrcdc p=vcc n=ground vdc=v_cc
++   t_ramp_1=t_ramp_1
++   t_ramp_2=t_ramp_2
+  ebe type=vsrcdc p=vee n=ground vdc=v_ee
++   t_ramp_1=t_ramp_1
++   t_ramp_2=t_ramp_2
+  ebe name=c1  type=c1 p=11 n=12 c=4.196e-12
+  ebe name=c2  type=c1 p=6  n=7  c=10.00e-12
+  ebe name=css type=c1 p=10 n=99 c=1.333e-12
+  callece diode name=dc  p=out n=53  is=800e-18
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1m
+  callece diode name=de  p=54  n=out is=800e-18
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1m
+  callece diode name=dlp p=90  n=91  is=800e-18
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1m
+  callece diode name=dln p=92  n=90  is=800e-18
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1m
+  ebe name=vb   type=vsrcdc p=9      n=ground   vdc=0
+  ebe name=vc   type=vsrcdc p=vcc    n=53       vdc=1.500
+  ebe name=ve   type=vsrcdc p=54     n=vee      vdc=1.500
+  ebe name=vlim type=vsrcdc p=7      n=8        vdc=0
+  ebe name=vlp  type=vsrcdc p=91     n=ground   vdc=25
+  ebe name=vln  type=vsrcdc p=ground n=92       vdc=25
+  ebe name=egnd type=vcvs_2v
++     p=99 n=ground
++     vcplus1=vcc vcminus1=ground
++     vcplus2=vee vcminus2=ground
++     alpha0=0
++     alpha1=0.5
++     alpha2=0.5
+  ebe name=fb type=cccs_5 n=7 p=99
++     cccsbr1=vb
++     cccsbr2=vc
++     cccsbr3=ve
++     cccsbr4=vlp
++     cccsbr5=vln
++     beta0=0
++     beta1=31.83e6
++     beta2=-30e6
++     beta3=30e6
++     beta4=30e6
++     beta5=-30e6
+  ebe name=ga  type=vccs n=6 p=ground vcplus=11 vcminus=12
++     gm=251.4e-6
+  ebe name=gcm type=vccs n=ground p=6 vcplus=10 vcminus=99
++     gm=2.514e-9
+  ebe name=iss type=isrcdc n=10 p=vee idc=170.0e-6
+  ebe name=hlim type=ccvs  p=90 n=ground   ccvsbr=vlim rm=1k
+  ebe name=r2   type=r p=6    n=9    r=100.0e3
+  ebe name=rd1  type=r p=vcc  n=11   r=3.978e3
+  ebe name=rd2  type=r p=vcc  n=12   r=3.978e3
+  ebe name=ro1  type=r p=8    n=out  r=50
+  ebe name=ro2  type=r p=7    n=99   r=25
+  ebe name=rp   type=r p=vcc  n=vee  r=15.00e3
+  ebe name=rss  type=r p=10   n=99   r=1.176e6
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=j1 type=jfet_spice_1 d=11 g=minus s=10
+  ebe_ac name=j2 type=jfet_spice_1 d=12 g=plus  s=10
+  ebe_ac type=ground_dummy_1 c=ground
+  ebe_ac type=vsrcac p=vcc    n=ground a=0
+  ebe_ac type=vsrcac p=ground n=vee    a=0
+  ebe_ac name=c1  type=c p=11 n=12 c=4.196e-12
+  ebe_ac name=c2  type=c p=6  n=7  c=10.00e-12
+  ebe_ac name=css type=c p=10 n=99 c=1.333e-12
+  ebe_ac name=dc type=r p=out n=53  r=1e12
+  ebe_ac name=de type=r p=54  n=out r=1e12
+  ebe_ac name=dlp type=r p=90 n=91 r=1e12
+  ebe_ac name=dln type=r p=92 n=90 r=1e12
+  ebe_ac name=vb   type=vsrcac p=9      n=ground a=0
+  ebe_ac name=vc   type=vsrcac p=vcc    n=53     a=0
+  ebe_ac name=ve   type=vsrcac p=54     n=vee    a=0
+  ebe_ac name=vlim type=vsrcac p=7      n=8      a=0
+  ebe_ac name=vlp  type=vsrcac p=91     n=ground a=0
+  ebe_ac name=vln  type=vsrcac p=ground n=92     a=0
+  ebe_ac type=vsrcac p=99 n=ground a=0
+  ebe_ac name=fb type=cccs_5 n=7 p=99
++     cccsbr1=vb
++     cccsbr2=vc
++     cccsbr3=ve
++     cccsbr4=vlp
++     cccsbr5=vln
++     beta1=31.83e6
++     beta2=-30e6
++     beta3=30e6
++     beta4=30e6
++     beta5=-30e6
+  ebe_ac name=ga  type=vccs n=6 p=ground vcplus=11 vcminus=12
++     gm=251.4e-6
+  ebe_ac name=gcm type=vccs n=ground p=6 vcplus=10 vcminus=99
++     gm=2.514e-9
+  ebe_ac name=hlim type=ccvs  p=90 n=ground   ccvsbr=vlim rm=1k
+  ebe_ac name=r2   type=r p=6    n=9    r=100.0e3
+  ebe_ac name=rd1  type=r p=vcc  n=11   r=3.978e3
+  ebe_ac name=rd2  type=r p=vcc  n=12   r=3.978e3
+  ebe_ac name=ro1  type=r p=8    n=out  r=50
+  ebe_ac name=ro2  type=r p=7    n=99   r=25
+  ebe_ac name=rp   type=r p=vcc  n=vee  r=15.00e3
+  ebe_ac name=rss  type=r p=10   n=99   r=1.176e6
+  acparm_map: 1 1 2 2
+end_ac
+endece
+ece name=opamp_lf411_b group=opamps allow_ac=yes
+begin_dc
+  mainnodes: plus minus out vcc vee
+  auxnodes: 6 7 8 9 10 11 12 53 54 90 91 92 99 ground
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  ebe name=j1 type=jfet_spice_1 d=11 g=minus s=10 jfet_type=1
++     is=12.50e-12 beta=743.3e-6 vto=-1
+  ebe name=j2 type=jfet_spice_1 d=12 g=plus  s=10 jfet_type=1
++     is=12.50e-12 beta=743.3e-6 vto=-1
+  ebe type=ground_dummy_1 c=ground
+  ebe name=c1  type=c1 p=11 n=12 c=4.196e-12
+  ebe name=c2  type=c1 p=6  n=7  c=10.00e-12
+  ebe name=css type=c1 p=10 n=99 c=1.333e-12
+  callece diode name=dc  p=out n=53  is=800e-18
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1m
+  callece diode name=de  p=54  n=out is=800e-18
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1m
+  callece diode name=dlp p=90  n=91  is=800e-18
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1m
+  callece diode name=dln p=92  n=90  is=800e-18
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1m
+  ebe name=vb   type=vsrcdc p=9      n=ground   vdc=0
+  ebe name=vc   type=vsrcdc p=vcc    n=53       vdc=1.500
+  ebe name=ve   type=vsrcdc p=54     n=vee      vdc=1.500
+  ebe name=vlim type=vsrcdc p=7      n=8        vdc=0
+  ebe name=vlp  type=vsrcdc p=91     n=ground   vdc=25
+  ebe name=vln  type=vsrcdc p=ground n=92       vdc=25
+  ebe name=egnd type=vcvs_2v
++     p=99 n=ground
++     vcplus1=vcc vcminus1=ground
++     vcplus2=vee vcminus2=ground
++     alpha0=0
++     alpha1=0.5
++     alpha2=0.5
+  ebe name=fb type=cccs_5 n=7 p=99
++     cccsbr1=vb
++     cccsbr2=vc
++     cccsbr3=ve
++     cccsbr4=vlp
++     cccsbr5=vln
++     beta0=0
++     beta1=31.83e6
++     beta2=-30e6
++     beta3=30e6
++     beta4=30e6
++     beta5=-30e6
+  ebe name=ga  type=vccs n=6 p=ground vcplus=11 vcminus=12
++     gm=251.4e-6
+  ebe name=gcm type=vccs n=ground p=6 vcplus=10 vcminus=99
++     gm=2.514e-9
+  ebe name=iss type=isrcdc n=10 p=vee idc=170.0e-6
+  ebe name=hlim type=ccvs  p=90 n=ground   ccvsbr=vlim rm=1k
+  ebe name=r2   type=r p=6    n=9    r=100.0e3
+  ebe name=rd1  type=r p=vcc  n=11   r=3.978e3
+  ebe name=rd2  type=r p=vcc  n=12   r=3.978e3
+  ebe name=ro1  type=r p=8    n=out  r=50
+  ebe name=ro2  type=r p=7    n=99   r=25
+  ebe name=rp   type=r p=vcc  n=vee  r=15.00e3
+  ebe name=rss  type=r p=10   n=99   r=1.176e6
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=j1 type=jfet_spice_1 d=11 g=minus s=10
+  ebe_ac name=j2 type=jfet_spice_1 d=12 g=plus  s=10
+  ebe_ac type=ground_dummy_1 c=ground
+  ebe_ac name=c1  type=c p=11 n=12 c=4.196e-12
+  ebe_ac name=c2  type=c p=6  n=7  c=10.00e-12
+  ebe_ac name=css type=c p=10 n=99 c=1.333e-12
+  ebe_ac name=dc type=r p=out n=53  r=1e12
+  ebe_ac name=de type=r p=54  n=out r=1e12
+  ebe_ac name=dlp type=r p=90 n=91 r=1e12
+  ebe_ac name=dln type=r p=92 n=90 r=1e12
+  ebe_ac name=vb   type=vsrcac p=9      n=ground a=0
+  ebe_ac name=vc   type=vsrcac p=vcc    n=53     a=0
+  ebe_ac name=ve   type=vsrcac p=54     n=vee    a=0
+  ebe_ac name=vlim type=vsrcac p=7      n=8      a=0
+  ebe_ac name=vlp  type=vsrcac p=91     n=ground a=0
+  ebe_ac name=vln  type=vsrcac p=ground n=92     a=0
+  ebe_ac type=vsrcac p=99 n=ground a=0
+  ebe_ac name=fb type=cccs_5 n=7 p=99
++     cccsbr1=vb
++     cccsbr2=vc
++     cccsbr3=ve
++     cccsbr4=vlp
++     cccsbr5=vln
++     beta1=31.83e6
++     beta2=-30e6
++     beta3=30e6
++     beta4=30e6
++     beta5=-30e6
+  ebe_ac name=ga  type=vccs n=6 p=ground vcplus=11 vcminus=12
++     gm=251.4e-6
+  ebe_ac name=gcm type=vccs n=ground p=6 vcplus=10 vcminus=99
++     gm=2.514e-9
+  ebe_ac name=hlim type=ccvs  p=90 n=ground   ccvsbr=vlim rm=1k
+  ebe_ac name=r2   type=r p=6    n=9    r=100.0e3
+  ebe_ac name=rd1  type=r p=vcc  n=11   r=3.978e3
+  ebe_ac name=rd2  type=r p=vcc  n=12   r=3.978e3
+  ebe_ac name=ro1  type=r p=8    n=out  r=50
+  ebe_ac name=ro2  type=r p=7    n=99   r=25
+  ebe_ac name=rp   type=r p=vcc  n=vee  r=15.00e3
+  ebe_ac name=rss  type=r p=10   n=99   r=1.176e6
+  acparm_map: 1 1 2 2
+end_ac
+endece
+ece name=opamp_TL082_a group=opamps allow_ac=yes
+begin_dc
+  mainnodes: plus minus out
+  auxnodes: vcc vee 6 7 8 9 10 11 12 53 54 90 91 92 99 ground
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++    v_cc=15
++    v_ee=-15
++    t_ramp_1=0
++    t_ramp_2=0
+  rparms_derived:
+  ebe name=j1 type=jfet_spice_1 d=11 g=minus s=10 jfet_type=1
++     is=2.50e-12 beta=984.2e-6 vto=-1
+  ebe name=j2 type=jfet_spice_1 d=12 g=plus  s=10 jfet_type=1
++     is=2.50e-12 beta=984.2e-6 vto=-1
+  ebe type=ground_dummy_1 c=ground
+  ebe type=vsrcdc p=vcc n=ground vdc=v_cc
++   t_ramp_1=t_ramp_1
++   t_ramp_2=t_ramp_2
+  ebe type=vsrcdc p=vee n=ground vdc=v_ee
++   t_ramp_1=t_ramp_1
++   t_ramp_2=t_ramp_2
+  ebe name=c1  type=c p=11 n=12 c=2.412e-12
+  ebe name=c2  type=c p=6  n=7  c=18.00e-12
+  ebe name=css type=c p=10 n=99 c=5.400e-12
+  callece diode name=dc  p=out n=53  is=800e-18
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1
+  callece diode name=de  p=54  n=out is=800e-18
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1
+  callece diode name=dlp p=90  n=91  is=800e-18
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1
+  callece diode name=dln p=92  n=90  is=800e-18
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1
+  ebe name=vb   type=vsrcdc p=9      n=ground   vdc=0
+  ebe name=vc   type=vsrcdc p=vcc    n=53       vdc=1.500
+  ebe name=ve   type=vsrcdc p=54     n=vee      vdc=1.500
+  ebe name=vlim type=vsrcdc p=7      n=8        vdc=0
+  ebe name=vlp  type=vsrcdc p=91     n=ground   vdc=50
+  ebe name=vln  type=vsrcdc p=ground n=92       vdc=50
+  ebe name=egnd type=vcvs_2v
++     p=99 n=ground
++     vcplus1=vcc vcminus1=ground
++     vcplus2=vee vcminus2=ground
++     alpha0=0
++     alpha1=0.5
++     alpha2=0.5
+  ebe name=fb type=cccs_5 n=7 p=99
++     cccsbr1=vb
++     cccsbr2=vc
++     cccsbr3=ve
++     cccsbr4=vlp
++     cccsbr5=vln
++     beta0=0
++     beta1=3.467e6
++     beta2=-3e6
++     beta3=3e6
++     beta4=3e6
++     beta5=-3e6
+  ebe name=ga  type=vccs n=6 p=ground vcplus=11 vcminus=12
++     gm=339.3e-6
+  ebe name=gcm type=vccs n=ground p=6 vcplus=10 vcminus=99
++     gm=17.01e-9
+  ebe name=iss type=isrcdc n=10 p=vee idc=234.0e-6
+  ebe name=hlim type=ccvs  p=90 n=ground   ccvsbr=vlim rm=1k
+  ebe name=r2   type=r p=6    n=9    r=100.0e3
+  ebe name=rd1  type=r p=vcc  n=11   r=2.947e3
+  ebe name=rd2  type=r p=vcc  n=12   r=2.947e3
+  ebe name=ro1  type=r p=8    n=out  r=50
+  ebe name=ro2  type=r p=7    n=99   r=170
+  ebe name=rp   type=r p=vcc  n=vee  r=20.00e3
+  ebe name=rss  type=r p=10   n=99   r=854.7e3
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=j1 type=jfet_spice_1 d=11 g=minus s=10
+  ebe_ac name=j2 type=jfet_spice_1 d=12 g=plus  s=10
+  ebe_ac type=ground_dummy_1 c=ground
+  ebe_ac type=vsrcac p=vcc    n=ground a=0
+  ebe_ac type=vsrcac p=ground n=vee    a=0
+  ebe_ac name=c1  type=c p=11 n=12 c=2.412e-12
+  ebe_ac name=c2  type=c p=6  n=7  c=18.00e-12
+  ebe_ac name=css type=c p=10 n=99 c=5.400e-12
+  ebe_ac name=dc type=r p=out n=53  r=1e12
+  ebe_ac name=de type=r p=54  n=out r=1e12
+  ebe_ac name=dlp type=r p=90 n=91 r=1e12
+  ebe_ac name=dln type=r p=92 n=90 r=1e12
+  ebe_ac name=vb   type=vsrcac p=9      n=ground a=0
+  ebe_ac name=vc   type=vsrcac p=vcc    n=53     a=0
+  ebe_ac name=ve   type=vsrcac p=54     n=vee    a=0
+  ebe_ac name=vlim type=vsrcac p=7      n=8      a=0
+  ebe_ac name=vlp  type=vsrcac p=91     n=ground a=0
+  ebe_ac name=vln  type=vsrcac p=ground n=92     a=0
+  ebe_ac type=vsrcac p=99 n=ground a=0
+  ebe_ac name=fb type=cccs_5 n=7 p=99
++     cccsbr1=vb
++     cccsbr2=vc
++     cccsbr3=ve
++     cccsbr4=vlp
++     cccsbr5=vln
++     beta1=3.467e6
++     beta2=-3e6
++     beta3=3e6
++     beta4=3e6
++     beta5=-3e6
+  ebe_ac name=ga  type=vccs n=6 p=ground vcplus=11 vcminus=12
++     gm=339.3e-6
+  ebe_ac name=gcm type=vccs n=ground p=6 vcplus=10 vcminus=99
++     gm=17.01e-9
+  ebe_ac name=hlim type=ccvs  p=90 n=ground   ccvsbr=vlim rm=1k
+  ebe_ac name=r2   type=r p=6    n=9    r=100.0e3
+  ebe_ac name=rd1  type=r p=vcc  n=11   r=2.947e3
+  ebe_ac name=rd2  type=r p=vcc  n=12   r=2.947e3
+  ebe_ac name=ro1  type=r p=8    n=out  r=50
+  ebe_ac name=ro2  type=r p=7    n=99   r=170
+  ebe_ac name=rp   type=r p=vcc  n=vee  r=20.00e3
+  ebe_ac name=rss  type=r p=10   n=99   r=854.7e3
+  acparm_map: 1 1 2 2
+end_ac
+endece
+ece name=opamp_TL082_b group=opamps allow_ac=yes
+begin_dc
+  mainnodes: plus minus out vcc vee
+  auxnodes: 6 7 8 9 10 11 12 53 54 90 91 92 99 ground
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  ebe name=j1 type=jfet_spice_1 d=11 g=minus s=10 jfet_type=1
++     is=2.50e-12 beta=984.2e-6 vto=-1
+  ebe name=j2 type=jfet_spice_1 d=12 g=plus  s=10 jfet_type=1
++     is=2.50e-12 beta=984.2e-6 vto=-1
+  ebe type=ground_dummy_1 c=ground
+  ebe name=c1  type=c p=11 n=12 c=2.412e-12
+  ebe name=c2  type=c p=6  n=7  c=18.00e-12
+  ebe name=css type=c p=10 n=99 c=5.400e-12
+  callece diode name=dc  p=out n=53  is=800e-18
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1
+  callece diode name=de  p=54  n=out is=800e-18
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1
+  callece diode name=dlp p=90  n=91  is=800e-18
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1
+  callece diode name=dln p=92  n=90  is=800e-18
++   eta=1.0 vt=0.026 cur_max=1e3 v0=0 r_series=1
+  ebe name=vb   type=vsrcdc p=9      n=ground   vdc=0
+  ebe name=vc   type=vsrcdc p=vcc    n=53       vdc=1.500
+  ebe name=ve   type=vsrcdc p=54     n=vee      vdc=1.500
+  ebe name=vlim type=vsrcdc p=7      n=8        vdc=0
+  ebe name=vlp  type=vsrcdc p=91     n=ground   vdc=50
+  ebe name=vln  type=vsrcdc p=ground n=92       vdc=50
+  ebe name=egnd type=vcvs_2v
++     p=99 n=ground
++     vcplus1=vcc vcminus1=ground
++     vcplus2=vee vcminus2=ground
++     alpha0=0
++     alpha1=0.5
++     alpha2=0.5
+  ebe name=fb type=cccs_5 n=7 p=99
++     cccsbr1=vb
++     cccsbr2=vc
++     cccsbr3=ve
++     cccsbr4=vlp
++     cccsbr5=vln
++     beta0=0
++     beta1=3.467e6
++     beta2=-3e6
++     beta3=3e6
++     beta4=3e6
++     beta5=-3e6
+  ebe name=ga  type=vccs n=6 p=ground vcplus=11 vcminus=12
++     gm=339.3e-6
+  ebe name=gcm type=vccs n=ground p=6 vcplus=10 vcminus=99
++     gm=17.01e-9
+  ebe name=iss type=isrcdc n=10 p=vee idc=234.0e-6
+  ebe name=hlim type=ccvs  p=90 n=ground   ccvsbr=vlim rm=1k
+  ebe name=r2   type=r p=6    n=9    r=100.0e3
+  ebe name=rd1  type=r p=vcc  n=11   r=2.947e3
+  ebe name=rd2  type=r p=vcc  n=12   r=2.947e3
+  ebe name=ro1  type=r p=8    n=out  r=50
+  ebe name=ro2  type=r p=7    n=99   r=170
+  ebe name=rp   type=r p=vcc  n=vee  r=20.00e3
+  ebe name=rss  type=r p=10   n=99   r=854.7e3
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=j1 type=jfet_spice_1 d=11 g=minus s=10
+  ebe_ac name=j2 type=jfet_spice_1 d=12 g=plus  s=10
+  ebe_ac type=ground_dummy_1 c=ground
+  ebe_ac name=c1  type=c p=11 n=12 c=2.412e-12
+  ebe_ac name=c2  type=c p=6  n=7  c=18.00e-12
+  ebe_ac name=css type=c p=10 n=99 c=5.400e-12
+  ebe_ac name=dc type=r p=out n=53  r=1e12
+  ebe_ac name=de type=r p=54  n=out r=1e12
+  ebe_ac name=dlp type=r p=90 n=91 r=1e12
+  ebe_ac name=dln type=r p=92 n=90 r=1e12
+  ebe_ac name=vb   type=vsrcac p=9      n=ground a=0
+  ebe_ac name=vc   type=vsrcac p=vcc    n=53     a=0
+  ebe_ac name=ve   type=vsrcac p=54     n=vee    a=0
+  ebe_ac name=vlim type=vsrcac p=7      n=8      a=0
+  ebe_ac name=vlp  type=vsrcac p=91     n=ground a=0
+  ebe_ac name=vln  type=vsrcac p=ground n=92     a=0
+  ebe_ac type=vsrcac p=99 n=ground a=0
+  ebe_ac name=fb type=cccs_5 n=7 p=99
++     cccsbr1=vb
++     cccsbr2=vc
++     cccsbr3=ve
++     cccsbr4=vlp
++     cccsbr5=vln
++     beta1=3.467e6
++     beta2=-3e6
++     beta3=3e6
++     beta4=3e6
++     beta5=-3e6
+  ebe_ac name=ga  type=vccs n=6 p=ground vcplus=11 vcminus=12
++     gm=339.3e-6
+  ebe_ac name=gcm type=vccs n=ground p=6 vcplus=10 vcminus=99
++     gm=17.01e-9
+  ebe_ac name=hlim type=ccvs  p=90 n=ground   ccvsbr=vlim rm=1k
+  ebe_ac name=r2   type=r p=6    n=9    r=100.0e3
+  ebe_ac name=rd1  type=r p=vcc  n=11   r=2.947e3
+  ebe_ac name=rd2  type=r p=vcc  n=12   r=2.947e3
+  ebe_ac name=ro1  type=r p=8    n=out  r=50
+  ebe_ac name=ro2  type=r p=7    n=99   r=170
+  ebe_ac name=rp   type=r p=vcc  n=vee  r=20.00e3
+  ebe_ac name=rss  type=r p=10   n=99   r=854.7e3
+  acparm_map: 1 1 2 2
+end_ac
+endece
+ece name=or_2_dly group=gates allow_ac=yes
+begin_dc
+  mainnodes: x1 x2 y
+  auxnodes: y1 ground
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++    v_high=5.0
++    r_input=100M
++    r=1k
++    c=10p
+  rparms_derived:
+  ebe type=r p=x1 n=ground r=r_input
+  ebe type=r p=x2 n=ground r=r_input
+  ebe type=or_2 p=y1 n=ground
++    node_x1=x1 node_x2=x2
++    v_high=v_high
+  ebe type=r p=y1 n=y      r=r
+  ebe type=c p=y  n=ground c=c
+  ebe type=ground_dummy_1 c=ground
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=pmsm group=machines allow_ac=no
+begin_dc
+  mainnodes: a b c
+  auxnodes:
+  outvar:
++    ia=cur(a)_of_pm0
++    ib=cur(b)_of_pm0
++    ic=cur(c)_of_pm0
++    tem=tem_of_pm0
+  bias:
+  stparms:
++    wm0=0
++    theta0=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
++   wm
++   we
++   theta
++   tl
++   is_d
++   is_q
++   vs_d
++   vs_q
+  xvar:
+  iparms:
++   poles=12
+  sparms:
+  rparms:
++   rs=0.9
++   ls=3.5m
++   ke=0.2425
++   kt=0.63
++   j=4.7e-4
+  rparms_derived:
+  ebe name=pm0 type=pmsm a=a b=b c=c
++   wm=wm we=we theta=theta tl=tl
++   is_d=is_d is_q=is_q vs_d=vs_d vs_q=vs_q
++   poles=poles
++   rs=rs ls=ls ke=ke kt=kt
++   j=j wm0=wm0 theta0=theta0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=r group=linear allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   v1=v1_of_r1
++   i1=cur(p)_of_r1
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms: model_file=none
+  rparms:
++   r=1
++   tc1=0
++   tc2=0
++   tmpr_r=300.15
++   k_scale=1
+#display: r
+  rparms_derived:
+  ebe name=r1 type=r p=p n=n
++   r=r
++   tc1=tc1
++   tc2=tc2
++   tmpr_r=tmpr_r
++   k_scale=k_scale
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
++   i1ac=cur(p)_of_r1
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=r1 type=r p=p n=n
++   r=r
++   tc1=tc1
++   tc2=tc2
++   tmpr_r=tmpr_r
++   k_scale=k_scale
+end_ac
+endece
+ece name=r_delta group=linear allow_ac=yes
+begin_dc
+  mainnodes: a b c
+  auxnodes:
+  outvar:
++   i_ab=cur(p)_of_rab
++   i_bc=cur(p)_of_rbc
++   i_ca=cur(p)_of_rca
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   r_ab=1.0
++   r_bc=1.0
++   r_ca=1.0
+  rparms_derived:
+  ebe name=rab type=r p=a n=b r=r_ab
+  ebe name=rbc type=r p=b n=c r=r_bc
+  ebe name=rca type=r p=c n=a r=r_ca
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=rab1 type=r p=a n=b r=r_ab
+  ebe_ac name=rbc1 type=r p=b n=c r=r_bc
+  ebe_ac name=rca1 type=r p=c n=a r=r_ca
+end_ac
+endece
+ece name=r_pot group=linear allow_ac=yes
+begin_dc
+  mainnodes: p n m
+  auxnodes:
+  outvar:
++   i_p=cur(p)_of_r1
++   i_m=cur(m)_of_r1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   r=1.0
++   a=0.5
++   k_scale=1
+  rparms_derived:
+  ebe name=r1 type=r_pot p=p n=n m=m
++   r=r
++   a=a
++   k_scale=k_scale
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
++   i_p_ac=cur(p)_of_r1
++   i_m_ac=cur(m)_of_r1
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=r1 type=r_pot p=p n=n m=m r=r a=a
+end_ac
+endece
+ece name=r_star group=linear allow_ac=yes
+begin_dc
+  mainnodes: a b c n
+  auxnodes:
+  outvar:
++   i_a=cur(p)_of_ra
++   i_b=cur(p)_of_rb
++   i_c=cur(p)_of_rc
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   r_a=1.0
++   r_b=1.0
++   r_c=1.0
+  rparms_derived:
+  ebe name=ra type=r p=a n=n r=r_a
+  ebe name=rb type=r p=b n=n r=r_b
+  ebe name=rc type=r p=c n=n r=r_c
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=ra1 type=r p=a n=n r=r_a
+  ebe_ac name=rb1 type=r p=b n=n r=r_b
+  ebe_ac name=rc1 type=r p=c n=n r=r_c
+end_ac
+endece
+ece name=rc_parallel group=linear allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   i_r=cur(p)_of_r1
++   i_c=cur(p)_of_c1
+  bias:
+  stparms: v0sv=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: r=0.1 c=0.1u
+  rparms_derived:
+  ebe name=r1 type=r p=p n=n r=r
+  ebe name=c1 type=c p=p n=n c=c v0sv=v0sv
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
++   i_r_ac=cur(p)_of_r1a
++   i_c_ac=cur(p)_of_c1a
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=r1a type=r p=p n=p r=r
+  ebe_ac name=c1a type=c p=p n=n c=c
+end_ac
+endece
+ece name=rc_series group=linear allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes: p1
+  outvar:
++   i1=cur(p)_of_r1
+  bias:
+  stparms: v0sv=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: r=0.1 c=0.1u
+  rparms_derived:
+  ebe name=r1 type=r p=p  n=p1 r=r
+  ebe name=c1 type=c p=p1 n=n  c=c v0sv=v0sv
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
++   i1_ac=cur(p)_of_r1a
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=r1a type=r p=p  n=p1 r=r
+  ebe_ac name=c1a type=c p=p1 n=n  c=c
+end_ac
+endece
+ece name=rl_delta group=linear allow_ac=yes
+begin_dc
+  mainnodes: a b c
+  auxnodes: a1 b1 c1
+  outvar:
++   i_ab=cur(p)_of_rab
++   i_bc=cur(p)_of_rbc
++   i_ca=cur(p)_of_rca
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   r_ab=1.0
++   r_bc=1.0
++   r_ca=1.0
++   l_ab=1m
++   l_bc=1m
++   l_ca=1m
+  rparms_derived:
+  ebe name=rab type=r p=a n=a1 r=r_ab
+  ebe name=rbc type=r p=b n=b1 r=r_bc
+  ebe name=rca type=r p=c n=c1 r=r_ca
+  ebe name=lab type=l p=a1 n=b l=l_ab
+  ebe name=lbc type=l p=b1 n=c l=l_bc
+  ebe name=lca type=l p=c1 n=a l=l_ca
+  ebe type=r p=a1 n=b r=1e12
+  ebe type=r p=b1 n=c r=1e12
+  ebe type=r p=c1 n=a r=1e12
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=rab1 type=r p=a n=a1 r=r_ab
+  ebe_ac name=rbc1 type=r p=b n=b1 r=r_bc
+  ebe_ac name=rca1 type=r p=c n=c1 r=r_ca
+  ebe_ac name=lab1 type=l p=a1 n=b l=l_ab
+  ebe_ac name=lbc1 type=l p=b1 n=c l=l_bc
+  ebe_ac name=lca1 type=l p=c1 n=a l=l_ca
+end_ac
+endece
+ece name=rl_parallel group=linear allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   i_r=cur(p)_of_r1
++   i_l=cur(p)_of_l1
+  bias:
+  stparms: i0sv=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: r=0.1 l=0.1
+  rparms_derived:
+  ebe name=r1 type=r p=p n=n r=r
+  ebe name=l1 type=l p=p n=n l=l i0sv=i0sv
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
++   i_r_ac=cur(p)_of_r1a
++   i_l_ac=cur(p)_of_l1a
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=r1a type=r p=p n=p r=r
+  ebe_ac name=l1a type=l p=p n=n l=l
+end_ac
+endece
+ece name=rl_series group=linear allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes: p1
+  outvar:
++   i1=cur(p)_of_r1
++   vp1=nodev_of_p1
+  bias:
+  stparms: i0sv=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: r=0.1 l=0.1
+  rparms_derived:
+  ebe name=r1 type=r p=p  n=p1 r=r
+  ebe name=l1 type=l p=p1 n=n  l=l i0sv=i0sv
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
++   i1ac=cur(p)_of_r1
++   vp1ac=nodev_of_p1
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=r1 type=r p=p  n=p1 r=r
+  ebe_ac name=l1 type=l p=p1 n=n  l=l
+end_ac
+endece
+ece name=rl_star group=linear allow_ac=yes
+begin_dc
+  mainnodes: a b c n
+  auxnodes: a1 b1 c1
+  outvar:
++   i_a=cur(p)_of_ra
++   i_b=cur(p)_of_rb
++   i_c=cur(p)_of_rc
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   r_a=1.0
++   r_b=1.0
++   r_c=1.0
++   l_a=1m
++   l_b=1m
++   l_c=1m
+  rparms_derived:
+  ebe name=ra type=r p=a n=a1 r=r_a
+  ebe name=rb type=r p=b n=b1 r=r_b
+  ebe name=rc type=r p=c n=c1 r=r_c
+  ebe name=la type=l p=a1 n=n l=l_a
+  ebe name=lb type=l p=b1 n=n l=l_b
+  ebe name=lc type=l p=c1 n=n l=l_c
+  ebe type=r p=a1 n=n r=1e12
+  ebe type=r p=b1 n=n r=1e12
+  ebe type=r p=c1 n=n r=1e12
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=ra1 type=r p=a n=a1 r=r_a
+  ebe_ac name=rb1 type=r p=b n=b1 r=r_b
+  ebe_ac name=rc1 type=r p=c n=c1 r=r_c
+  ebe_ac name=la1 type=l p=a1 n=n l=l_a
+  ebe_ac name=lb1 type=l p=b1 n=n l=l_b
+  ebe_ac name=lc1 type=l p=c1 n=n l=l_c
+end_ac
+endece
+ece name=sampler2 allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar: v1=v1_of_v0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes: vin
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: tperiod=10u t0=0 v_previous=0 dt=1u
+  rparms_derived:
+  ebe name=v0 type=sampler2 p=p n=n vin=vin
++   tperiod=tperiod t0=t0 v_previous=v_previous dt=dt
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=sc_bu group=switched_cap allow_ac=yes
+begin_dc
+  mainnodes: vi_e  vi_o  vo_e vo_o gnd
+  auxnodes: node_ro node_r1
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: rin=1M rout=1m av=1
+  rparms_derived:
+  ebe name=rin  type=r p=gnd n=vi_e r=rin
+  ebe name=rout type=r p=node_ro n=gnd r=rout
+  ebe name=v0   type=vcvs p=vo_e n=node_ro alpha=av
++   vcplus=vi_e vcminus=gnd
+  ebe type=r p=gnd  n=vi_o r=1
+  ebe type=r p=vo_o n=node_r1 r=1
+  ebe type=r p=node_r1 n=gnd r=1
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=rin type=r p=gnd n=vi_e r=rin
+  ebe_ac name=rout type=r p=node_ro n=gnd r=rout
+  ebe_ac name=v0   type=vcvs p=vo_e n=node_ro alpha=av
++   vcplus=vi_e vcminus=gnd
+  ebe_ac name=rin1 type=r p=gnd n=vi_o r=rin
+  ebe_ac name=rout1 type=r p=node_r1 n=gnd r=rout
+  ebe_ac name=v1   type=vcvs p=vo_o n=node_r1 alpha=av
++   vcplus=vi_o vcminus=gnd
+end_ac
+endece
+ece name=sc_float_cap group=switched_cap allow_ac=yes
+begin_dc
+  mainnodes: vi_e vi_o vo_e vo_o g
+  auxnodes: aux1 aux2
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: ron=1e-3 roff=100M c=10p tc=10n rd=1e18
+  rparms_derived:
+  ebe name=c1 type=c p=aux1 n=aux2
++     c=c v0sv=0
+  ebe type=r p=vi_e n=aux1 r=ron
+  ebe type=r p=aux2 n=vo_e r=ron
+  ebe type=r p=vi_o n=g r=1
+  ebe type=r p=vo_o n=g r=1
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac type=sc_1 p=vi_e n=vo_e c=c
+  ebe_ac type=sc_2 p=vi_e n=vi_o c=c tc=tc
+  ebe_ac type=sc_3 p=vi_e n=vo_o c=c tc=tc
+  ebe_ac type=sc_1 p=vi_o n=vo_o c=c
+  ebe_ac type=sc_3 p=vi_o n=vo_e c=c tc=tc
+  ebe_ac type=sc_2 p=vo_e n=vo_o c=c tc=tc
+  ebe_ac type=r p=aux1 n=g r=rd
+  ebe_ac type=r p=aux2 n=g r=rd
+end_ac
+endece
+ece name=sc_ground_cap group=switched_cap allow_ac=yes
+begin_dc
+  mainnodes: vi_e vi_o vo_e vo_o g
+  auxnodes: aux1 aux2
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: ron=1e-3 roff=100M c=10p tc=10n rd=1e24
+  rparms_derived:
+  ebe name=c1 type=c p=aux1 n=g c=c v0sv=0
+  ebe type=r p=vi_e n=aux1 r=ron
+  ebe type=r p=aux2 n=vo_e r=ron
+  ebe type=vsrcdc p=aux1 n=aux2 vdc=0
+  ebe type=r p=vi_o n=vo_o r=1
+  ebe type=r p=vo_o n=g r=1
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac type=sc_1     p=vi_e n=g       c=c
+  ebe_ac type=sc_1     p=vi_o n=g       c=c
+  ebe_ac type=sc_3     p=vi_e n=g       c=c tc=tc
+  ebe_ac type=sc_3     p=vi_o n=g       c=c tc=tc
+  ebe_ac type=sc_2     p=vo_e n=vo_o    c=c tc=tc
+  ebe_ac type=vsrcac   p=vi_e n=vo_e    a=0 phi=0
+  ebe_ac type=vsrcac   p=vi_o n=vo_o    a=0 phi=0
+  ebe_ac type=r p=aux1 n=g r=rd
+  ebe_ac type=r p=aux2 n=g r=rd
+end_ac
+endece
+ece name=sc_opamp2 group=switched_cap allow_ac=yes
+begin_dc
+  mainnodes: plus_e minus_e plus_o minus_o vo_e vo_o ground
+  auxnodes: node_ro node_r1
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: rin=1M rout=1m av=1e5
+  rparms_derived:
+  ebe name=rin  type=r p=minus_e n=plus_e r=rin
+  ebe name=rout type=r p=node_ro n=ground r=rout
+  ebe name=v0   type=vcvs p=vo_e n=node_ro alpha=av
++   vcplus=plus_e vcminus=minus_e
+  ebe type=r p=minus_o n=plus_o r=1
+  ebe type=r p=vo_o n=node_r1 r=1
+  ebe type=r p=node_r1 n=ground r=1
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=rin type=r p=minus_e n=plus_e r=rin
+  ebe_ac name=rout type=r p=node_ro n=ground r=rout
+  ebe_ac name=v0   type=vcvs p=vo_e n=node_ro alpha=av
++   vcplus=plus_e vcminus=minus_e
+  ebe_ac name=rin1  type=r p=minus_o n=plus_o r=rin
+  ebe_ac name=rout1 type=r p=node_r1 n=ground r=rout
+  ebe_ac name=v1   type=vcvs p=vo_o n=node_r1 alpha=av
++   vcplus=plus_o vcminus=minus_o
+end_ac
+endece
+ece name=sc_res_1 group=switched_cap allow_ac=yes
+begin_dc
+  mainnodes: vi_e vi_o vo_e vo_o g
+  auxnodes: aux1 aux2
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes: phi_e phi_o
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: ron=1e-3 roff=100M c=10p tc=10n rd=1e18
+  rparms_derived:
+  ebe name=s_e type=switch_d p=vi_e n=aux1 d_in=phi_e
++     ron=ron roff=roff
+  ebe name=s_o type=switch_d p=aux1 n=g d_in=phi_o
++     ron=ron roff=roff
+  ebe name=c1 type=c p=aux1 n=aux2
++     c=c v0sv=0
+  ebe name=s_o type=switch_d p=aux2 n=g d_in=phi_o
++     ron=ron roff=roff
+  ebe name=s_e type=switch_d p=aux2 n=vo_e d_in=phi_e
++     ron=ron roff=roff
+  ebe type=r p=vi_o n=vo_o r=1
+  ebe type=r p=vo_o n=g r=1
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac type=sc_1 p=vi_e n=vo_e c=c
+  ebe_ac type=r p=vi_o n=g r=rd
+  ebe_ac type=r p=vo_o n=g r=rd
+  ebe_ac type=r p=aux1 n=g r=rd
+  ebe_ac type=r p=aux2 n=g r=rd
+end_ac
+endece
+ece name=sc_source_3 group=switched_cap allow_ac=yes
+begin_dc
+  mainnodes: vo_e vo_o g
+  auxnodes: aux1
+  outvar: v_ac=nodev_of_aux1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: tc=1u t0=0 v_previous=0 dt=5u
++   s_2=0.11 tau_1=0.11 tau_2=0.11 r_large=1e18
++   a=1 f_hz=1 phi=0
+  rparms_derived:
+  ebe type=vsrcac p=aux1 n=g
++   a=a f_hz=f_hz phi=phi t0=0
+  ebe type=r p=aux1 n=g r=1
+  ebe type=sampler2 p=vo_e n=g vin=aux1
++   tperiod=tc t0=t0 v_previous=v_previous dt=dt
+  ebe type=r p=vo_o n=g r=1
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac type=sc_vsrcac p=vo_o n=g
++        tau=tau_1 sigma=0 tc=tc
+  ebe_ac type=sc_vsrcac p=vo_e n=g
++        tau=tau_2 sigma=s_2 tc=tc
+  ebe_ac type=r p=aux1 n=g r=r_large
+end_ac
+endece
+ece name=sc_spgc_2 group=switched_cap allow_ac=yes
+begin_dc
+  mainnodes: vi_e vi_o vo_e vo_o g
+  auxnodes: aux1
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes: phi_o
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: ron=1e-3 roff=100M c=10p tc=10n rd=1e18
+  rparms_derived:
+  ebe name=s_o type=switch_d p=vi_e n=aux1 d_in=phi_o
++     ron=ron roff=roff
+  ebe name=s_o type=switch_d p=vo_e n=aux1 d_in=phi_o
++     ron=ron roff=roff
+  ebe name=c1 type=c p=aux1 n=g c=c
+  ebe type=r p=vi_o n=g r=1
+  ebe type=r p=vo_o n=g r=1
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac type=sc_1     p=vi_o n=g    c=c
+  ebe_ac type=sc_4     p=vo_o n=g    c=c tc=tc
+  ebe_ac type=vsrcac   p=vi_o n=vo_o a=0 phi=0
+  ebe_ac type=r p=vi_e n=g r=rd
+  ebe_ac type=r p=vo_e n=g r=rd
+  ebe_ac type=r p=vo_o n=g r=rd
+  ebe_ac type=r p=aux1 n=g r=rd
+end_ac
+endece
+ece name=sc_swe group=switched_cap allow_ac=yes
+begin_dc
+  mainnodes: vi_e vi_o vo_e vo_o g
+  auxnodes:
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes: phi_e
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: ron=1e-3 roff=100M rd=1e18
+  rparms_derived:
+  ebe name=s_e type=switch_d p=vi_e n=vo_e d_in=phi_e
++     ron=ron roff=roff
+  ebe type=r p=vi_o n=vo_o r=1
+  ebe type=r p=vo_o n=g    r=1
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac type=vsrcac p=vi_e  n=vo_e a=0 phi=0
+  ebe_ac type=r p=vi_o n=g r=rd
+  ebe_ac type=r p=vo_o n=g r=rd
+end_ac
+endece
+ece name=sc_swo group=switched_cap allow_ac=yes
+begin_dc
+  mainnodes: vi_e vi_o vo_e vo_o g
+  auxnodes:
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes: phi_o
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: ron=1e-3 roff=100M rd=1e18
+  rparms_derived:
+  ebe name=s_o type=switch_d p=vi_e n=vo_e d_in=phi_o
++     ron=ron roff=roff
+  ebe type=r p=vi_o n=vo_o r=1
+  ebe type=r p=vo_o n=g r=1
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac type=vsrcac   p=vi_o  n=vo_o a=0 phi=0
+  ebe_ac type=r p=vi_e  n=g    r=rd
+  ebe_ac type=r p=vo_e  n=g    r=rd
+end_ac
+endece
+ece name=sc_swpe group=switched_cap allow_ac=yes
+begin_dc
+  mainnodes: vi_e vi_o vo_e vo_o g
+  auxnodes:
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes: phi_e
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: ron=1e-3 roff=100M rd=1e18
+  rparms_derived:
+  ebe name=s_e type=switch_d p=vi_e n=g d_in=phi_e
++     ron=ron roff=roff
+  ebe type=vsrcdc p=vi_e n=vo_e vdc=0
+  ebe type=r p=vi_o n=vo_o r=1
+  ebe type=r p=vo_o n=g r=1
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac type=vsrcac p=vi_e   n=vo_e a=0 phi=0
+  ebe_ac type=vsrcac p=vi_e   n=g    a=0 phi=0
+  ebe_ac type=vsrcac p=vi_o   n=vo_o a=0 phi=0
+  ebe_ac type=r p=vo_o   n=g   r=rd
+  ebe_ac type=r p=vo_e   n=g   r=rd
+end_ac
+endece
+ece name=sc_swpo allow_ac=yes
+begin_dc
+  mainnodes: vi_e vi_o vo_e vo_o g
+  auxnodes:
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes: phi_o
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: ron=1e-3 roff=100M rd=1e24
+  rparms_derived:
+  ebe name=s_o type=switch_d p=vi_e n=g d_in=phi_o
++     ron=ron roff=roff
+  ebe type=vsrcdc p=vi_e n=vo_e vdc=0
+  ebe type=r p=vi_o n=vo_o r=1
+  ebe type=r p=vo_o n=g r=1
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac type=vsrcac p=vi_e  n=vo_e a=0 phi=0
+  ebe_ac type=vsrcac p=vi_o  n=g    a=0 phi=0
+  ebe_ac type=vsrcac p=vi_o  n=vo_o a=0 phi=0
+end_ac
+endece
+ece name=sc_tsc_1 group=switched_cap allow_ac=yes
+begin_dc
+  mainnodes: vi_e vi_o vo_e vo_o g
+  auxnodes: aux1
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes: phi_e phi_o
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: ron=1e-3 roff=100M c=10p tc=10n rd=1e18
+  rparms_derived:
+  ebe name=s_e type=switch_d p=vi_e n=aux1 d_in=phi_e
++     ron=ron roff=roff
+  ebe name=s_o type=switch_d p=vo_e n=aux1 d_in=phi_o
++     ron=ron roff=roff
+  ebe name=c1 type=c p=aux1 n=g c=c v0sv=0
+  ebe type=r p=vi_o n=g r=1
+  ebe type=r p=vo_o n=g r=1
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac type=sc_1 p=vi_e n=g    c=c
+  ebe_ac type=sc_3 p=vi_e n=g    c=c tc=tc
+  ebe_ac type=sc_1 p=vo_o n=g    c=c
+  ebe_ac type=sc_3 p=vo_o n=g    c=c tc=tc
+  ebe_ac type=sc_2 p=vi_e n=vo_o c=c tc=tc
+  ebe_ac type=r p=vi_o n=g r=rd
+  ebe_ac type=r p=vo_e n=g r=rd
+  ebe_ac type=r p=aux1 n=g r=rd
+end_ac
+endece
+ece name=sc_tsi_1 group=switched_cap allow_ac=yes
+begin_dc
+  mainnodes: vi_e vi_o vo_e vo_o g
+  auxnodes: aux1 aux2
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes: phi_e phi_o
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: ron=1e-3 roff=100M c=10p tc=10n rd=1e18
+  rparms_derived:
+  ebe name=s_o type=switch_d p=vi_e n=aux1 d_in=phi_o
++     ron=ron roff=roff
+  ebe name=s_e type=switch_d p=aux1 n=g d_in=phi_e
++     ron=ron roff=roff
+  ebe name=c1 type=c p=aux1 n=aux2 c=c v0sv=0
+  ebe name=s_o type=switch_d p=aux2 n=g d_in=phi_o
++     ron=ron roff=roff
+  ebe name=s_e type=switch_d p=aux2 n=vo_e d_in=phi_e
++     ron=ron roff=roff
+  ebe type=r p=vi_o n=vo_o r=1
+  ebe type=r p=vo_o n=g r=1
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac type=sc_1 p=vi_o n=g c=c
+  ebe_ac type=sc_2 p=vi_o n=g c=c tc=tc
+  ebe_ac type=sc_1 p=vo_e n=g c=c
+  ebe_ac type=sc_2 p=vo_e n=g c=c tc=tc
+  ebe_ac type=sc_3 p=vi_o n=vo_e c=c tc=tc
+  ebe_ac type=r p=vi_e n=g r=rd
+  ebe_ac type=r p=vo_o n=g r=rd
+  ebe_ac type=r p=aux1 n=g r=rd
+  ebe_ac type=r p=aux2 n=g r=rd
+end_ac
+endece
+ece name=solar_cell_1 group=solar allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes: p1
+  outvar:
++   i1=cur(p)_of_r_series
++   i_d1=cur(p)_of_d1
++   i_d2=cur(p)_of_d2
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms: model_file=none
+  rparms:
++   is_d1=1e-12
++   is_d2=1e-12
++   n_d1=1
++   n_d2=2
++   i_photo=1
++   r_series=1
++   r_shunt=10e3
++   area=1
++   t1=300.15
++   eg=1.11
++   fc=0.5
++   ibv=0.001
++   m=0.5
++   vj=1.0
++   xti=3.0
+  rparms_derived:
+  ebe type=diode_spice_1 name=d1
++   p=p1 n=n
++   area=area
++   is=is_d1
++   n0=n_d1
++   t1=t1
++   eg=eg
++   fc=fc
++   ibv=ibv
++   m=m
++   vj=vj
++   xti=xti
+  ebe type=diode_spice_1 name=d2
++   p=p1 n=n
++   area=area
++   is=is_d2
++   n0=n_d2
++   t1=t1
++   eg=eg
++   fc=fc
++   ibv=ibv
++   m=m
++   vj=vj
++   xti=xti
+  ebe type=isrcdc name=i0
++   p=p1 n=n
++   idc=i_photo
+  ebe type=r name=r_series p=p1 n=p r=r_series
+  ebe type=r name=r_shunt  p=p1 n=n r=r_shunt
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=solar_module_1 group=solar allow_ac=no
++ compute_acp=no
+begin_dc
+  mainnodes: p n
+  auxnodes: p1
+  outvar:
++   i1=cur(p)_of_rs
++   pwr_elec=pwr_elec_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms: model_file=none
+  rparms:
++   ns=1
++   vocmr=1
++   iscmr=1
++   coef_iscm=0
++   coef_vocm=0
++   noct=20
++   tr=25
++   pmaxr=1
++   g_irrad=1000
++   t_ambient=25
+  rparms_derived:
+  ebe type=solar_module_1b name=m0
++   p=p1 n=n
++   g=g_irrad
++   ta=t_ambient
++   ns=ns
++   vocmr=vocmr
++   iscmr=iscmr
++   coef_iscm=coef_iscm
++   coef_vocm=coef_vocm
++   noct=noct
++   tr=tr
++   pmaxr=pmaxr
+  ebe type=solar_module_rs name=rs p=p n=p1
++   ns=ns
++   vocmr=vocmr
++   iscmr=iscmr
++   pmaxr=pmaxr
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=spdt group=switches allow_ac=no
+begin_dc
+  mainnodes: p s1 s2
+  auxnodes:
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   t_1=0
++   t_2=1
++   r_on=0.1m
++   r_off=100k
+  rparms_derived:
+  ebe name=s1 type=spdt
++    p=p s1=s1 s2=s2
++    t_1=t_1 t_2=t_2
++    r_on=r_on r_off=r_off
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=spdt1 group=switches allow_ac=no
++ compute_acp=yes
+begin_dc
+  mainnodes: p s1 s2
+  auxnodes:
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes: d_in
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   r_on=0.1m
++   r_off=100k
+  rparms_derived:
+  ebe name=s1 type=spdt1
++    p=p s1=s1 s2=s2
++    d_in=d_in
++    r_on=r_on r_off=r_off
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=spdt_boost group=switches allow_ac=yes
++ compute_acp=yes
+begin_dc
+  mainnodes: p s1 s2
+  auxnodes:
+  outvar:
+  bias: vint=vint_of_s1 iint=iint_of_s1
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: g_in
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   g_high=1.0
++   tstart1=0
++   tend1=1
++   v_ss=0
++   i_ss=0
++   d=0.1
++   dcap=1
++   r_on=0.1m
++   r_off=100k
+  rparms_derived:
+  ebe name=s1 type=spdt_boost
++    p=p s1=s1 s2=s2
++    g_in=g_in g_high=g_high
++    tstart1=tstart1 tend1=tend1
++    r_on=r_on r_off=r_off
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac type=spdt_boost p=p s1=s1 s2=s2
++    d=d dcap=dcap v_ss=v_ss i_ss=i_ss
+end_ac
+endece
+ece name=spdt_buck group=switches allow_ac=yes
++ compute_acp=yes
+begin_dc
+  mainnodes: p s1 s2
+  auxnodes:
+  outvar:
+  bias: vint=vint_of_s1 iint=iint_of_s1
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: g_in
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   g_high=1.0
++   tstart1=0
++   tend1=1
++   v_ss=0
++   i_ss=0
++   d=0.1
++   dcap=1
++   r_on=0.1m
++   r_off=100k
+  rparms_derived:
+  ebe name=s1 type=spdt_buck
++    p=p s1=s1 s2=s2
++    g_in=g_in g_high=g_high
++    tstart1=tstart1 tend1=tend1
++    r_on=r_on r_off=r_off
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac: dcapin=dcapin_of_s
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=s type=spdt_buck p=p s1=s1 s2=s2
++    d=d dcap=dcap v_ss=v_ss i_ss=i_ss
+end_ac
+endece
+ece name=switch_d group=switches allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar: i1=cur(p)_of_s1 v1=v1_of_s1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes: d_in
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: ron=1.0 roff=1.0M v_on=0
+  rparms_derived:
+  ebe name=s1 type=switch_d p=p n=n d_in=d_in
++     ron=ron roff=roff v_on=v_on
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=switch_diode_g group=switches allow_ac=no
+begin_dc
+  mainnodes: c e
+  auxnodes: c1
+  outvar:
++   is=cur(p)_of_s
++   id=cur(p)_of_d
++   pwr_elec=pwr_elec_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: g
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   ron=1e-3
++   roff=100k
++   g_high=1.0
++   v_on_d=0
++   v_on_s=0
++   r_snubber=0.01
++   c_snubber=1p
+  rparms_derived:
+  ebe name=s type=switch_g1 p=c n=e g_in=g
++     ron=ron roff=roff g_high=g_high
++     v_on=v_on_s
+  ebe name=d type=diode_r p=e n=c
++     ron=ron roff=roff
++     v_on=v_on_d
+  ebe type=r p=c  n=c1 r=r_snubber
+  ebe type=c p=c1 n=e  c=c_snubber
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=switch_e group=switches allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar: i1=cur(p)_of_s1 v1=v1_of_s1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes: node_1 node_2
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++    ron=1.0
++    roff=1.0M
++    v_high=1.0
++    v_on=0
+  rparms_derived:
+  ebe name=s1 type=switch_e p=p n=n
++     node_1=node_1 node_2=node_2
++     ron=ron roff=roff v_high=v_high
++     v_on=v_on
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=switch_g1 group=switches allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   i1=cur(p)_of_s1
++   v1=v1_of_s1
++   pwr_elec=pwr_elec_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: g_in
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   ron=1.0m
++   roff=1.0M
++   g_high=1.0
++   v_on=0
+  rparms_derived:
+  ebe name=s1 type=switch_g1 p=p n=n g_in=g_in
++     ron=ron roff=roff g_high=g_high v_on=v_on
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=switch_g1_cap group=switches allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   i1=cur(p)_of_s1
++   v1=v1_of_s1
++   pwr_elec=pwr_elec_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: g_in
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   ron=1.0m
++   roff=1.0M
++   g_high=1.0
++   v_on=0
++   cap=10n
+  rparms_derived:
+  ebe name=s1 type=switch_g1 p=p n=n g_in=g_in
++     ron=ron roff=roff g_high=g_high v_on=v_on
+  ebe type=c p=p n=n c=cap
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=switch_g2 group=switches allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar: i1=cur(p)_of_s1 v1=v1_of_s1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: g_in
+  xvar:
+  iparms:
+  sparms:
+  rparms: ron=1.0 roff=1.0M
+  rparms_derived:
+  ebe name=s1 type=switch_g2 p=p n=n g_in=g_in
++     ron=ron roff=roff
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=syncmc_1 group=machines allow_ac=no
+begin_dc
+  mainnodes: a b c
+  auxnodes:
+  outvar:
++    ia=cur(a)_of_sm0
++    ib=cur(b)_of_sm0
++    ic=cur(c)_of_sm0
++    id=id_of_sm0
++    iq=iq_of_sm0
++    vd=vd_of_sm0
++    vq=vq_of_sm0
++    psid=psid_of_sm0
++    psiq=psiq_of_sm0
++    psif=psif_of_sm0
++    psih=psih_of_sm0
++    psig=psig_of_sm0
++    psik=psik_of_sm0
+  bias:
+  stparms:
++    psid_st_0=0
++    psiq_st_0=0
++    psif_st_0=0
++    psih_st_0=0
++    psig_st_0=0
++    psik_st_0=0
++    theta_st_0=0
++    omega_st_0=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
++   omega
++   tem
++   efd
++   theta
++   tmech
+  xvar:
+  iparms:
++   i_compute_strt=1
++   i_flag_network=1
+  sparms:
+  rparms:
++   xd=1.79
++   xq=1.71
++   xdp=0.169
++   xqp=0.228
++   xdpp=0.135
++   xqpp=0.2
++   ra=0.001
++   td0p=4.3
++   tq0p=0.85
++   td0pp=0.032
++   tq0pp=0.05
++   h0=0.05
++   d0=0.005
++   fb=50
++   f0=50
++   vg0=1.0
++   thetag0_deg=30
++   e_src=1.0
++   xl=0.5
++   r_parallel=100
++   ka_static=100
++   xc=0.5
++   r_line=0.05
++   k_hi=19.303
++   k_ila=34.929
++   k_lab=52.038
++   k_lbg=70.858
++   k_ge=2.82
++   d_h=0.2
++   d_i=0.2
++   d_la=0.2
++   d_lb=0.2
++   d_e=0.2
++   scale_v=1
++   scale_i=1
+  rparms_derived:
+  ebe name=sm0 type=syncmc_1 a=a b=b c=c
++   omega=omega tem=tem efd=efd theta=theta tmech=tmech
++   i_compute_strt=i_compute_strt
++   i_flag_network=i_flag_network
++   xd=xd xq=xq xdp=xdp xqp=xqp
++   xdpp=xdpp xqpp=xqpp
++   ra=ra
++   td0p=td0p tq0p=tq0p
++   td0pp=td0pp tq0pp=tq0pp
++   h0=h0 d0=d0 fb=fb f0=f0
++   vg0=vg0
++   thetag0_deg=thetag0_deg
++   e_src=e_src xl=xl
++   r_parallel=r_parallel
++   ka_static=ka_static
++   xc=xc
++   r_line=r_line
++   k_hi=k_hi
++   k_ila=k_ila
++   k_lab=k_lab
++   k_lbg=k_lbg
++   k_ge=k_ge
++   d_h=d_h
++   d_i=d_i
++   d_la=d_la
++   d_lb=d_lb
++   d_e=d_e
++   scale_v=scale_v
++   scale_i=scale_i
++   psid_st_0=psid_st_0
++   psiq_st_0=psiq_st_0
++   psif_st_0=psif_st_0
++   psih_st_0=psih_st_0
++   psig_st_0=psig_st_0
++   psik_st_0=psik_st_0
++   theta_st_0=theta_st_0
++   omega_st_0=omega_st_0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=thyristor_g group=devices allow_ac=no
+begin_dc
+  mainnodes: anode cathode
+  auxnodes:
+  outvar:
++   i1=cur(anode)_of_s1
++   v1=v1_of_s1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: gate
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   ron=0.1m
++   roff=1.0M
++   g_high=1
++   v_on=0.1
+  rparms_derived:
+  ebe name=s1 type=thyristor_g
++     anode=anode cathode=cathode gate=gate
++     ron=ron roff=roff g_high=g_high st_closed=0
++     v_on=v_on
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=thyristor_g_2 group=devices allow_ac=no
+begin_dc
+  mainnodes: anode cathode
+  auxnodes:
+  outvar:
++   i1=cur(anode)_of_s1
++   v1=v1_of_s1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: gate
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   ron=0.1m
++   roff=1.0M
++   g_high=1
++   v_on=0.01
+  rparms_derived:
+  ebe name=s1 type=thyristor_g_2
++     anode=anode cathode=cathode gate=gate
++     ron=ron roff=roff g_high=g_high st_closed=0
++     v_on=v_on
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=triangle_1 group=sources allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar: v1=v1_of_v0 i1=cur(p)_of_v0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms: i0=0
+  sparms:
+  rparms:
++    t1=1  t2=1  t0=0  v_high=1.0 v_low=-1.0
++    epsl=1.0e-9
+  rparms_derived:
+  ebe name=v0 type=triangle_1 p=p n=n i0=i0
++     t1=t1 t2=t2 t0=t0 v_high=v_high v_low=v_low
++     epsl=epsl
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=triangle_2 group=sources allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar: v1=v1_of_v0 i1=cur(p)_of_v0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms: i0=0
+  sparms:
+  rparms:
++    tperiod=1  t0=0  v_high=1.0  v_low=-1.0
++    epsl=1.0e-9
+  rparms_derived:
+  ebe name=v0 type=triangle_2 p=p n=n i0=i0
++    tperiod=tperiod t0=t0 v_high=v_high v_low=v_low
++    epsl=epsl
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=triangle_3 group=sources allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar: v1=v1_of_v0 i1=cur(p)_of_v0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms: i0=0
+  sparms:
+  rparms:
++    frequency=10  t0=0  v_high=1.0
++    v_low=-1.0  epsl=1.0e-9
+  rparms_derived:
+  ebe name=v0 type=triangle_3 p=p n=n i0=i0
++    frequency=frequency t0=t0 v_high=v_high v_low=v_low
++    epsl=epsl
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=vccs group=linear allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   v1=v1_of_i0
++   i1=cur(n)_of_i0
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes: vcplus vcminus
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: gm=1
+  rparms_derived:
+  ebe name=i0 type=vccs p=p n=n gm=gm
++   vcplus=vcplus vcminus=vcminus
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac: i1ac=cur(p)_of_i0
+  ind_nodes_ac: vcplus_ac vcminus_ac
+  ind_branches_ac:
+  ebe_ac name=i0 type=vccs p=p n=n gm=gm
++   vcplus=vcplus_ac vcminus=vcminus_ac
+end_ac
+endece
+ece name=vcvs group=linear allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   v1=v1_of_v0
++   i1=cur(p)_of_v0
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes: vcplus vcminus
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: alpha=1
+  rparms_derived:
+  ebe name=v0 type=vcvs p=p n=n alpha=alpha
++   vcplus=vcplus vcminus=vcminus
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac: i1ac=cur(p)_of_v0
+  ind_nodes_ac: vcplus_ac vcminus_ac
+  ind_branches_ac:
+  ebe_ac name=v0 type=vcvs p=p n=n alpha=alpha
++   vcplus=vcplus_ac vcminus=vcminus_ac
+end_ac
+endece
+ece name=vdiff group=meters allow_ac=yes
+begin_dc
+  mainnodes: p m
+  auxnodes:
+  outvar: v1=v1_of_vm1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  ebe type=voltmeter name=vm1 p=p m=m
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac type=r p=p n=m r=1e12
+end_ac
+endece
+ece name=voltmeter group=meters allow_ac=no
+begin_dc
+  mainnodes: p m
+  auxnodes:
+  outvar: v1=v1_of_vm1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  ebe type=voltmeter name=vm1 p=p m=m
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=voltmeter_fb group=meters allow_ac=yes
+begin_dc
+  mainnodes: p m
+  auxnodes:
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: v_fb
+  xvar:
+  iparms:
+  sparms:
+  rparms: k_scale=1
+  rparms_derived:
+  ebe type=voltmeter_fb p=p m=m v_fb=v_fb k_scale=k_scale
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac type=voltmeter_fb p=p m=m v_fb=v_fb k_scale=k_scale
+end_ac
+endece
+ece name=vpulse group=sources allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   v1=v1_of_v0
++   i1=cur_p_of_v0
++   pwr_elec=pwr_elec_of_ece
+  bias:
+  stparms:
+  igparms: vn0=0
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   v_1=0
++   v_2=0
++   t_1=0
++   t_2=0
++   delt_1=0
++   delt_2=0
+  rparms_derived:
+  ebe name=v0 type=vpulse p=p n=n
++   v_1=v_1
++   v_2=v_2
++   t_1=t_1
++   t_2=t_2
++   delt_1=delt_1
++   delt_2=delt_2
++   vn0=vn0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=vpulse20 group=sources allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   i1=cur_p_of_v0
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms: i0=0 n1=2
+  sparms:
+  rparms:
++   t1 =1  t2 =2  t3 =3  t4 =4  t5 =5
++   t6 =6  t7 =7  t8 =8  t9 =9  t10=10
++   t11=11 t12=12 t13=13 t14=14 t15=15
++   t16=16 t17=17 t18=18 t19=19 t20=20
++   v_low=0 v_high=5 t_rise=10n t_fall=10n
+  rparms_derived:
+  ebe name=v0 type=vpulse20 p=p n=n
++   i0=i0 n1=n1
++   t1=t1 t2=t2 t3=t3 t4=t4 t5=t5
++   t6=t6 t7=t7 t8=t8 t9=t9 t10=t10
++   t11=t11 t12=t12 t13=t13 t14=t14 t15=t15
++   t16=t16 t17=t17 t18=t18 t19=t19 t20=t20
++   v_low=v_low v_high=v_high t_rise=t_rise t_fall=t_fall
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=vsrc_1 group=sources allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   i1=cur(n)_of_v0
++   v1=v1_of_v0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: x
+  xvar:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  ebe name=v0 type=vsrc_1 p=p n=n x=x
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac: i1ac=cur(n)_of_v0
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=v0 type=vsrc_1 p=p n=n x=x
+end_ac
+endece
+ece name=vsrc_1a group=sources allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: g_top g_bot
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   vdc=100
++   g_high=1
+  rparms_derived:
+  ebe type=vsrc_1a p=p n=n g_top=g_top g_bot=g_bot vdc=vdc
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=vsrc_am group=sources allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++    i1=cur(n)_of_v0
++    v1=v1_of_v0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: a=1 f_c=10k f_m=100 m=0.2
+  rparms_derived:
+  ebe name=v0 type=vsrc_am p=p n=n
++     a=a f_c=f_c f_m=f_m m=m
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=vsrc_fm group=sources allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++    i1=cur(n)_of_v0
++    v1=v1_of_v0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var: x
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   a=1
++   fc_hz=1e5
+  rparms_derived:
+  ebe name=v0 type=vsrc_fm p=p n=n
++     a=a fc_hz=fc_hz x=x
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=vsrc_pwl20 group=sources allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   i1=cur(n)_of_v0
++   v_branch=v_branch_of_v0
++   pwr_elec=pwr_elec_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms: n1=2
+  sparms:
+  rparms:
++   t1=1 v1=1 t2=2 v2=2
++   t3=3 v3=3 t4=4 v4=4
++   t5=5 v5=5 t6=6 v6=6
++   t7=7 v7=7 t8=8 v8=8
++   t9=9 v9=9 t10=10 v10=10
++   t11=11 v11=11 t12=12 v12=12
++   t13=13 v13=13 t14=14 v14=14
++   t15=15 v15=15 t16=16 v16=16
++   t17=17 v17=17 t18=18 v18=18
++   t19=19 v19=19 t20=20 v20=20
+  rparms_derived:
+  ebe name=v0 type=pwl20 p=p n=n
++   n1=n1
++   t1=t1 t2=t2 t3=t3 t4=t4 t5=t5
++   t6=t6 t7=t7 t8=t8 t9=t9 t10=t10
++   t11=t11 t12=t12 t13=t13 t14=t14 t15=t15
++   t16=t16 t17=t17 t18=t18 t19=t19 t20=t20
++   v1=v1 v2=v2 v3=v3 v4=v4 v5=v5
++   v6=v6 v7=v7 v8=v8 v9=v9 v10=v10
++   v11=v11 v12=v12 v13=v13 v14=v14 v15=v15
++   v16=v16 v17=v17 v18=v18 v19=v19 v20=v20
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=vsrcac group=sources allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   i1=cur(n)_of_v0
++   v1=v1_of_v0
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms: a=0 f_hz=1 phi=0 t0=0 vdc=0
+  rparms_derived:
+  ebe name=v0 type=vsrcac p=p n=n
++     a=a f_hz=f_hz phi=phi t0=t0 vdc=vdc
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
++   i1ac=cur(n)_of_v0
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=v0 type=vsrcac p=p n=n a=a phi=phi
+end_ac
+endece
+ece name=vsrcac3 group=sources allow_ac=yes
+begin_dc
+  mainnodes: a b c n
+  auxnodes:
+  outvar:
++    i_a=cur(n)_of_v_a
++    i_b=cur(n)_of_v_b
++    i_c=cur(n)_of_v_c
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++    v_a=0
++    v_b=0
++    v_c=0
++    f_hz=1
++    phi_a=0
++    phi_b=-120
++    phi_c=-240
++    t0=0
+  rparms_derived:
+  ebe name=v_a type=vsrcac p=a n=n
++     a=v_a f_hz=f_hz phi=phi_a t0=t0 vdc=0
+  ebe name=v_b type=vsrcac p=b n=n
++     a=v_b f_hz=f_hz phi=phi_b t0=t0 vdc=0
+  ebe name=v_c type=vsrcac p=c n=n
++     a=v_c f_hz=f_hz phi=phi_c t0=t0 vdc=0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=v_a type=vsrcac p=a n=n a=v_a phi=phi_a
+  ebe_ac name=v_b type=vsrcac p=b n=n a=v_b phi=phi_b
+  ebe_ac name=v_c type=vsrcac p=c n=n a=v_c phi=phi_c
+end_ac
+endece
+ece name=vsrcac3_ramp group=sources
+begin_dc
+  mainnodes: a b c n
+  auxnodes:
+  outvar:
++    i_a=cur(n)_of_v_a
++    i_b=cur(n)_of_v_b
++    i_c=cur(n)_of_v_c
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   v_a=0
++   v_b=0
++   v_c=0
++   f_hz=1
++   phi_a=0
++   phi_b=-120
++   phi_c=-240
++   t0=0
++   t_start_ramp=0
++   t_end_ramp=1
+  rparms_derived:
+  ebe name=v_a type=vsrcac_ramp p=a n=n
++     a=v_a f_hz=f_hz phi=phi_a t0=t0 vdc=0
++     t_start_ramp=t_start_ramp
++     t_end_ramp=t_end_ramp
+  ebe name=v_b type=vsrcac_ramp p=b n=n
++     a=v_b f_hz=f_hz phi=phi_b t0=t0 vdc=0
++     t_start_ramp=t_start_ramp
++     t_end_ramp=t_end_ramp
+  ebe name=v_c type=vsrcac_ramp p=c n=n
++     a=v_c f_hz=f_hz phi=phi_c t0=t0 vdc=0
++     t_start_ramp=t_start_ramp
++     t_end_ramp=t_end_ramp
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=vsrcdc group=sources allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   i1=cur(n)_of_v0
++   v1=v1_of_v0
++   pwr_elec=pwr_elec_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   vdc=0
++   k_scale=1
++   t_ramp_1=0
++   t_ramp_2=0
+#display: vdc
+  rparms_derived:
+  ebe name=v0 type=vsrcdc p=p n=n
++   vdc=vdc
++   k_scale=k_scale
++   t_ramp_1=t_ramp_1
++   t_ramp_2=t_ramp_2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac: i1ac=cur(n)_of_v0
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=v0 type=vsrcac p=p n=n a=0 phi=0
+end_ac
+endece
+ece name=vsrcdc0 group=sources allow_ac=yes
+begin_dc
+  mainnodes: p
+  auxnodes: n
+  outvar:
++   i1=cur(n)_of_v0
++   pwr_elec=pwr_elec_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   vdc=0
++   k_scale=1
++   t_ramp_1=0
++   t_ramp_2=0
+  rparms_derived:
+  ebe name=v0 type=vsrcdc p=p n=n
++   vdc=vdc
++   k_scale=k_scale
++   t_ramp_1=t_ramp_1
++   t_ramp_2=t_ramp_2
+  ebe type=ground_dummy_1 c=n
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac: i1ac=cur(n)_of_v0
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=v0 type=vsrcac p=p n=n a=0 phi=0
+  ebe_ac type=ground_dummy_1 c=n
+end_ac
+endece
+ece name=vsrcdc1a group=sources allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   i1=cur(n)_of_v0
++   v1=v1_of_v0
++   pwr_elec=pwr_elec_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   vdc=0
++   k_scale=1
++   t_ramp_1=0
++   t_ramp_2=0
+#display: vdc
+  rparms_derived:
+  ebe name=v0 type=vsrcdc p=p n=n
++   vdc=vdc
++   k_scale=k_scale
++   t_ramp_1=t_ramp_1
++   t_ramp_2=t_ramp_2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac: i1ac=cur(n)_of_v0
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=v0 type=vsrcac p=p n=n a=0 phi=0
+end_ac
+endece
+ece name=vsrcdc3 group=sources allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar: i1=cur_p_of_v0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   vdc=0
++   k_scale=1
++   t_ramp_1=0
++   t_ramp_2=0
++   a=0
+#display: vdc
+  rparms_derived:
+  ebe name=v0 type=vsrcdc p=p n=n
++   vdc=vdc
++   k_scale=k_scale
++   t_ramp_1=t_ramp_1
++   t_ramp_2=t_ramp_2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=v0 type=vsrcac p=p n=n a=a
+end_ac
+endece
+ece name=vsrcdc_box group=sources allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   i1=cur(n)_of_v0
++   v1=v1_of_v0
++   pwr_elec=pwr_elec_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   vdc=0
++   t_ramp_1=0
++   t_ramp_2=0
+  rparms_derived:
+  ebe name=v0 type=vsrcdc p=p n=n
++   vdc=vdc
++   t_ramp_1=t_ramp_1
++   t_ramp_2=t_ramp_2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac: i1ac=cur(n)_of_v0
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=v0 type=vsrcac p=p n=n a=0 phi=0
+end_ac
+endece
+ece name=xfmr_basic_1 group=xfmr_level0 allow_ac=no
+begin_dc
+  mainnodes: p1 n1 p2 n2
+  auxnodes:
+  outvar:
++   v1=v1_of_x0
++   v2=v2_of_x0
++   i1=cur(p1)_of_x0
++   i2=cur(p2)_of_x0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   l1=1m
++   l2=1m
++   k=1
+  rparms_derived:
+  ebe name=x0 type=xfmr_basic_1
++   p1=p1 n1=n1 p2=p2 n2=n2
++   l1=l1 l2=l2 k=k
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level0_1ph group=xfmr_level0 allow_ac=no
+begin_dc
+  mainnodes: p_p p_n s_p s_n
+  auxnodes:
+  outvar:
++   v_p=v_p_of_x0
++   v_s=v_s_of_x0
++   i_p=cur(p_p)_of_x0
++   i_s=cur(s_p)_of_x0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_turns=1
++   s_turns=1
+  rparms_derived:
+  ebe name=x0 type=xfmr_level1_1ph
++   p_p=p_p p_n=p_n s_p=s_p s_n=s_n
++   p_turns=p_turns s_turns=s_turns
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level0_1ph_1_2 group=xfmr_level0
+begin_dc
+  mainnodes:
++  p_p  p_n
++  s1_p s1_n
++  s2_p s2_n
+  auxnodes:
+  outvar:
++   v_p=v_p_of_x0
++   v_s1=v_s1_of_x0
++   v_s2=v_s2_of_x0
++   i_p=cur(p_p)_of_x0
++   i_s1=cur(s1_p)_of_x0
++   i_s2=cur(s2_p)_of_x0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_turns=1
++   s1_turns=1
++   s2_turns=1
+  rparms_derived:
+  ebe name=x0 type=xfmr_level1_1ph_1_2
++   p_p=p_p
++   p_n=p_n
++   s1_p=s1_p
++   s1_n=s1_n
++   s2_p=s2_p
++   s2_n=s2_n
++   p_turns=p_turns
++   s1_turns=s1_turns
++   s2_turns=s2_turns
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level0_1ph_2_2 group=xfmr_level0 allow_ac=no
+begin_dc
+  mainnodes:
++  p1_p p1_n
++  p2_p p2_n
++  s1_p s1_n
++  s2_p s2_n
+  auxnodes:
+  outvar:
++   v_p1=v_a1_of_x0
++   v_p2=v_a2_of_x0
++   v_s1=v_a3_of_x0
++   v_s2=v_a4_of_x0
++   i_p1=cur(a1_p)_of_x0
++   i_p2=cur(a2_p)_of_x0
++   i_s1=cur(a3_p)_of_x0
++   i_s2=cur(a4_p)_of_x0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p1_turns=1
++   p2_turns=1
++   s1_turns=1
++   s2_turns=1
+  rparms_derived:
+  ebe name=x0 type=xfmr_level1_1ph_4w
++   a1_p=p1_p
++   a1_n=p1_n
++   a2_p=p2_p
++   a2_n=p2_n
++   a3_p=s1_p
++   a3_n=s1_n
++   a4_p=s2_p
++   a4_n=s2_n
++   n1=p1_turns
++   n2=p2_turns
++   n3=s1_turns
++   n4=s2_turns
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level0_3ph_d_d group=xfmr_level0 allow_ac=no
+  begin_dc
+  mainnodes:
++   p_a p_b p_c
++   s_a s_b s_c
+  auxnodes:
+  outvar:
++   i_p_ab=cur(p_p)_of_x_a
++   i_p_bc=cur(p_p)_of_x_b
++   i_p_ca=cur(p_p)_of_x_c
++   i_s_ab=cur(s_p)_of_x_a
++   i_s_bc=cur(s_p)_of_x_b
++   i_s_ca=cur(s_p)_of_x_c
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_turns=1
++   p_b_turns=1
++   p_c_turns=1
++   s_a_turns=1
++   s_b_turns=1
++   s_c_turns=1
+  rparms_derived:
+  ebe name=x_a type=xfmr_level1_1ph
++   p_p=p_a
++   p_n=p_b
++   s_p=s_a
++   s_n=s_b
++   p_turns=p_a_turns
++   s_turns=s_a_turns
+  ebe name=x_b type=xfmr_level1_1ph
++   p_p=p_b
++   p_n=p_c
++   s_p=s_b
++   s_n=s_c
++   p_turns=p_b_turns
++   s_turns=s_b_turns
+  ebe name=x_c type=xfmr_level1_1ph
++   p_p=p_c
++   p_n=p_a
++   s_p=s_c
++   s_n=s_a
++   p_turns=p_c_turns
++   s_turns=s_c_turns
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level0_3ph_d_y group=xfmr_level0 allow_ac=no
+begin_dc
+  mainnodes:
++   p_a p_b p_c
++   s_a s_b s_c s_n0
+  auxnodes:
+  outvar:
++   i_p_ab=cur(p_p)_of_x_a
++   i_p_bc=cur(p_p)_of_x_b
++   i_p_ca=cur(p_p)_of_x_c
++   i_s_a=cur(s_p)_of_x_a
++   i_s_b=cur(s_p)_of_x_b
++   i_s_c=cur(s_p)_of_x_c
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_turns=1
++   p_b_turns=1
++   p_c_turns=1
++   s_a_turns=1
++   s_b_turns=1
++   s_c_turns=1
+  rparms_derived:
+  ebe name=x_a type=xfmr_level1_1ph
++   p_p=p_a
++   p_n=p_b
++   s_p=s_a
++   s_n=s_n0
++   p_turns=p_a_turns
++   s_turns=s_a_turns
+  ebe name=x_b type=xfmr_level1_1ph
++   p_p=p_b
++   p_n=p_c
++   s_p=s_b
++   s_n=s_n0
++   p_turns=p_b_turns
++   s_turns=s_b_turns
+  ebe name=x_c type=xfmr_level1_1ph
++   p_p=p_c
++   p_n=p_a
++   s_p=s_c
++   s_n=s_n0
++   p_turns=p_c_turns
++   s_turns=s_c_turns
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level0_3ph_y_d group=xfmr_level0 allow_ac=no
+begin_dc
+  mainnodes:
++   p_a p_b p_c p_n0
++   s_a s_b s_c
+  auxnodes: s_ab s_bc s_ca
+  outvar:
++   i_p_a=cur(p_p)_of_x_a
++   i_p_b=cur(p_p)_of_x_b
++   i_p_c=cur(p_p)_of_x_c
++   i_s_ab=cur(s_p)_of_x_a
++   i_s_bc=cur(s_p)_of_x_b
++   i_s_ca=cur(s_p)_of_x_c
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_turns=1
++   p_b_turns=1
++   p_c_turns=1
++   s_a_turns=1
++   s_b_turns=1
++   s_c_turns=1
++   r_small=1m
+  rparms_derived:
+  ebe name=x_a type=xfmr_level1_1ph
++   p_p=p_a
++   p_n=p_n0
++   s_p=s_a
++   s_n=s_ab
++   p_turns=p_a_turns
++   s_turns=s_a_turns
+  ebe type=r p=s_ab n=s_b r=r_small
+  ebe name=x_b type=xfmr_level1_1ph
++   p_p=p_b
++   p_n=p_n0
++   s_p=s_b
++   s_n=s_bc
++   p_turns=p_b_turns
++   s_turns=s_b_turns
+  ebe type=r p=s_bc n=s_c r=r_small
+  ebe name=x_c type=xfmr_level1_1ph
++   p_p=p_c
++   p_n=p_n0
++   s_p=s_c
++   s_n=s_ca
++   p_turns=p_c_turns
++   s_turns=s_c_turns
+  ebe type=r p=s_ca n=s_a r=r_small
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level0_3ph_y_y group=xfmr_level0 allow_ac=no
+begin_dc
+  mainnodes:
++   p_a p_b p_c p_n0
++   s_a s_b s_c s_n0
+  auxnodes:
+  outvar:
++   i_p_a=cur(p_p)_of_x_a
++   i_p_b=cur(p_p)_of_x_b
++   i_p_c=cur(p_p)_of_x_c
++   i_s_a=cur(s_p)_of_x_a
++   i_s_b=cur(s_p)_of_x_b
++   i_s_c=cur(s_p)_of_x_c
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_turns=1
++   p_b_turns=1
++   p_c_turns=1
++   s_a_turns=1
++   s_b_turns=1
++   s_c_turns=1
+  rparms_derived:
+  ebe name=x_a type=xfmr_level1_1ph
++   p_p=p_a
++   p_n=p_n0
++   s_p=s_a
++   s_n=s_n0
++   p_turns=p_a_turns
++   s_turns=s_a_turns
+  ebe name=x_b type=xfmr_level1_1ph
++   p_p=p_b
++   p_n=p_n0
++   s_p=s_b
++   s_n=s_n0
++   p_turns=p_b_turns
++   s_turns=s_b_turns
+  ebe name=x_c type=xfmr_level1_1ph
++   p_p=p_c
++   p_n=p_n0
++   s_p=s_c
++   s_n=s_n0
++   p_turns=p_c_turns
++   s_turns=s_c_turns
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level1_1ph group=xfmr_level1 allow_ac=no
+begin_dc
+  mainnodes: p_p p_n s_p s_n
+  auxnodes: p_a p_b s_a s_b
+  outvar:
++   v_p=v_p_of_x0
++   v_s=v_s_of_x0
++   i_p=cur(p_p)_of_x0
++   i_s=cur(s_p)_of_x0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_turns=1
++   s_turns=1
++   p_rs=1m
++   p_ll=1n
++   s_rs=1m
++   s_ll=1n
++   r_large=1e12
+  rparms_derived:
+  ebe type=r p=p_p n=p_a r=p_rs
+  ebe type=l p=p_a n=p_b l=p_ll
+  ebe type=r p=s_p n=s_a r=s_rs
+  ebe type=l p=s_a n=s_b l=s_ll
+  ebe type=r p=p_b n=p_n r=r_large
+  ebe type=r p=s_b n=s_n r=r_large
+  ebe name=x0 type=xfmr_level1_1ph
++   p_p=p_b p_n=p_n s_p=s_b s_n=s_n
++   p_turns=p_turns s_turns=s_turns
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level1_1ph_1_2 group=xfmr_level1 allow_ac=no
+begin_dc
+  mainnodes:
++  p_p  p_n
++  s1_p s1_n
++  s2_p s2_n
+  auxnodes: p_a p_b s1_a s1_b s2_a s2_b
+  outvar:
++   v_p=v_p_of_x0
++   v_s1=v_s1_of_x0
++   v_s2=v_s2_of_x0
++   i_p=cur(p_p)_of_x0
++   i_s1=cur(s1_p)_of_x0
++   i_s2=cur(s2_p)_of_x0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_turns=1
++   s1_turns=1
++   s2_turns=1
++   p_rs=1m
++   p_ll=1n
++   s1_rs=1m
++   s1_ll=1n
++   s2_rs=1m
++   s2_ll=1n
++   r_large=1e12
+  rparms_derived:
+  ebe type=r p=p_p n=p_a r=p_rs
+  ebe type=l p=p_a n=p_b l=p_ll
+  ebe type=r p=s1_p n=s1_a r=s1_rs
+  ebe type=l p=s1_a n=s1_b l=s1_ll
+  ebe type=r p=s2_p n=s2_a r=s2_rs
+  ebe type=l p=s2_a n=s2_b l=s2_ll
+  ebe type=r p=p_b n=p_n r=r_large
+  ebe type=r p=s1_b n=s1_n r=r_large
+  ebe type=r p=s2_b n=s2_n r=r_large
+  ebe name=x0 type=xfmr_level1_1ph_1_2
++   p_p=p_b
++   p_n=p_n
++   s1_p=s1_b
++   s1_n=s1_n
++   s2_p=s2_b
++   s2_n=s2_n
++   p_turns=p_turns
++   s1_turns=s1_turns
++   s2_turns=s2_turns
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level1_3ph_d_d group=xfmr_level1 allow_ac=no
+  begin_dc
+  mainnodes:
++   p_a p_b p_c
++   s_a s_b s_c
+  auxnodes:
++   p_a_1 p_a_2
++   p_b_1 p_b_2
++   p_c_1 p_c_2
++   s_a_1 s_a_2
++   s_b_1 s_b_2
++   s_c_1 s_c_2
+  outvar:
++   i_p_ab=cur(p)_of_p_a_r1
++   i_p_bc=cur(p)_of_p_b_r1
++   i_p_ca=cur(p)_of_p_c_r1
++   i_s_ab=cur(p)_of_s_a_r1
++   i_s_bc=cur(p)_of_s_b_r1
++   i_s_ca=cur(p)_of_s_c_r1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_turns=1
++   p_b_turns=1
++   p_c_turns=1
++   s_a_turns=1
++   s_b_turns=1
++   s_c_turns=1
++   p_a_rs=1m
++   p_b_rs=1m
++   p_c_rs=1m
++   s_a_rs=1m
++   s_b_rs=1m
++   s_c_rs=1m
++   p_a_ll=1n
++   p_b_ll=1n
++   p_c_ll=1n
++   s_a_ll=1n
++   s_b_ll=1n
++   s_c_ll=1n
++   r_large=1e12
+  rparms_derived:
+  ebe name=p_a_r1 type=r p=p_a   n=p_a_1 r=p_a_rs
+  ebe name=p_a_l1 type=l p=p_a_1 n=p_a_2 l=p_a_ll
+  ebe name=s_a_r1 type=r p=s_a   n=s_a_1 r=s_a_rs
+  ebe name=s_a_l1 type=l p=s_a_1 n=s_a_2 l=s_a_ll
+  ebe type=r p=p_a_2 n=p_b r=r_large
+  ebe type=r p=s_a_2 n=s_b r=r_large
+  ebe name=x_a type=xfmr_level1_1ph
++   p_p=p_a_2
++   p_n=p_b
++   s_p=s_a_2
++   s_n=s_b
++   p_turns=p_a_turns
++   s_turns=s_a_turns
+  ebe name=p_b_r1 type=r p=p_b   n=p_b_1 r=p_b_rs
+  ebe name=p_b_l1 type=l p=p_b_1 n=p_b_2 l=p_b_ll
+  ebe name=s_b_r1 type=r p=s_b   n=s_b_1 r=s_b_rs
+  ebe name=s_b_l1 type=l p=s_b_1 n=s_b_2 l=s_b_ll
+  ebe type=r p=p_b_2 n=p_c r=r_large
+  ebe type=r p=s_b_2 n=s_c r=r_large
+  ebe name=x_b type=xfmr_level1_1ph
++   p_p=p_b_2
++   p_n=p_c
++   s_p=s_b_2
++   s_n=s_c
++   p_turns=p_b_turns
++   s_turns=s_b_turns
+  ebe name=p_c_r1 type=r p=p_c   n=p_c_1 r=p_c_rs
+  ebe name=p_c_l1 type=l p=p_c_1 n=p_c_2 l=p_c_ll
+  ebe name=s_c_r1 type=r p=s_c   n=s_c_1 r=s_c_rs
+  ebe name=s_c_l1 type=l p=s_c_1 n=s_c_2 l=s_c_ll
+  ebe type=r p=p_c_2 n=p_a r=r_large
+  ebe type=r p=s_c_2 n=s_a r=r_large
+  ebe name=x_c type=xfmr_level1_1ph
++   p_p=p_c_2
++   p_n=p_a
++   s_p=s_c_2
++   s_n=s_a
++   p_turns=p_c_turns
++   s_turns=s_c_turns
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level1_3ph_d_y group=xfmr_level1 allow_ac=no
+begin_dc
+  mainnodes:
++   p_a p_b p_c
++   s_a s_b s_c s_n0
+  auxnodes:
++   p_a_1 p_a_2
++   p_b_1 p_b_2
++   p_c_1 p_c_2
++   s_a_1 s_a_2
++   s_b_1 s_b_2
++   s_c_1 s_c_2
+  outvar:
++   i_p_ab=cur(p)_of_p_a_r1
++   i_p_bc=cur(p)_of_p_b_r1
++   i_p_ca=cur(p)_of_p_c_r1
++   i_s_a=cur(p)_of_s_a_r1
++   i_s_b=cur(p)_of_s_b_r1
++   i_s_c=cur(p)_of_s_c_r1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_turns=1
++   p_b_turns=1
++   p_c_turns=1
++   s_a_turns=1
++   s_b_turns=1
++   s_c_turns=1
++   p_a_rs=1m
++   p_b_rs=1m
++   p_c_rs=1m
++   s_a_rs=1m
++   s_b_rs=1m
++   s_c_rs=1m
++   p_a_ll=1n
++   p_b_ll=1n
++   p_c_ll=1n
++   s_a_ll=1n
++   s_b_ll=1n
++   s_c_ll=1n
++   r_large=1e12
+  rparms_derived:
+  ebe name=p_a_r1 type=r p=p_a   n=p_a_1 r=p_a_rs
+  ebe name=p_a_l1 type=l p=p_a_1 n=p_a_2 l=p_a_ll
+  ebe name=s_a_r1 type=r p=s_a   n=s_a_1 r=s_a_rs
+  ebe name=s_a_l1 type=l p=s_a_1 n=s_a_2 l=s_a_ll
+  ebe type=r p=p_a_2 n=p_b_2 r=r_large
+  ebe type=r p=s_a_2 n=s_n0  r=r_large
+  ebe name=x_a type=xfmr_level1_1ph
++   p_p=p_a_2
++   p_n=p_b_2
++   s_p=s_a_2
++   s_n=s_n0
++   p_turns=p_a_turns
++   s_turns=s_a_turns
+  ebe name=p_b_r1 type=r p=p_b   n=p_b_1 r=p_b_rs
+  ebe name=p_b_l1 type=l p=p_b_1 n=p_b_2 l=p_b_ll
+  ebe name=s_b_r1 type=r p=s_b   n=s_b_1 r=s_b_rs
+  ebe name=s_b_l1 type=l p=s_b_1 n=s_b_2 l=s_b_ll
+  ebe type=r p=p_b_2 n=p_c_2 r=r_large
+  ebe type=r p=s_b_2 n=s_n0  r=r_large
+  ebe name=x_b type=xfmr_level1_1ph
++   p_p=p_b_2
++   p_n=p_c_2
++   s_p=s_b_2
++   s_n=s_n0
++   p_turns=p_b_turns
++   s_turns=s_b_turns
+  ebe name=p_c_r1 type=r p=p_c   n=p_c_1 r=p_c_rs
+  ebe name=p_c_l1 type=l p=p_c_1 n=p_c_2 l=p_c_ll
+  ebe name=s_c_r1 type=r p=s_c   n=s_c_1 r=s_c_rs
+  ebe name=s_c_l1 type=l p=s_c_1 n=s_c_2 l=s_c_ll
+  ebe type=r p=p_c_2 n=p_a_2 r=r_large
+  ebe type=r p=s_c_2 n=s_n0  r=r_large
+  ebe name=x_c type=xfmr_level1_1ph
++   p_p=p_c_2
++   p_n=p_a_2
++   s_p=s_c_2
++   s_n=s_n0
++   p_turns=p_c_turns
++   s_turns=s_c_turns
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level1_3ph_y_d group=xfmr_level1 allow_ac=no
+begin_dc
+  mainnodes:
++   p_a p_b p_c p_n0
++   s_a s_b s_c
+  auxnodes:
++   p_a_1 p_a_2
++   p_b_1 p_b_2
++   p_c_1 p_c_2
++   s_a_1 s_a_2
++   s_b_1 s_b_2
++   s_c_1 s_c_2
+  outvar:
++   i_p_a=cur(p)_of_p_a_r1
++   i_p_b=cur(p)_of_p_b_r1
++   i_p_c=cur(p)_of_p_c_r1
++   i_s_ab=cur(p)_of_s_a_r1
++   i_s_bc=cur(p)_of_s_b_r1
++   i_s_ca=cur(p)_of_s_c_r1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_turns=1
++   p_b_turns=1
++   p_c_turns=1
++   s_a_turns=1
++   s_b_turns=1
++   s_c_turns=1
++   p_a_rs=1m
++   p_b_rs=1m
++   p_c_rs=1m
++   s_a_rs=1m
++   s_b_rs=1m
++   s_c_rs=1m
++   p_a_ll=1n
++   p_b_ll=1n
++   p_c_ll=1n
++   s_a_ll=1n
++   s_b_ll=1n
++   s_c_ll=1n
++   r_large=1e12
+  rparms_derived:
+  ebe name=p_a_r1 type=r p=p_a   n=p_a_1 r=p_a_rs
+  ebe name=p_a_l1 type=l p=p_a_1 n=p_a_2 l=p_a_ll
+  ebe name=s_a_r1 type=r p=s_a   n=s_a_1 r=s_a_rs
+  ebe name=s_a_l1 type=l p=s_a_1 n=s_a_2 l=s_a_ll
+  ebe type=r p=p_a_2 n=p_n0  r=r_large
+  ebe type=r p=s_a_2 n=s_b_2 r=r_large
+  ebe name=x_a type=xfmr_level1_1ph
++   p_p=p_a_2
++   p_n=p_n0
++   s_p=s_a_2
++   s_n=s_b_2
++   p_turns=p_a_turns
++   s_turns=s_a_turns
+  ebe name=p_b_r1 type=r p=p_b   n=p_b_1 r=p_b_rs
+  ebe name=p_b_l1 type=l p=p_b_1 n=p_b_2 l=p_b_ll
+  ebe name=s_b_r1 type=r p=s_b   n=s_b_1 r=s_b_rs
+  ebe name=s_b_l1 type=l p=s_b_1 n=s_b_2 l=s_b_ll
+  ebe type=r p=p_b_2 n=p_n0  r=r_large
+  ebe type=r p=s_b_2 n=s_c_2 r=r_large
+  ebe name=x_b type=xfmr_level1_1ph
++   p_p=p_b_2
++   p_n=p_n0
++   s_p=s_b_2
++   s_n=s_c_2
++   p_turns=p_b_turns
++   s_turns=s_b_turns
+  ebe name=p_c_r1 type=r p=p_c   n=p_c_1 r=p_c_rs
+  ebe name=p_c_l1 type=l p=p_c_1 n=p_c_2 l=p_c_ll
+  ebe name=s_c_r1 type=r p=s_c   n=s_c_1 r=s_c_rs
+  ebe name=s_c_l1 type=l p=s_c_1 n=s_c_2 l=s_c_ll
+  ebe type=r p=p_c_2 n=p_n0  r=r_large
+  ebe type=r p=s_c_2 n=s_a_2 r=r_large
+  ebe name=x_c type=xfmr_level1_1ph
++   p_p=p_c_2
++   p_n=p_n0
++   s_p=s_c_2
++   s_n=s_a_2
++   p_turns=p_c_turns
++   s_turns=s_c_turns
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level1_3ph_y_y group=xfmr_level1 allow_ac=no
+begin_dc
+  mainnodes:
++   p_a p_b p_c p_n0
++   s_a s_b s_c s_n0
+  auxnodes:
++   p_a_1 p_a_2
++   p_b_1 p_b_2
++   p_c_1 p_c_2
++   s_a_1 s_a_2
++   s_b_1 s_b_2
++   s_c_1 s_c_2
+  outvar:
++   i_p_a=cur(p)_of_p_a_r1
++   i_p_b=cur(p)_of_p_b_r1
++   i_p_c=cur(p)_of_p_c_r1
++   i_s_a=cur(p)_of_s_a_r1
++   i_s_b=cur(p)_of_s_b_r1
++   i_s_c=cur(p)_of_s_c_r1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_turns=1
++   p_b_turns=1
++   p_c_turns=1
++   s_a_turns=1
++   s_b_turns=1
++   s_c_turns=1
++   p_a_rs=1m
++   p_b_rs=1m
++   p_c_rs=1m
++   s_a_rs=1m
++   s_b_rs=1m
++   s_c_rs=1m
++   p_a_ll=1n
++   p_b_ll=1n
++   p_c_ll=1n
++   s_a_ll=1n
++   s_b_ll=1n
++   s_c_ll=1n
++   r_large=1e12
+  rparms_derived:
+  ebe name=p_a_r1 type=r p=p_a   n=p_a_1 r=p_a_rs
+  ebe name=p_a_l1 type=l p=p_a_1 n=p_a_2 l=p_a_ll
+  ebe name=s_a_r1 type=r p=s_a   n=s_a_1 r=s_a_rs
+  ebe name=s_a_l1 type=l p=s_a_1 n=s_a_2 l=s_a_ll
+  ebe type=r p=p_a_2 n=p_n0 r=r_large
+  ebe type=r p=s_a_2 n=s_n0 r=r_large
+  ebe name=x_a type=xfmr_level1_1ph
++   p_p=p_a_2
++   p_n=p_n0
++   s_p=s_a_2
++   s_n=s_n0
++   p_turns=p_a_turns
++   s_turns=s_a_turns
+  ebe name=p_b_r1 type=r p=p_b   n=p_b_1 r=p_b_rs
+  ebe name=p_b_l1 type=l p=p_b_1 n=p_b_2 l=p_b_ll
+  ebe name=s_b_r1 type=r p=s_b   n=s_b_1 r=s_b_rs
+  ebe name=s_b_l1 type=l p=s_b_1 n=s_b_2 l=s_b_ll
+  ebe type=r p=p_b_2 n=p_n0 r=r_large
+  ebe type=r p=s_b_2 n=s_n0 r=r_large
+  ebe name=x_b type=xfmr_level1_1ph
++   p_p=p_b_2
++   p_n=p_n0
++   s_p=s_b_2
++   s_n=s_n0
++   p_turns=p_b_turns
++   s_turns=s_b_turns
+  ebe name=p_c_r1 type=r p=p_c   n=p_c_1 r=p_c_rs
+  ebe name=p_c_l1 type=l p=p_c_1 n=p_c_2 l=p_c_ll
+  ebe name=s_c_r1 type=r p=s_c   n=s_c_1 r=s_c_rs
+  ebe name=s_c_l1 type=l p=s_c_1 n=s_c_2 l=s_c_ll
+  ebe type=r p=p_c_2 n=p_n0 r=r_large
+  ebe type=r p=s_c_2 n=s_n0 r=r_large
+  ebe name=x_c type=xfmr_level1_1ph
++   p_p=p_c_2
++   p_n=p_n0
++   s_p=s_c_2
++   s_n=s_n0
++   p_turns=p_c_turns
++   s_turns=s_c_turns
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level2_1ph group=xfmr_level2 allow_ac=no
+begin_dc
+  mainnodes: p_p p_n s_p s_n
+  auxnodes: p_a p_b s_a s_b
+  outvar:
++   v_p=v_p_of_x0
++   v_s=v_s_of_x0
++   i_p=cur(p_p)_of_x0
++   i_s=cur(s_p)_of_x0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_turns=1
++   s_turns=1
++   lm=1m
++   p_rs=1m
++   p_ll=1n
++   s_rs=1m
++   s_ll=1n
++   r_large=1e12
+  rparms_derived:
+  ebe type=r p=p_p n=p_a r=p_rs
+  ebe type=l p=p_a n=p_b l=p_ll
+  ebe type=r p=s_p n=s_a r=s_rs
+  ebe type=l p=s_a n=s_b l=s_ll
+  ebe type=r p=p_b n=p_n r=r_large
+  ebe type=r p=s_b n=s_n r=r_large
+  ebe name=x0 type=xfmr_level2_1ph
++   p_p=p_b p_n=p_n s_p=s_b s_n=s_n
++   p_turns=p_turns s_turns=s_turns lm=lm
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level2_1ph_1_2 group=xfmr_level2 allow_ac=no
+begin_dc
+  mainnodes:
++  p_p  p_n
++  s1_p s1_n
++  s2_p s2_n
+  auxnodes: p_a p_b s1_a s1_b s2_a s2_b
+  outvar:
++   v_p=v_p_of_x0
++   v_s1=v_s1_of_x0
++   v_s2=v_s2_of_x0
++   i_p=cur(p_p)_of_x0
++   i_s1=cur(s1_p)_of_x0
++   i_s2=cur(s2_p)_of_x0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_turns=1
++   s1_turns=1
++   s2_turns=1
++   lm=1m
++   p_rs=1m
++   p_ll=1n
++   s1_rs=1m
++   s1_ll=1n
++   s2_rs=1m
++   s2_ll=1n
++   r_large=1e12
+  rparms_derived:
+  ebe type=r p=p_p n=p_a r=p_rs
+  ebe type=l p=p_a n=p_b l=p_ll
+  ebe type=r p=s1_p n=s1_a r=s1_rs
+  ebe type=l p=s1_a n=s1_b l=s1_ll
+  ebe type=r p=s2_p n=s2_a r=s2_rs
+  ebe type=l p=s2_a n=s2_b l=s2_ll
+  ebe type=r p=p_b n=p_n r=r_large
+  ebe type=r p=s1_b n=s1_n r=r_large
+  ebe type=r p=s2_b n=s2_n r=r_large
+  ebe type=l p=p_b n=p_n l=lm
+  ebe name=x0 type=xfmr_level1_1ph_1_2
++   p_p=p_b
++   p_n=p_n
++   s1_p=s1_b
++   s1_n=s1_n
++   s2_p=s2_b
++   s2_n=s2_n
++   p_turns=p_turns
++   s1_turns=s1_turns
++   s2_turns=s2_turns
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level2_3ph_d_d group=xfmr_level2 allow_ac=no
+  begin_dc
+  mainnodes:
++   p_a p_b p_c
++   s_a s_b s_c
+  auxnodes:
++   p_a_1 p_a_2
++   p_b_1 p_b_2
++   p_c_1 p_c_2
++   s_a_1 s_a_2
++   s_b_1 s_b_2
++   s_c_1 s_c_2
+  outvar:
++   i_p_ab=cur(p)_of_p_a_r1
++   i_p_bc=cur(p)_of_p_b_r1
++   i_p_ca=cur(p)_of_p_c_r1
++   i_s_ab=cur(p)_of_s_a_r1
++   i_s_bc=cur(p)_of_s_b_r1
++   i_s_ca=cur(p)_of_s_c_r1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_turns=1
++   p_b_turns=1
++   p_c_turns=1
++   s_a_turns=1
++   s_b_turns=1
++   s_c_turns=1
++   a_lm=100m
++   b_lm=100m
++   c_lm=100m
++   p_a_rs=1m
++   p_b_rs=1m
++   p_c_rs=1m
++   s_a_rs=1m
++   s_b_rs=1m
++   s_c_rs=1m
++   p_a_ll=1n
++   p_b_ll=1n
++   p_c_ll=1n
++   s_a_ll=1n
++   s_b_ll=1n
++   s_c_ll=1n
++   r_large=1e12
+  rparms_derived:
+  ebe name=p_a_r1 type=r p=p_a   n=p_a_1 r=p_a_rs
+  ebe name=p_a_l1 type=l p=p_a_1 n=p_a_2 l=p_a_ll
+  ebe name=s_a_r1 type=r p=s_a   n=s_a_1 r=s_a_rs
+  ebe name=s_a_l1 type=l p=s_a_1 n=s_a_2 l=s_a_ll
+  ebe type=r p=p_a_2 n=p_b r=r_large
+  ebe type=r p=s_a_2 n=s_b r=r_large
+  ebe name=x_a type=xfmr_level2_1ph
++   p_p=p_a_2
++   p_n=p_b
++   s_p=s_a_2
++   s_n=s_b
++   p_turns=p_a_turns
++   s_turns=s_a_turns
++   lm=a_lm
+  ebe name=p_b_r1 type=r p=p_b   n=p_b_1 r=p_b_rs
+  ebe name=p_b_l1 type=l p=p_b_1 n=p_b_2 l=p_b_ll
+  ebe name=s_b_r1 type=r p=s_b   n=s_b_1 r=s_b_rs
+  ebe name=s_b_l1 type=l p=s_b_1 n=s_b_2 l=s_b_ll
+  ebe type=r p=p_b_2 n=p_c r=r_large
+  ebe type=r p=s_b_2 n=s_c r=r_large
+  ebe name=x_b type=xfmr_level2_1ph
++   p_p=p_b_2
++   p_n=p_c
++   s_p=s_b_2
++   s_n=s_c
++   p_turns=p_b_turns
++   s_turns=s_b_turns
++   lm=b_lm
+  ebe name=p_c_r1 type=r p=p_c   n=p_c_1 r=p_c_rs
+  ebe name=p_c_l1 type=l p=p_c_1 n=p_c_2 l=p_c_ll
+  ebe name=s_c_r1 type=r p=s_c   n=s_c_1 r=s_c_rs
+  ebe name=s_c_l1 type=l p=s_c_1 n=s_c_2 l=s_c_ll
+  ebe type=r p=p_c_2 n=p_a r=r_large
+  ebe type=r p=s_c_2 n=s_a r=r_large
+  ebe name=x_c type=xfmr_level2_1ph
++   p_p=p_c_2
++   p_n=p_a
++   s_p=s_c_2
++   s_n=s_a
++   p_turns=p_c_turns
++   s_turns=s_c_turns
++   lm=c_lm
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level2_3ph_d_y group=xfmr_level2 allow_ac=no
+begin_dc
+  mainnodes:
++   p_a p_b p_c
++   s_a s_b s_c s_n0
+  auxnodes:
++   p_a_1 p_a_2
++   p_b_1 p_b_2
++   p_c_1 p_c_2
++   s_a_1 s_a_2
++   s_b_1 s_b_2
++   s_c_1 s_c_2
+  outvar:
++   i_p_ab=cur(p)_of_p_a_r1
++   i_p_bc=cur(p)_of_p_b_r1
++   i_p_ca=cur(p)_of_p_c_r1
++   i_s_a=cur(p)_of_s_a_r1
++   i_s_b=cur(p)_of_s_b_r1
++   i_s_c=cur(p)_of_s_c_r1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_turns=1
++   p_b_turns=1
++   p_c_turns=1
++   s_a_turns=1
++   s_b_turns=1
++   s_c_turns=1
++   a_lm=100m
++   b_lm=100m
++   c_lm=100m
++   p_a_rs=1m
++   p_b_rs=1m
++   p_c_rs=1m
++   s_a_rs=1m
++   s_b_rs=1m
++   s_c_rs=1m
++   p_a_ll=1n
++   p_b_ll=1n
++   p_c_ll=1n
++   s_a_ll=1n
++   s_b_ll=1n
++   s_c_ll=1n
++   r_large=1e12
+  rparms_derived:
+  ebe name=p_a_r1 type=r p=p_a   n=p_a_1 r=p_a_rs
+  ebe name=p_a_l1 type=l p=p_a_1 n=p_a_2 l=p_a_ll
+  ebe name=s_a_r1 type=r p=s_a   n=s_a_1 r=s_a_rs
+  ebe name=s_a_l1 type=l p=s_a_1 n=s_a_2 l=s_a_ll
+  ebe type=r p=p_a_2 n=p_b_2 r=r_large
+  ebe type=r p=s_a_2 n=s_n0  r=r_large
+  ebe name=x_a type=xfmr_level2_1ph
++   p_p=p_a_2
++   p_n=p_b_2
++   s_p=s_a_2
++   s_n=s_n0
++   p_turns=p_a_turns
++   s_turns=s_a_turns
++   lm=a_lm
+  ebe name=p_b_r1 type=r p=p_b   n=p_b_1 r=p_b_rs
+  ebe name=p_b_l1 type=l p=p_b_1 n=p_b_2 l=p_b_ll
+  ebe name=s_b_r1 type=r p=s_b   n=s_b_1 r=s_b_rs
+  ebe name=s_b_l1 type=l p=s_b_1 n=s_b_2 l=s_b_ll
+  ebe type=r p=p_b_2 n=p_c_2 r=r_large
+  ebe type=r p=s_b_2 n=s_n0  r=r_large
+  ebe name=x_b type=xfmr_level2_1ph
++   p_p=p_b_2
++   p_n=p_c_2
++   s_p=s_b_2
++   s_n=s_n0
++   p_turns=p_b_turns
++   s_turns=s_b_turns
++   lm=b_lm
+  ebe name=p_c_r1 type=r p=p_c   n=p_c_1 r=p_c_rs
+  ebe name=p_c_l1 type=l p=p_c_1 n=p_c_2 l=p_c_ll
+  ebe name=s_c_r1 type=r p=s_c   n=s_c_1 r=s_c_rs
+  ebe name=s_c_l1 type=l p=s_c_1 n=s_c_2 l=s_c_ll
+  ebe type=r p=p_c_2 n=p_a_2 r=r_large
+  ebe type=r p=s_c_2 n=s_n0  r=r_large
+  ebe name=x_c type=xfmr_level2_1ph
++   p_p=p_c_2
++   p_n=p_a_2
++   s_p=s_c_2
++   s_n=s_n0
++   p_turns=p_c_turns
++   s_turns=s_c_turns
++   lm=c_lm
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level2_3ph_y_d group=xfmr_level2 allow_ac=no
+begin_dc
+  mainnodes:
++   p_a p_b p_c p_n0
++   s_a s_b s_c
+  auxnodes:
++   p_a_1 p_a_2
++   p_b_1 p_b_2
++   p_c_1 p_c_2
++   s_a_1 s_a_2
++   s_b_1 s_b_2
++   s_c_1 s_c_2
+  outvar:
++   i_p_a=cur(p)_of_p_a_r1
++   i_p_b=cur(p)_of_p_b_r1
++   i_p_c=cur(p)_of_p_c_r1
++   i_s_ab=cur(p)_of_s_a_r1
++   i_s_bc=cur(p)_of_s_b_r1
++   i_s_ca=cur(p)_of_s_c_r1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_turns=1
++   p_b_turns=1
++   p_c_turns=1
++   s_a_turns=1
++   s_b_turns=1
++   s_c_turns=1
++   a_lm=100m
++   b_lm=100m
++   c_lm=100m
++   p_a_rs=1m
++   p_b_rs=1m
++   p_c_rs=1m
++   s_a_rs=1m
++   s_b_rs=1m
++   s_c_rs=1m
++   p_a_ll=1n
++   p_b_ll=1n
++   p_c_ll=1n
++   s_a_ll=1n
++   s_b_ll=1n
++   s_c_ll=1n
++   r_large=1e12
+  rparms_derived:
+  ebe name=p_a_r1 type=r p=p_a   n=p_a_1 r=p_a_rs
+  ebe name=p_a_l1 type=l p=p_a_1 n=p_a_2 l=p_a_ll
+  ebe name=s_a_r1 type=r p=s_a   n=s_a_1 r=s_a_rs
+  ebe name=s_a_l1 type=l p=s_a_1 n=s_a_2 l=s_a_ll
+  ebe type=r p=p_a_2 n=p_n0  r=r_large
+  ebe type=r p=s_a_2 n=s_b_2 r=r_large
+  ebe name=x_a type=xfmr_level2_1ph
++   p_p=p_a_2
++   p_n=p_n0
++   s_p=s_a_2
++   s_n=s_b_2
++   p_turns=p_a_turns
++   s_turns=s_a_turns
++   lm=a_lm
+  ebe name=p_b_r1 type=r p=p_b   n=p_b_1 r=p_b_rs
+  ebe name=p_b_l1 type=l p=p_b_1 n=p_b_2 l=p_b_ll
+  ebe name=s_b_r1 type=r p=s_b   n=s_b_1 r=s_b_rs
+  ebe name=s_b_l1 type=l p=s_b_1 n=s_b_2 l=s_b_ll
+  ebe type=r p=p_b_2 n=p_n0  r=r_large
+  ebe type=r p=s_b_2 n=s_c_2 r=r_large
+  ebe name=x_b type=xfmr_level2_1ph
++   p_p=p_b_2
++   p_n=p_n0
++   s_p=s_b_2
++   s_n=s_c_2
++   p_turns=p_b_turns
++   s_turns=s_b_turns
++   lm=b_lm
+  ebe name=p_c_r1 type=r p=p_c   n=p_c_1 r=p_c_rs
+  ebe name=p_c_l1 type=l p=p_c_1 n=p_c_2 l=p_c_ll
+  ebe name=s_c_r1 type=r p=s_c   n=s_c_1 r=s_c_rs
+  ebe name=s_c_l1 type=l p=s_c_1 n=s_c_2 l=s_c_ll
+  ebe type=r p=p_c_2 n=p_n0  r=r_large
+  ebe type=r p=s_c_2 n=s_a_2 r=r_large
+  ebe name=x_c type=xfmr_level2_1ph
++   p_p=p_c_2
++   p_n=p_n0
++   s_p=s_c_2
++   s_n=s_a_2
++   p_turns=p_c_turns
++   s_turns=s_c_turns
++   lm=c_lm
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level2_3ph_y_y group=xfmr_level2 allow_ac=no
+begin_dc
+  mainnodes:
++   p_a p_b p_c p_n0
++   s_a s_b s_c s_n0
+  auxnodes:
++   p_a_1 p_a_2
++   p_b_1 p_b_2
++   p_c_1 p_c_2
++   s_a_1 s_a_2
++   s_b_1 s_b_2
++   s_c_1 s_c_2
+  outvar:
++   i_p_a=cur(p)_of_p_a_r1
++   i_p_b=cur(p)_of_p_b_r1
++   i_p_c=cur(p)_of_p_c_r1
++   i_s_a=cur(p)_of_s_a_r1
++   i_s_b=cur(p)_of_s_b_r1
++   i_s_c=cur(p)_of_s_c_r1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_turns=1
++   p_b_turns=1
++   p_c_turns=1
++   s_a_turns=1
++   s_b_turns=1
++   s_c_turns=1
++   a_lm=100m
++   b_lm=100m
++   c_lm=100m
++   p_a_rs=1m
++   p_b_rs=1m
++   p_c_rs=1m
++   s_a_rs=1m
++   s_b_rs=1m
++   s_c_rs=1m
++   p_a_ll=1n
++   p_b_ll=1n
++   p_c_ll=1n
++   s_a_ll=1n
++   s_b_ll=1n
++   s_c_ll=1n
++   r_large=1e12
+  rparms_derived:
+  ebe name=p_a_r1 type=r p=p_a   n=p_a_1 r=p_a_rs
+  ebe name=p_a_l1 type=l p=p_a_1 n=p_a_2 l=p_a_ll
+  ebe name=s_a_r1 type=r p=s_a   n=s_a_1 r=s_a_rs
+  ebe name=s_a_l1 type=l p=s_a_1 n=s_a_2 l=s_a_ll
+  ebe type=r p=p_a_2 n=p_n0 r=r_large
+  ebe type=r p=s_a_2 n=s_n0 r=r_large
+  ebe name=x_a type=xfmr_level2_1ph
++   p_p=p_a_2
++   p_n=p_n0
++   s_p=s_a_2
++   s_n=s_n0
++   p_turns=p_a_turns
++   s_turns=s_a_turns
++   lm=a_lm
+  ebe name=p_b_r1 type=r p=p_b   n=p_b_1 r=p_b_rs
+  ebe name=p_b_l1 type=l p=p_b_1 n=p_b_2 l=p_b_ll
+  ebe name=s_b_r1 type=r p=s_b   n=s_b_1 r=s_b_rs
+  ebe name=s_b_l1 type=l p=s_b_1 n=s_b_2 l=s_b_ll
+  ebe type=r p=p_b_2 n=p_n0 r=r_large
+  ebe type=r p=s_b_2 n=s_n0 r=r_large
+  ebe name=x_b type=xfmr_level2_1ph
++   p_p=p_b_2
++   p_n=p_n0
++   s_p=s_b_2
++   s_n=s_n0
++   p_turns=p_b_turns
++   s_turns=s_b_turns
++   lm=b_lm
+  ebe name=p_c_r1 type=r p=p_c   n=p_c_1 r=p_c_rs
+  ebe name=p_c_l1 type=l p=p_c_1 n=p_c_2 l=p_c_ll
+  ebe name=s_c_r1 type=r p=s_c   n=s_c_1 r=s_c_rs
+  ebe name=s_c_l1 type=l p=s_c_1 n=s_c_2 l=s_c_ll
+  ebe type=r p=p_c_2 n=p_n0 r=r_large
+  ebe type=r p=s_c_2 n=s_n0 r=r_large
+  ebe name=x_c type=xfmr_level2_1ph
++   p_p=p_c_2
++   p_n=p_n0
++   s_p=s_c_2
++   s_n=s_n0
++   p_turns=p_c_turns
++   s_turns=s_c_turns
++   lm=c_lm
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level2a_1ph group=xfmr_level2a allow_ac=no
+begin_dc
+  mainnodes: p_p p_n s_p s_n
+  auxnodes:
+  outvar:
++   v_p=v_p_of_x0
++   v_s=v_s_of_x0
++   i_p=cur(p_p)_of_x0
++   i_s=cur(s_p)_of_x0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_turns=1
++   s_turns=1
++   lm=1m
++   r_large=1e12
+  rparms_derived:
+  ebe type=r p=p_p n=p_n r=r_large
+  ebe type=r p=s_p n=s_n r=r_large
+  ebe name=x0 type=xfmr_level2_1ph
++   p_p=p_p
++   p_n=p_n
++   s_p=s_p
++   s_n=s_n
++   p_turns=p_turns
++   s_turns=s_turns
++   lm=lm
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level2a_1ph_1_2 group=xfmr_level2a allow_ac=no
+begin_dc
+  mainnodes:
++  p_p  p_n
++  s1_p s1_n
++  s2_p s2_n
+  auxnodes:
+  outvar:
++   v_p=v_p_of_x0
++   v_s1=v_s1_of_x0
++   v_s2=v_s2_of_x0
++   i_p=cur(p_p)_of_x0
++   i_s1=cur(s1_p)_of_x0
++   i_s2=cur(s2_p)_of_x0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_turns=1
++   s1_turns=1
++   s2_turns=1
++   lm=1m
++   r_large=1e12
+  rparms_derived:
+  ebe type=r p=p_p n=p_n r=r_large
+  ebe type=r p=s1_p n=s1_n r=r_large
+  ebe type=r p=s2_p n=s2_n r=r_large
+  ebe name=x0 type=xfmr_level2_1ph_1_2
++   p_p=p_p
++   p_n=p_n
++   s1_p=s1_p
++   s1_n=s1_n
++   s2_p=s2_p
++   s2_n=s2_n
++   p_turns=p_turns
++   s1_turns=s1_turns
++   s2_turns=s2_turns
++   lm=lm
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level2a_3ph_d_d group=xfmr_level2a allow_ac=no
+  begin_dc
+  mainnodes:
++   p_a p_b p_c
++   s_a s_b s_c
+  auxnodes:
+  outvar:
++   i_p_ab=cur(p_p)_of_x_a
++   i_p_bc=cur(p_p)_of_x_b
++   i_p_ca=cur(p_p)_of_x_c
++   i_s_ab=cur(s_p)_of_x_a
++   i_s_bc=cur(s_p)_of_x_b
++   i_s_ca=cur(s_p)_of_x_c
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_turns=1
++   p_b_turns=1
++   p_c_turns=1
++   s_a_turns=1
++   s_b_turns=1
++   s_c_turns=1
++   a_lm=100m
++   b_lm=100m
++   c_lm=100m
++   r_large=1e12
+  rparms_derived:
+  ebe type=r p=p_a n=p_b r=r_large
+  ebe type=r p=s_a n=s_b r=r_large
+  ebe name=x_a type=xfmr_level2_1ph
++   p_p=p_a
++   p_n=p_b
++   s_p=s_a
++   s_n=s_b
++   p_turns=p_a_turns
++   s_turns=s_a_turns
++   lm=a_lm
+  ebe type=r p=p_b n=p_c r=r_large
+  ebe type=r p=s_b n=s_c r=r_large
+  ebe name=x_b type=xfmr_level2_1ph
++   p_p=p_b
++   p_n=p_c
++   s_p=s_b
++   s_n=s_c
++   p_turns=p_b_turns
++   s_turns=s_b_turns
++   lm=b_lm
+  ebe type=r p=p_c n=p_a r=r_large
+  ebe type=r p=s_c n=s_a r=r_large
+  ebe name=x_c type=xfmr_level2_1ph
++   p_p=p_c
++   p_n=p_a
++   s_p=s_c
++   s_n=s_a
++   p_turns=p_c_turns
++   s_turns=s_c_turns
++   lm=c_lm
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level2a_3ph_d_y group=xfmr_level2a allow_ac=no
+begin_dc
+  mainnodes:
++   p_a p_b p_c
++   s_a s_b s_c s_n0
+  auxnodes:
+  outvar:
++   i_p_ab=cur(p_p)_of_x_a
++   i_p_bc=cur(p_p)_of_x_b
++   i_p_ca=cur(p_p)_of_x_c
++   i_s_a=cur(s_p)_of_x_a
++   i_s_b=cur(s_p)_of_x_b
++   i_s_c=cur(s_p)_of_x_c
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_turns=1
++   p_b_turns=1
++   p_c_turns=1
++   s_a_turns=1
++   s_b_turns=1
++   s_c_turns=1
++   a_lm=100m
++   b_lm=100m
++   c_lm=100m
++   r_large=1e12
+  rparms_derived:
+  ebe type=r p=p_a n=p_b r=r_large
+  ebe type=r p=s_a n=s_n0  r=r_large
+  ebe name=x_a type=xfmr_level2_1ph
++   p_p=p_a
++   p_n=p_b
++   s_p=s_a
++   s_n=s_n0
++   p_turns=p_a_turns
++   s_turns=s_a_turns
++   lm=a_lm
+  ebe type=r p=p_b n=p_c r=r_large
+  ebe type=r p=s_b n=s_n0  r=r_large
+  ebe name=x_b type=xfmr_level2_1ph
++   p_p=p_b
++   p_n=p_c
++   s_p=s_b
++   s_n=s_n0
++   p_turns=p_b_turns
++   s_turns=s_b_turns
++   lm=b_lm
+  ebe type=r p=p_c n=p_a r=r_large
+  ebe type=r p=s_c n=s_n0  r=r_large
+  ebe name=x_c type=xfmr_level2_1ph
++   p_p=p_c
++   p_n=p_a
++   s_p=s_c
++   s_n=s_n0
++   p_turns=p_c_turns
++   s_turns=s_c_turns
++   lm=c_lm
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level2a_3ph_y_d group=xfmr_level2a allow_ac=no
+begin_dc
+  mainnodes:
++   p_a p_b p_c p_n0
++   s_a s_b s_c
+  auxnodes:
+  outvar:
++   i_p_a=cur(p_p)_of_x_a
++   i_p_b=cur(p_p)_of_x_b
++   i_p_c=cur(p_p)_of_x_c
++   i_s_ab=cur(s_p)_of_x_a
++   i_s_bc=cur(s_p)_of_x_b
++   i_s_ca=cur(s_p)_of_x_c
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_turns=1
++   p_b_turns=1
++   p_c_turns=1
++   s_a_turns=1
++   s_b_turns=1
++   s_c_turns=1
++   r_large=1e12
+  rparms_derived:
+  ebe type=r p=p_a n=p_n0  r=r_large
+  ebe type=r p=s_a n=s_b r=r_large
+  ebe name=x_a type=xfmr_level2_1ph
++   p_p=p_a
++   p_n=p_n0
++   s_p=s_a
++   s_n=s_b
++   p_turns=p_a_turns
++   s_turns=s_a_turns
++   lm=a_lm
+  ebe type=r p=p_b n=p_n0  r=r_large
+  ebe type=r p=s_b n=s_c r=r_large
+  ebe name=x_b type=xfmr_level2_1ph
++   p_p=p_b
++   p_n=p_n0
++   s_p=s_b
++   s_n=s_c
++   p_turns=p_b_turns
++   s_turns=s_b_turns
++   lm=b_lm
+  ebe type=r p=p_c n=p_n0  r=r_large
+  ebe type=r p=s_c n=s_a r=r_large
+  ebe name=x_c type=xfmr_level2_1ph
++   p_p=p_c
++   p_n=p_n0
++   s_p=s_c
++   s_n=s_a
++   p_turns=p_c_turns
++   s_turns=s_c_turns
++   lm=c_lm
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level2a_3ph_y_y group=xfmr_level2a allow_ac=no
+begin_dc
+  mainnodes:
++   p_a p_b p_c p_n0
++   s_a s_b s_c s_n0
+  auxnodes:
+  outvar:
++   i_p_a=cur(p_p)_of_x_a
++   i_p_b=cur(p_p)_of_x_b
++   i_p_c=cur(p_p)_of_x_c
++   i_s_a=cur(s_p)_of_x_a
++   i_s_b=cur(s_p)_of_x_b
++   i_s_c=cur(s_p)_of_x_c
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_turns=1
++   p_b_turns=1
++   p_c_turns=1
++   s_a_turns=1
++   s_b_turns=1
++   s_c_turns=1
++   r_large=1e12
+  rparms_derived:
+  ebe type=r p=p_a n=p_n0 r=r_large
+  ebe type=r p=s_a n=s_n0 r=r_large
+  ebe name=x_a type=xfmr_level2_1ph
++   p_p=p_a
++   p_n=p_n0
++   s_p=s_a
++   s_n=s_n0
++   p_turns=p_a_turns
++   s_turns=s_a_turns
++   lm=a_lm
+  ebe type=r p=p_b n=p_n0 r=r_large
+  ebe type=r p=s_b n=s_n0 r=r_large
+  ebe name=x_b type=xfmr_level2_1ph
++   p_p=p_b
++   p_n=p_n0
++   s_p=s_b
++   s_n=s_n0
++   p_turns=p_b_turns
++   s_turns=s_b_turns
++   lm=b_lm
+  ebe type=r p=p_c n=p_n0 r=r_large
+  ebe type=r p=s_c n=s_n0 r=r_large
+  ebe name=x_c type=xfmr_level2_1ph
++   p_p=p_c
++   p_n=p_n0
++   s_p=s_c
++   s_n=s_n0
++   p_turns=p_c_turns
++   s_turns=s_c_turns
++   lm=c_lm
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level3_1ph group=xfmr_level3 allow_ac=no
+begin_dc
+  mainnodes: p_p p_n s_p s_n
+  auxnodes: p_a p_b s_a s_b
+  outvar:
++   v_p=v1_of_x0
++   v_s=v2_of_x0
++   i_p=cur(p1)_of_x0
++   i_s=cur(p2)_of_x0
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_l=1m
++   s_l=1m
++   k=1
++   p_rs=1m
++   p_ll=1n
++   s_rs=1m
++   s_ll=1n
++   r_large=1e12
+  rparms_derived:
+  ebe type=r p=p_p n=p_a r=p_rs
+  ebe type=l p=p_a n=p_b l=p_ll
+  ebe type=r p=s_p n=s_a r=s_rs
+  ebe type=l p=s_a n=s_b l=s_ll
+  ebe type=r p=p_b n=p_n r=r_large
+  ebe type=r p=s_b n=s_n r=r_large
+  ebe name=x0 type=xfmr_basic_1
++   p1=p_b n1=p_n p2=s_b n2=s_n
++   l1=p_l l2=s_l k=k
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level3_3ph_d_d group=xfmr_level3 allow_ac=no
+begin_dc
+  mainnodes:
++   p_a p_b p_c
++   s_a s_b s_c
+  auxnodes:
++   p_a_1 p_a_2
++   p_b_1 p_b_2
++   p_c_1 p_c_2
++   s_a_1 s_a_2
++   s_b_1 s_b_2
++   s_c_1 s_c_2
+  outvar:
++   i_p_ab=cur(p)_of_p_a_r1
++   i_p_bc=cur(p)_of_p_b_r1
++   i_p_ca=cur(p)_of_p_c_r1
++   i_s_ab=cur(p)_of_s_a_r1
++   i_s_bc=cur(p)_of_s_b_r1
++   i_s_ca=cur(p)_of_s_c_r1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_l=1m
++   p_b_l=1m
++   p_c_l=1m
++   s_a_l=1m
++   s_b_l=1m
++   s_c_l=1m
++   a_k=1
++   b_k=1
++   c_k=1
++   p_a_rs=1m
++   p_b_rs=1m
++   p_c_rs=1m
++   s_a_rs=1m
++   s_b_rs=1m
++   s_c_rs=1m
++   p_a_ll=1n
++   p_b_ll=1n
++   p_c_ll=1n
++   s_a_ll=1n
++   s_b_ll=1n
++   s_c_ll=1n
++   r_large=1e12
+  rparms_derived:
+  ebe name=p_a_r1 type=r p=p_a   n=p_a_1 r=p_a_rs
+  ebe name=p_a_l1 type=l p=p_a_1 n=p_a_2 l=p_a_ll
+  ebe name=s_a_r1 type=r p=s_a   n=s_a_1 r=s_a_rs
+  ebe name=s_a_l1 type=l p=s_a_1 n=s_a_2 l=s_a_ll
+  ebe type=r p=p_a_2 n=p_b r=r_large
+  ebe type=r p=s_a_2 n=s_b r=r_large
+  ebe name=x_a type=xfmr_basic_1
++   p1=p_a_2
++   n1=p_b
++   p2=s_a_2
++   n2=s_b
++   l1=p_a_l
++   l2=s_a_l
++   k=a_k
+  ebe name=p_b_r1 type=r p=p_b   n=p_b_1 r=p_b_rs
+  ebe name=p_b_l1 type=l p=p_b_1 n=p_b_2 l=p_b_ll
+  ebe name=s_b_r1 type=r p=s_b   n=s_b_1 r=s_b_rs
+  ebe name=s_b_l1 type=l p=s_b_1 n=s_b_2 l=s_b_ll
+  ebe type=r p=p_b_2 n=p_c r=r_large
+  ebe type=r p=s_b_2 n=s_c r=r_large
+  ebe name=x_b type=xfmr_basic_1
++   p1=p_b_2
++   n1=p_c
++   p2=s_b_2
++   n2=s_c
++   l1=p_b_l
++   l2=s_b_l
++   k=b_k
+  ebe name=p_c_r1 type=r p=p_c   n=p_c_1 r=p_c_rs
+  ebe name=p_c_l1 type=l p=p_c_1 n=p_c_2 l=p_c_ll
+  ebe name=s_c_r1 type=r p=s_c   n=s_c_1 r=s_c_rs
+  ebe name=s_c_l1 type=l p=s_c_1 n=s_c_2 l=s_c_ll
+  ebe type=r p=p_c_2 n=p_a r=r_large
+  ebe type=r p=s_c_2 n=s_a r=r_large
+  ebe name=x_c type=xfmr_basic_1
++   p1=p_c_2
++   n1=p_a
++   p2=s_c_2
++   n2=s_a
++   l1=p_c_l
++   l2=s_c_l
++   k=c_k
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level3_3ph_y_d group=xfmr_level3 allow_ac=no
+begin_dc
+  mainnodes:
++   p_a p_b p_c p_n0
++   s_a s_b s_c
+  auxnodes:
++   p_a_1 p_a_2
++   p_b_1 p_b_2
++   p_c_1 p_c_2
++   s_a_1 s_a_2
++   s_b_1 s_b_2
++   s_c_1 s_c_2
+  outvar:
++   i_p_a=cur(p)_of_p_a_r1
++   i_p_b=cur(p)_of_p_b_r1
++   i_p_c=cur(p)_of_p_c_r1
++   i_s_ab=cur(p)_of_s_a_r1
++   i_s_bc=cur(p)_of_s_b_r1
++   i_s_ca=cur(p)_of_s_c_r1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_l=1m
++   p_b_l=1m
++   p_c_l=1m
++   s_a_l=1m
++   s_b_l=1m
++   s_c_l=1m
++   a_k=1
++   b_k=1
++   c_k=1
++   p_a_rs=1m
++   p_b_rs=1m
++   p_c_rs=1m
++   s_a_rs=1m
++   s_b_rs=1m
++   s_c_rs=1m
++   p_a_ll=1n
++   p_b_ll=1n
++   p_c_ll=1n
++   s_a_ll=1n
++   s_b_ll=1n
++   s_c_ll=1n
++   r_large=1e12
+  rparms_derived:
+  ebe name=p_a_r1 type=r p=p_a   n=p_a_1 r=p_a_rs
+  ebe name=p_a_l1 type=l p=p_a_1 n=p_a_2 l=p_a_ll
+  ebe name=s_a_r1 type=r p=s_a   n=s_a_1 r=s_a_rs
+  ebe name=s_a_l1 type=l p=s_a_1 n=s_a_2 l=s_a_ll
+  ebe type=r p=p_a_2 n=p_n0 r=r_large
+  ebe type=r p=s_a_2 n=s_b  r=r_large
+  ebe name=x_a type=xfmr_basic_1
++   p1=p_a_2
++   n1=p_n0
++   p2=s_a_2
++   n2=s_b
++   l1=p_a_l
++   l2=s_a_l
++   k=a_k
+  ebe name=p_b_r1 type=r p=p_b   n=p_b_1 r=p_b_rs
+  ebe name=p_b_l1 type=l p=p_b_1 n=p_b_2 l=p_b_ll
+  ebe name=s_b_r1 type=r p=s_b   n=s_b_1 r=s_b_rs
+  ebe name=s_b_l1 type=l p=s_b_1 n=s_b_2 l=s_b_ll
+  ebe type=r p=p_b_2 n=p_n0 r=r_large
+  ebe type=r p=s_b_2 n=s_c  r=r_large
+  ebe name=x_b type=xfmr_basic_1
++   p1=p_b_2
++   n1=p_n0
++   p2=s_b_2
++   n2=s_c
++   l1=p_b_l
++   l2=s_b_l
++   k=b_k
+  ebe name=p_c_r1 type=r p=p_c   n=p_c_1 r=p_c_rs
+  ebe name=p_c_l1 type=l p=p_c_1 n=p_c_2 l=p_c_ll
+  ebe name=s_c_r1 type=r p=s_c   n=s_c_1 r=s_c_rs
+  ebe name=s_c_l1 type=l p=s_c_1 n=s_c_2 l=s_c_ll
+  ebe type=r p=p_c_2 n=p_n0 r=r_large
+  ebe type=r p=s_c_2 n=s_a  r=r_large
+  ebe name=x_c type=xfmr_basic_1
++   p1=p_c_2
++   n1=p_n0
++   p2=s_c_2
++   n2=s_a
++   l1=p_c_l
++   l2=s_c_l
++   k=c_k
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level3_3ph_y_y group=xfmr_level3 allow_ac=no
+begin_dc
+  mainnodes:
++   p_a p_b p_c p_n0
++   s_a s_b s_c s_n0
+  auxnodes:
++   p_a_1 p_a_2
++   p_b_1 p_b_2
++   p_c_1 p_c_2
++   s_a_1 s_a_2
++   s_b_1 s_b_2
++   s_c_1 s_c_2
+  outvar:
++   i_p_a=cur(p)_of_p_a_r1
++   i_p_b=cur(p)_of_p_b_r1
++   i_p_c=cur(p)_of_p_c_r1
++   i_s_a=cur(p)_of_s_a_r1
++   i_s_b=cur(p)_of_s_b_r1
++   i_s_c=cur(p)_of_s_c_r1
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   p_a_l=1m
++   p_b_l=1m
++   p_c_l=1m
++   s_a_l=1m
++   s_b_l=1m
++   s_c_l=1m
++   a_k=1
++   b_k=1
++   c_k=1
++   p_a_rs=1m
++   p_b_rs=1m
++   p_c_rs=1m
++   s_a_rs=1m
++   s_b_rs=1m
++   s_c_rs=1m
++   p_a_ll=1n
++   p_b_ll=1n
++   p_c_ll=1n
++   s_a_ll=1n
++   s_b_ll=1n
++   s_c_ll=1n
++   r_large=1e12
+  rparms_derived:
+  ebe name=p_a_r1 type=r p=p_a   n=p_a_1 r=p_a_rs
+  ebe name=p_a_l1 type=l p=p_a_1 n=p_a_2 l=p_a_ll
+  ebe name=s_a_r1 type=r p=s_a   n=s_a_1 r=s_a_rs
+  ebe name=s_a_l1 type=l p=s_a_1 n=s_a_2 l=s_a_ll
+  ebe type=r p=p_a_2 n=p_n0 r=r_large
+  ebe type=r p=s_a_2 n=s_n0 r=r_large
+  ebe name=x_a type=xfmr_basic_1
++   p1=p_a_2
++   n1=p_n0
++   p2=s_a_2
++   n2=s_n0
++   l1=p_a_l
++   l2=s_a_l
++   k=a_k
+  ebe name=p_b_r1 type=r p=p_b   n=p_b_1 r=p_b_rs
+  ebe name=p_b_l1 type=l p=p_b_1 n=p_b_2 l=p_b_ll
+  ebe name=s_b_r1 type=r p=s_b   n=s_b_1 r=s_b_rs
+  ebe name=s_b_l1 type=l p=s_b_1 n=s_b_2 l=s_b_ll
+  ebe type=r p=p_b_2 n=p_n0 r=r_large
+  ebe type=r p=s_b_2 n=s_n0 r=r_large
+  ebe name=x_b type=xfmr_basic_1
++   p1=p_b_2
++   n1=p_n0
++   p2=s_b_2
++   n2=s_n0
++   l1=p_b_l
++   l2=s_b_l
++   k=b_k
+  ebe name=p_c_r1 type=r p=p_c   n=p_c_1 r=p_c_rs
+  ebe name=p_c_l1 type=l p=p_c_1 n=p_c_2 l=p_c_ll
+  ebe name=s_c_r1 type=r p=s_c   n=s_c_1 r=s_c_rs
+  ebe name=s_c_l1 type=l p=s_c_1 n=s_c_2 l=s_c_ll
+  ebe type=r p=p_c_2 n=p_n0 r=r_large
+  ebe type=r p=s_c_2 n=s_n0 r=r_large
+  ebe name=x_c type=xfmr_basic_1
++   p1=p_c_2
++   n1=p_n0
++   p2=s_c_2
++   n2=s_n0
++   l1=p_c_l
++   l2=s_c_l
++   k=c_k
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xfmr_level4_3ph_y_y group=xfmr_level4 allow_ac=no
+begin_dc
+  mainnodes: pa pb pc sa sb sc np ns n_mag
+  auxnodes:
++   pa1 pa2 pb1 pb2 pc1 pc2
++   sa1 sa2 sb1 sb2 sc1 sc2
++   mag_a mag_b mag_c mag_1
+  outvar:
++   ip_a=cur(p)_of_rpa
++   ip_b=cur(p)_of_rpb
++   ip_c=cur(p)_of_rpc
++   is_a=cur(p)_of_rsa
++   is_b=cur(p)_of_rsb
++   is_c=cur(p)_of_rsc
++   phi_a=phi_of_gfa
++   phi_b=phi_of_gfb
++   phi_c=phi_of_gfc
++   phi_d=v1_of_rd
++   h_a=v1_of_gfa
++   h_b=v1_of_gfb
++   h_c=v1_of_gfc
++   h_d=v1_of_rd
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   np0=1
++   ns0=0.58
++   rp=0.0036
++   rs=0.001206
++   ldp=0.1524m
++   lds=0.0511m
++   rfe=277
++   rd=1300
++   k1a=0.3333
++   k1b=1.4444
++   k1c=0.3333
++   k2a=0.0001
++   k2b=0.0002
++   k2c=0.0001
++   f0a=4
++   f0b=1
++   f0c=4
++   p0a=0.9
++   p0b=0.9
++   p0c=0.9
+  rparms_derived:
+  ebe name=rpa  type=r         p=pa  n=pa1 r=rp
+  ebe name=ldpa type=l         p=pa1 n=pa2 l=ldp
+  ebe name=rfea type=r         p=pa2 n=np  r=rfe
+  ebe name=epa  type=ccvs_ddt1 p=pa2 n=np  k=np0 ccvsbr=efa
+  ebe name=rpb  type=r         p=pb  n=pb1 r=rp
+  ebe name=ldpb type=l         p=pb1 n=pb2 l=ldp
+  ebe name=rfeb type=r         p=pb2 n=np  r=rfe
+  ebe name=epb  type=ccvs_ddt1 p=pb2 n=np  k=np0 ccvsbr=efb
+  ebe name=rpc  type=r         p=pc  n=pc1 r=rp
+  ebe name=ldpc type=l         p=pc1 n=pc2 l=ldp
+  ebe name=rfec type=r         p=pc2 n=np  r=rfe
+  ebe name=epc  type=ccvs_ddt1 p=pc2 n=np  k=np0 ccvsbr=efc
+  ebe name=rsa  type=r         p=sa  n=sa1 r=rs
+  ebe name=ldsa type=l         p=sa1 n=sa2 l=lds
+  ebe name=esa  type=ccvs_ddt1 p=sa2 n=ns  k=ns0 ccvsbr=efa
+  ebe name=rsb  type=r         p=sb  n=sb1 r=rs
+  ebe name=ldsb type=l         p=sb1 n=sb2 l=lds
+  ebe name=esb  type=ccvs_ddt1 p=sb2 n=ns  k=ns0 ccvsbr=efb
+  ebe name=rsc  type=r         p=sc  n=sc1 r=rs
+  ebe name=ldsc type=l         p=sc1 n=sc2 l=lds
+  ebe name=esc  type=ccvs_ddt1 p=sc2 n=ns  k=ns0 ccvsbr=efc
+  ebe name=efa type=ccvs_2   p=mag_a n=n_mag rm1=np0 rm2=ns0
++   ccvsbr1=epa ccvsbr2=esa
+  ebe name=gfa type=r_xfmr_1 p=mag_a n=mag_1
++   k1=k1a
++   k2=k2a
++   p0=p0a
++   f0=f0a
+  ebe name=efb type=ccvs_2   p=mag_b n=n_mag rm1=np0 rm2=ns0
++   ccvsbr1=epb ccvsbr2=esb
+  ebe name=gfb type=r_xfmr_1 p=mag_b n=mag_1
++   k1=k1b
++   k2=k2b
++   p0=p0b
++   f0=f0b
+  ebe name=efc type=ccvs_2   p=mag_c n=n_mag rm1=np0 rm2=ns0
++   ccvsbr1=epc ccvsbr2=esc
+  ebe name=gfc type=r_xfmr_1 p=mag_c n=mag_1
++   k1=k1c
++   k2=k2c
++   p0=p0c
++   f0=f0c
+  ebe name=rd type=r p=n_mag n=mag_1 r=rd
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=xor_2_dly group=gates allow_ac=no
+begin_dc
+  mainnodes: x1 x2 y
+  auxnodes: y1 ground
+  outvar:
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++    v_high=5.0
++    r_input=100M
++    r=1k
++    c=10p
+  rparms_derived:
+  ebe type=r p=x1 n=ground r=r_input
+  ebe type=r p=x2 n=ground r=r_input
+  ebe type=xor_2 p=y1 n=ground
++    node_x1=x1 node_x2=x2
++    v_high=v_high
+  ebe type=r p=y1 n=y      r=r
+  ebe type=c p=y  n=ground c=c
+  ebe type=ground_dummy_1 c=ground
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=z group=linear allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes: p1
+  outvar:
++   i1=cur(p)_of_r1
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms: v0sv=0 i0sv=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   r=1
++   x=1
++   f0=1
+  rparms_derived:
+  ebe name=r1 type=r p=p n=p1 r=r
+  ebe name=c1 type=c_z p=p1 n=n x=x f0=f0 k=1e6 v0sv=v0sv
+  ebe name=l1 type=l_z p=p1 n=n x=x f0=f0 k=1e6 i0sv=i0sv
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac: i1ac=cur(p)_of_r1
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=r1 type=r p=p  n=p1 r=r
+  ebe_ac name=x1 type=x p=p1 n=n  x=x
+end_ac
+endece

@@ -1,0 +1,3763 @@
+xce name=ab_to_dq group=transformations allow_ac=no
+begin_dc
+  main_vars: alpha beta c s d q
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=ab_to_dq
++   alpha=alpha beta=beta
++   c=c s=s d=d q=q
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=abc_to_alphabeta group=transformations allow_ac=no
+begin_dc
+  main_vars: a b c alpha beta
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=abc_to_alphabeta
++   a=a b=b c=c alpha=alpha beta=beta
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=abc_to_alphabeta_1 group=transformations allow_ac=no
+begin_dc
+  main_vars: a b c alpha beta
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=abc_to_alphabeta_1
++   a=a b=b c=c alpha=alpha beta=beta
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=abc_to_alphabeta_2 group=transformations allow_ac=no
+begin_dc
+  main_vars: a b c alpha beta
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=abc_to_alphabeta_2
++   a=a b=b c=c alpha=alpha beta=beta
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=abc_to_dq group=transformations allow_ac=no
+begin_dc
+  main_vars: van vbn vcn vqs vds
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=abc_to_dq
++   van=van vbn=vbn vcn=vcn vqs=vqs vds=vds
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=abc_to_dq_1 group=transformations allow_ac=no
+begin_dc
+  main_vars: a b c d q cost sint
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=abc_to_dq_1
++   a=a b=b c=c d=d q=q
++   cost=cost sint=sint
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=abc_to_dq_2 group=transformations allow_ac=no
+begin_dc
+  main_vars: a b c d q cost sint
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=abc_to_dq_2
++   a=a b=b c=c d=d q=q
++   cost=cost sint=sint
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=abc_to_theta group=transformations allow_ac=no
+begin_dc
+  main_vars: a b c alpha beta cost sint
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=abc_to_theta
++   a=a b=b c=c alpha=alpha beta=beta
++   cost=cost sint=sint
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=abc_to_zalphabeta group=transformations allow_ac=no
+begin_dc
+  main_vars: a b c alpha beta zero
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=abc_to_zalphabeta
++   a=a b=b c=c alpha=alpha beta=beta
++   zero=zero
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=abs group=math allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=abs x=x y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=and_2 group=gates allow_ac=no
+begin_dc
+  main_vars: x1 x2 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: x_high=1
+  rparms_derived:
+  stparms:
+  xbe type=and_2 x1=x1 x2=x2 y=y
++   x_high=x_high
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=average group=meters allow_ac=no
+begin_dc
+  main_vars: x_in x_out x_cntrl
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=average
++   x_in=x_in x_out=x_out x_cntrl=x_cntrl
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=average_mv group=meters allow_ac=no
+begin_dc
+  main_vars: x_in x_out x_cntrl
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms: n_samples=20
+  sparms:
+  rparms: delt=1
+  rparms_derived:
+  stparms:
+  xbe type=average_mv
++   x_in=x_in x_out=x_out x_cntrl=x_cntrl
++   n_samples=n_samples
++   delt=delt
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=bldc1 group=machines allow_ac=no
+begin_dc
+  main_vars: e0a e0b e0c va vb vc ia ib ic tl wm we
+  aux_vars: dia dib dic dwm tem
+  gvars:
+  outvar:
++   tem=xvar_of_tem
+  bias:
+  iparms:
++   poles=6
+  sparms:
+  rparms:
++   rs=0.98
++   ls=8.035m
++   j=21e-4
++   ke=0.5637
++   b_damp=0
+  rparms_derived:
+  stparms: wm0=0.1
+  xbe type=bldc1b
++   e0a=e0a e0b=e0b e0c=e0c
++   va=va vb=vb vc=vc
++   ia=ia ib=ib ic=ic
++   tl=tl wm=wm
++   dia=dia dib=dib dic=dic dwm=dwm
++   tem=tem we=we
++   poles=poles rs=rs ls=ls j=j ke=ke b_damp=b_damp
+  xbe name=indmc type=bldc1a
++   dia=dia dib=dib dic=dic dwm=dwm
++   ia=ia ib=ib ic=ic
++   wm=wm wm0=wm0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=bldc_clock_1 group=clocks allow_ac=no
+begin_dc
+  main_vars: theta g1t g1b g3t g3b g5t g5b
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=bldc_clock_1
++   theta=theta
++   g1t=g1t g1b=g1b
++   g3t=g3t g3b=g3b
++   g5t=g5t g5b=g5b
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=bldc_trz group=clocks allow_ac=no
+begin_dc
+  main_vars: theta e1 e2 e3
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=bldc_trz
++   theta=theta
++   e1=e1 e2=e2 e3=e3
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=ceil group=math allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=ceil x=x y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=clock group=clocks allow_ac=no
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms: i0=0
+  sparms:
+  rparms:
++   t1=1
++   t2=2
++   t0=0
++   x_high=1
++   dt1=0.01
++   dt2=0.01
+  rparms_derived:
+  stparms:
+  xbe type=clock y=y
++   i0=i0
++   t1=t1
++   t2=t2
++   t0=t0
++   x_high=x_high
++   dt1=dt1
++   dt2=dt2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=clock2 group=clocks allow_ac=no
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms: i0=0
+  sparms:
+  rparms:
++   t1=1
++   t2=2
++   alpha=0
++   x_high=1
++   dt1=0.01
++   dt2=0.01
+  rparms_derived:
+  stparms:
+  xbe type=clock2 y=y
++   i0=i0
++   t1=t1
++   t2=t2
++   alpha=alpha
++   indx1=1
++   x_high=x_high
++   dt1=dt1
++   dt2=dt2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=clock_1 group=clocks allow_ac=no
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   t0=0
++   x_high=1
++   dt1=0.01
++   dt2=0.01
++   frequency=10
++   duty_cycle=0.5
+  rparms_derived:
+  stparms:
+  xbe type=clock_1 y=y
++   frequency=frequency
++   duty_cycle=duty_cycle
++   t0=t0
++   x_high=x_high
++   dt1=dt1
++   dt2=dt2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=clock_3 group=clocks allow_ac=no
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms: indx=1
+  sparms:
+  rparms:
++   tperiod=0.02
++   x_high=1.0
++   dt1=0.01
++   dt2=0.01
++   alpha=10
++   beta=0
+  rparms_derived:
+  stparms:
+  xbe type=clock_3 y=y
++   tperiod=tperiod
++   x_high=x_high
++   dt1=dt1
++   dt2=dt2
++   alpha=alpha
++   beta=beta
++   indx=indx
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=clock_gnrl group=clocks allow_ac=no
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   t1=1
++   t2=2
++   t3=3
++   t4=4
++   v1=1
++   v2=2
++   v3=3
++   v4=4
++   tperiod=5
++   epsl=0
+  rparms_derived:
+  stparms:
+  xbe type=clock_gnrl y=y
++   t1=t1
++   t2=t2
++   t3=t3
++   t4=t4
++   v1=v1
++   v2=v2
++   v3=v3
++   v4=v4
++   tperiod=tperiod
++   epsl=epsl
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=clock_pwl20 group=clocks allow_ac=no
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms: n=2
+  sparms:
+  rparms:
++   t1=0    v1=1    t2=2    v2=2
++   t3=3    v3=3    t4=4    v4=4
++   t5=5    v5=5    t6=6    v6=6
++   t7=7    v7=7    t8=8    v8=8
++   t9=9    v9=9    t10=10  v10=10
++   t11=11  v11=11  t12=12  v12=12
++   t13=13  v13=13  t14=14  v14=14
++   t15=15  v15=15  t16=16  v16=16
++   t17=17  v17=17  t18=18  v18=18
++   t19=19  v19=19  t20=20  v20=20
+  rparms_derived:
+  stparms:
+  xbe type=clock_pwl20 y=y n=n
++   t1=t1 t2=t2 t3=t3 t4=t4 t5=t5
++   t6=t6 t7=t7 t8=t8 t9=t9 t10=t10
++   t11=t11 t12=t12 t13=t13 t14=t14 t15=t15
++   t16=t16 t17=t17 t18=t18 t19=t19 t20=t20
++   v1=v1 v2=v2 v3=v3 v4=v4 v5=v5
++   v6=v6 v7=v7 v8=v8 v9=v9 v10=v10
++   v11=v11 v12=v12 v13=v13 v14=v14 v15=v15
++   v16=v16 v17=v17 v18=v18 v19=v19 v20=v20
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=clock_trz group=clocks allow_ac=no
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   frequency=100
++   theta=30
++   theta_delay=0
++   x_high=1
+  rparms_derived:
+  stparms:
+  xbe type=clock_trz y=y
++   frequency=frequency
++   theta=theta
++   theta_delay=theta_delay
++   x_high=x_high
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=cmprtr group=comparators allow_ac=no
+begin_dc
+  main_vars: x1 x2 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   x_low=0
++   x_high=1
+  rparms_derived:
+  stparms:
+  xbe type=cmprtr x1=x1 x2=x2 y=y
++   x_low=x_low
++   x_high=x_high
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=cmprtr_1 group=comparators allow_ac=no
+begin_dc
+  main_vars: x1 x2 y
+  aux_vars: x
+  gvars:
+  outvar:
+  bias:
+  iparms: flag_inverting=0
+  sparms:
+  rparms:
++   x_low=0
++   x_high=1
++   x0=0
++   delt_min=1.0e-6
++   delt_nrml=1.0e-3
+  rparms_derived:
+  stparms:
+  xbe type=diff_2 x1=x1 x2=x2 y=x
+  xbe type=cmprtr_2 x=x y=y
++   x_low=x_low
++   x_high=x_high
++   x0=x0
++   delt_min=delt_min
++   delt_nrml=delt_nrml
++   flag_inverting=flag_inverting
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=cmprtr_1a group=comparators allow_ac=no
+begin_dc
+  main_vars: x1 x2 y1 y2
+  aux_vars: x
+  gvars:
+  outvar:
+  bias:
+  iparms: flag_inverting=0
+  sparms:
+  rparms:
++   x_low=0
++   x_high=1
++   x0=0
++   delt_min=1.0e-6
++   delt_nrml=1.0e-3
+  rparms_derived:
+  stparms:
+  xbe type=diff_2 x1=x1 x2=x2 y=x
+  xbe type=cmprtr_1b x=x y1=y1 y2=y2
++   x_low=x_low
++   x_high=x_high
++   x0=x0
++   delt_min=delt_min
++   delt_nrml=delt_nrml
++   flag_inverting=flag_inverting
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=cmprtr_hyst_1 group=comparators allow_ac=no
+begin_dc
+  main_vars: x1 x2 y
+  aux_vars: x
+  gvars:
+  outvar:
+  bias:
+  iparms: flag_inverting=0
+  sparms:
+  rparms:
++   x_low=0
++   x_high=1
++   delt_min=1.0e-6
++   delt_nrml=1.0e-3
++   h=0.1
++   x0=0
+  rparms_derived:
+  stparms:
+  xbe type=diff_2 x1=x1 x2=x2 y=x
+  xbe type=cmprtr_hyst_1a x=x y=y
++   x_low=x_low
++   x_high=x_high
++   delt_min=delt_min
++   delt_nrml=delt_nrml
++   h=h
++   x0=x0
++   flag_inverting=flag_inverting
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=cmprtr_hyst_3 group=comparators allow_ac=no
+begin_dc
+  main_vars: x1 x2 y
+  aux_vars: x y1 y2
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   x_low=0
++   x_high=1
++   delt_min=1.0e-6
++   delt_nrml=1.0e-3
++   h=0.1
+  rparms_derived:
+  stparms:
+  xbe type=diff_2 x1=x1 x2=x2 y=x
+  xbe type=cmprtr_hyst_2b x=x y=y1
++   h=h
++   flag_x0=1
++   x_low=0
++   x_high=x_high
++   delt_min=delt_min
++   delt_nrml=delt_nrml
+  xbe type=cmprtr_hyst_2b x=x y=y2
++   h=h
++   flag_x0=0
++   x_low=x_low
++   x_high=0
++   delt_min=delt_min
++   delt_nrml=delt_nrml
+  xbe type=sum_2 x1=y1 x2=y2 y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=connector_x allow_ac=no
+begin_dc
+  main_vars: c
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=const group=sources allow_ac=no
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: k=0 k_scale=1
+#display: k
+  rparms_derived:
+  stparms:
+  xbe type=const y=y k=k k_scale=k_scale
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=const_pi_1 group=sources allow_ac=no
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: a1=1 a2=1
+  rparms_derived:
+  stparms:
+  xbe type=const_pi_1 y=y a1=a1 a2=a2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=cosine group=math allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=cosine x=x y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=d_filter_z0_p1 group=digital_filters allow_ac=yes
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   delt_sample=10
++   offs_sample=0
++   a0=1.0
++   b0=1.0
++   b1=1.0
+  rparms_derived:
+  stparms:
+  xbe type=d_filter_z0_p1 x=x y=y
++   delt_sample=delt_sample
++   offs_sample=offs_sample
++   a0=a0
++   b0=b0
++   b1=b1
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  xbe_ac type=d_filter_z0_p1 x=x y=y
++   delt_sample=delt_sample
++   a0=a0
++   b0=b0
++   b1=b1
+end_ac
+endxce
+xce name=d_filter_z0_p2 group=digital_filters allow_ac=yes
+begin_dc
+  main_vars: x y
+  aux_vars: y_1 y_2
+  gvars:
+  outvar:
++   y_1=xvar_of_y_1
++   y_2=xvar_of_y_2
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   delt_sample=10
++   offs_sample=0
++   a0=1.0
++   b0=1.0
++   b1=1.0
++   b2=1.0
+  rparms_derived:
+  stparms:
+  xbe type=d_filter_z1 x=y y=y_1
++     delt_sample=delt_sample
++     offs_sample=offs_sample
+  xbe type=d_filter_z1 x=y_1 y=y_2
++     delt_sample=delt_sample
++     offs_sample=offs_sample
+  xbe type=d_filter_z0_p2 x=x y=y y_1=y_1 y_2=y_2
++     a0=a0 b0=b0 b1=b1 b2=b2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  xbe_ac type=d_filter_z0_p2 x=x y=y
++   delt_sample=delt_sample
++   a0=a0
++   b0=b0
++   b1=b1
++   b2=b2
+end_ac
+endxce
+xce name=d_filter_z1 group=digital_filters allow_ac=yes
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   delt_sample=10
++   offs_sample=0
+  rparms_derived:
+  stparms:
+  xbe type=d_filter_z1
++   x=x y=y
++   delt_sample=delt_sample
++   offs_sample=offs_sample
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  xbe_ac type=d_filter_z1 x=x y=y
++   delt_sample=delt_sample
+end_ac
+endxce
+xce name=d_filter_z1_p1 group=digital_filters allow_ac=yes
+begin_dc
+  main_vars: x y
+  aux_vars: x_1 y_1
+  gvars:
+  outvar:
++   x_1=xvar_of_x_1
++   y_1=xvar_of_y_1
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   delt_sample=10
++   offs_sample=0
++   a0=1.0
++   a1=1.0
++   b0=1.0
++   b1=1.0
+  rparms_derived:
+  stparms:
+  xbe type=d_filter_z1 x=y y=y_1
++     delt_sample=delt_sample
++     offs_sample=offs_sample
+  xbe type=d_filter_z1 x=x y=x_1
++     delt_sample=delt_sample
++     offs_sample=offs_sample
+  xbe type=d_filter_z1_p1 x=x y=y x_1=x_1 y_1=y_1
++     a0=a0 a1=a1 b0=b0 b1=b1
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  xbe_ac type=d_filter_z1_p1 x=x y=y
++   delt_sample=delt_sample
++   a0=a0
++   a1=a1
++   b0=b0
++   b1=b1
+end_ac
+endxce
+xce name=d_filter_z2_p2 group=digital_filters allow_ac=yes
+begin_dc
+  main_vars: x y
+  aux_vars: x_1 x_2 y_1 y_2
+  gvars:
+  outvar:
++   x_1=xvar_of_x_1
++   x_2=xvar_of_x_2
++   y_1=xvar_of_y_1
++   y_2=xvar_of_y_2
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   delt_sample=10
++   offs_sample=0
++   a0=1.0
++   a1=1.0
++   a2=1.0
++   b0=1.0
++   b1=1.0
++   b2=1.0
+  rparms_derived:
+  stparms:
+  xbe type=d_filter_z1 x=y y=y_1
++     delt_sample=delt_sample
++     offs_sample=offs_sample
+  xbe type=d_filter_z1 x=y_1 y=y_2
++     delt_sample=delt_sample
++     offs_sample=offs_sample
+  xbe type=d_filter_z1 x=x y=x_1
++     delt_sample=delt_sample
++     offs_sample=offs_sample
+  xbe type=d_filter_z1 x=x_1 y=x_2
++     delt_sample=delt_sample
++     offs_sample=offs_sample
+  xbe type=d_filter_z2_p2
++     x=x y=y
++     x_1=x_1 x_2=x_2
++     y_1=y_1 y_2=y_2
++     a0=a0 a1=a1 a2=a2
++     b0=b0 b1=b1 b2=b2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  xbe_ac type=d_filter_z2_p2 x=x y=y
++   delt_sample=delt_sample
++   a0=a0
++   a1=a1
++   a2=a2
++   b0=b0
++   b1=b1
++   b2=b2
+end_ac
+endxce
+xce name=deg_to_rad group=math allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=deg_to_rad x=x y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=delay_2 group=math allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: t_delay=1
+  rparms_derived:
+  stparms: y0=0
+  xbe type=delay_2 x=x y=y t_delay=t_delay y0=y0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=diff_2 group=math allow_ac=yes
+begin_dc
+  main_vars: x1 x2 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   k1=1
++   k2=1
+  rparms_derived:
+  stparms:
+  xbe type=diff_2 x1=x1 x2=x2 y=y
++   k1=k1 k2=k2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  xbe_ac type=diff_2 x1=x1 x2=x2 y=y k1=k1 k2=k2
+end_ac
+endxce
+xce name=div_2 group=math allow_ac=no
+begin_dc
+  main_vars: x1 x2 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=div_2 x1=x1 x2=x2 y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=divscl group=math allow_ac=yes
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: k=1
+  rparms_derived:
+  stparms:
+  xbe type=divscl x=x y=y k=k
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  xbe_ac type=divscl x=x y=y k=k
+end_ac
+endxce
+xce name=dq_to_ab group=transformations allow_ac=no
+begin_dc
+  main_vars: alpha beta c s d q
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=dq_to_ab
++   alpha=alpha beta=beta
++   c=c s=s d=d q=q
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=dq_to_abc group=transformations allow_ac=no
+begin_dc
+  main_vars: cost sint d q a b c
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=dq_to_abc
++   cost=cost sint=sint d=d q=q a=a b=b c=c
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=dq_to_abc_1 group=transformations allow_ac=no
+begin_dc
+  main_vars: a b c q d
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=dq_to_abc_1
++   a=a b=b c=c
++   q=q d=d
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=e_c group=elec_linear allow_ac=no
+begin_dc
+  main_vars: p n
+  aux_vars:
+  gvars:
+  outvar:
++   v1=v1_of_c1
++   i1=i1_of_c1
+  bias:
+  iparms:
+  sparms:
+  rparms: c=1
+#display: c
+  rparms_derived:
+  stparms:
+  xbe name=c1 type=e_c p=p n=n c=c
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=e_diode_r group=elec_switches allow_ac=no
+begin_dc
+  main_vars: p n
+  aux_vars:
+  gvars:
+  outvar:
++   v1=v1_of_d1
++   i1=i1_of_d1
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   r_on=1e-3
++   r_off=1e6
++   v_on=0
+  rparms_derived:
+  stparms:
+  xbe name=d1 type=e_diode_r p=p n=n
++   r_on=r_on
++   r_off=r_off
++   v_on=v_on
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=e_ground allow_ac=no
+begin_dc
+  main_vars: e_ground
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=e_ground_dummy allow_ac=no
+begin_dc
+  main_vars: c
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=e_l group=elec_linear allow_ac=no
+begin_dc
+  main_vars: p n
+  aux_vars:
+  gvars:
+  outvar:
++   v1=v1_of_l1
++   i1=i1_of_l1
+  bias:
+  iparms:
+  sparms:
+  rparms: l=1
+  rparms_derived:
+  stparms:
+  xbe name=l1 type=e_l p=p n=n l=l
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=e_r group=elec_linear allow_ac=no
+begin_dc
+  main_vars: p n
+  aux_vars:
+  gvars:
+  outvar:
++   v1=v1_of_r1
++   i1=i1_of_r1
+  bias:
+  iparms:
+  sparms:
+  rparms: r=1
+#display: r
+  rparms_derived:
+  stparms:
+  xbe name=r1 type=e_r p=p n=n r=r
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=e_thyristor group=elec_switches allow_ac=no
+begin_dc
+  main_vars: anode cathode gate
+  aux_vars:
+  gvars:
+  outvar:
++   v1=v1_of_t1
++   i1=i1_of_t1
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   r_on=1e-3
++   r_off=1e6
++   x_high=1
+  rparms_derived:
+  stparms:
+  xbe name=t1 type=e_thyristor
++   anode=anode cathode=cathode gate=gate
++   r_on=r_on
++   r_off=r_off
++   x_high=x_high
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=e_voltmeter_fb group=elec_meters allow_ac=no
+begin_dc
+  main_vars: p n v_fb
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe name=vm1 type=e_voltmeter_fb p=p n=n v_fb=v_fb
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=e_vpulse group=elec_sources allow_ac=no
+begin_dc
+  main_vars: p n
+  aux_vars:
+  gvars:
+  outvar:
++   v1=v1_of_vs0
++   i1=i1_of_vs0
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   v_1=0
++   v_2=0
++   t_1=0
++   t_2=0
++   delt_1=0
++   delt_2=0
+  rparms_derived:
+  stparms:
+  xbe name=vs0 type=e_vpulse p=p n=n
++   v_1=v_1
++   v_2=v_2
++   t_1=t_1
++   t_2=t_2
++   delt_1=delt_1
++   delt_2=delt_2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=e_vsrcac group=elec_sources allow_ac=no
+begin_dc
+  main_vars: p n
+  aux_vars:
+  gvars:
+  outvar:
++   v1=v1_of_vs0
++   i1=i1_of_vs0
+  bias:
+  iparms:
+  sparms:
+  rparms: a=1 f_hz=1 phi=0 t0=0 vdc=0
+  rparms_derived:
+  stparms:
+  xbe name=vs0 type=e_vsrcac p=p n=n
++   a=a f_hz=f_hz phi=phi t0=t0 vdc=vdc
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=e_vsrcdc group=elec_sources allow_ac=no
+begin_dc
+  main_vars: p n
+  aux_vars:
+  gvars:
+  outvar:
++   v1=v1_of_vs0
++   i1=i1_of_vs0
+  bias:
+  iparms:
+  sparms:
+  rparms: vdc=1
+  rparms_derived:
+  stparms:
+  xbe name=vs0 type=e_vsrcdc p=p n=n vdc=vdc
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=filter_1 group=filters allow_ac=yes
+begin_dc
+  main_vars: x y
+  aux_vars: y1 y2 y3 y4 y5
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   a0=1
++   a1=0
++   a2=0
++   a3=0
++   a4=0
++   a5=0
++   b0=1
++   b1=0
++   b2=0
++   b3=0
++   b4=0
++   b5=0
+  rparms_derived:
+  stparms:
+  xbe type=filter_1 x=x y=y1 index=1
+  xbe type=filter_1 x=x y=y2 index=2
+  xbe type=filter_1 x=x y=y3 index=3
+  xbe type=filter_1 x=x y=y4 index=4
+  xbe type=filter_1 x=x y=y5 index=5
+  xbe type=sum_filter_1
++   x1=y1 x2=y2 x3=y3 x4=y4 x5=y5 y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  xbe_ac type=filter_1 x=x y=y
++    a0=a0 a1=a1 a2=a2 a3=a3 a4=a4 a5=a5
++    b0=b0 b1=b1 b2=b2 b3=b3 b4=b4 b5=b5
+end_ac
+endxce
+xce name=filter_z0_p1 group=filters allow_ac=yes
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
++   flag_asympt=0
+  sparms:
+  rparms:
++   a0=1
++   b0=1
++   b1=1
++   f0=0.159155
+  rparms_derived:
+  stparms:
++   y_sv=0
+  xbe type=filter_z0_p1 x=x y=y
++   a0=a0
++   b0=b0
++   b1=b1
++   f0=f0
++   y_sv=y_sv
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  xbe_ac type=filter_z0_p1 x=x y=y
++   a0=a0
++   b0=b0 b1=b1
++   f0=f0
++   flag_asympt=flag_asympt
+end_ac
+endxce
+xce name=filter_z1_p1 group=filters allow_ac=yes
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
++   flag_asympt=0
+  sparms:
+  rparms:
++   a0=1
++   a1=1
++   b0=1
++   b1=1
++   f0=0.159155
+  rparms_derived:
+  stparms:
++   x_sv=0
++   y_sv=0
+  xbe type=filter_z1_p1 x=x y=y
++   a0=a0
++   a1=a1
++   b0=b0
++   b1=b1
++   f0=f0
++   x_sv=x_sv
++   y_sv=y_sv
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  xbe_ac type=filter_z1_p1 x=x y=y
++   a0=a0
++   a1=a1
++   b0=b0
++   b1=b1
++   f0=f0
++   flag_asympt=flag_asympt
+end_ac
+endxce
+xce name=floor group=math allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=floor x=x y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=gtox group=others allow_ac=no
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars: g
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: k=1
+  rparms_derived:
+  stparms:
+  xbe type=gtox y=y k=k g=g
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=indmc1 group=machines allow_ac=no
+begin_dc
+  main_vars: vqs vds wrm tl
+  aux_vars:
+  gvars:
+  outvar:
++   tem=tem_of_indmc
++   ia=ia_of_indmc
++   ib=ib_of_indmc
++   ic=ic_of_indmc
+  bias:
+  iparms:
++   poles=4
+  sparms:
+  rparms:
++   rs=0.435
++   lls=0.002
++   lm=0.0693
++   llr=0.002
++   rr=0.816
++   j=0.089
++   ia=0
++   ib=0
++   ic=0
+  rparms_derived:
+  stparms:
++   psids0=0
++   psiqs0=0
++   psidr0=0
++   psiqr0=0
++   wrm0=0
+  xbe name=indmc type=indmc1
++   vqs=vqs vds=vds wrm=wrm tl=tl
++   poles=poles
++   rs=rs lls=lls lm=lm llr=llr rr=rr j=j
++   psids0=psids0 psiqs0=psiqs0 psidr0=psidr0 psiqr0=psiqr0
++   wrm0=wrm0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=indmc2 group=machines allow_ac=no
+begin_dc
+  main_vars: va vb vc wrm tl
+  aux_vars: vqs vds
+  gvars:
+  outvar:
++   tem=tem_of_indmc
++   ia=ia_of_indmc
++   ib=ib_of_indmc
++   ic=ic_of_indmc
+  bias:
+  iparms:
++   poles=4
+  sparms:
+  rparms:
++   rs=0.435
++   lls=0.002
++   lm=0.0693
++   llr=0.002
++   rr=0.816
++   j=0.089
++   ia=0
++   ib=0
++   ic=0
+  rparms_derived:
+  stparms:
++   psids0=0
++   psiqs0=0
++   psidr0=0
++   psiqr0=0
++   wrm0=0
+  xbe type=abc_to_dq
++   van=va vbn=vb vcn=vc
++   vds=vds vqs=vqs
+  xbe name=indmc type=indmc1
++   vqs=vqs vds=vds wrm=wrm tl=tl
++   poles=poles
++   rs=rs lls=lls lm=lm llr=llr rr=rr j=j
++   psids0=psids0 psiqs0=psiqs0 psidr0=psidr0 psiqr0=psiqr0
++   wrm0=wrm0
++   ia=ia ib=ib ic=ic
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=indmc4 group=machines allow_ac=no
+begin_dc
+  main_vars: va vb vc wrm tl ia ib ic
+  aux_vars: vqs vds
++   psids psiqs psidr psiqr
+  gvars:
+  outvar:
++   tem=tem_of_indmc
+  bias:
+  iparms:
++   poles=4
+  sparms:
+  rparms:
++   rs=0.435
++   lls=0.002
++   lm=0.0693
++   llr=0.002
++   rr=0.816
++   j=0.089
+  rparms_derived:
+  stparms:
++   psids0=0
++   psiqs0=0
++   psidr0=0
++   psiqr0=0
++   wrm0=0
+  xbe type=abc_to_dq
++   van=va vbn=vb vcn=vc
++   vds=vds vqs=vqs
+  xbe name=indmc type=indmc2a
++   vqs=vqs vds=vds wrm=wrm tl=tl
++   poles=poles
++   rs=rs lls=lls lm=lm llr=llr rr=rr j=j
++   psids=psids psiqs=psiqs psidr=psidr psiqr=psiqr
++   psids0=psids0 psiqs0=psiqs0 psidr0=psidr0 psiqr0=psiqr0
++   wrm0=wrm0
+  xbe type=indmc2b
++   psids=psids psidr=psidr psiqs=psiqs psiqr=psiqr
++   ia=ia ib=ib ic=ic
++   lls=lls lm=lm llr=llr
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=int_nearest group=math allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=int_nearest x=x y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=intgrtr group=math allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: k=1
+  rparms_derived:
+  stparms: y0=0
+  xbe type=intgrtr x=x y=y k=k y0=y0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=intgrtr_2b group=math allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars: y1
+  gvars:
+  outvar: y1=xvar_of_y1
+  bias:
+  iparms:
+  sparms:
+  rparms: k=1
+  rparms_derived:
+  stparms: y_0=0 y1_0=0
+  xbe type=intgrtr x=x  y=y1 k=k y0=y1_0
+  xbe type=intgrtr x=y1 y=y  k=1 y0=y_0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=intgrtr_reset group=math allow_ac=no
+begin_dc
+  main_vars: x y r
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   k1=1
++   x_high=1
++   k0=0
+  rparms_derived:
+  stparms: y_ig=0
+  xbe type=intgrtr_reset x=x y=y r=r y_ig=y_ig
++     k1=k1 x_high=x_high
++     k0=k0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=inv_clock_6_1 group=clocks allow_ac=no
+begin_dc
+  main_vars:
++   a b c ref
++   g1 g2 g3 g4 g5 g6
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   t_delay=2.0u
++   x_high=1
++   delt_min=0.02u
++   delt_nrml=2.0u
+  rparms_derived:
+  stparms:
+  callxce switch_pair_1
++   x1=a x2=ref y1=g1 y2=g4
++   t_delay=t_delay
++   x_high=x_high
++   delt_min=delt_min
++   delt_nrml=delt_nrml
+  callxce switch_pair_1
++   x1=b x2=ref y1=g3 y2=g6
++   t_delay=t_delay
++   x_high=x_high
++   delt_min=delt_min
++   delt_nrml=delt_nrml
+  callxce switch_pair_1
++   x1=c x2=ref y1=g5 y2=g2
++   t_delay=t_delay
++   x_high=x_high
++   delt_min=delt_min
++   delt_nrml=delt_nrml
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=lag_1 group=math allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: tr=1
+  rparms_derived:
+  stparms: y0=0
+  xbe type=lag_1 x=x y=y tr=tr y0=y0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=line_to_phase group=transformations allow_ac=no
+begin_dc
+  main_vars: vab vbc vca van vbn vcn
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=line_to_phase
++   vab=vab vbc=vbc vca=vca
++   van=van vbn=vbn vcn=vcn
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=linear_1 group=math allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   a1=1
++   a2=1
++   b1=1
++   b2=1
++   c1=0
++   c2=1
+  rparms_derived:
+  stparms:
+  xbe type=linear_1 x=x y=y
++   a1=a1 a2=a2 b1=b1 b2=b2 c1=c1 c2=c2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=lmtr group=control allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: xmin=-1 xmax=1
+  rparms_derived:
+  stparms:
+  xbe type=lmtr x=x y=y xmin=xmin xmax=xmax
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=lut_file_1_to_3 group=look_up_table allow_ac=no
+begin_dc
+  main_vars: x y1 y2 y3
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms: file_name=none
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=lut_file_1_to_3
++   x=x y1=y1 y2=y2 y3=y3
++   file_name=file_name
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=max_2 group=control allow_ac=no
+begin_dc
+  main_vars: x1 x2 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=max_2 x1=x1 x2=x2 y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=max_3 group=control allow_ac=no
+begin_dc
+  main_vars: x1 x2 x3 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=max_3 x1=x1 x2=x2 x3=x3 y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=max_4 group=control allow_ac=no
+begin_dc
+  main_vars: x1 x2 x3 x4 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=max_4 x1=x1 x2=x2 x3=x3 x4=x4 y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=min_2 group=control allow_ac=no
+begin_dc
+  main_vars: x1 x2 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=min_2 x1=x1 x2=x2 y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=min_3 group=control allow_ac=no
+begin_dc
+  main_vars: x1 x2 x3 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=min_3 x1=x1 x2=x2 x3=x3 y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=min_4 group=control allow_ac=no
+begin_dc
+  main_vars: x1 x2 x3 x4 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=min_4 x1=x1 x2=x2 x3=x3 x4=x4 y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=modulo_twopi group=math allow_ac=no
+begin_dc
+  main_vars: x
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=modulo_twopi x=x
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=mult_2 group=math allow_ac=no
+begin_dc
+  main_vars: x1 x2 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: k=1
+  rparms_derived:
+  stparms:
+  xbe type=mult_2 x1=x1 x2=x2 y=y k=k
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=mult_2a group=math allow_ac=no
+begin_dc
+  main_vars: x1 x2 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: a1=1 a2=1
+  rparms_derived:
+  stparms:
+  xbe type=mult_2a x1=x1 x2=x2 y=y a1=a1 a2=a2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=mult_3a group=math allow_ac=no
+begin_dc
+  main_vars: x1 x2 x3 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: a1=1 a2=1
+  rparms_derived:
+  stparms:
+  xbe type=mult_3a x1=x1 x2=x2 x3=x3 y=y a1=a1 a2=a2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=multscl group=math allow_ac=yes
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: k=1
+  rparms_derived:
+  stparms:
+  xbe type=multscl x=x y=y k=k
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  xbe_ac type=multscl x=x y=y k=k
+end_ac
+endxce
+xce name=mux group=control allow_ac=no
+begin_dc
+  main_vars: x1 x2 y c
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: c0=0.5
+  rparms_derived:
+  stparms:
+  xbe type=mux x1=x1 x2=x2 y=y c=c c0=c0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=nand_2 group=gates allow_ac=no
+begin_dc
+  main_vars: x1 x2 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: x_high=1
+  rparms_derived:
+  stparms:
+  xbe type=nand_2 x1=x1 x2=x2 y=y
++   x_high=x_high
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=nor_2 group=gates allow_ac=no
+begin_dc
+  main_vars: x1 x2 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: x_high=1
+  rparms_derived:
+  stparms:
+  xbe type=nor_2 x1=x1 x2=x2 y=y
++   x_high=x_high
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=not group=gates allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: x_high=1
+  rparms_derived:
+  stparms:
+  xbe type=not x=x y=y
++   x_high=x_high
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=or_2 group=gates allow_ac=no
+begin_dc
+  main_vars: x1 x2 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: x_high=1
+  rparms_derived:
+  stparms:
+  xbe type=or_2 x1=x1 x2=x2 y=y
++   x_high=x_high
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=picntrl group=control allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars: y1 y2 y3
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: kp=1 ki=0
+  rparms_derived:
+  stparms: y20=0
+  xbe type=multscl x=x y=y1 k=kp
+  xbe type=intgrtr x=x y=y2 k=1 y0=y20
+  xbe type=multscl x=y2 y=y3 k=ki
+  xbe type=sum_2 x1=y1 x2=y3 y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=picntrl_lmt_1 group=control allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars: y1 y2 y3 y3_lmt y_prime
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: kp=1 ki=0 xmin=0 xmax=0
+  rparms_derived:
+  stparms: y20=0
+  xbe type=multscl x=x y=y1 k=kp
+  xbe type=intgrtr x=x y=y2 k=1 y0=y20
+  xbe type=multscl x=y2 y=y3 k=ki
+  xbe type=lmtr x=y3 y=y3_lmt xmin=xmin xmax=xmax
+  xbe type=sum_2 x1=y1 x2=y3_lmt y=y_prime
+  xbe type=lmtr x=y_prime y=y xmin=xmin xmax=xmax
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=picntrl_lmt_2 group=control allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars: y1 y2 y2_lmt y_prime
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   k=1
++   tau=1
++   xmin=-10
++   xmax=10
+  rparms_derived:
+  stparms: y20=0
+  xbe type=multscl  x=x       y=y1      k=k
+  xbe type=intgrtr2 x=x       y=y2      k=k tau=tau y0=y20
+  xbe type=lmtr     x=y2      y=y2_lmt  xmin=xmin xmax=xmax
+  xbe type=sum_2    x1=y1     x2=y2_lmt y=y_prime
+  xbe type=lmtr     x=y_prime y=y       xmin=xmin xmax=xmax
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=pstprc_div2 group=postprocessors postproc=yes allow_ac=yes
+begin_dc
+  main_vars: x1 x2 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=pstprc_div2 x1=x1 x2=x2 y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  xbe_ac type=pstprc_div2 x1=x1 x2=x2 y=y
+end_ac
+endxce
+xce name=pulse group=sources allow_ac=no
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   t1=1
++   t2=2
++   val1=0
++   val2=0
++   val3=0
++   delt1=0.1
++   delt2=0.1
+  rparms_derived:
+  stparms:
+  xbe type=pulse y=y
++   t1=t1 t2=t2 val1=val1 val2=val2 val3=val3
++   delt1=delt1 delt2=delt2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=pulse20 group=sources allow_ac=no
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms: i0=0 n1=2
+  sparms:
+  rparms:
++   t1 =1  t2 =2  t3 =3  t4 =4  t5 =5
++   t6 =6  t7 =7  t8 =8  t9 =9  t10=10
++   t11=11 t12=12 t13=13 t14=14 t15=15
++   t16=16 t17=17 t18=18 t19=19 t20=20
++   v_low=0 v_high=5 t_rise=10n t_fall=10n
+  rparms_derived:
+  stparms:
+  xbe type=pulse20 y=y
++   i0=i0 n1=n1
++   t1=t1 t2=t2 t3=t3 t4=t4 t5=t5
++   t6=t6 t7=t7 t8=t8 t9=t9 t10=t10
++   t11=t11 t12=t12 t13=t13 t14=t14 t15=t15
++   t16=t16 t17=t17 t18=t18 t19=t19 t20=t20
++   v_low=v_low v_high=v_high t_rise=t_rise t_fall=t_fall
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=pwl10_xy group=control allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms: n=2
+  sparms:
+  rparms:
++   x1=1 y1=1 x2=1 y2=1
++   x3=1 y3=1 x4=1 y4=1
++   x5=1 y5=1 x6=1 y6=1
++   x7=1 y7=1 x8=1 y8=1
++   x9=1 y9=1 x10=1 y10=1
+  rparms_derived:
+  stparms:
+  xbe type=pwl10_xy x=x y=y n=n
++   x1=x1 x2=x2 x3=x3 x4=x4 x5=x5
++   x6=x6 x7=x7 x8=x8 x9=x9 x10=x10
++   y1=y1 y2=y2 y3=y3 y4=y4 y5=y5
++   y6=y6 y7=y7 y8=y8 y9=y9 y10=y10
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=pwl20 group=sources allow_ac=no
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms: n=2
+  sparms:
+  rparms:
++   t1=1 v1=1 t2=2 v2=2
++   t3=3 v3=3 t4=4 v4=4
++   t5=5 v5=5 t6=6 v6=6
++   t7=7 v7=7 t8=8 v8=8
++   t9=9 v9=9 t10=10 v10=10
++   t11=11 v11=11 t12=12 v12=12
++   t13=13 v13=13 t14=14 v14=14
++   t15=15 v15=15 t16=16 v16=16
++   t17=17 v17=17 t18=18 v18=18
++   t19=19 v19=19 t20=20 v20=20
+  rparms_derived:
+  stparms:
+  xbe type=pwl20 y=y n=n
++   t1=t1 t2=t2 t3=t3 t4=t4 t5=t5
++   t6=t6 t7=t7 t8=t8 t9=t9 t10=t10
++   t11=t11 t12=t12 t13=t13 t14=t14 t15=t15
++   t16=t16 t17=t17 t18=t18 t19=t19 t20=t20
++   v1=v1 v2=v2 v3=v3 v4=v4 v5=v5
++   v6=v6 v7=v7 v8=v8 v9=v9 v10=v10
++   v11=v11 v12=v12 v13=v13 v14=v14 v15=v15
++   v16=v16 v17=v17 v18=v18 v19=v19 v20=v20
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=pwl_file group=sources allow_ac=no
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms: file_name=none
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=pwl_file y=y file_name=file_name
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=pwm_1 group=control allow_ac=no
+begin_dc
+  main_vars:
++   va vb vc
++   g1 g2 g3 g4 g5 g6
+  aux_vars:
++   vref
++   va1
++   vb1
++   vc1
+  gvars:
+  outvar:
++   vref=xvar_of_vref
+  bias:
+  iparms: i0=0
+  sparms:
+  rparms:
++   tperiod=10u
++   t0=0
++   triangle_high=1
++   triangle_low=-1
++   epsl=1.0e-6
++   delt_min=1.0e-7
++   delt_nrml=1.0e-5
++   x_high=1
+  rparms_derived:
+  stparms:
+  xbe type=triangle_2 y=vref
++   tperiod=tperiod t0=t0
++   x_high=triangle_high x_low=triangle_low
++   epsl=epsl i0=1
+  xbe type=diff_2 x1=va x2=vref y=va1
+  xbe type=diff_2 x1=vb x2=vref y=vb1
+  xbe type=diff_2 x1=vc x2=vref y=vc1
+  xbe type=cmprtr_1b x=va1 y1=g1 y2=g4
++    x_low=0
++    x_high=x_high
++    x0=0
++    delt_min=delt_min
++    delt_nrml=delt_nrml
+  xbe type=cmprtr_1b x=vb1 y1=g3 y2=g6
++    x_low=0
++    x_high=x_high
++    x0=0
++    delt_min=delt_min
++    delt_nrml=delt_nrml
+  xbe type=cmprtr_1b x=vc1 y1=g5 y2=g2
++    x_low=0
++    x_high=x_high
++    x0=0
++    delt_min=delt_min
++    delt_nrml=delt_nrml
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=rad_to_deg group=math allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=rad_to_deg x=x y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=rms group=meters allow_ac=no
+begin_dc
+  main_vars: x_in x_out x_cntrl
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=rms
++   x_in=x_in x_out=x_out x_cntrl=x_cntrl
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=rms_3ph_1 group=meters allow_ac=no
+begin_dc
+  main_vars: a b c x_rms
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: delta=1e-6
+  rparms_derived:
+  stparms:
+  xbe type=rms_3ph_1
++   a=a b=b c=c x_rms=x_rms
++   delta=delta
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=rms_mv group=meters allow_ac=no
+begin_dc
+  main_vars: x_in x_out x_cntrl
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms: n_samples=20
+  sparms:
+  rparms: delt=1
+  rparms_derived:
+  stparms:
+  xbe type=rms_mv
++   x_in=x_in x_out=x_out x_cntrl=x_cntrl
++   n_samples=n_samples
++   delt=delt
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=sampler2 group=samplers allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   tperiod=10u
++   t0=0
++   v_previous=0
++   dt=1u
+  rparms_derived:
+  stparms:
++   y0=0
+  xbe type=sampler2 x=x y=y
++   tperiod=tperiod
++   t0=t0
++   v_previous=v_previous
++   dt=dt
++   y0=y0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=sampler3 group=samplers allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
++   n_delay=1
+  sparms:
+  rparms:
++   tperiod=10u
++   t0=0
++   dt=1u
+  rparms_derived:
+  stparms:
++   y0=0
+  xbe type=sampler3 x=x y=y
++   tperiod=tperiod
++   t0=t0
++   dt=dt
++   y0=y0
++   n_delay=n_delay
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=sine group=math allow_ac=no
+begin_dc
+  main_vars: x y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=sine x=x y=y
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=src_table_1 group=sources allow_ac=no
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms: file_name=none
+  rparms:
+  rparms_derived:
+  stparms:
+  xbe type=src_table_1 y=y file_name=file_name
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=srcac group=sources allow_ac=yes
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++  a=1
++  f_hz=1
++  phi=0
++  t0=0
++  dc=0
+  rparms_derived:
+  stparms:
+  xbe type=srcac y=y a=a f_hz=f_hz phi_deg=phi t0=t0 dc=dc
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  xbe_ac type=srcac a=a phi_deg=phi y=y
+end_ac
+endxce
+xce name=srcac_3ph group=sources allow_ac=yes
+begin_dc
+  main_vars: va vb vc
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++  a=1
++  f_hz=1
++  phi_a=0
++  phi_b=-120
++  phi_c=-240
++  t0=0
+  rparms_derived:
+  stparms:
+  xbe type=srcac y=va a=a f_hz=f_hz phi_deg=phi_a t0=t0 dc=0
+  xbe type=srcac y=vb a=a f_hz=f_hz phi_deg=phi_b t0=t0 dc=0
+  xbe type=srcac y=vc a=a f_hz=f_hz phi_deg=phi_c t0=t0 dc=0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  xbe_ac type=srcac a=a phi_deg=phi_a y=va
+  xbe_ac type=srcac a=a phi_deg=phi_b y=vb
+  xbe_ac type=srcac a=a phi_deg=phi_c y=vc
+end_ac
+endxce
+xce name=sum_2 group=math allow_ac=yes
+begin_dc
+  main_vars: x1 x2 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   k1=1
++   k2=1
+  rparms_derived:
+  stparms:
+  xbe type=sum_2 x1=x1 x2=x2 y=y
++   k1=k1 k2=k2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  xbe_ac type=sum_2 x1=x1 x2=x2 y=y k1=k1 k2=k2
+end_ac
+endxce
+xce name=sum_3 group=math allow_ac=yes
+begin_dc
+  main_vars: x1 x2 x3 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   k1=1
++   k2=1
++   k3=1
+  rparms_derived:
+  stparms:
+  xbe type=sum_3 x1=x1 x2=x2 x3=x3 y=y
++   k1=k1 k2=k2 k3=k3
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  xbe_ac type=sum_3 x1=x1 x2=x2 x3=x3 y=y
++   k1=k1 k2=k2 k3=k3
+end_ac
+endxce
+xce name=switch_pair_1 group=clocks allow_ac=no
+begin_dc
+  main_vars: x1 x2 y1 y2
+  aux_vars: xout1 xout2 vc1 vc2 v0 v0a x1a x2a
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   t_delay=1
++   x_high=1
++   delt_min=1.0e-6
++   delt_nrml=1.0e-3
+  rparms_derived:
+  stparms:
+  callxce cmprtr_1 x1=x1 x2=x2 y=xout1 x_low=0 x_high=x_high
++    delt_min=delt_min delt_nrml=delt_nrml x0=0 flag_inverting=0
+  callxce cmprtr_1 x1=x2 x2=x1 y=xout2 x_low=0 x_high=x_high
++    delt_min=delt_min delt_nrml=delt_nrml x0=0 flag_inverting=0
+  xbe type=delay_2 x=xout1 y=vc1 t_delay=t_delay
+  xbe type=delay_2 x=xout2 y=vc2 t_delay=t_delay
+  xbe type=const y=v0a k=x_high
+  xbe type=multscl x=v0a y=v0 k=0.5
+  callxce cmprtr_1 x1=v0 x2=vc1 y=x1a x_low=0 x_high=x_high
++    delt_min=delt_min delt_nrml=delt_nrml x0=0 flag_inverting=0
+  callxce cmprtr_1 x1=v0 x2=vc2 y=x2a x_low=0 x_high=x_high
++    delt_min=delt_min delt_nrml=delt_nrml x0=0 flag_inverting=0
+  xbe type=and_2 x1=x1a x2=xout2 y=y2 x_high=x_high
+  xbe type=and_2 x1=x2a x2=xout1 y=y1 x_high=x_high
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=triangle_1 group=sources allow_ac=no
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms: i0=0
+  sparms:
+  rparms:
++   t1=1
++   t2=1
++   t0=0
++   x_high=1.0
++   x_low=-1.0
++   epsl=1.0e-9
+  rparms_derived:
+  stparms:
+  xbe type=triangle_1 y=y
++   i0=i0
++   t1=t1
++   t2=t2
++   t0=t0
++   x_high=x_high
++   x_low=x_low
++   epsl=epsl
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=triangle_2 group=sources allow_ac=no
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms: i0=0
+  sparms:
+  rparms:
++   tperiod=1
++   t0=0
++   x_high=1.0
++   x_low=-1.0
++   epsl=1.0e-9
+  rparms_derived:
+stparms:
+  xbe type=triangle_2 y=y
++   i0=i0
++   tperiod=tperiod
++   t0=t0
++   x_high=x_high
++   x_low=x_low
++   epsl=epsl
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=triangle_3 group=sources allow_ac=no
+begin_dc
+  main_vars: y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms: i0=0
+  sparms:
+  rparms:
++   frequency=10
++   t0=0
++   x_high=1.0
++   x_low=-1.0
++   epsl=1.0e-9
+  rparms_derived:
+stparms:
+  xbe type=triangle_3 y=y
++   i0=i0
++   frequency=frequency
++   t0=t0
++   x_high=x_high
++   x_low=x_low
++   epsl=epsl
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=user_function_12_1 group=user_function allow_ac=no
+begin_dc
+  main_vars:
++   x1 x2 x3 x4 x5 x6
++   x7 x8 x9 x10 x11 x12
++   y1
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+  sparms:
+  rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+  rparms_derived:
+  stparms:
+  xbe type=user_function_12_1
++   x1=x1 x2=x2 x3=x3
++   x4=x4 x5=x5 x6=x6
++   x7=x7 x8=x8 x9=x9
++   x10=x10 x11=x11 x12=x12
++   y1=y1
++   index_function=index_function
++   iprm1=iprm1 iprm2=iprm2
++   rprm1=rprm1
++   rprm2=rprm2
++   rprm3=rprm3
++   rprm4=rprm4
++   rprm5=rprm5
++   rprm6=rprm6
++   rprm7=rprm7
++   rprm8=rprm8
++   rprm9=rprm9
++   rprm10=rprm10
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=user_function_12_12 group=user_function allow_ac=no
+begin_dc
+  main_vars:
++   x1 x2 x3 x4 x5 x6
++   x7 x8 x9 x10 x11 x12
++   y1 y2 y3 y4 y5 y6
++   y7 y8 y9 y10 y11 y12
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+  sparms:
+  rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+  rparms_derived:
+  stparms:
+  xbe type=user_function_12_12
++   x1=x1 x2=x2 x3=x3
++   x4=x4 x5=x5 x6=x6
++   x7=x7 x8=x8 x9=x9
++   x10=x10 x11=x11 x12=x12
++   y1=y1 y2=y2 y3=y3
++   y4=y4 y5=y5 y6=y6
++   y7=y7 y8=y8 y9=y9
++   y10=y10 y11=y11 y12=y12
++   index_function=index_function
++   iprm1=iprm1 iprm2=iprm2
++   rprm1=rprm1
++   rprm2=rprm2
++   rprm3=rprm3
++   rprm4=rprm4
++   rprm5=rprm5
++   rprm6=rprm6
++   rprm7=rprm7
++   rprm8=rprm8
++   rprm9=rprm9
++   rprm10=rprm10
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=user_function_1_1 group=user_function allow_ac=no
+begin_dc
+  main_vars: x1 y1
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+  sparms:
+  rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+  rparms_derived:
+  stparms:
+  xbe type=user_function_1_1 x1=x1 y1=y1
++   index_function=index_function
++   iprm1=iprm1 iprm2=iprm2
++   rprm1=rprm1
++   rprm2=rprm2
++   rprm3=rprm3
++   rprm4=rprm4
++   rprm5=rprm5
++   rprm6=rprm6
++   rprm7=rprm7
++   rprm8=rprm8
++   rprm9=rprm9
++   rprm10=rprm10
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=user_function_1_3 group=user_function allow_ac=no
+begin_dc
+  main_vars: x1 y1 y2 y3
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+  sparms:
+  rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+  rparms_derived:
+  stparms:
+  xbe type=user_function_1_3 x1=x1 y1=y1 y2=y2 y3=y3
++   index_function=index_function
++   iprm1=iprm1 iprm2=iprm2
++   rprm1=rprm1
++   rprm2=rprm2
++   rprm3=rprm3
++   rprm4=rprm4
++   rprm5=rprm5
++   rprm6=rprm6
++   rprm7=rprm7
++   rprm8=rprm8
++   rprm9=rprm9
++   rprm10=rprm10
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=user_function_2_1 group=user_function allow_ac=no
+begin_dc
+  main_vars: x1 x2 y1
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+  sparms:
+  rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+  rparms_derived:
+  stparms:
+  xbe type=user_function_2_1 x1=x1 x2=x2 y1=y1
++   index_function=index_function
++   iprm1=iprm1 iprm2=iprm2
++   rprm1=rprm1
++   rprm2=rprm2
++   rprm3=rprm3
++   rprm4=rprm4
++   rprm5=rprm5
++   rprm6=rprm6
++   rprm7=rprm7
++   rprm8=rprm8
++   rprm9=rprm9
++   rprm10=rprm10
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=user_function_2_2 group=user_function allow_ac=no
+begin_dc
+  main_vars: x1 x2 y1 y2
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+  sparms:
+  rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+  rparms_derived:
+  stparms:
+  xbe type=user_function_2_2 x1=x1 x2=x2 y1=y1 y2=y2
++   index_function=index_function
++   iprm1=iprm1 iprm2=iprm2
++   rprm1=rprm1
++   rprm2=rprm2
++   rprm3=rprm3
++   rprm4=rprm4
++   rprm5=rprm5
++   rprm6=rprm6
++   rprm7=rprm7
++   rprm8=rprm8
++   rprm9=rprm9
++   rprm10=rprm10
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=user_function_3_1 group=user_function allow_ac=no
+begin_dc
+  main_vars: x1 x2 x3 y1
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+  sparms:
+  rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+  rparms_derived:
+  stparms:
+  xbe type=user_function_3_1 x1=x1 x2=x2 x3=x3 y1=y1
++   index_function=index_function
++   iprm1=iprm1 iprm2=iprm2
++   rprm1=rprm1
++   rprm2=rprm2
++   rprm3=rprm3
++   rprm4=rprm4
++   rprm5=rprm5
++   rprm6=rprm6
++   rprm7=rprm7
++   rprm8=rprm8
++   rprm9=rprm9
++   rprm10=rprm10
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=user_function_3_2 group=user_function allow_ac=no
+begin_dc
+  main_vars: x1 x2 x3 y1 y2
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+  sparms:
+  rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+  rparms_derived:
+  stparms:
+  xbe type=user_function_3_2
++   x1=x1 x2=x2 x3=x3
++   y1=y1 y2=y2
++   index_function=index_function
++   iprm1=iprm1 iprm2=iprm2
++   rprm1=rprm1
++   rprm2=rprm2
++   rprm3=rprm3
++   rprm4=rprm4
++   rprm5=rprm5
++   rprm6=rprm6
++   rprm7=rprm7
++   rprm8=rprm8
++   rprm9=rprm9
++   rprm10=rprm10
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=user_function_3_3 group=user_function allow_ac=no
+begin_dc
+  main_vars: x1 x2 x3 y1 y2 y3
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+  sparms:
+  rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+  rparms_derived:
+  stparms:
+  xbe type=user_function_3_3
++   x1=x1 x2=x2 x3=x3
++   y1=y1 y2=y2 y3=y3
++   index_function=index_function
++   iprm1=iprm1 iprm2=iprm2
++   rprm1=rprm1
++   rprm2=rprm2
++   rprm3=rprm3
++   rprm4=rprm4
++   rprm5=rprm5
++   rprm6=rprm6
++   rprm7=rprm7
++   rprm8=rprm8
++   rprm9=rprm9
++   rprm10=rprm10
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=user_function_6_1 group=user_function allow_ac=no
+begin_dc
+  main_vars: x1 x2 x3 x4 x5 x6 y1
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+  sparms:
+  rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+  rparms_derived:
+  stparms:
+  xbe type=user_function_6_1
++   x1=x1 x2=x2 x3=x3
++   x4=x4 x5=x5 x6=x6
++   y1=y1
++   index_function=index_function
++   iprm1=iprm1 iprm2=iprm2
++   rprm1=rprm1
++   rprm2=rprm2
++   rprm3=rprm3
++   rprm4=rprm4
++   rprm5=rprm5
++   rprm6=rprm6
++   rprm7=rprm7
++   rprm8=rprm8
++   rprm9=rprm9
++   rprm10=rprm10
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=user_function_6_3 group=user_function allow_ac=no
+begin_dc
+  main_vars: x1 x2 x3 x4 x5 x6 y1 y2 y3
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+  sparms:
+  rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+  rparms_derived:
+  stparms:
+  xbe type=user_function_6_3
++   x1=x1 x2=x2 x3=x3
++   x4=x4 x5=x5 x6=x6
++   y1=y1 y2=y2 y3=y3
++   index_function=index_function
++   iprm1=iprm1 iprm2=iprm2
++   rprm1=rprm1
++   rprm2=rprm2
++   rprm3=rprm3
++   rprm4=rprm4
++   rprm5=rprm5
++   rprm6=rprm6
++   rprm7=rprm7
++   rprm8=rprm8
++   rprm9=rprm9
++   rprm10=rprm10
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=user_function_6_6 group=user_function allow_ac=no
+begin_dc
+  main_vars:
++   x1 x2 x3 x4 x5 x6
++   y1 y2 y3 y4 y5 y6
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+  sparms:
+  rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+  rparms_derived:
+  stparms:
+  xbe type=user_function_6_6
++   x1=x1 x2=x2 x3=x3
++   x4=x4 x5=x5 x6=x6
++   y1=y1 y2=y2 y3=y3
++   y4=y4 y5=y5 y6=y6
++   index_function=index_function
++   iprm1=iprm1 iprm2=iprm2
++   rprm1=rprm1
++   rprm2=rprm2
++   rprm3=rprm3
++   rprm4=rprm4
++   rprm5=rprm5
++   rprm6=rprm6
++   rprm7=rprm7
++   rprm8=rprm8
++   rprm9=rprm9
++   rprm10=rprm10
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=user_function_6_8 group=user_function allow_ac=no
+begin_dc
+  main_vars:
++   x1 x2 x3 x4 x5 x6
++   y1 y2 y3 y4 y5 y6 y7 y8
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+  sparms:
+  rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+  rparms_derived:
+  stparms:
+  xbe type=user_function_6_8
++   x1=x1 x2=x2 x3=x3
++   x4=x4 x5=x5 x6=x6
++   y1=y1 y2=y2 y3=y3
++   y4=y4 y5=y5 y6=y6
++   y7=y7 y8=y8
++   index_function=index_function
++   iprm1=iprm1 iprm2=iprm2
++   rprm1=rprm1
++   rprm2=rprm2
++   rprm3=rprm3
++   rprm4=rprm4
++   rprm5=rprm5
++   rprm6=rprm6
++   rprm7=rprm7
++   rprm8=rprm8
++   rprm9=rprm9
++   rprm10=rprm10
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=vsi3_1 group=power_electronics allow_ac=no
+begin_dc
+  main_vars:
++   g1 g2 g3 g4 g5 g6
++   va vb vc
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms:
++   vdc=10
++   x_high=1
+  rparms_derived:
+  stparms:
+  xbe type=vsi3_1
++   g1=g1 g2=g2 g3=g3 g4=g4 g5=g5 g6=g6
++   va=va vb=vb vc=vc
++   vdc=vdc x_high=x_high
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce
+xce name=xor_2 group=gates allow_ac=no
+begin_dc
+  main_vars: x1 x2 y
+  aux_vars:
+  gvars:
+  outvar:
+  bias:
+  iparms:
+  sparms:
+  rparms: x_high=1
+  rparms_derived:
+  stparms:
+  xbe type=xor_2 x1=x1 x2=x2 y=y
++   x_high=x_high
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+end_ac
+endxce

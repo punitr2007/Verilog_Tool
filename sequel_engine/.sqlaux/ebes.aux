@@ -1,0 +1,273 @@
+ebe name=c startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  c=1.0
++  v1=0
++  k_scale=1
+local_var: qp qm
+aux_var:
+aux_var_startup: cur_p
+digital_nodes:
+main_var:
+xvar:
+stparms: v0sv=0
+igparms:
+no_functions=7
+f_1: d_dt(qp)
+f_2: d_dt(qm)
+f_3: local_var qp v(p) v(n)
+f_4: local_var qm v(p) v(n)
+f_5: startup cur_p
+f_6: startup cur_p
+f_7: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=mos_bsim1 limit_newton=no startup_sprt=yes
++  gmin_step=yes
+Jacobian: variable
+nodes: term1 term2 gate bulk
+ind_nodes:
+ind_branches:
+iparms:
++  mostype=1
++  xpart=0
++  limit_vgs=0
++  limit_vds=0
++  limit_vbs=0
++  limit_vbd=0
++  limit_vds_pos=0
++  flag_jac=0
+sparms:
+rparms:
++  l=5e-6
++  w=5e-6
++  ad=0
++  as=0
++  pd=0
++  ps=0
++  vfb=0
++  lvfb=0
++  wvfb=0
++  phi=0
++  lphi=0
++  wphi=0
++  k1=0
++  lk1=0
++  wk1=0
++  k2=0
++  lk2=0
++  wk2=0
++  eta=0
++  leta=0
++  weta=0
++  x2e=0
++  lx2e=0
++  wx2e=0
++  x3e=0
++  lx3e=0
++  wx3e=0
++  dl=0
++  dw=0
++  muz=0
++  x2mz=0
++  lx2mz=0
++  wx2mz=0
++  mus=0
++  x2ms=0
++  lx2ms=0
++  wx2ms=0
++  x3ms=0
++  lx3ms=0
++  wx3ms=0
++  u0=0
++  lu0=0
++  wu0=0
++  x2u0=0
++  lx2u0=0
++  wx2u0=0
++  u1=0
++  lu1=0
++  wu1=0
++  x2u1=0
++  lx2u1=0
++  wx2u1=0
++  x3u1=0
++  lx3u1=0
++  wx3u1=0
++  n0=0
++  ln0=0
++  wn0=0
++  nb=0
++  lnb=0
++  wnb=0
++  nd=0
++  lnd=0
++  wnd=0
++  tox=0.01
++  temp=300.15
++  vdd=0
++  cgso=0
++  cgdo=0
++  cgbo=0
++  pb=0
++  mj=0
++  pbsw=0
++  mjsw=0
++  cj=0
++  cjsw=0
++  wdf=0
++  cox=0
++  betazero=0
++  betazerob=0
++  betavdd=0
++  betavddb=0
++  betavddd=0
++  vt0=0
++  von=0
++  js=0
++  lmus=0
++  wmus=0
++  vgs_new=0
++  vds_new=0
++  vbs_new=0
++  vbd_new=0
++  vfb_computed=0
++  phi_computed=0
++  k1_computed=0
++  k2_computed=0
++  eta_computed=0
++  x2e_computed=0
++  x3e_computed=0
++  u0_computed=0
++  u1_computed=0
++  x2u0_computed=0
++  x2u1_computed=0
++  x3u1_computed=0
++  n0_computed=0
++  nb_computed=0
++  nd_computed=0
+local_var: qgatettl qbulkttl q1ttl q2ttl
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=12
+f_kcl_term1:   d_dt(q1ttl) v(term1) v(term2) v(gate) v(bulk)
+f_kcl_term2:   d_dt(q2ttl) v(term1) v(term2) v(gate) v(bulk)
+f_kcl_gate:    d_dt(qgatettl)
+f_kcl_bulk:    d_dt(qbulkttl) v(bulk) v(term1) v(term2)
+f_lv_q1ttl:    local_var q1ttl    v(term1) v(term2) v(gate) v(bulk)
+f_lv_q2ttl:    local_var q2ttl    v(term1) v(term2) v(gate) v(bulk)
+f_lv_qgatettl: local_var qgatettl v(term1) v(term2) v(gate) v(bulk)
+f_lv_qbulkttl: local_var qbulkttl v(term1) v(term2) v(gate) v(bulk)
+f_st_term1:  startup v(term1) v(term2)
+f_st_term2:  startup v(term1) v(term2)
+f_st_gate:   startup
+f_st_bulk:   startup
+C: compiled
+endC
+endebe
+ebe name=mos_r
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  r=1.0
++  rsh=1
++  nsquares=1
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=vpulse limit_tstep=yes startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  v_1=0
++  v_2=0
++  t_1=0
++  t_2=0
++  delt_1=0.025u
++  delt_2=0.060u
++  tp1=0
++  tp2=0
++  slp1=0
++  slp2=0
++  v1=0
++  epsl=0
++  epsl1=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms: vn0=0
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=vsrcdc startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  vdc=0
++  v1=0
++  k_scale=1
++  t_ramp_1=0
++  t_ramp_2=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms: vn0=0
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe

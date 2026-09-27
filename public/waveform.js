@@ -135,16 +135,16 @@ class WaveformEngine {
   }
 
   setZoom(newZoom) {
-    this.zoom = Math.max(0.5, Math.min(300, newZoom));
+    this.zoom = Math.max(0.001, Math.min(2000, newZoom));
     this.updateZoomIndicator();
     this.resize();
     this.render();
   }
 
   zoomFit() {
-    const availableWidth = this.canvasContainer.clientWidth - 40;
-    const duration = Math.max(1, this.maxTime - this.minTime);
-    this.zoom = Math.max(1, availableWidth / duration);
+    const availableWidth = Math.max(200, (this.canvasContainer.clientWidth || 800) - 60);
+    const duration = Math.max(0.1, this.maxTime - this.minTime);
+    this.zoom = Math.max(0.01, availableWidth / duration);
     this.updateZoomIndicator();
     this.resize();
     this.render();
@@ -153,8 +153,8 @@ class WaveformEngine {
   updateZoomIndicator() {
     const el = document.getElementById('zoom-indicator-text');
     if (el) {
-      const pct = Math.round((this.zoom / 15) * 100);
-      el.innerText = `${pct}%`;
+      const pct = Math.round((this.zoom / this.baseZoom) * 100);
+      el.innerText = `${Math.max(1, pct)}%`;
     }
   }
 
@@ -178,10 +178,12 @@ class WaveformEngine {
     // 1. Extract timescale across multi-line or single-line declarations
     let timescaleUnit = 'ns';
     let timescaleMultiplier = 1;
-    const timescaleMatch = vcdText.match(/\$timescale\s+([0-9]+)?\s*([a-zA-Z]+)\s*\$end/);
+    
+    // Match variations like: $timescale 1ns $end, $timescale\n  100ps\n$end, $timescale 1 ps $end
+    const timescaleMatch = vcdText.match(/\$timescale\s+([0-9]+)?\s*([a-zA-Z]+)\s*\$end/i);
     if (timescaleMatch) {
       timescaleMultiplier = parseInt(timescaleMatch[1] || '1', 10);
-      timescaleUnit = timescaleMatch[2].toLowerCase();
+      timescaleUnit = (timescaleMatch[2] || 'ns').toLowerCase();
     }
 
     const unitToSec = {
@@ -242,7 +244,7 @@ class WaveformEngine {
       if (line.startsWith('#')) {
         currentTime = parseInt(line.substring(1), 10);
         if (currentTime > maxTimeFound) maxTimeFound = currentTime;
-      } else if (line.startsWith('$dumpvars') || line.startsWith('$end')) {
+      } else if (line.startsWith('$dumpvars') || line.startsWith('$end') || line.startsWith('$comment') || line.startsWith('$dumpall')) {
         continue;
       } else if (line.startsWith('b') || line.startsWith('B') || line.startsWith('r') || line.startsWith('R')) {
         const parts = line.split(/\s+/);
@@ -254,7 +256,7 @@ class WaveformEngine {
         }
       } else if (line.length >= 2) {
         const val = line[0].toLowerCase();
-        const id = line.substring(1);
+        const id = line.substring(1).trim();
         const sigList = idMap.get(id);
         if (sigList) {
           sigList.forEach(s => s.changes.push({ time: currentTime, val }));
@@ -292,18 +294,21 @@ class WaveformEngine {
     // Scale all changes to the display unit
     this.signals.forEach(sig => {
       sig.changes.forEach(c => {
-        c.time = Math.round(c.time * scaleToDisplay * 1000) / 1000;
+        c.time = Math.round(c.time * scaleToDisplay * 1000000) / 1000000;
       });
     });
 
-    // Deduplicate redundant nets, keeping top-level signals
+    // Deduplicate nets sharing the same VCD id while preserving clear names
+    const seenIds = new Set();
     const seenNames = new Set();
     const uniqueSignals = [];
     this.signals.sort((a, b) => a.depth - b.depth);
 
     for (const sig of this.signals) {
-      if (!seenNames.has(sig.shortName)) {
+      const key = `${sig.shortName}#${sig.id}`;
+      if (!seenNames.has(sig.shortName) || !seenIds.has(sig.id)) {
         seenNames.add(sig.shortName);
+        seenIds.add(sig.id);
         uniqueSignals.push(sig);
       }
     }
@@ -311,7 +316,7 @@ class WaveformEngine {
     this.visibleSignals = [...this.signals];
 
     this.minTime = 0;
-    this.maxTime = maxTimeFound > 0 ? (Math.round(maxTimeFound * scaleToDisplay * 1000) / 1000) : 40;
+    this.maxTime = maxTimeFound > 0 ? (Math.round(maxTimeFound * scaleToDisplay * 1000000) / 1000000) : 40;
     this.cursorTime = 0;
 
     this.renderSignalList();
@@ -516,7 +521,7 @@ class WaveformEngine {
   }
 
   calculateNiceStep(rawStep) {
-    if (rawStep <= 0) return 10;
+    if (rawStep <= 0 || !isFinite(rawStep)) return 10;
     const exponent = Math.pow(10, Math.floor(Math.log10(rawStep)));
     const fraction = rawStep / exponent;
     let niceFraction;
@@ -524,7 +529,8 @@ class WaveformEngine {
     else if (fraction < 3) niceFraction = 2;
     else if (fraction < 7) niceFraction = 5;
     else niceFraction = 10;
-    return Math.max(1, niceFraction * exponent);
+    const result = niceFraction * exponent;
+    return parseFloat(result.toPrecision(6));
   }
 
   renderTimeline() {
@@ -545,14 +551,17 @@ class WaveformEngine {
     ctx.font = '10px "JetBrains Mono", monospace';
     ctx.textAlign = 'center';
 
-    for (let t = this.minTime; t <= this.maxTime + timeStep; t += timeStep) {
+    const maxT = Math.max(this.maxTime, width / this.zoom);
+    for (let t = this.minTime; t <= maxT + timeStep; t += timeStep) {
       const x = t * this.zoom;
+      if (x > width + 50) break;
       ctx.beginPath();
       ctx.moveTo(x, height - 6);
       ctx.lineTo(x, height);
       ctx.stroke();
 
-      ctx.fillText(`${t} ${this.timeScale}`, x, height - 10);
+      const roundedT = Math.round(t * 1000) / 1000;
+      ctx.fillText(`${roundedT} ${this.timeScale}`, x, height - 10);
     }
   }
 
@@ -573,8 +582,10 @@ class WaveformEngine {
     // Grid vertical lines (crisp and high-contrast)
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
     ctx.lineWidth = 1;
-    for (let t = this.minTime; t <= this.maxTime + timeStep; t += timeStep) {
+    const maxT = Math.max(this.maxTime, width / this.zoom);
+    for (let t = this.minTime; t <= maxT + timeStep; t += timeStep) {
       const x = t * this.zoom;
+      if (x > width + 50) break;
       ctx.beginPath();
       ctx.moveTo(x, 0);
       ctx.lineTo(x, height);
@@ -599,9 +610,9 @@ class WaveformEngine {
       ctx.stroke();
 
       if (sig.width === 1) {
-        this.renderSingleBitWave(ctx, sig, yBase);
+        this.renderSingleBitWave(ctx, sig, yBase, width);
       } else {
-        this.renderBusWave(ctx, sig, yBase);
+        this.renderBusWave(ctx, sig, yBase, width);
       }
     });
 
@@ -617,7 +628,7 @@ class WaveformEngine {
     ctx.setLineDash([]);
   }
 
-  renderSingleBitWave(ctx, sig, yBase) {
+  renderSingleBitWave(ctx, sig, yBase, totalWidth = 0) {
     const highY = yBase + 8;
     const lowY = yBase + this.rowHeight - 8;
     const midY = (highY + lowY) / 2;
@@ -626,23 +637,29 @@ class WaveformEngine {
     ctx.strokeStyle = '#38bdf8'; // Electric Cyan
     ctx.lineWidth = 2;
 
+    const endLimit = Math.max(this.maxTime, (totalWidth || 0) / this.zoom);
     ctx.beginPath();
     let prevY = lowY;
     let prevX = 0;
 
     for (let i = 0; i < changes.length; i++) {
       const cur = changes[i];
-      const nextTime = (i + 1 < changes.length) ? changes[i + 1].time : (this.maxTime + 5);
+      const nextTime = (i + 1 < changes.length) ? changes[i + 1].time : endLimit;
       const startX = cur.time * this.zoom;
-      const endX = nextTime * this.zoom;
+      const endX = Math.max(startX, nextTime * this.zoom);
 
       let curY = lowY;
-      if (cur.val === '1') curY = highY;
-      else if (cur.val === '0') curY = lowY;
+      if (cur.val === '1' || cur.val === 'h') curY = highY;
+      else if (cur.val === '0' || cur.val === 'l') curY = lowY;
       else curY = midY;
 
       if (i === 0) {
-        ctx.moveTo(startX, curY);
+        if (startX > 0) {
+          ctx.moveTo(0, curY);
+          ctx.lineTo(startX, curY);
+        } else {
+          ctx.moveTo(startX, curY);
+        }
       } else {
         ctx.lineTo(startX, prevY);
         ctx.lineTo(startX, curY);
@@ -655,18 +672,19 @@ class WaveformEngine {
     ctx.stroke();
   }
 
-  renderBusWave(ctx, sig, yBase) {
+  renderBusWave(ctx, sig, yBase, totalWidth = 0) {
     const topY = yBase + 7;
     const botY = yBase + this.rowHeight - 7;
     const midY = (topY + botY) / 2;
 
     const changes = sig.changes.length > 0 ? sig.changes : [{ time: 0, val: 'x' }];
+    const endLimit = Math.max(this.maxTime, (totalWidth || 0) / this.zoom);
 
     for (let i = 0; i < changes.length; i++) {
       const cur = changes[i];
-      const nextTime = (i + 1 < changes.length) ? changes[i + 1].time : (this.maxTime + 5);
+      const nextTime = (i + 1 < changes.length) ? changes[i + 1].time : endLimit;
       const startX = cur.time * this.zoom;
-      const endX = nextTime * this.zoom;
+      const endX = Math.max(startX, nextTime * this.zoom);
       const segmentWidth = endX - startX;
       const slant = Math.min(4, segmentWidth / 2);
 
@@ -679,10 +697,10 @@ class WaveformEngine {
       ctx.lineTo(startX + slant, botY);
       ctx.closePath();
 
-      ctx.fillStyle = cur.val === 'x' ? 'rgba(244, 63, 94, 0.25)' : 'rgba(168, 85, 247, 0.18)';
+      ctx.fillStyle = (cur.val === 'x' || cur.val === 'z') ? 'rgba(244, 63, 94, 0.25)' : 'rgba(168, 85, 247, 0.18)';
       ctx.fill();
 
-      ctx.strokeStyle = cur.val === 'x' ? '#f43f5e' : '#a855f7';
+      ctx.strokeStyle = (cur.val === 'x' || cur.val === 'z') ? '#f43f5e' : '#a855f7';
       ctx.lineWidth = 1.5;
       ctx.stroke();
 

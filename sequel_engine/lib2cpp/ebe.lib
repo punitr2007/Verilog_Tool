@@ -1,0 +1,4470 @@
+ebe name=ammeter_fb
+Jacobian: constant
+nodes: p m
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  k_scale=1
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var: i_fb
+xvar:
+stparms:
+igparms:
+no_functions=3
+f_1: i_fb
+f_2: i_fb
+f_3: v(p) v(m)
+C: compiled
+endC
+endebe
+ebe name=ammeter startup_sprt=yes
+Jacobian: constant
+nodes: p m
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(m)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(m)
+C: compiled
+endC
+endebe
+ebe name=and_2 startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes: node_x1 node_x2
+ind_branches:
+iparms:
+sparms:
+rparms: v_high=1
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=battery_c startup_sprt=yes
+Jacobian: variable
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  a0=700
++  b0=-700
++  b1=20
++  c=0
+local_var: qp qm
+aux_var:
+aux_var_startup: cur_p
+digital_nodes:
+main_var: soc
+xvar:
+stparms: v0sv=0
+igparms:
+no_functions=7
+f_1: d_dt(qp)
+f_2: d_dt(qm)
+f_3: local_var qp v(p) v(n) soc
+f_4: local_var qm v(p) v(n) soc
+f_5: startup cur_p
+f_6: startup cur_p
+f_7: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=battery_r
+Jacobian: variable
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  a0=0.1
++  b0=0.1
++  b1=20.0
++  r=0.0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var: soc
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: v(p) v(n) soc
+f_2: v(p) v(n) soc
+C: compiled
+endC
+endebe
+ebe name=battery_vsrc startup_sprt=yes
+Jacobian: variable
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  a0=3.7
++  a1=0.2
++  a2=-0.1
++  a3=0.3
++  b0=-1
++  b1=35
++  v1=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var: soc
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n) soc
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n) soc
+C: compiled
+endC
+endebe
+ebe name=bjt_spice_5 limit_newton=no startup_sprt=yes
++  gmin_step=yes
+Jacobian: variable
+nodes: cp bp ep
+ind_nodes:
+ind_branches:
+iparms:
++ bjt_type=1
++ flag_jac=0
+sparms:
+rparms:
++  tnom=300.15
++  tref=300.15
++  t1=300.15
++  is=1e-16
++  bf=100
++  nf=1
++  vaf=200
++  ikf=0
++  ise=0
++  c2=0
++  ne=1.5
++  br=1
++  nr=1
++  var=200
++  ikr=0
++  isc=0
++  c4=0
++  nc=2
++  cje=0
++  vje=0.75
++  mje=0.33
++  tf=0
++  xtf=0
++  vtf=0
++  itf=0
++  cjc=0
++  vjc=0.75
++  mjc=0.33
++  xcjc=1
++  tr=0
++  xtb=0
++  eg=1.11
++  xti=3
++  fc=0.5
++  area=1
++  ic_by_ib=0
++  cur_max=1e3
++  k_crit=0
+local_var: qc0 qb0 qe0
+aux_var:
+aux_var_startup: cur_b_s cur_c_s
+digital_nodes:
+main_var:
+xvar:
+stparms: vbe_sv=0 vce_sv=0
+igparms:
+no_functions=11
+f_kcl_cp:  d_dt(qc0) v(cp) v(bp) v(ep)
+f_kcl_bp:  d_dt(qb0) v(cp) v(bp) v(ep)
+f_kcl_ep:  d_dt(qe0) v(cp) v(bp) v(ep)
+f_lv_qc:   local_var qc0 v(cp) v(bp) v(ep)
+f_lv_qb:   local_var qb0 v(cp) v(bp) v(ep)
+f_lv_qe:   local_var qe0 v(cp) v(bp) v(ep)
+f_st_kcl_cp:  startup cur_c_s
+f_st_kcl_bp:  startup cur_b_s
+f_st_kcl_ep:  startup cur_c_s cur_b_s
+f_st_vbe:     startup v(bp) v(ep)
+f_st_vce:     startup v(cp) v(ep)
+C: compiled
+endC
+endebe
+ebe name=bjt_spice_6 limit_newton=no startup_sprt=yes
++  gmin_step=yes
+Jacobian: variable
+nodes: cp bp ep
+ind_nodes:
+ind_branches:
+iparms:
++ bjt_type=1
+sparms:
+rparms:
++  tnom=27
++  tref=27
++  tmpr_dev=27
++  is=1e-16
++  bf=100
++  nf=1
++  vaf=200
++  ikf=0
++  ise=0
++  ne=1.5
++  br=1
++  nr=1
++  var=200
++  ikr=0
++  isc=0
++  nc=2
++  cje=0
++  vje=0.75
++  mje=0.33
++  tf=0
++  xtf=0
++  vtf=0
++  itf=0
++  cjc=0
++  vjc=0.75
++  mjc=0.33
++  xcjc=1
++  tr=0
++  xtb=0
++  eg=1.11
++  xti=3
++  fc=0.5
++  area=1
++  ic0=100
++  ic_by_ib=0
++  is_tmpr=0
++  bf_tmpr=0
++  br_tmpr=0
++  vt_tmpr=0
++  vte_tmpr=0
++  vtc_tmpr=0
++  f1_tmpr=0
++  f4_tmpr=0
++  f5_tmpr=0
++  vbe1_tmpr=0
++  vcrit_tmpr=0
++  ise_tmpr=0
++  isc_tmpr=0
++  cje_tmpr=0
++  vje_tmpr=0
++  cjc_tmpr=0
++  vjc_tmpr=0
++  kcrit=0
++  inv_vaf=0
++  inv_var=0
++  invrollofff=0
++  invrolloffr=0
++  ovtf=0
++  csat=0
++  f2=0
++  f3=0
++  c2=0
++  c4=0
++  f6=0
++  f7=0
++  oik=0
++  oikr=0
+local_var: qc0 qb0 qe0
+aux_var:
+aux_var_startup: cur_b_s cur_c_s
+digital_nodes:
+main_var:
+xvar:
+stparms: vbe_sv=0 vce_sv=0
+igparms:
+no_functions=11
+f_kcl_cp:  d_dt(qc0) v(cp) v(bp) v(ep)
+f_kcl_bp:  d_dt(qb0) v(cp) v(bp) v(ep)
+f_kcl_ep:  d_dt(qe0) v(cp) v(bp) v(ep)
+f_lv_qc:   local_var qc0 v(cp) v(bp) v(ep)
+f_lv_qb:   local_var qb0 v(cp) v(bp) v(ep)
+f_lv_qe:   local_var qe0 v(cp) v(bp) v(ep)
+f_st_kcl_cp:  startup cur_c_s
+f_st_kcl_bp:  startup cur_b_s
+f_st_kcl_ep:  startup cur_c_s cur_b_s
+f_st_vbe:     startup v(bp) v(ep)
+f_st_vce:     startup v(cp) v(ep)
+C: compiled
+endC
+endebe
+ebe name=bldc1 startup_sprt=yes
+Jacobian: variable
+nodes: a b c
+ind_nodes:
+ind_branches:
+iparms:
++  poles=6
+sparms:
+rparms:
++  rs=0.98
++  ls=8.035m
++  j=21e-4
++  ke=0.5637
++  b_damp=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
++  ia
++  ib
++  ic
++  e_a
++  e_b
++  e_c
++  e0_a
++  e0_b
++  e0_c
++  we
++  wm
++  tem
++  tl
+xvar:
+stparms:
++  wm0=0
+igparms:
+no_functions=24
+f_a:     ia
+f_b:     ib
+f_c:     ic
+f_kvl_a: d_dt(ia) v(a) ia e_a
+f_kvl_b: d_dt(ib) v(b) ib e_b
+f_kvl_c: d_dt(ic) v(c) ic e_c
+f_e_a:   e_a wm e0_a
+f_e_b:   e_b wm e0_b
+f_e_c:   e_c wm e0_c
+f_tem:   tem wm e_a e_b e_c ia ib ic
+f_we:    we wm
+f_wm_d:  d_dt(wm) tem tl wm
+f_st_a:     startup ia
+f_st_b:     startup ib
+f_st_c:     startup ic
+f_st_kvl_a: startup ia
+f_st_kvl_b: startup ib
+f_st_kvl_c: startup ic
+f_st_e_a:   startup e_a wm e0_a
+f_st_e_b:   startup e_b wm e0_b
+f_st_e_c:   startup e_c wm e0_c
+f_st_tem:   startup tem wm e_a e_b e_c ia ib ic
+f_st_we:    startup we wm
+f_st_wm_d:  startup wm
+C: compiled
+endC
+endebe
+ebe name=bridge_3ph_1
+Jacobian: variable
+nodes: a b c p m
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  r_on=1m
++  r_off=1M
++  g_high=1
++  ghby2=0
++  g_on=0
++  g_off=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var: g1 g3 g5
+xvar:
+stparms:
+igparms:
+no_functions=5
+f_a: v(a) v(p) v(m)
+f_b: v(b) v(p) v(m)
+f_c: v(c) v(p) v(m)
+f_p: v(p) v(a) v(b) v(c)
+f_m: v(m) v(a) v(b) v(c)
+C: compiled
+endC
+endebe
+ebe name=c startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  c=1.0
++  v1=0
++  k_scale=1
+local_var: qp qm
+aux_var:
+aux_var_startup: cur_p
+digital_nodes:
+main_var:
+xvar:
+stparms: v0sv=0
+igparms:
+no_functions=7
+f_1: d_dt(qp)
+f_2: d_dt(qm)
+f_3: local_var qp v(p) v(n)
+f_4: local_var qm v(p) v(n)
+f_5: startup cur_p
+f_6: startup cur_p
+f_7: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=c1 startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  c=1.0
++  v1=0
++  k_scale=1
++  r_startup=0.001
+local_var: qp qm
+aux_var:
+aux_var_startup: cur_p
+digital_nodes:
+main_var:
+xvar:
+stparms: v0sv=0
+igparms:
+no_functions=7
+f_1: d_dt(qp)
+f_2: d_dt(qm)
+f_3: local_var qp v(p) v(n)
+f_4: local_var qm v(p) v(n)
+f_5: startup cur_p
+f_6: startup cur_p
+f_7: startup v(p) v(n) cur_p
+C: compiled
+endC
+endebe
+ebe name=c_crystal startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  f0=3.58e6
++  q=1000
++  rs=160
++  c=0
+local_var: qp qm
+aux_var:
+aux_var_startup: cur_p
+digital_nodes:
+main_var:
+xvar:
+stparms: v0sv=0
+igparms:
+no_functions=7
+f_1: d_dt(qp)
+f_2: d_dt(qm)
+f_3: local_var qp v(p) v(n)
+f_4: local_var qm v(p) v(n)
+f_5: startup cur_p
+f_6: startup cur_p
+f_7: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=c_delay startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  c=1.0
++  v1=0
++  tau=1e-6
++  r=1e3
+local_var: qp qm
+aux_var:
+aux_var_startup: cur_p
+digital_nodes:
+main_var:
+xvar:
+stparms: v0sv=0
+igparms:
+no_functions=7
+f_1: d_dt(qp)
+f_2: d_dt(qm)
+f_3: local_var qp v(p) v(n)
+f_4: local_var qm v(p) v(n)
+f_5: startup cur_p
+f_6: startup cur_p
+f_7: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=c_pu startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  x_pu=1
++  f_b=50
++  c=0
++  v1=0
++  k_scale=1
+local_var: qp qm
+aux_var:
+aux_var_startup: cur_p
+digital_nodes:
+main_var:
+xvar:
+stparms: v0sv=0
+igparms:
+no_functions=7
+f_1: d_dt(qp)
+f_2: d_dt(qm)
+f_3: local_var qp v(p) v(n)
+f_4: local_var qm v(p) v(n)
+f_5: startup cur_p
+f_6: startup cur_p
+f_7: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=c_pu_sync startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
++   i_compute_strt=0
++   indx=1
+sparms:
+rparms: x_pu=1 f_b=50 c=0 v1=0
+local_var: qp qm
+aux_var:
+aux_var_startup: cur_p
+digital_nodes:
+main_var:
+xvar:
+stparms: v0sv=0
+igparms:
+no_functions=7
+f_1: d_dt(qp)
+f_2: d_dt(qm)
+f_3: local_var qp v(p) v(n)
+f_4: local_var qm v(p) v(n)
+f_5: startup cur_p
+f_6: startup cur_p
+f_7: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=c_z startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  c=1.0
++  v1=0
++  x=1
++  f0=1
++  k=1e6
+local_var: qp qm
+aux_var:
+aux_var_startup: cur_p
+digital_nodes:
+main_var:
+xvar:
+stparms: v0sv=0
+igparms:
+no_functions=7
+f_1: d_dt(qp)
+f_2: d_dt(qm)
+f_3: local_var qp v(p) v(n)
+f_4: local_var qm v(p) v(n)
+f_5: startup cur_p
+f_6: startup cur_p
+f_7: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=cccs_5
+Jacobian: constant
+nodes: n p
+ind_nodes:
+ind_branches:
++  cccsbr1
++  cccsbr2
++  cccsbr3
++  cccsbr4
++  cccsbr5
+iparms:
+sparms:
+rparms:
++  beta0=0.0
++  beta1=0.0
++  beta2=0.0
++  beta3=0.0
++  beta4=0.0
++  beta5=0.0
++  v1=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1:
++  cur(cccsbr1)
++  cur(cccsbr2)
++  cur(cccsbr3)
++  cur(cccsbr4)
++  cur(cccsbr5)
+f_2:
++  cur(cccsbr1)
++  cur(cccsbr2)
++  cur(cccsbr3)
++  cur(cccsbr4)
++  cur(cccsbr5)
+C: compiled
+endC
+endebe
+ebe name=cccs
+Jacobian: constant
+nodes: n p
+ind_nodes:
+ind_branches: cccsbr
+iparms:
+sparms:
+rparms: beta=0.0 v1=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: cur(cccsbr)
+f_2: cur(cccsbr)
+C: compiled
+endC
+endebe
+ebe name=ccvs_2 startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches: ccvsbr1 ccvsbr2
+iparms:
+sparms:
+rparms: rm1=1 rm2=1 v1=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n) cur(ccvsbr1) cur(ccvsbr2)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n) cur(ccvsbr1) cur(ccvsbr2)
+C: compiled
+endC
+endebe
+ebe name=ccvs_ddt1 startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches: ccvsbr
+iparms:
+sparms:
+rparms: k=1 v1=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: d_dt(cur(ccvsbr)) v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=ccvs startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches: ccvsbr
+iparms:
+sparms:
+rparms: rm=1 v1=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n) cur(ccvsbr)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n) cur(ccvsbr)
+C: compiled
+endC
+endebe
+ebe name=clock limit_tstep=yes startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms: i0=0
+sparms:
+rparms:
++  t1=1
++  t2=2
++  tperiod=0
++  t0=0
++  v_high=1.0
++  dt1=0.01
++  dt2=0.01
++  slp1=0
++  slp2=0
++  v_low=0.0
++  t_epsilon=1.0e-10
++  v1=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=clock_pwl20 limit_tstep=yes startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms: n_points=2
+sparms:
+rparms:
++   t1 =0  t2 =2  t3 =3  t4 =4  t5 =5
++   t6 =6  t7 =7  t8 =8  t9 =9  t10=10
++   t11=11 t12=12 t13=13 t14=14 t15=15
++   t16=16 t17=17 t18=18 t19=19 t20=20
++   v1 =1  v2 =2  v3 =3  v4 =4  v5 =5
++   v6 =6  v7 =7  v8 =8  v9 =9  v10=10
++   v11=11 v12=12 v13=13 v14=14 v15=15
++   v16=16 v17=17 v18=18 v19=19 v20=20
++   tperiod=0 vsrc=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=cmprtr_1 save_history=yes limit_tstep=yes
++  startup_sprt=yes allow_ssw=no
+Jacobian: variable
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  v_high=1.0
++  x1_prev_1=0
++  x1_prev_2=0
++  x2_prev_1=0
++  x2_prev_2=0
++  t_prev_1=0
++  t_prev_2=0
++  epsl=1.0e-6
++  delt_min=1.0e-6
++  delt_nrml=1m
++  v_low=0.0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var: x1 x2
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=cmprtr_2 save_history=yes limit_tstep=yes allow_ssw=no
++  startup_sprt=yes
+Jacobian: variable
+nodes: p n
+ind_nodes: node_x1 node_x2
+ind_branches:
+iparms:
+sparms:
+rparms:
++  v_high=1.0
++  x1_prev_1=0
++  x1_prev_2=0
++  x2_prev_1=0
++  x2_prev_2=0
++  t_prev_1=0
++  t_prev_2=0
++  epsl=1.0e-6
++  delt_min=1.0e-6
++  delt_nrml=1m
++  v_low=0.0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=cool_vcvs_1 startup_sprt=yes
+Jacobian: variable
+nodes: p n
+ind_nodes: vcplus vcminus
+ind_branches:
+iparms:
+sparms:
+rparms: f0=1
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n) volt(vcplus) volt(vcminus)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n) volt(vcplus) volt(vcminus)
+C: compiled
+endC
+endebe
+ebe name=cool_vcvs_2 startup_sprt=yes
+Jacobian: variable
+nodes: p n
+ind_nodes: vcplus vcminus
+ind_branches:
+iparms:
+sparms:
+rparms:
++  fpar48=0
++  y0=0
++  y1=0
++  y2=0
++  x0=0
++  x1=0
++  dx=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n) volt(vcplus) volt(vcminus)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n) volt(vcplus) volt(vcminus)
+C: compiled
+endC
+endebe
+ebe name=cool_vcvs_3 startup_sprt=yes
+Jacobian: variable
+nodes: p n
+ind_nodes: vcplus vcminus
+ind_branches:
+iparms:
+sparms:
+rparms:
++  a0=0
++  a1=0
++  da=0
++  aqc81=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n) volt(vcplus) volt(vcminus)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n) volt(vcplus) volt(vcminus)
+C: compiled
+endC
+endebe
+ebe name=cool_vccs_1 gmin_step=yes
+Jacobian: variable
+nodes: d s
+ind_nodes: vc_d vc_g vc_s vc_Tj
+ind_branches:
+iparms:
++  flag_jac=0
+sparms:
+rparms:
++  a=0
++  fpar3=0
++  fpar4=0
++  fpar6=0
++  fpar7=0
++  fpar9=0
++  fpar10=0
++  fpar12=0
++  fpar13=0
++  fpar15=0
++  fpar16=0
++  fpar17=0
++  fpar20=0
++  fpar21=0
++  fpar29=0
++  bet=0
++  Vth=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: volt(vc_d) volt(vc_g) volt(vc_s) volt(vc_Tj)
+f_2: volt(vc_d) volt(vc_g) volt(vc_s) volt(vc_Tj)
+C: compiled
+endC
+endebe
+ebe name=cool_vccs_2
+Jacobian: variable
+nodes: d2 d1
+ind_nodes: vc_d2 vc_d1 vc_t1
+ind_branches: br
+iparms:
++  flag_jac=0
+sparms:
+rparms:
++  dRd=0
++  fpar19=0
++  fpar20=0
++  fpar21=0
++  fpar28=0
++  fpar30=0
++  fpar31=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: volt(vc_d2) volt(vc_d1) volt(vc_t1) cur(br)
+f_2: volt(vc_d2) volt(vc_d1) volt(vc_t1) cur(br)
+C: compiled
+endC
+endebe
+ebe name=cool_vccs_3
+Jacobian: variable
+nodes: dio2 dd
+ind_nodes: vc_dio2 vc_dd vc_Tj
+ind_branches:
+iparms:
+sparms:
+rparms:
++  dRdi=0
++  fpar20=0
++  fpar21=0
++  fpar25=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: volt(vc_dio2) volt(vc_dd) volt(vc_Tj)
+f_2: volt(vc_dio2) volt(vc_dd) volt(vc_Tj)
+C: compiled
+endC
+endebe
+ebe name=cool_vccs_4
+Jacobian: variable
+nodes: zero Tj
+ind_nodes: vc_d vc_s
+ind_branches: br
+iparms:
+sparms:
+rparms:
++  heat=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: volt(vc_d) volt(vc_s) cur(br)
+f_2: volt(vc_d) volt(vc_s) cur(br)
+C: compiled
+endC
+endebe
+ebe name=cool_vccs_5
+Jacobian: variable
+nodes: zero t1
+ind_nodes: vc_dd vc_d1 vc_s
+ind_branches: br_Iepi br_Isense2
+iparms:
+sparms:
+rparms:
++  heat=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: volt(vc_dd) volt(vc_d1) volt(vc_s) cur(br_Iepi) cur(br_Isense2)
+f_2: volt(vc_dd) volt(vc_d1) volt(vc_s) cur(br_Iepi) cur(br_Isense2)
+C: compiled
+endC
+endebe
+ebe name=dac1 startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  vref=5.0
++  vrefb2=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes: d0
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=dac1a startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: vref=5.0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes: d0
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=dac4 startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: vref=5.0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes: d0 d1 d2 d3
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=dac8 startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: vref=5.0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes: d0 d1 d2 d3 d4 d5 d6 d7
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=dcmc startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  ra=1
++  la=1m
++  c=1
++  j=0.25
++  b_damp=0
+local_var:
+aux_var:
++  ia
++  eb
++  tem
+aux_var_startup:
++  ia_st
++  eb_st
++  tem_st
+digital_nodes:
+main_var:
++  wrm
++  tl
+xvar:
+stparms:
++  wrm0=0
++  ia0=0
+igparms:
+no_functions=12
+f_cur1:  ia
+f_cur2:  ia
+f_eb:    eb wrm
+f_tem:   tem ia
+f_ddt_ia:  d_dt(ia) v(p) v(n) ia eb
+f_ddt_wrm: d_dt(wrm) tem tl wrm
+f_st_cur1: startup ia_st
+f_st_cur2: startup ia_st
+f_st_eb:   startup eb_st wrm
+f_st_tem:  startup tem_st ia_st
+f_st_ia:   startup ia_st
+f_st_wrm:  startup wrm
+C: compiled
+endC
+endebe
+ebe name=dcmc_1 startup_sprt=yes
+Jacobian: constant
+nodes: a1 a2 f1 f2
+ind_nodes:
+ind_branches:
+iparms:
++  compute_laf=0
+sparms:
+rparms:
++  ra=0.5
++  la=1.5m
++  laf=1
++  j=0.25
++  b_damp=0
++  rf=1
++  lf=1m
++  v_rated=1
++  ia_rated=1
++  w_rprm=1
++  if_rated=1
+local_var:
+aux_var:
++  ia
++  if0
++  eb
++  tem
+aux_var_startup:
++  ia_st
++  if_st
++  eb_st
++  tem_st
+digital_nodes:
+main_var:
++  wrm
++  tl
+xvar:
+stparms:
++  wrm_st0=0
++  ia_st0=0
++  if_st0=0
+igparms:
+no_functions=18
+f_cura1:   ia
+f_cura2:   ia
+f_curf1:   if0
+f_curf2:   if0
+f_eb:      eb wrm if0
+f_tem:     tem ia if0
+f_ddt_ia:  d_dt(ia) v(a1) v(a2) ia eb
+f_ddt_if:  d_dt(if0) v(f1) v(f2) if0
+f_ddt_wrm: d_dt(wrm) tem tl wrm
+f_st_cura1: startup ia_st
+f_st_cura2: startup ia_st
+f_st_curf1: startup if_st
+f_st_curf2: startup if_st
+f_st_eb:    startup eb_st wrm if_st
+f_st_tem:   startup tem_st ia_st if_st
+f_st_ia:    startup ia_st
+f_st_if:    startup if_st
+f_st_wrm:   startup wrm
+C: compiled
+endC
+endebe
+ebe name=diode limit_newton=no
++  gmin_step=yes
+Jacobian: variable
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  eta=1.0
++  is=1e-14
++  vt=0.026
++  vx=0
++  cur_max=1e3
++  k_crit=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms: v0=0
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=diode_r
+Jacobian: variable
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  ron=0.1
++  roff=1M
++  v1=0
++  v_on=0
++  v_on_1=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=diode_r_spice_3 limit_newton=no startup_sprt=yes
++  gmin_step=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  rs=0.001
++  area=1.0
++  trs=0.0
++  trs2=0.0
++  tmpr_dev=27
++  tnom=27
++  cond_tmpr=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=diode_spice_1 limit_newton=no startup_sprt=yes
++  gmin_step=yes
+Jacobian: variable
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
++  flag_jac=0
+sparms:
+rparms:
++  af=0.0
++  area=1.0
++  bv=100
++  bvj=100
++  cjo=0.0
++  eg=1.11
++  fc=0.5
++  ibv=0.001
++  is=1e-14
++  kf=0.0
++  m=0.5
++  n0=1.0
++  tnom=300.15
++  tt=0.0
++  vj=1.0
++  xti=3.0
++  t1=300.15
++  vth=0
++  vth_nom=0
++  f1=0
++  f2=0
++  f3=0
++  fcp=0
++  ibv_calc=0
++  is_temp=0
++  cur_max=1e3
++  k_crit=0
+local_var: qd0 qd1
+aux_var:
+aux_var_startup: id_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=7
+f_kcl_p:  d_dt(qd0) v(p) v(n)
+f_kcl_n:  d_dt(qd1) v(p) v(n)
+f_lv_qd0: local_var qd0 v(p) v(n)
+f_lv_qd1: local_var qd1 v(p) v(n)
+f_st_kcl_p: startup id_s
+f_st_kcl_n: startup id_s
+f_st_vpn:   startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=diode_spice_3 limit_newton=no startup_sprt=yes
++  gmin_step=yes
+Jacobian: variable
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  tmpr_dev=27
++  tnom=27
++  area=1.0
++  is=1e-14
++  eta=1.0
++  nbv=1.0
++  eg=1.11
++  xti=3.0
++  vd_old=0
++  bv=0
++  bv_tmpr=0
++  tcv=0
++  ibv=1e-3
++  ikf=0
++  ikr=0
++  ikf_area=0
++  ikr_area=0
++  cjo=1p
++  cjo_tmpr=0
++  vj=1
++  vj_tmpr=0
++  m=0.5
++  m_tmpr=0
++  tm1=0
++  tm2=0
++  fc=0.5
++  vdcj_tmpr=0
++  tt=0
++  tt_tmpr=0
++  ttt1=0
++  ttt2=0
++  f1_tmpr=0
++  f2_tmpr=0
++  f3_tmpr=0
++  is_tmpr=1e-14
++  vt_tmpr=0
++  vte_tmpr=0
++  vtebrk_tmpr=0
++  vcrit_tmpr=0
++  gd=0
++  capd=0
++  id0=100.0
++  kcrit=0
+local_var: qd0 qd1
+aux_var:
+aux_var_startup: id_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=7
+f_kcl_p:  d_dt(qd0) v(p) v(n)
+f_kcl_n:  d_dt(qd1) v(p) v(n)
+f_lv_qd0: local_var qd0 v(p) v(n)
+f_lv_qd1: local_var qd1 v(p) v(n)
+f_st_kcl_p: startup id_s
+f_st_kcl_n: startup id_s
+f_st_vpn:   startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=diode_spice_3a limit_newton=no startup_sprt=no
++  gmin_step=yes
+Jacobian: variable
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  tmpr_dev=27
++  tnom=27
++  area=1.0
++  is=1e-14
++  eta=1.0
++  nbv=1.0
++  eg=1.11
++  xti=3.0
++  vd_old=0
++  bv=0
++  ikf=0
++  ikr=0
++  ikf_area=0
++  ikr_area=0
++  cjo=0
++  cjo_tmpr=0
++  vj=1
++  vj_tmpr=1
++  m=0.5
++  m_tmpr=0
++  tm1=0
++  tm2=0
++  fc=0.5
++  vdcj_tmpr=0
++  tt=0.5
++  tt_tmpr=0
++  ttt1=0
++  ttt2=0
++  f1_tmpr=0
++  f2_tmpr=0
++  f3_tmpr=0
++  is_tmpr=1e-14
++  vt_tmpr=0
++  vte_tmpr=0
++  vtebrk_tmpr=0
++  vcrit_tmpr=0
++  gd=0
++  capd=0
+local_var:
+aux_var:
+aux_var_startup: id_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_kcl_p: v(p) v(n)
+f_kcl_n: v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=ground_dummy_1
+Jacobian: constant
+nodes: c
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=0
+C: compiled
+endC
+endebe
+ebe name=indmc startup_sprt=yes
+Jacobian: variable
+nodes: a b c
+ind_nodes:
+ind_branches:
+iparms:
++  poles=4
+sparms:
+rparms:
++  rs=1.157
++  lls=6.2m
++  lm=139m
++  llr=6.2m
++  rr=1.157
++  j=0.25
++  le=0
++  l1=0
++  l2=0
++  x1=0
++  x2=0
+local_var:
+aux_var:
++  ids
++  idr
++  iqs
++  iqr
++  psids
++  psidr
++  psiqs
++  psiqr
++  wr
++  tem
++  vds
++  vqs
+aux_var_startup:
++  psids_st
++  psidr_st
++  psiqs_st
++  psiqr_st
++  ids_st
++  iqs_st
+digital_nodes:
+main_var:
++  wrm
++  tl
+xvar:
+stparms:
++  psids0=0
++  psiqs0=0
++  psidr0=0
++  psiqr0=0
++  wrm0=0
+igparms:
+no_functions=26
+f_a:  iqs
+f_b:  iqs ids
+f_c:  iqs ids
+f_vqs:  vqs v(a) v(b) v(c)
+f_vds:  vds v(b) v(c)
+f_ids:  ids psids psidr
+f_idr:  idr psids ids
+f_iqs:  iqs psiqs psiqr
+f_iqr:  iqr psiqs iqs
+f_tem: tem iqs idr ids iqr
+f_wr: wr wrm
+f_dpsids: d_dt(psids) vds ids psiqs
+f_dpsiqs: d_dt(psiqs) vqs iqs psids
+f_dpsidr: d_dt(psidr) wr psiqr idr
+f_dpsiqr: d_dt(psiqr) wr psidr iqr
+f_dwrm: d_dt(wrm) tem tl wrm
+f_st_a: startup iqs_st
+f_st_b: startup iqs_st ids_st
+f_st_c: startup iqs_st ids_st
+f_st_ids: startup ids_st psids_st psidr_st
+f_st_iqs: startup iqs_st psiqs_st psiqr_st
+f_st_psids: startup psids_st
+f_st_psiqs: startup psiqs_st
+f_st_psidr: startup psidr_st
+f_st_psiqr: startup psiqr_st
+f_st_wrm: startup wrm
+C: compiled
+endC
+endebe
+ebe name=ipulse limit_tstep=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  i_1=0
++  i_2=0
++  t_1=0
++  t_2=0
++  delt_1=0.025u
++  delt_2=0.060u
++  tp1=0
++  tp2=0
++  slp1=0
++  slp2=0
++  epsl=0
++  epsl1=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1:
+f_2:
+C: compiled
+endC
+endebe
+ebe name=isrc_1
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var: x
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: x
+f_2: x
+C: compiled
+endC
+endebe
+ebe name=isrc_pwl20 limit_tstep=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms: n1=2
+sparms:
+rparms:
++   t1 =1  t2 =2  t3 =3  t4 =4  t5 =5
++   t6 =6  t7 =7  t8 =8  t9 =9  t10=10
++   t11=11 t12=12 t13=13 t14=14 t15=15
++   t16=16 t17=17 t18=18 t19=19 t20=20
++   is1 =1  is2 =2  is3 =3  is4 =4  is5 =5
++   is6 =6  is7 =7  is8 =8  is9 =9  is10=10
++   is11=11 is12=12 is13=13 is14=14 is15=15
++   is16=16 is17=17 is18=18 is19=19 is20=20
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1:
+f_2:
+C: compiled
+endC
+endebe
+ebe name=isrcac
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  a=1
++  f_hz=1
++  phi=0
++  t0=0
++  omega=0
++  phi_rad=0
++  v1=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1:
+f_2:
+C: compiled
+endC
+endebe
+ebe name=isrcdc
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: idc=0.0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1:
+f_2:
+C: compiled
+endC
+endebe
+ebe name=jfet_spice_1 limit_newton=no startup_sprt=yes
++  gmin_step=yes
+Jacobian: variable
+nodes: g d s
+ind_nodes:
+ind_branches:
+iparms:
++  level=1
++  jfet_type=1
++  flag_jac=0
+sparms:
+rparms:
++  t1=300.15
++  pb=1.0
++  mj=0.5
++  cgs=0.0
++  cgd=0.0
++  beta=1e-4
++  bto=0
++  bte=0
++  is=1e-14
++  xti=3.0
++  vto=-2.0
++  n=1.0
++  tt=0
++  fc=0.5
++  io=0
++  ns=1
++  lambda=0
++  lambda1=0
++  alpha=2.0
++  np=2.0
++  vt=0
++  pb_t=0
++  cgd_t=0
++  cgs_t=0
++  beta_t=0
++  is_t=0
++  f1=0
++  f2=0
++  f3=0
++  fcp=0
++  cur_max=1e3
++  k_crit=0
+local_var: qg0 qd0 qs0
+aux_var:
+aux_var_startup: cur_g_s cur_d_s
+digital_nodes:
+main_var:
+xvar:
+stparms: vgd_sv=0 vgs_sv=0
+igparms:
+no_functions=11
+f_kcl_g:  d_dt(qg0) v(g) v(d) v(s)
+f_kcl_d:  d_dt(qd0) v(g) v(d) v(s)
+f_kcl_s:  d_dt(qs0) v(g) v(d) v(s)
+f_lv_qg:  local_var qg0 v(g) v(d) v(s)
+f_lv_qd:  local_var qd0 v(g) v(d) v(s)
+f_lv_qs:  local_var qs0 v(g) v(d) v(s)
+f_st_kcl_g: startup cur_g_s
+f_st_kcl_d: startup cur_d_s
+f_st_kcl_s: startup cur_g_s cur_d_s
+f_st_vgd:   startup v(g) v(d)
+f_st_vgs:   startup v(g) v(s)
+C: compiled
+endC
+endebe
+ebe name=jfet_spice_2 limit_newton=no startup_sprt=yes
++  gmin_step=yes
+Jacobian: variable
+nodes: g d s
+ind_nodes:
+ind_branches:
+iparms:
++ jfet_type=1
+sparms:
+rparms:
++  tnom=27
++  tref=27
++  tmpr_dev=27
++  vto=-2
++  beta=1e-4
++  lambda=0
++  cgs=0
++  cgd=0
++  pb=1
++  is=1e-14
++  fc=0.5
++  af=1
++  b=1
++  tcv=0
++  bex=0
++  idmax=100
++  area=1
++  f2=0
++  f3=0
++  bfac=0
++  vt_tmpr=0
++  is_tmpr=0
++  cgs_tmpr=0
++  cgd_tmpr=0
++  pb_tmpr=0
++  vdepcap=0
++  f1=0
++  vcrit=0
++  vto_tmpr=0
++  beta_tmpr=0
++  vgs_old=0
++  vgd_old=0
++  kcrit=0
+local_var: qg0 qd0 qs0
+aux_var:
+aux_var_startup: cur_g_s cur_d_s
+digital_nodes:
+main_var:
+xvar:
+stparms: vgd_sv=0 vgs_sv=0
+igparms:
+no_functions=11
+f_kcl_g:  d_dt(qg0) v(g) v(d) v(s)
+f_kcl_d:  d_dt(qd0) v(g) v(d) v(s)
+f_kcl_s:  d_dt(qs0) v(g) v(d) v(s)
+f_lv_qg:  local_var qg0 v(g) v(d) v(s)
+f_lv_qd:  local_var qd0 v(g) v(d) v(s)
+f_lv_qs:  local_var qs0 v(g) v(d) v(s)
+f_st_kcl_g: startup cur_g_s
+f_st_kcl_d: startup cur_d_s
+f_st_kcl_s: startup cur_g_s cur_d_s
+f_st_vgd:   startup v(g) v(d)
+f_st_vgs:   startup v(g) v(s)
+C: compiled
+endC
+endebe
+ebe name=l startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  l=1.0
++  v1=0
++  k_scale=1
+local_var:
+aux_var: cur_p
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms: i0sv=0
+igparms: i0ig=0
+no_functions=5
+f_1: cur_p
+f_2: cur_p
+f_3: d_dt(cur_p) v(p) v(n)
+f_4: startup
+f_5: startup
+C: compiled
+endC
+endebe
+ebe name=l_crystal startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  f0=3.58e6
++  q=1000
++  rs=160
++  l=0
+local_var:
+aux_var: cur_p
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms: i0sv=0
+igparms:
+no_functions=5
+f_1: cur_p
+f_2: cur_p
+f_3: d_dt(cur_p) v(p) v(n)
+f_4: startup
+f_5: startup
+C: compiled
+endC
+endebe
+ebe name=l_pu startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  x_pu=1
++  f_b=50
++  l=0
++  v1=0
++  k_scale=1
+local_var:
+aux_var: cur_p
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms: i0sv=0
+igparms: i0ig=0
+no_functions=5
+f_1: cur_p
+f_2: cur_p
+f_3: d_dt(cur_p) v(p) v(n)
+f_4: startup
+f_5: startup
+C: compiled
+endC
+endebe
+ebe name=l_pu_sync startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
++   i_compute_strt=0
++   indx=1
+sparms:
+rparms: x_pu=1 f_b=50 l=0 v1=0
+local_var:
+aux_var: cur_p
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms: i0sv=0
+igparms: i0ig=0
+no_functions=5
+f_1: cur_p
+f_2: cur_p
+f_3: d_dt(cur_p) v(p) v(n)
+f_4: startup
+f_5: startup
+C: compiled
+endC
+endebe
+ebe name=l_theta startup_sprt=yes
+Jacobian: variable
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
++  ns=6
++  nr=4
+sparms:
+rparms:
++  lmin=1.1m
++  lmax=5.5m
++  beta_s_deg=35
++  beta_r_deg=36.5
++  theta_1=0
++  theta_2=0
++  theta_3=0
++  theta_4=0
++  tau_r=0
++  slope_1=0
++  v1=0
+local_var:
+aux_var: l dl_dtheta cur_p psi
+aux_var_startup:
+digital_nodes:
+main_var: theta tem_phase
+xvar:
+stparms:
+igparms:
+no_functions=10
+f_cur_1:     cur_p
+f_cur_2:     cur_p
+f_ddt_psi:   d_dt(psi) v(p) v(n)
+f_psi:       psi cur_p l
+f_l:         l
+f_dl_dtheta: dl_dtheta
+f_tem:       tem_phase cur_p dl_dtheta
+f_st_cur_1: startup
+f_st_cur_2: startup
+f_st_tem:   startup tem_phase
+C: compiled
+endC
+endebe
+ebe name=l_z startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  l=1.0
++  v1=0
++  x=1
++  f0=1
++  k=1e6
+local_var:
+aux_var: cur_p
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms: i0sv=0
+igparms: i0ig=0
+no_functions=5
+f_1: cur_p
+f_2: cur_p
+f_3: d_dt(cur_p) v(p) v(n)
+f_4: startup
+f_5: startup
+C: compiled
+endC
+endebe
+ebe name=mos_bsim1 limit_newton=no startup_sprt=yes
++  gmin_step=yes
+Jacobian: variable
+nodes: term1 term2 gate bulk
+ind_nodes:
+ind_branches:
+iparms:
++  mostype=1
++  xpart=0
++  limit_vgs=0
++  limit_vds=0
++  limit_vbs=0
++  limit_vbd=0
++  limit_vds_pos=0
++  flag_jac=0
+sparms:
+rparms:
++  l=5e-6
++  w=5e-6
++  ad=0
++  as=0
++  pd=0
++  ps=0
++  vfb=0
++  lvfb=0
++  wvfb=0
++  phi=0
++  lphi=0
++  wphi=0
++  k1=0
++  lk1=0
++  wk1=0
++  k2=0
++  lk2=0
++  wk2=0
++  eta=0
++  leta=0
++  weta=0
++  x2e=0
++  lx2e=0
++  wx2e=0
++  x3e=0
++  lx3e=0
++  wx3e=0
++  dl=0
++  dw=0
++  muz=0
++  x2mz=0
++  lx2mz=0
++  wx2mz=0
++  mus=0
++  x2ms=0
++  lx2ms=0
++  wx2ms=0
++  x3ms=0
++  lx3ms=0
++  wx3ms=0
++  u0=0
++  lu0=0
++  wu0=0
++  x2u0=0
++  lx2u0=0
++  wx2u0=0
++  u1=0
++  lu1=0
++  wu1=0
++  x2u1=0
++  lx2u1=0
++  wx2u1=0
++  x3u1=0
++  lx3u1=0
++  wx3u1=0
++  n0=0
++  ln0=0
++  wn0=0
++  nb=0
++  lnb=0
++  wnb=0
++  nd=0
++  lnd=0
++  wnd=0
++  tox=0.01
++  temp=300.15
++  vdd=0
++  cgso=0
++  cgdo=0
++  cgbo=0
++  pb=0
++  mj=0
++  pbsw=0
++  mjsw=0
++  cj=0
++  cjsw=0
++  wdf=0
++  cox=0
++  betazero=0
++  betazerob=0
++  betavdd=0
++  betavddb=0
++  betavddd=0
++  vt0=0
++  von=0
++  js=0
++  lmus=0
++  wmus=0
++  vgs_new=0
++  vds_new=0
++  vbs_new=0
++  vbd_new=0
++  vfb_computed=0
++  phi_computed=0
++  k1_computed=0
++  k2_computed=0
++  eta_computed=0
++  x2e_computed=0
++  x3e_computed=0
++  u0_computed=0
++  u1_computed=0
++  x2u0_computed=0
++  x2u1_computed=0
++  x3u1_computed=0
++  n0_computed=0
++  nb_computed=0
++  nd_computed=0
+local_var: qgatettl qbulkttl q1ttl q2ttl
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=12
+f_kcl_term1:   d_dt(q1ttl) v(term1) v(term2) v(gate) v(bulk)
+f_kcl_term2:   d_dt(q2ttl) v(term1) v(term2) v(gate) v(bulk)
+f_kcl_gate:    d_dt(qgatettl)
+f_kcl_bulk:    d_dt(qbulkttl) v(bulk) v(term1) v(term2)
+f_lv_q1ttl:    local_var q1ttl    v(term1) v(term2) v(gate) v(bulk)
+f_lv_q2ttl:    local_var q2ttl    v(term1) v(term2) v(gate) v(bulk)
+f_lv_qgatettl: local_var qgatettl v(term1) v(term2) v(gate) v(bulk)
+f_lv_qbulkttl: local_var qbulkttl v(term1) v(term2) v(gate) v(bulk)
+f_st_term1:  startup v(term1) v(term2)
+f_st_term2:  startup v(term1) v(term2)
+f_st_gate:   startup
+f_st_bulk:   startup
+C: compiled
+endC
+endebe
+ebe name=mos_l1_r
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  r=1.0
++  rsh=1
++  nsquares=1
++  r_given=0.001
++  m=1
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=mos_l3_r
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  r=1.0
++  rsh=1
++  nsquares=1
++  r_given=0.001
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=mos_level1 limit_newton=no startup_sprt=yes
++  gmin_step=yes
+Jacobian: variable
+nodes: g d s b
+ind_nodes:
+ind_branches:
+iparms:
++  channel=1
++  tpg=1
+sparms:
+rparms:
++  w=1.0e-6
++  l=1.0e-6
++  tnom=300.15
++  vt0=-99
++  kp=-99
++  gamma=-99
++  lambda=0
++  phi=-99
++  cbs=0
++  cbd=0
++  is=1e-14
++  pb=0.8
++  cgso=0
++  cgdo=0
++  cgbo=0
++  cj=0
++  mj=0.5
++  cjsw=0
++  mjsw=0.33
++  js=0
++  tox=-99
++  ld=0
++  u0=600
++  fc=0.5
++  nsub=-99
++  nss=0
++  as=0.0
++  ad=0.0
++  pd=0.0
++  ps=0.0
++  t1=300.15
++  qg_out=0
++  qd_out=0
++  qs_out=0
++  qb_out=0
++  kp_c=0
++  phi_c=0
++  gamma_c=0
++  vt0_c=0
++  m=1
++  coxprime=0
+local_var: qg0 qd0 qs0 qb0
+aux_var:
+aux_var_startup:
++  cur_g_st
++  cur_d_st
++  cur_s_st
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=15
+f_kcl_g:  d_dt(qg0) v(g) v(d) v(s) v(b)
+f_kcl_d:  d_dt(qd0) v(g) v(d) v(s) v(b)
+f_kcl_s:  d_dt(qs0) v(g) v(d) v(s) v(b)
+f_kcl_b:  d_dt(qb0) v(g) v(d) v(s) v(b)
+f_lv_qg:  local_var qg0 v(g) v(d) v(s) v(b)
+f_lv_qd:  local_var qd0 v(g) v(d) v(s) v(b)
+f_lv_qs:  local_var qs0 v(g) v(d) v(s) v(b)
+f_lv_qb:  local_var qb0 v(g) v(d) v(s) v(b)
+f_st_kcl_g: startup cur_g_st
+f_st_kcl_d: startup cur_d_st
+f_st_kcl_s: startup cur_s_st
+f_st_kcl_b: startup cur_g_st cur_d_st cur_s_st
+f_st_gs:    startup v(g) v(s)
+f_st_ds:    startup v(d) v(s)
+f_st_bs:    startup v(b) v(s)
+C: compiled
+endC
+endebe
+ebe name=mos_level3 limit_newton=no startup_sprt=yes
++  gmin_step=yes
+Jacobian: variable
+nodes: g d s b
+ind_nodes:
+ind_branches:
+iparms:
++  channel=1
++  tpg=1
+sparms:
+rparms:
++  w=1.0e-6
++  l=1.0e-6
++  as=0.0
++  ad=0.0
++  pd=0.0
++  ps=0.0
++  vt0=-99
++  kp=-99
++  gamma=-99
++  phi=0.6
++  cbd=0
++  cbs=0
++  is=1e-14
++  pb=0
++  cj=0
++  mj=0.5
++  cjsw=0
++  mjsw=0.33
++  js=0
++  cgdo=0
++  cgbo=0
++  cgso=0
++  tox=1e-7
++  nsub=1e16
++  nss=0
++  nfs=0
++  xj=0
++  ld=0
++  u0=600
++  vmax=0
++  fc=0.5
++  delta=0
++  theta=0
++  eta=0
++  kappa=0.2
++  tnom=300.15
++  t1=300.15
++  alpha=0
++  xd=0
++  qg_out=0
++  qd_out=0
++  qs_out=0
++  qb_out=0
++  kp_c=0
++  nsub_c=0
++  phi_c=0
++  gamma_c=0
++  vt0_c=0
++  alpha_c=0
++  xd_c=0
+local_var: qg0 qd0 qs0 qb0
+aux_var:
+aux_var_startup:
++  cur_g_st
++  cur_d_st
++  cur_s_st
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=15
+f_kcl_g:  d_dt(qg0) v(g) v(d) v(s) v(b)
+f_kcl_d:  d_dt(qd0) v(g) v(d) v(s) v(b)
+f_kcl_s:  d_dt(qs0) v(g) v(d) v(s) v(b)
+f_kcl_b:  d_dt(qb0) v(g) v(d) v(s) v(b)
+f_lv_qg:  local_var qg0 v(g) v(d) v(s) v(b)
+f_lv_qd:  local_var qd0 v(g) v(d) v(s) v(b)
+f_lv_qs:  local_var qs0 v(g) v(d) v(s) v(b)
+f_lv_qb:  local_var qb0 v(g) v(d) v(s) v(b)
+f_st_kcl_g: startup cur_g_st
+f_st_kcl_d: startup cur_d_st
+f_st_kcl_s: startup cur_s_st
+f_st_kcl_b: startup cur_g_st cur_d_st cur_s_st
+f_st_gs:    startup v(g) v(s)
+f_st_ds:    startup v(d) v(s)
+f_st_bs:    startup v(b) v(s)
+C: compiled
+endC
+endebe
+ebe name=mos_r
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  r=1.0
++  rsh=1
++  nsquares=1
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=nand_2 startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes: node_x1 node_x2
+ind_branches:
+iparms:
+sparms:
+rparms: v_high=1
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=nor_2 startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes: node_x1 node_x2
+ind_branches:
+iparms:
+sparms:
+rparms: v_high=1
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=not startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes: node_x
+ind_branches:
+iparms:
+sparms:
+rparms: v_high=1
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=or_2 startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes: node_x1 node_x2
+ind_branches:
+iparms:
+sparms:
+rparms: v_high=1
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=pmsm startup_sprt=yes
+Jacobian: variable
+nodes: a b c
+ind_nodes:
+ind_branches:
+iparms:
++  poles=12
+sparms:
+rparms:
++  rs=0.9
++  ls=3.5m
++  ke=0.2425
++  kt=0.63
++  j=4.7e-4
+local_var:
+aux_var:
++  is_alpha
++  is_beta
++  vs_alpha
++  vs_beta
++  tem
++  isd_d
++  isq_d
+aux_var_startup:
++  is_alpha_st
++  is_beta_st
++  vs_alpha_st
++  vs_beta_st
++  tem_st
++  isd_d_st
++  isq_d_st
+digital_nodes:
+main_var:
++  wm
++  we
++  theta
++  tl
++  is_d
++  is_q
++  vs_d
++  vs_q
+xvar:
+stparms:
++  wm0=0
++  theta0=0
+igparms:
+no_functions=34
+f_a:         is_alpha
+f_b:         is_alpha is_beta
+f_c:         is_alpha is_beta
+f_we:        we wm
+f_isd:       is_d is_alpha is_beta theta
+f_isq:       is_q is_alpha is_beta theta
+f_vs_alpha:  vs_alpha v(a)
+f_vs_beta:   vs_beta  v(b) v(c)
+f_vsd:       vs_d vs_alpha vs_beta theta
+f_vsq:       vs_q vs_alpha vs_beta theta
+f_kvl_d:     vs_d is_d isd_d we is_q
+f_kvl_q:     vs_q is_q isq_d we is_d
+f_tem:       tem is_q
+f_ddt_wm:    d_dt(wm) tem tl
+f_ddt_theta: d_dt(theta) we
+f_ddt_isd:   d_dt(is_d) isd_d
+f_ddt_isq:   d_dt(is_q) isq_d
+f_st_a:         startup is_alpha_st
+f_st_b:         startup is_alpha_st is_beta_st
+f_st_c:         startup is_alpha_st is_beta_st
+f_st_we:        startup we wm
+f_st_isd:       startup is_d is_alpha_st is_beta_st theta
+f_st_isq:       startup is_q is_alpha_st is_beta_st theta
+f_st_vs_alpha:  startup vs_alpha_st v(a)
+f_st_vs_beta:   startup vs_beta_st  v(b) v(c)
+f_st_vsd:       startup vs_d vs_alpha_st vs_beta_st theta
+f_st_vsq:       startup vs_q vs_alpha_st vs_beta_st theta
+f_st_kvl_d:     startup vs_d is_d isd_d_st we is_q
+f_st_kvl_q:     startup vs_q is_q isq_d_st we is_d
+f_st_tem:       startup tem_st is_q
+f_st_ddt_wm:    startup wm
+f_st_ddt_theta: startup theta
+f_st_ddt_isd:   startup is_d
+f_st_ddt_isq:   startup is_q
+C: compiled
+endC
+endebe
+ebe name=pwl20 limit_tstep=yes startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms: n1=2
+sparms:
+rparms:
++   t1 =1  t2 =2  t3 =3  t4 =4  t5 =5
++   t6 =6  t7 =7  t8 =8  t9 =9  t10=10
++   t11=11 t12=12 t13=13 t14=14 t15=15
++   t16=16 t17=17 t18=18 t19=19 t20=20
++   v1 =1  v2 =2  v3 =3  v4 =4  v5 =5
++   v6 =6  v7 =7  v8 =8  v9 =9  v10=10
++   v11=11 v12=12 v13=13 v14=14 v15=15
++   v16=16 v17=17 v18=18 v19=19 v20=20
++   v_branch=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=r_jfet
+Jacobian: variable
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++   t1=300.15
++   tc1=0
++   tc2=0
++   r=1u
++   r_t=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=r
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  r=1.0
++  v1=0
++  tc1=0
++  tc2=0
++  tmpr_r=300.15
++  g=0
++  k_scale=1
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=r_area
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  r=1.0
++  area=1
++  g=1
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=r_pot
+Jacobian: constant
+nodes: p n m
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  r=1.0
++  a=0.5
++  r_pm=0.0
++  r_mn=0.0
++  k_scale=1
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=3
+f_1: v(p) v(m)
+f_2: v(m) v(n)
+f_3: v(p) v(m) v(n)
+C: compiled
+endC
+endebe
+ebe name=r_time
+Jacobian: variable
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  r1=1
++  r2=1
++  t0=1
++  v1=0
++  g1=0
++  g2=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=r_xfmr_1
+Jacobian: variable
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  k1=1.0
++  k2=0.02
++  p0=2
++  f0=1
++  v1=0
+local_var:
+aux_var: phi
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=3
+f_1: phi
+f_2: phi
+f_3: phi v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=sampler2 limit_tstep=yes startup_sprt=yes save_history=yes
+Jacobian: variable
+nodes: p n
+ind_nodes: vin
+ind_branches:
+iparms:
+sparms:
+rparms:
++  tperiod=10u
++  t0=0
++  v_previous=0
++  dt=1u
++  v1=0
++  epsl1=0
++  epsl2=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=solar_module_1b limit_newton=no startup_sprt=no
++  gmin_step=yes
+Jacobian: variable
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  ns=1
++  vocmr=1
++  iscmr=1
++  coef_iscm=0
++  coef_vocm=0
++  noct=20
++  tr=25
++  pmaxr=1
++  g=1000
++  ta=25
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=solar_module_rs
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  ns=1
++  vocmr=1
++  iscmr=1
++  pmaxr=1
++  rs=0
++  rsinv=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=spdt limit_tstep=yes
+Jacobian: variable
+nodes: p s1 s2
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  r_on=1m
++  r_off=1M
++  g_on=1
++  g_off=1
++  t_1=0
++  t_2=1
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=3
+f_1: v(p) v(s1) v(s2)
+f_2: v(p) v(s1)
+f_3: v(p) v(s2)
+C: compiled
+endC
+endebe
+ebe name=spdt1
+Jacobian: variable
+nodes: p s1 s2
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  r_on=1m
++  r_off=1M
++  g_on=1
++  g_off=1
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes: d_in
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=3
+f_1: v(p) v(s1) v(s2)
+f_2: v(p) v(s1)
+f_3: v(p) v(s2)
+C: compiled
+endC
+endebe
+ebe name=spdt_boost save_history=yes
+Jacobian: variable
+nodes: p s1 s2
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  g_high=1.0
++  time_last=0
++  tstart1=0
++  tend1=1
++  vint=0
++  iint=0
++  r_on=1m
++  r_off=1M
++  g_on=1m
++  g_off=1M
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var: g_in
+xvar:
+stparms:
+igparms:
+no_functions=3
+f_1: v(p) v(s1) v(s2)
+f_2: v(p) v(s1)
+f_3: v(p) v(s2)
+C: compiled
+endC
+endebe
+ebe name=spdt_buck save_history=yes
+Jacobian: variable
+nodes: p s1 s2
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  g_high=1.0
++  time_last=0
++  tstart1=0
++  tend1=1
++  vint=0
++  iint=0
++  r_on=1m
++  r_off=1M
++  g_on=1m
++  g_off=1M
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var: g_in
+xvar:
+stparms:
+igparms:
+no_functions=3
+f_1: v(p) v(s1) v(s2)
+f_2: v(p) v(s1)
+f_3: v(p) v(s2)
+C: compiled
+endC
+endebe
+ebe name=switch_d
+Jacobian: variable
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  ron=1.0
++  roff=1M
++  g_high=1.0
++  v1=0
++  v_on=0
++  v_on0=0
++  g_on=0
++  g_off=0
++  g_on0=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes: d_in
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=switch_e
+Jacobian: variable
+nodes: p n
+ind_nodes: node_1 node_2
+ind_branches:
+iparms:
+sparms:
+rparms:
++  ron=1.0
++  roff=1M
++  v_high=1.0
++  v1=0
++  v_on=0
++  v_on0=0
++  g_on=0
++  g_off=0
++  g_on0=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=switch_g1
+Jacobian: variable
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  ron=1.0
++  roff=1M
++  g_high=1.0
++  v1=0
++  v_on=0
++  v_on0=0
++  g_on=0
++  g_off=0
++  g_on0=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var: g_in
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: v(p) v(n)
+f_2: v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=syncmc_1 startup_sprt=yes
+Jacobian: variable
+nodes: a b c
+ind_nodes:
+ind_branches:
+iparms:
++  i_compute_strt=1
++  i_flag_network=1
+sparms:
+rparms:
++  xd=1.79
++  xq=1.71
++  xdp=0.169
++  xqp=0.228
++  xdpp=0.135
++  xqpp=0.2
++  ra=0.001
++  td0p=4.3
++  tq0p=0.85
++  td0pp=0.032
++  tq0pp=0.05
++  h0=0.05
++  d0=0.3
++  fb=50
++  wb=0
++  tdp=0
++  tqp=0
++  tdpp=0
++  tqpp=0
++  a1d=0
++  a2d=0
++  a1q=0
++  a2q=0
++  c1d=0
++  e2=0
++  e4=0
++  f0=50
++  w0=0
++  vg0=1.0
++  thetag0_deg=30
++  e_src=1.0
++  xl=0.5
++  r_parallel=100
++  ka_static=100
++  xc=0.4
++  r_line=0.01
++  k_hi=19.303
++  k_ila=34.929
++  k_lab=52.038
++  k_lbg=70.858
++  k_ge=2.82
++  d_h=0.2
++  d_i=0.2
++  d_la=0.2
++  d_lb=0.2
++  d_e=0.2
++  scale_v=1
++  scale_i=1
+local_var:
+aux_var:
++  vd
++  vq
++  id
++  iq
++  psid
++  psiq
++  psif
++  psih
++  psik
++  psig
+aux_var_startup:
++  vd_st
++  vq_st
++  id_st
++  iq_st
++  psid_st
++  psiq_st
++  psif_st
++  psih_st
++  psik_st
++  psig_st
+digital_nodes:
+main_var:
++  omega
++  tem
++  efd
++  theta
++  tmech
+xvar:
+stparms:
++  psid_st_0=0
++  psiq_st_0=0
++  psif_st_0=0
++  psih_st_0=0
++  psig_st_0=0
++  psik_st_0=0
++  theta_st_0=0
++  omega_st_0=0
+igparms:
+no_functions=32
+f_ia:     id iq theta
+f_ib:     id iq theta
+f_ic:     id iq theta
+f_vd:     vd v(a) v(b) v(c) theta
+f_vq:     vq v(a) v(b) v(c) theta
+f_psid:   psid id psih psif
+f_psiq:   psiq iq psik psig
+f_tem:    tem psid psiq id iq
+f_dpsid:  d_dt(psid) psiq id vd omega
+f_dpsiq:  d_dt(psiq) psid iq vq omega
+f_dpsif:  d_dt(psif) psif psid efd
+f_dpsih:  d_dt(psih) psih psid
+f_dpsig:  d_dt(psig) psig psiq
+f_dpsik:  d_dt(psik) psik psiq
+f_dtheta: d_dt(theta) omega
+f_domega: d_dt(omega) tem tmech omega
+f_st_ia:     startup id_st iq_st theta
+f_st_ib:     startup id_st iq_st theta
+f_st_ic:     startup id_st iq_st theta
+f_st_vd:     startup vd_st v(a) v(b) v(c) theta
+f_st_vq:     startup vq_st v(a) v(b) v(c) theta
+f_st_psid:   startup psid_st id_st psih_st psif_st
+f_st_psiq:   startup psiq_st iq_st psik_st psig_st
+f_st_tem:    startup tem psid_st psiq_st id_st iq_st
+f_st_dpsid:  startup psid_st
+f_st_dpsiq:  startup psiq_st
+f_st_dpsif:  startup psif_st
+f_st_dpsih:  startup psih_st
+f_st_dpsig:  startup psig_st
+f_st_dpsik:  startup psik_st
+f_st_dtheta: startup theta
+f_st_domega: startup omega
+C: compiled
+endC
+endebe
+ebe name=thyristor_g save_history=yes
+Jacobian: variable
+nodes: anode cathode
+ind_nodes:
+ind_branches:
+iparms: flag_on=0 flag1=0
+sparms:
+rparms:
++  ron=0.1m
++  roff=1M
++  g_high=1
++  v1=0
++  gbh2=0
++  v_on=0.1
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var: gate
+xvar:
+stparms: st_closed=0
+igparms:
+no_functions=2
+f_1: v(anode) v(cathode)
+f_2: v(anode) v(cathode)
+C: compiled
+endC
+endebe
+ebe name=thyristor_g_2 save_history=yes
+Jacobian: variable
+nodes: anode cathode
+ind_nodes:
+ind_branches:
+iparms: flag_on=0 flag1=0
+sparms:
+rparms:
++  ron=0.1m
++  roff=1M
++  g_high=1
++  v1=0
++  gbh2=0
++  v_on=0.1
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var: gate
+xvar:
+stparms: st_closed=0
+igparms:
+no_functions=2
+f_1: v(anode) v(cathode)
+f_2: v(anode) v(cathode)
+C: compiled
+endC
+endebe
+ebe name=triangle_1 startup_sprt=yes limit_tstep=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms: i0=0
+sparms:
+rparms:
++  t1=1
++  t2=1
++  tperiod=0
++  t0=0
++  v_high=1.0
++  v_low=-1.0
++  slp1=0
++  slp2=0
++  epsl=1.0e-9
++  v1=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=triangle_2 startup_sprt=yes limit_tstep=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms: i0=0
+sparms:
+rparms:
++  t1=1
++  t2=1
++  tperiod=0
++  t0=0
++  v_high=1.0
++  v_low=-1.0
++  slp1=0
++  slp2=0
++  epsl=1.0e-9
++  v1=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=triangle_3 startup_sprt=yes limit_tstep=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms: i0=0
+sparms:
+rparms:
++  t1=1
++  t2=1
++  tperiod=0
++  t0=0
++  v_high=1.0
++  v_low=-1.0
++  slp1=0
++  slp2=0
++  epsl=1.0e-9
++  frequency=10
++  v1=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=vccs
+Jacobian: constant
+nodes: n p
+ind_nodes: vcplus vcminus
+ind_branches:
+iparms:
+sparms:
+rparms: gm=1 v1=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1: volt(vcplus) volt(vcminus)
+f_2: volt(vcplus) volt(vcminus)
+C: compiled
+endC
+endebe
+ebe name=vcvs_2v startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
++  vcplus1
++  vcminus1
++  vcplus2
++  vcminus2
+ind_branches:
+iparms:
+sparms:
+rparms:
++  alpha0=1
++  alpha1=1
++  alpha2=1
++  v1=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
++    volt(vcplus1) volt(vcminus1)
++    volt(vcplus2) volt(vcminus2)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
++    volt(vcplus1) volt(vcminus1)
++    volt(vcplus2) volt(vcminus2)
+C: compiled
+endC
+endebe
+ebe name=vcvs startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes: vcplus vcminus
+ind_branches:
+iparms:
+sparms:
+rparms: alpha=1 v1=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n) volt(vcplus) volt(vcminus)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n) volt(vcplus) volt(vcminus)
+C: compiled
+endC
+endebe
+ebe name=voltmeter_fb
+Jacobian: constant
+nodes: p m
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: k_scale=1
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var: v_fb
+xvar:
+stparms:
+igparms:
+no_functions=3
+f_1:
+f_2:
+f_3: v_fb v(p) v(m)
+C: compiled
+endC
+endebe
+ebe name=voltmeter
+Jacobian: constant
+nodes: p m
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: v1=0
+local_var:
+aux_var:
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=2
+f_1:
+f_2:
+C: compiled
+endC
+endebe
+ebe name=vpulse20 limit_tstep=yes startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms: i0=0 n1=2
+sparms:
+rparms:
++  t1 =1  t2 =2  t3 =3  t4 =4  t5 =5
++  t6 =6  t7 =7  t8 =8  t9 =9  t10=10
++  t11=11 t12=12 t13=13 t14=14 t15=15
++  t16=16 t17=17 t18=18 t19=19 t20=20
++  v_low=0 v_high=5 t_rise=10n t_fall=10n
++  epsl=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=vpulse limit_tstep=yes startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  v_1=0
++  v_2=0
++  t_1=0
++  t_2=0
++  delt_1=0.025u
++  delt_2=0.060u
++  tp1=0
++  tp2=0
++  slp1=0
++  slp2=0
++  v1=0
++  epsl=0
++  epsl1=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms: vn0=0
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=vsrc_1 startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: v1=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var: x
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n) x
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n) x
+C: compiled
+endC
+endebe
+ebe name=vsrc_1a startup_sprt=yes
+Jacobian: variable
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  vdc=100
++  g_high=1
++  ghby2=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var: g_top g_bot
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=vsrc_am startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  a=1
++  f_c=10k
++  f_m=100
++  m=0.2
++  w_c=0
++  w_m=0
++  v1=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=vsrc_fm startup_sprt=yes
+Jacobian: variable
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  a=1
++  fc_hz=1e5
++  wc=0
++  v1=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var: x
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n) x
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n) x
+C: compiled
+endC
+endebe
+ebe name=vsrc_x startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms: v1=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar: x
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=vsrcac startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++   a=1
++   f_hz=1
++   phi=0
++   t0=0
++   omega=0
++   phi_rad=0
++   vdc=0
++   v1=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms: vn0=0
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=vsrcac_ramp startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++   a=1
++   f_hz=1
++   phi=0
++   t0=0
++   omega=0
++   phi_rad=0
++   vdc=0
++   v1=0
++   t_start_ramp=0
++   t_end_ramp=1
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=vsrcdc startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  vdc=0
++  v1=0
++  k_scale=1
++  t_ramp_1=0
++  t_ramp_2=0
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms: vn0=0
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe
+ebe name=xfmr_basic_1 startup_sprt=yes
+Jacobian: constant
+nodes: p1 n1 p2 n2
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  l1=1m
++  l2=1m
++  k=1
++  m=0
++  v1=0
++  v2=0
+local_var:
+aux_var:
++  i1
++  i2
++  i1d
++  i2d
+aux_var_startup:
++  i1_st
++  i2_st
++  i1d_st
++  i2d_st
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=16
+f_p1:  i1
+f_n1:  i1
+f_p2:  i2
+f_n2:  i2
+f_i1d: d_dt(i1) i1d
+f_i2d: d_dt(i2) i2d
+f_v1:  v(p1) v(n1) i1d i2d
+f_v2:  v(p2) v(n2) i1d i2d
+f_st_p1:  startup i1_st
+f_st_n1:  startup i1_st
+f_st_p2:  startup i2_st
+f_st_n2:  startup i2_st
+f_st_i1d: startup i1_st
+f_st_i2d: startup i2_st
+f_st_v1:  startup v(p1) v(n1) i1d_st i2d_st
+f_st_v2:  startup v(p2) v(n2) i1d_st i2d_st
+C: compiled
+endC
+endebe
+ebe name=xfmr_2w_ideal startup_sprt=yes
+Jacobian: constant
+nodes: pa na pb nb
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  n1=1
++  n2=1
++  lm=15m
++  v_p=0
++  v_s=0
+local_var:
+aux_var: cur_p1 cur_p2 im
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=11
+f_1: cur_p1
+f_2: cur_p1
+f_3: cur_p2
+f_4: cur_p2
+f_v1v2: v(pa) v(na) v(pb) v(nb)
+f_i1i2: cur_p1 cur_p2 im
+f_im:   d_dt(im) v(pa) v(na)
+f_st_1: startup
+f_st_2: startup
+f_st_3: startup
+f_st_4: startup
+C: compiled
+endC
+endebe
+ebe name=xfmr_3w_ideal startup_sprt=yes
+Jacobian: constant
+nodes: pa na pb nb pc nc
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  n1=1
++  n2=1
++  n3=1
++  lm=15m
++  v_a=0
++  v_b=0
++  v_c=0
+local_var:
+aux_var: cur_p1 cur_p2 cur_p3 im
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=16
+f_1: cur_p1
+f_2: cur_p1
+f_3: cur_p2
+f_4: cur_p2
+f_5: cur_p3
+f_6: cur_p3
+f_v1v2: v(pa) v(na) v(pb) v(nb)
+f_v2v3: v(pb) v(nb) v(pc) v(nc)
+f_i1i2i3: cur_p1 cur_p2 cur_p3 im
+f_im: d_dt(im) v(pa) v(na)
+f_st_1: startup
+f_st_2: startup
+f_st_3: startup
+f_st_4: startup
+f_st_5: startup
+f_st_6: startup
+C: compiled
+endC
+endebe
+ebe name=xfmr_ideal startup_sprt=yes
+Jacobian: constant
+nodes: pa na pb nb
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  n1=1
++  n2=1
++  v_p=0
++  v_s=0
+local_var:
+aux_var: cur_p1 cur_p2
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=10
+f_1: cur_p1
+f_2: cur_p1
+f_3: cur_p2
+f_4: cur_p2
+f_v1v2: v(pa) v(na) v(pb) v(nb)
+f_i1i2: cur_p1 cur_p2
+f_st_1: startup
+f_st_2: startup
+f_st_3: startup
+f_st_4: startup
+C: compiled
+endC
+endebe
+ebe name=xfmr_level1_1ph startup_sprt=yes
+Jacobian: constant
+nodes: p_p p_n s_p s_n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  p_turns=1
++  s_turns=1
++  v_p=0
++  v_s=0
+local_var:
+aux_var: cur_p_p cur_s_p
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=10
+f_1:    cur_p_p
+f_2:    cur_p_p
+f_3:    cur_s_p
+f_4:    cur_s_p
+f_v1v2: v(p_p) v(p_n) v(s_p) v(s_n)
+f_i1i2: cur_p_p cur_s_p
+f_st_1: startup
+f_st_2: startup
+f_st_3: startup
+f_st_4: startup
+C: compiled
+endC
+endebe
+ebe name=xfmr_level2_1ph startup_sprt=yes
+Jacobian: constant
+nodes: p_p p_n s_p s_n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  p_turns=1
++  s_turns=1
++  lm=15m
++  v_p=0
++  v_s=0
+local_var:
+aux_var: cur_p_p cur_s_p im
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=11
+f_1: cur_p_p
+f_2: cur_p_p
+f_3: cur_s_p
+f_4: cur_s_p
+f_v1v2: v(p_p) v(p_n) v(s_p) v(s_n)
+f_i1i2: cur_p_p cur_s_p im
+f_im:   d_dt(im) v(p_p) v(p_n)
+f_st_1: startup
+f_st_2: startup
+f_st_3: startup
+f_st_4: startup
+C: compiled
+endC
+endebe
+ebe name=xfmr_level1_1ph_1_2 startup_sprt=yes
+Jacobian: constant
+nodes:
++  p_p  p_n
++  s1_p s1_n
++  s2_p s2_n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  p_turns=1
++  s1_turns=1
++  s2_turns=1
++  v_p=0
++  v_s1=0
++  v_s2=0
+local_var:
+aux_var: cur_p_p cur_s1_p cur_s2_p
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=15
+f_1: cur_p_p
+f_2: cur_p_p
+f_3: cur_s1_p
+f_4: cur_s1_p
+f_5: cur_s2_p
+f_6: cur_s2_p
+f_vpvs1:   v(p_p) v(p_n) v(s1_p) v(s1_n)
+f_vpvs2:   v(p_p) v(p_n) v(s2_p) v(s2_n)
+f_current: cur_p_p cur_s1_p cur_s2_p
+f_st_1: startup
+f_st_2: startup
+f_st_3: startup
+f_st_4: startup
+f_st_5: startup
+f_st_6: startup
+C: compiled
+endC
+endebe
+ebe name=xfmr_level1_1ph_4w startup_sprt=yes
+Jacobian: constant
+nodes:
++  a1_p
++  a1_n
++  a2_p
++  a2_n
++  a3_p
++  a3_n
++  a4_p
++  a4_n
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  n1=1
++  n2=1
++  n3=1
++  n4=1
++  v_a1=0
++  v_a2=0
++  v_a3=0
++  v_a4=0
+local_var:
+aux_var:
++  cur_a1_p
++  cur_a2_p
++  cur_a3_p
++  cur_a4_p
++  vc
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=21
+f_a1_p: cur_a1_p
+f_a1_n: cur_a1_p
+f_a2_p: cur_a2_p
+f_a2_n: cur_a2_p
+f_a3_p: cur_a3_p
+f_a3_n: cur_a3_p
+f_a4_p: cur_a4_p
+f_a4_n: cur_a4_p
+f_a1: v(a1_p) v(a1_n) vc
+f_a2: v(a2_p) v(a2_n) vc
+f_a3: v(a3_p) v(a3_n) vc
+f_a4: v(a4_p) v(a4_n) vc
+f_currents: cur_a1_p cur_a2_p cur_a3_p cur_a4_p
+f_st_1: startup
+f_st_2: startup
+f_st_3: startup
+f_st_4: startup
+f_st_5: startup
+f_st_6: startup
+f_st_7: startup
+f_st_8: startup
+C: compiled
+endC
+endebe
+ebe name=xfmr startup_sprt=yes
+Jacobian: constant
+nodes: p1 n1 p2 n2
+ind_nodes:
+ind_branches:
+iparms:
+sparms:
+rparms:
++  l1=1m
++  l2=1m
++  k=1
++  m=0
++  k1=0
++  k2=0
++  k3=0
++  v_p=0
++  v_s=0
+local_var:
+aux_var: cur_p1 cur_p2
+aux_var_startup:
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=10
+f_1: cur_p1
+f_2: cur_p1
+f_3: cur_p2
+f_4: cur_p2
+f_ddt_curp1: d_dt(cur_p1) v(p1) v(n1) v(p2) v(n2)
+f_ddt_curp2: d_dt(cur_p2) v(p1) v(n1) v(p2) v(n2)
+f_st_1: startup
+f_st_2: startup
+f_st_3: startup
+f_st_4: startup
+C: compiled
+endC
+endebe
+ebe name=xor_2 startup_sprt=yes
+Jacobian: constant
+nodes: p n
+ind_nodes: node_x1 node_x2
+ind_branches:
+iparms:
+sparms:
+rparms: v_high=1
+local_var:
+aux_var: cur_p
+aux_var_startup: cur_p_s
+digital_nodes:
+main_var:
+xvar:
+stparms:
+igparms:
+no_functions=6
+f_1: cur_p
+f_2: cur_p
+f_3: v(p) v(n)
+f_4: startup cur_p_s
+f_5: startup cur_p_s
+f_6: startup v(p) v(n)
+C: compiled
+endC
+endebe

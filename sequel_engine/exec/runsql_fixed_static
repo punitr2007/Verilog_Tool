@@ -1,0 +1,22 @@
+#!/bin/sh
+sequel_aux=.sqlaux
+
+test -d $sequel_aux
+case $? in
+    0) ;;
+    1) mkdir $sequel_aux ;;
+esac
+
+sequel_lib=.sqllib
+
+test -d $sequel_lib
+case $? in
+    0) ;;
+    1) mkdir $sequel_lib ;;
+esac
+
+cp -u $HOME/sequel_fixed/lib2/*.lst $sequel_aux/.
+cp -u $HOME/sequel_fixed/lib2/*.lib $sequel_lib/.
+cp $* $sequel_aux/cct.in
+$HOME/sequel_fixed/exec/sqlprep_fixed_static
+$HOME/sequel_fixed/exec/sqlmain_fixed_static

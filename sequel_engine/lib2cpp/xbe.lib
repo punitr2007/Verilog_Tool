@@ -1,0 +1,3262 @@
+xbe name=ab_to_dq evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: alpha beta c s
+output_vars: d q
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=2
+h_1: q c s alpha beta
+h_2: d c s alpha beta
+C: compiled
+endC
+endxbe
+xbe name=abc_to_alphabeta evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: a b c
+output_vars: alpha beta
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=2
+h_1:  alpha a b c
+h_2:  beta b c
+C: compiled
+endC
+endxbe
+xbe name=abc_to_alphabeta_1 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: a b c
+output_vars: alpha beta
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=2
+h_1:  alpha a
+h_2:  beta b c
+C: compiled
+endC
+endxbe
+xbe name=abc_to_alphabeta_2 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: a b c
+output_vars: alpha beta
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=2
+h_1: alpha a b c
+h_2: beta b c
+C: compiled
+endC
+endxbe
+xbe name=abc_to_dq evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: van vbn vcn
+output_vars: vqs vds
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=2
+h_1: vqs van vbn vcn
+h_2: vds vbn vcn
+C: compiled
+endC
+endxbe
+xbe name=abc_to_dq_1 evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: a b c
+output_vars: d q cost sint
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars: vm alpha beta
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=7
+h_1: alpha a
+h_2: beta b c
+h_3: vm alpha beta
+h_4: alpha cost vm
+h_5: beta  sint vm
+h_6: q cost sint alpha beta
+h_7: d cost sint alpha beta
+C: compiled
+endC
+endxbe
+xbe name=abc_to_dq_2 evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: a b c cost sint
+output_vars: d q
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars: alpha beta
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=4
+h_1: alpha a
+h_2: beta b c
+h_3: q cost sint alpha beta
+h_4: d cost sint alpha beta
+C: compiled
+endC
+endxbe
+xbe name=abc_to_theta evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: a b c
+output_vars: alpha beta cost sint
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars: vm
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=5
+h_1:  alpha a b c
+h_2:  beta b c
+h_3:  vm alpha beta
+h_4:  alpha cost vm
+h_5:  beta  sint vm
+C: compiled
+endC
+endxbe
+xbe name=abc_to_zalphabeta evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: a b c
+output_vars: alpha beta zero
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=3
+h_1: alpha a b c
+h_2: beta b c
+h_3: zero a b c
+C: compiled
+endC
+endxbe
+xbe name=abs evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y x
+C: compiled
+endC
+endxbe
+xbe name=and_2 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  x_high = 1
++  xhby2 = 0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=average evaluate=yes save_history=yes allow_xmixed=no
+Jacobian: variable
+input_vars: x_in x_cntrl
+output_vars: x_out
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  x_int=0
++  x_cntrl_last=0
++  time_last=0
++  x_out_value=0
++  time_ttl=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: x_out
+C: compiled
+endC
+endxbe
+xbe name=average_mv evaluate=yes save_history=yes allow_xmixed=no
+Jacobian: variable
+input_vars: x_in x_cntrl
+output_vars: x_out
+cct_nodes:
+be_v:
+iparms:
++  n_samples=20
++  index=-1
++  flag_start=0
++  n_count=0
+sparms:
+rparms:
++  x_int=0
++  x_cntrl_last=0
++  delt=1
++  x_out_value=0
++  time_ttl=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: x_out
+C: compiled
+endC
+endxbe
+xbe name=bldc1a integrate=yes allow_xmixed=no
+Jacobian: constant
+input_vars: dia dib dic dwm
+output_vars: ia ib ic wm
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
++  wm0=0.1
+aux_vars:
+gvars:
+n_functions=4
+f_1: d_dt(ia)
+f_2: d_dt(ib)
+f_3: d_dt(ic)
+f_4: d_dt(wm)
+n_matrix_ddt=4
+g_1: d_dt(ia)
+g_2: d_dt(ib)
+g_3: d_dt(ic)
+g_4: d_dt(wm)
+n_matrix_alg=4
+h_1: ia
+h_2: ib
+h_3: ic
+h_4: wm
+C: compiled
+endC
+endxbe
+xbe name=bldc1b evaluate=yes allow_xmixed=no
+Jacobian: variable
+input_vars: e0a e0b e0c va vb vc ia ib ic tl wm
+output_vars: dia dib dic dwm tem we
+cct_nodes:
+be_v:
+iparms: poles=6
+sparms:
+rparms:
++  rs=0.98
++  ls=8.035m
++  j=21e-4
++  ke=0.5637
++  b_damp=0
+igparms:
+aux_vars: ea eb ec
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=9
+h_1: ea e0a
+h_2: eb e0b
+h_3: ec e0c
+h_4: dia va ia ea
+h_5: dib vb ib eb
+h_6: dic vc ic ec
+h_7: tem wm ea eb ec ia ib ic
+h_8: dwm tem tl wm
+h_9: we wm
+C: compiled
+endC
+endxbe
+xbe name=bldc_clock_1 evaluate=yes allow_xmixed=no
+Jacobian: constant
+input_vars: theta
+output_vars: g1t g1b g3t g3b g5t g5b
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=6
+h_1: g1t
+h_2: g1b
+h_3: g3t
+h_4: g3b
+h_5: g5t
+h_6: g5b
+C: compiled
+endC
+endxbe
+xbe name=bldc_trz evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: theta
+output_vars: e1 e2 e3
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=3
+h_1: e1
+h_2: e2
+h_3: e3
+C: compiled
+endC
+endxbe
+xbe name=ceil evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=clock evaluate=yes allow_xmixed=yes limit_tstep=yes
+Jacobian: constant
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms: i0=0
+sparms:
+rparms:
++  t1=1
++  t2=2
++  tperiod=0
++  t0=0
++  x_high=1.0
++  dt1=0.01
++  dt2=0.01
++  slp1=0
++  slp2=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=clock_1 evaluate=yes allow_xmixed=yes limit_tstep=yes
+Jacobian: constant
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
++  i0=1
+sparms:
+rparms:
++  t1=1
++  t2=2
++  tperiod=0
++  t0=0
++  x_high=1.0
++  dt1=0.01
++  dt2=0.01
++  slp1=0
++  slp2=0
++  frequency=1e3
++  duty_cycle=0.5
++  epsl=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=clock_3 evaluate=yes allow_xmixed=yes limit_tstep=yes
+Jacobian: constant
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
++  i0=1
++  indx=1
+sparms:
+rparms:
++  t1=0
++  t2=0
++  tperiod=0.02
++  t0=0
++  x_high=1.0
++  dt1=0.01
++  dt2=0.01
++  slp1=0
++  slp2=0
++  alpha=10
++  beta=0
++  epsl=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=clock_gnrl evaluate=yes allow_xmixed=yes limit_tstep=yes
+Jacobian: constant
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  t1=1
++  t2=2
++  t3=3
++  t4=4
++  v1=1
++  v2=2
++  v3=3
++  v4=4
++  tperiod=5
++  slp1=0
++  slp2=0
++  slp3=0
++  slp4=0
++  epsl=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=clock_pwl20 evaluate=yes allow_xmixed=yes limit_tstep=yes
+Jacobian: constant
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms: n=2
+sparms:
+rparms:
++   t1 =1  t2 =2  t3 =3  t4 =4  t5 =5
++   t6 =6  t7 =7  t8 =8  t9 =9  t10=10
++   t11=11 t12=12 t13=13 t14=14 t15=15
++   t16=16 t17=17 t18=18 t19=19 t20=20
++   v1 =1  v2 =2  v3 =3  v4 =4  v5 =5
++   v6 =6  v7 =7  v8 =8  v9 =9  v10=10
++   v11=11 v12=12 v13=13 v14=14 v15=15
++   v16=16 v17=17 v18=18 v19=19 v20=20
++   tperiod=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=clock_trz evaluate=yes allow_xmixed=yes limit_tstep=yes
+Jacobian: constant
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++ frequency=100
++ theta=30
++ theta_delay=0
++ x_high=1
++ tperiod=0
++ t0=0
++ dt=0
++ slp=0
++ epsl=0
++ epsl1=0
++ tp1=0
++ tp2=0
++ tp3=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=clock2 evaluate=yes allow_xmixed=yes limit_tstep=yes
+Jacobian: constant
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
++  i0=1
++  indx1=1
+sparms:
+rparms:
++  t1=1
++  t2=2
++  tperiod=0
++  alpha=0
++  x_high=1.0
++  dt1=0.01
++  dt2=0.01
++  slp1=0
++  slp2=0
++  t0=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=cmprtr evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x1 x2
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  x_low=0
++  x_high=1
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=cmprtr_1 evaluate=yes save_history=yes limit_tstep=yes allow_xmixed=no
+Jacobian: variable
+input_vars: x1 x2
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  x_low=0
++  x_high=1
++  x1_prev_1=0
++  x1_prev_2=0
++  x2_prev_1=0
++  x2_prev_2=0
++  t_prev_1=0
++  t_prev_2=0
++  epsl=1.0e-6
++  delt_min=1.0e-6
++  delt_nrml=1m
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=cmprtr_2 evaluate=yes save_history=yes limit_tstep=yes allow_xmixed=no
+Jacobian: variable
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms: flag_inverting=0
+sparms:
+rparms:
++  x_low=0
++  x_high=1
++  x0=0
++  delt_min=1.0e-6
++  delt_nrml=1m
++  x_prev_1=0
++  x_prev_2=0
++  t_prev_1=0
++  t_prev_2=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=cmprtr_1a evaluate=yes save_history=yes limit_tstep=yes allow_xmixed=no
+Jacobian: variable
+input_vars: x1 x2
+output_vars: y1 y2
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  x_low=0
++  x_high=1
++  x1_prev_1=0
++  x1_prev_2=0
++  x2_prev_1=0
++  x2_prev_2=0
++  t_prev_1=0
++  t_prev_2=0
++  epsl=1.0e-6
++  delt_min=1.0e-6
++  delt_nrml=1m
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=2
+h_1: y1
+h_2: y2
+C: compiled
+endC
+endxbe
+xbe name=cmprtr_1b evaluate=yes save_history=yes limit_tstep=yes allow_xmixed=no
+Jacobian: variable
+input_vars: x
+output_vars: y1 y2
+cct_nodes:
+be_v:
+iparms: flag_inverting=0
+sparms:
+rparms:
++  x_low=0
++  x_high=1
++  x0=0
++  delt_min=1.0e-6
++  delt_nrml=1m
++  x_prev_1=0
++  x_prev_2=0
++  t_prev_1=0
++  t_prev_2=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=2
+h_1: y1
+h_2: y2
+C: compiled
+endC
+endxbe
+xbe name=cmprtr_hyst_1 evaluate=yes save_history=yes limit_tstep=yes allow_xmixed=no
+Jacobian: variable
+input_vars: x1 x2
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  x_low=0
++  x_high=1
++  x1_prev_1=0
++  x1_prev_2=0
++  x2_prev_1=0
++  x2_prev_2=0
++  t_prev_1=0
++  t_prev_2=0
++  epsl=1.0e-6
++  delt_min=1.0e-6
++  delt_nrml=1m
++  x0=0
++  h=0.01
++  hby2=0
++  y_old=0
++  y_half=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=cmprtr_hyst_1a evaluate=yes save_history=yes limit_tstep=yes allow_xmixed=no
+Jacobian: variable
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms: flag_inverting=0
+sparms:
+rparms:
++  x_low=0
++  x_high=1
++  x0=0
++  h=0.01
++  delt_min=1.0e-6
++  delt_nrml=1m
++  x_prev_1=0
++  x_prev_2=0
++  t_prev_1=0
++  t_prev_2=0
++  hby2=0
++  y_old=0
++  y_half=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=cmprtr_hyst_2b evaluate=yes save_history=yes limit_tstep=yes allow_xmixed=no
+Jacobian: variable
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
++  flag_x0=0
++  flag_inverting=0
+sparms:
+rparms:
++  x_low=0
++  x_high=1
++  delt_min=1.0e-6
++  delt_nrml=1m
++  x_prev_1=0
++  x_prev_2=0
++  t_prev_1=0
++  t_prev_2=0
++  x0=0
++  h=0.01
++  hby2=0
++  y_old=0
++  y_half=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=const evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  k = 0 k_scale=1
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=const_pi_1 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms: a1=1 a2=1 k=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=cosine evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: x y
+C: compiled
+endC
+endxbe
+xbe name=d_filter_z0_p1 delay=yes
++ save_history=yes limit_tstep=yes allow_xmixed=no
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  delt_sample=10
++  offs_sample=0
++  eps1=0
++  a0=1.0
++  b0=1.0
++  b1=1.0
++  y_1=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=d_filter_z0_p2 evaluate=yes allow_xmixed=no
+Jacobian: constant
+input_vars: x y_1 y_2
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  a0=1.0
++  b0=1.0
++  b1=1.0
++  b2=1.0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: x y y_1 y_2
+C: compiled
+endC
+endxbe
+xbe name=d_filter_z1 delay=yes
++ save_history=yes limit_tstep=yes allow_xmixed=no
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  delt_sample=10
++  offs_sample=0
++  eps1=0
++  x_1=0
++  y_1=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=d_filter_z1_p1 evaluate=yes allow_xmixed=no
+Jacobian: constant
+input_vars: x x_1 y_1
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  a0=1.0
++  a1=1.0
++  b0=1.0
++  b1=1.0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: x y x_1 y_1
+C: compiled
+endC
+endxbe
+xbe name=d_filter_z2_p2 evaluate=yes allow_xmixed=no
+Jacobian: constant
+input_vars: x x_1 x_2 y_1 y_2
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  a0=1.0
++  a1=1.0
++  a2=1.0
++  b0=1.0
++  b1=1.0
++  b2=1.0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: x y x_1 x_2 y_1 y_2
+C: compiled
+endC
+endxbe
+xbe name=deg_to_rad evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms: a=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: x y
+C: compiled
+endC
+endxbe
+xbe name=delay_2 integrate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  t0=1
++  rt0=0
++  t_delay=1
+igparms: y0=0
+aux_vars:
+gvars:
+n_functions=1
+f_1: d_dt(y)
+n_matrix_ddt=1
+g_1: d_dt(y)
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=diff_2 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  k1=1
++  k2=1
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y x1 x2
+C: compiled
+endC
+endxbe
+xbe name=div_2 evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x1 x2
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms: delta=1.0e-10
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y x1 x2
+C: compiled
+endC
+endxbe
+xbe name=divscl evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  k = 1
++  k_inv = 1
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y x
+C: compiled
+endC
+endxbe
+xbe name=dq_to_ab evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: c s d q
+output_vars: alpha beta
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=2
+h_1: alpha c s d q
+h_2: beta c s d q
+C: compiled
+endC
+endxbe
+xbe name=dq_to_abc evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: d q cost sint
+output_vars: a b c
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars: alpha beta
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=5
+h_1: alpha cost sint d q
+h_2: beta cost sint d q
+h_3: a alpha
+h_4: b alpha beta
+h_5: c alpha beta
+C: compiled
+endC
+endxbe
+xbe name=dq_to_abc_1 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: d q
+output_vars: a b c
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=3
+h_1: a q
+h_2: b q d
+h_3: c q d
+C: compiled
+endC
+endxbe
+xbe name=e_c integrate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: p n
+output_vars:
+cct_nodes: p n
+be_v: v_pn=p-n
+iparms:
+sparms:
+rparms:
++  c=1
++  v1=0
++  i1=0
+igparms:
+aux_vars: q
+gvars:
+n_functions=0
+n_matrix_ddt=1
+g_1: d_dt(q)
+n_matrix_alg=2
+h_1: v_pn
+h_2: q v_pn
+C: compiled
+endC
+endxbe
+xbe name=e_diode_r evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: p n
+output_vars:
+cct_nodes: p n
+be_v: v_pn=p-n
+iparms:
+sparms:
+rparms:
++  r_on=1e-3
++  r_off=1e6
++  v_on=0
++  v1=0
++  i1=0
++  v_on_1=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: v_pn current
+C: compiled
+endC
+endxbe
+xbe name=e_l integrate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: p n
+output_vars:
+cct_nodes: p n
+be_v: v_pn=p-n
+iparms:
+sparms:
+rparms:
++  l=1
++  v1=0
++  i1=0
+igparms:
+aux_vars: flux
+gvars:
+n_functions=0
+n_matrix_ddt=1
+g_1: d_dt(flux)
+n_matrix_alg=2
+h_1: current
+h_2: flux current
+C: compiled
+endC
+endxbe
+xbe name=e_r evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: p n
+output_vars:
+cct_nodes: p n
+be_v: v_pn=p-n
+iparms:
+sparms:
+rparms:
++  r=1
++  v1=0
++  i1=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: v_pn current
+C: compiled
+endC
+endxbe
+xbe name=e_thyristor evaluate=yes allow_xmixed=yes save_history=yes
+Jacobian: variable
+input_vars: anode cathode gate
+output_vars:
+cct_nodes: anode cathode
+be_v: v_pn=anode-cathode
+iparms:
++  flag_on=0
++  flag1=0
+sparms:
+rparms:
++  r_on=1e-3
++  r_off=1e6
++  x_high=1
++  v1=0
++  i1=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: v_pn current
+C: compiled
+endC
+endxbe
+xbe name=e_voltmeter_fb evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: p n v_fb
+output_vars:
+cct_nodes: p n
+be_v: v_pn=p-n
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=2
+h_1: current
+h_2: v_fb v_pn
+C: compiled
+endC
+endxbe
+xbe name=e_vpulse evaluate=yes allow_xmixed=yes limit_tstep=yes
+Jacobian: constant
+input_vars: p n
+output_vars:
+cct_nodes: p n
+be_v: v_pn=p-n
+iparms:
+sparms:
+rparms:
++  v_1=0
++  v_2=0
++  t_1=0
++  t_2=0
++  delt_1=0.1m
++  delt_2=0.1m
++  tp1=0
++  tp2=0
++  slp1=0
++  slp2=0
++  v1=0
++  i1=0
++  epsl=0
++  epsl1=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: v_pn
+C: compiled
+endC
+endxbe
+xbe name=e_vsrcac evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: p n
+output_vars:
+cct_nodes: p n
+be_v: v_pn=p-n
+iparms:
+sparms:
+rparms:
++  a=1
++  f_hz=1
++  phi=0
++  t0=0
++  omega=0
++  phi_rad=0
++  vdc=0
++  v1=0
++  i1=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: v_pn
+C: compiled
+endC
+endxbe
+xbe name=e_vsrcdc evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: p n
+output_vars:
+cct_nodes: p n
+be_v: v_pn=p-n
+iparms:
+sparms:
+rparms:
++  vdc=0
++  v1=0
++  i1=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: v_pn
+C: compiled
+endC
+endxbe
+xbe name=filter_1 integrate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms: index=0
+sparms:
+rparms:
+igparms:
+aux_vars: z1 z2 z3 z4
+gvars:
+n_functions=5
+f_1: d_dt(y)
+f_2: d_dt(z1)
+f_3: d_dt(z2)
+f_4: d_dt(z3)
+f_5: d_dt(z4)
+n_matrix_ddt=5
+g_1: d_dt(y)
+g_2: d_dt(z1)
+g_3: d_dt(z2)
+g_4: d_dt(z3)
+g_5: d_dt(z4)
+n_matrix_alg=5
+h_1: y
+h_2: z1
+h_3: z2
+h_4: z3
+h_5: z4
+C: compiled
+endC
+endxbe
+xbe name=filter_z0_p1 integrate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  a0=1
++  b0=1
++  b1=1
++  c0=0
++  d0=0
++  f0=0.159155
+igparms: y_sv=0
+aux_vars:
+gvars:
+n_functions=1
+f_1: d_dt(y)
+n_matrix_ddt=1
+g_1: d_dt(y)
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=filter_z1_p1 integrate=yes allow_xmixed=yes save_history=yes
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  a0=1
++  a1=1
++  b0=1
++  b1=1
++  c0=0
++  c1=0
++  d0=0
++  f0=0.159155
++  t_old_1=0
++  t_old_2=0
++  x_old_1=0
++  x_old_2=0
+igparms:
++  x_sv=0
++  y_sv=0
+aux_vars:
+gvars:
+n_functions=1
+f_1: d_dt(y)
+n_matrix_ddt=1
+g_1: d_dt(y)
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=floor evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=gtox evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  k = 1
+igparms:
+aux_vars:
+gvars: g
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=indmc1 integrate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: vqs vds tl
+output_vars: wrm
+cct_nodes:
+be_v:
+iparms:
++  poles=4
+sparms:
+rparms:
++  rs=0.435
++  lls=0.002
++  lm=0.0693
++  llr=0.002
++  rr=0.816
++  j=0.089
++  ls=0
++  lr=0
++  le=0
++  l1=0
++  l2=0
++  l3=0
++  x1=0
++  x2=0
++  tem=0
++  ia=0
++  ib=0
++  ic=0
+igparms:
++  psids0=0
++  psiqs0=0
++  psidr0=0
++  psiqr0=0
++  wrm0=0
+aux_vars:
++  psids psidr psiqs psiqr
++  tem0
+gvars:
+n_functions=5
+f_1: d_dt(psids)
+f_2: d_dt(psiqs)
+f_3: d_dt(psidr)
+f_4: d_dt(psiqr)
+f_5: d_dt(wrm)
+n_matrix_ddt=5
+g_1: d_dt(psids)
+g_2: d_dt(psiqs)
+g_3: d_dt(psidr)
+g_4: d_dt(psiqr)
+g_5: d_dt(wrm)
+n_matrix_alg=5
+h_1: psids
+h_2: psiqs
+h_3: psidr
+h_4: psiqr
+h_5: wrm
+C: compiled
+endC
+endxbe
+xbe name=indmc2a integrate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: vqs vds tl
+output_vars: wrm
++  psids psidr psiqs psiqr
+cct_nodes:
+be_v:
+iparms:
++  poles=4
+sparms:
+rparms:
++  rs=0.435
++  lls=0.002
++  lm=0.0693
++  llr=0.002
++  rr=0.816
++  j=0.089
++  ls=0
++  lr=0
++  le=0
++  l1=0
++  l2=0
++  l3=0
++  x1=0
++  x2=0
++  tem=0
+igparms:
++  psids0=0
++  psiqs0=0
++  psidr0=0
++  psiqr0=0
++  wrm0=0
+aux_vars:
++  tem0
+gvars:
+n_functions=5
+f_1: d_dt(psids)
+f_2: d_dt(psiqs)
+f_3: d_dt(psidr)
+f_4: d_dt(psiqr)
+f_5: d_dt(wrm)
+n_matrix_ddt=5
+g_1: d_dt(psids)
+g_2: d_dt(psiqs)
+g_3: d_dt(psidr)
+g_4: d_dt(psiqr)
+g_5: d_dt(wrm)
+n_matrix_alg=5
+h_1: psids
+h_2: psiqs
+h_3: psidr
+h_4: psiqr
+h_5: wrm
+C: compiled
+endC
+endxbe
+xbe name=indmc2b evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: psids psidr psiqs psiqr
+output_vars: ia ib ic
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  lls=0.002
++  lm=0.0693
++  llr=0.002
++  ls=0
++  lr=0
++  le=0
++  l1=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=3
+h_1: ia psiqs psiqr
+h_2: ib psiqs psiqr psids psidr
+h_3: ic psiqs psiqr psids psidr
+C: compiled
+endC
+endxbe
+xbe name=int_nearest evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=intgrtr integrate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  k = 1
+igparms: y0=0
+aux_vars:
+gvars:
+n_functions=1
+f_1: d_dt(y)
+n_matrix_ddt=1
+g_1: d_dt(y)
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=intgrtr2 integrate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  k=1
++  tau=1
++  ki=0
+igparms: y0=0
+aux_vars:
+gvars:
+n_functions=1
+f_1: d_dt(y)
+n_matrix_ddt=1
+g_1: d_dt(y)
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=intgrtr_2 integrate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  k = 1
++  y1r = 0
+igparms: y_0=0 y1_0=0
+aux_vars: y1
+gvars:
+n_functions=2
+f_1: d_dt(y1)
+f_2: d_dt(y)
+n_matrix_ddt=2
+g_1: d_dt(y1)
+g_2: d_dt(y)
+n_matrix_alg=2
+h_1: y1
+h_2: y
+C: compiled
+endC
+endxbe
+xbe name=intgrtr_reset integrate=yes allow_xmixed=yes reset=yes
+Jacobian: constant
+input_vars: x r
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  k1=1
++  x_high=1
++  k0=0
+igparms: y_ig=0
+aux_vars:
+gvars:
+n_functions=1
+f_1: d_dt(y)
+n_matrix_ddt=1
+g_1: d_dt(y)
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=lag_1 integrate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  tr=1
++  k=1
+igparms: y0=0
+aux_vars:
+gvars:
+n_functions=1
+f_1: d_dt(y)
+n_matrix_ddt=1
+g_1: d_dt(y)
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=line_to_phase evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: vab vbc vca
+output_vars: van vbn vcn
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=3
+h_1: van vab vca
+h_2: vbn vbc vab
+h_3: vcn vca vbc
+C: compiled
+endC
+endxbe
+xbe name=linear_1 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++   a1=1
++   a2=1
++   b1=1
++   b2=1
++   c1=0
++   c2=1
++   a=0
++   b=0
++   c=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y x
+C: compiled
+endC
+endxbe
+xbe name=lmtr evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  xmin=-1
++  xmax=1
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: x y
+C: compiled
+endC
+endxbe
+xbe name=lut_file_1_to_3 evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x
+output_vars: y1 y2 y3
+cct_nodes:
+be_v:
+iparms:
++  i_file=-1
+sparms: file_name=none
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=3
+h_1: y1
+h_2: y2
+h_3: y3
+C: compiled
+endC
+endxbe
+xbe name=max_2 evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x1 x2
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=max_3 evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x1 x2 x3
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=max_4 evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x1 x2 x3 x4
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=min_2 evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x1 x2
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=min_3 evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x1 x2 x3
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=min_4 evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x1 x2 x3 x4
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=modulo_twopi evaluate=yes limit_modulo=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x
+output_vars:
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms: x1=0 x2=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=0
+C: compiled
+endC
+endxbe
+xbe name=mult_2 evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x1 x2
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms: k=1
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y x1 x2
+C: compiled
+endC
+endxbe
+xbe name=mult_2a evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x1 x2
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms: a1=1.0 a2=1.0 k=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y x1 x2
+C: compiled
+endC
+endxbe
+xbe name=mult_3a evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x1 x2 x3
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms: a1=1.0 a2=1.0 k=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y x1 x2 x3
+C: compiled
+endC
+endxbe
+xbe name=multscl evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  k = 1
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: x y
+C: compiled
+endC
+endxbe
+xbe name=mux evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x1 x2 c
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms: c0=0.5
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=nand_2 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  x_high = 1
++  xhby2 = 0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=nor_2 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  x_high = 1
++  xhby2 = 0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=not evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  x_high = 1
++  xhby2 = 0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=or_2 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  x_high = 1
++  xhby2 = 0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=pstprc_div2 evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x1 x2
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=pulse evaluate=yes allow_xmixed=yes limit_tstep=yes
+Jacobian: constant
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  t1=1
++  t2=2
++  val1=0
++  val2=0
++  val3=0
++  delt1=0.01
++  delt2=0.01
++  slp1=0
++  slp2=0
++  tp1=0
++  tp2=0
++  epsl=0
++  epsl1=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=pulse20 evaluate=yes limit_tstep=yes allow_xmixed=yes
+Jacobian: constant
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms: i0=0 n1=2
+sparms:
+rparms:
++  t1 =1  t2 =2  t3 =3  t4 =4  t5 =5
++  t6 =6  t7 =7  t8 =8  t9 =9  t10=10
++  t11=11 t12=12 t13=13 t14=14 t15=15
++  t16=16 t17=17 t18=18 t19=19 t20=20
++  v_low=0 v_high=5 t_rise=10n t_fall=10n
++  epsl=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=pwl10_xy evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms: n=2
+sparms:
+rparms:
++  x1=1 x2=1 x3=1 x4=1 x5=1
++  x6=1 x7=1 x8=1 x9=1 x10=1
++  y1=1 y2=1 y3=1 y4=1 y5=1
++  y6=1 y7=1 y8=1 y9=1 y10=1
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=pwl_file evaluate=yes
++ limit_tstep=yes allow_xmixed=yes save_history=yes
+Jacobian: variable
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
++  i_file=-1
++  index_last=0
++  index1=0
+sparms: file_name=none
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=pwl20 evaluate=yes allow_xmixed=yes limit_tstep=yes
+Jacobian: constant
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms: n=2
+sparms:
+rparms:
++   t1 =1  t2 =2  t3 =3  t4 =4  t5 =5
++   t6 =6  t7 =7  t8 =8  t9 =9  t10=10
++   t11=11 t12=12 t13=13 t14=14 t15=15
++   t16=16 t17=17 t18=18 t19=19 t20=20
++   v1 =1  v2 =2  v3 =3  v4 =4  v5 =5
++   v6 =6  v7 =7  v8 =8  v9 =9  v10=10
++   v11=11 v12=12 v13=13 v14=14 v15=15
++   v16=16 v17=17 v18=18 v19=19 v20=20
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=rad_to_deg evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms: a=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: x y
+C: compiled
+endC
+endxbe
+xbe name=rms evaluate=yes save_history=yes allow_xmixed=no
+Jacobian: variable
+input_vars: x_in x_cntrl
+output_vars: x_out
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  x_int=0
++  x_cntrl_last=0
++  time_last=0
++  x_out_value=0
++  time_ttl=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: x_out
+C: compiled
+endC
+endxbe
+xbe name=rms_3ph_1 evaluate=yes allow_xmixed=no
+Jacobian: variable
+input_vars: a b c
+output_vars: x_rms
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms: delta=1e-6
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: x_rms a b c
+C: compiled
+endC
+endxbe
+xbe name=rms_mv evaluate=yes save_history=yes allow_xmixed=no
+Jacobian: variable
+input_vars: x_in x_cntrl
+output_vars: x_out
+cct_nodes:
+be_v:
+iparms:
++  n_samples=20
++  index=-1
++  flag_start=0
++  n_count=0
+sparms:
+rparms:
++  x_int=0
++  x_cntrl_last=0
++  delt=1
++  x_out_value=0
++  time_ttl=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: x_out
+C: compiled
+endC
+endxbe
+xbe name=sampler2 evaluate=yes limit_tstep=yes allow_xmixed=no
++ save_history=yes
+Jacobian: variable
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  tperiod=10u
++  t0=0
++  v_previous=0
++  dt=1u
++  epsl1=0
++  epsl2=0
+igparms:
++  y0=0
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=sampler3 evaluate=yes save_history=yes allow_xmixed=no
+Jacobian: variable
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
++  n_delay=1
+sparms:
+rparms:
++  tperiod=10u
++  t0=0
++  y_current=0
++  dt=1u
++  y_old_1=0
++  y_old_2=0
++  y_old_3=0
++  y_old_4=0
++  epsl1=0
++  epsl2=0
+igparms:
++  y0=0
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=sine evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: x
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: x y
+C: compiled
+endC
+endxbe
+xbe name=srcac evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  a=1
++  f_hz=1
++  phi_deg=0
++  t0=0
++  dc=0
++  omega=0
++  phi_rad=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=src_table_1 evaluate=yes allow_xmixed=yes save_history=yes
+Jacobian: variable
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
++  i_file=-1
++  index_last=0
++  index1=0
+sparms: file_name=none
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=sum_2 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  k1=1
++  k2=1
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y x1 x2
+C: compiled
+endC
+endxbe
+xbe name=sum_3 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2 x3
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  k1 = 1
++  k2 = 1
++  k3 = 1
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y x1 x2 x3
+C: compiled
+endC
+endxbe
+xbe name=sum_filter_1 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2 x3 x4 x5
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y x1 x2 x3 x4 x5
+C: compiled
+endC
+endxbe
+xbe name=triangle_1 evaluate=yes allow_xmixed=yes limit_tstep=yes
+Jacobian: constant
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms: i0=0
+sparms:
+rparms:
++  t1=1
++  t2=1
++  tperiod=0
++  t0=0
++  x_high=1.0
++  x_low=-1.0
++  slp1=0
++  slp2=0
++  epsl=1.0e-9
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=triangle_2 evaluate=yes allow_xmixed=yes limit_tstep=yes
+Jacobian: constant
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms: i0=0
+sparms:
+rparms:
++  t1=1
++  t2=1
++  tperiod=0
++  t0=0
++  x_high=1.0
++  x_low=-1.0
++  slp1=0
++  slp2=0
++  epsl=1.0e-9
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=triangle_3 evaluate=yes allow_xmixed=yes limit_tstep=yes
+Jacobian: constant
+input_vars:
+output_vars: y
+cct_nodes:
+be_v:
+iparms: i0=0
+sparms:
+rparms:
++  t1=1
++  t2=1
++  tperiod=0
++  t0=0
++  x_high=1.0
++  x_low=-1.0
++  slp1=0
++  slp2=0
++  epsl=1.0e-9
++  frequency=10
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe
+xbe name=user_function_12_1 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12
+output_vars: y1
+cct_nodes:
+be_v:
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y1
+C: compiled
+endC
+endxbe
+xbe name=user_function_12_12 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12
+output_vars: y1 y2 y3 y4 y5 y6 y7 y8 y9 y10 y11 y12
+cct_nodes:
+be_v:
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=12
+h_1: y1
+h_2: y2
+h_3: y3
+h_4: y4
+h_5: y5
+h_6: y6
+h_7: y7
+h_8: y8
+h_9: y9
+h_10: y10
+h_11: y11
+h_12: y12
+C: compiled
+endC
+endxbe
+xbe name=user_function_1_1 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1
+output_vars: y1
+cct_nodes:
+be_v:
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y1
+C: compiled
+endC
+endxbe
+xbe name=user_function_1_3 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1
+output_vars: y1 y2 y3
+cct_nodes:
+be_v:
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=3
+h_1: y1
+h_2: y2
+h_3: y3
+C: compiled
+endC
+endxbe
+xbe name=user_function_2_1 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2
+output_vars: y1
+cct_nodes:
+be_v:
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y1
+C: compiled
+endC
+endxbe
+xbe name=user_function_2_2 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2
+output_vars: y1 y2
+cct_nodes:
+be_v:
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=2
+h_1: y1
+h_2: y2
+C: compiled
+endC
+endxbe
+xbe name=user_function_3_1 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2 x3
+output_vars: y1
+cct_nodes:
+be_v:
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y1
+C: compiled
+endC
+endxbe
+xbe name=user_function_3_2 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2 x3
+output_vars: y1 y2
+cct_nodes:
+be_v:
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=2
+h_1: y1
+h_2: y2
+C: compiled
+endC
+endxbe
+xbe name=user_function_3_3 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2 x3
+output_vars: y1 y2 y3
+cct_nodes:
+be_v:
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=3
+h_1: y1
+h_2: y2
+h_3: y3
+C: compiled
+endC
+endxbe
+xbe name=user_function_6_1 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2 x3 x4 x5 x6
+output_vars: y1
+cct_nodes:
+be_v:
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y1
+C: compiled
+endC
+endxbe
+xbe name=user_function_6_3 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2 x3 x4 x5 x6
+output_vars: y1 y2 y3
+cct_nodes:
+be_v:
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=3
+h_1: y1
+h_2: y2
+h_3: y3
+C: compiled
+endC
+endxbe
+xbe name=user_function_6_6 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2 x3 x4 x5 x6
+output_vars: y1 y2 y3 y4 y5 y6
+cct_nodes:
+be_v:
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=6
+h_1: y1
+h_2: y2
+h_3: y3
+h_4: y4
+h_5: y5
+h_6: y6
+C: compiled
+endC
+endxbe
+xbe name=user_function_6_8 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2 x3 x4 x5 x6
+output_vars: y1 y2 y3 y4 y5 y6 y7 y8
+cct_nodes:
+be_v:
+iparms:
++  iprm1=0
++  iprm2=0
++  index_function=1
+sparms:
+rparms:
++  rprm1=0
++  rprm2=0
++  rprm3=0
++  rprm4=0
++  rprm5=0
++  rprm6=0
++  rprm7=0
++  rprm8=0
++  rprm9=0
++  rprm10=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=8
+h_1: y1
+h_2: y2
+h_3: y3
+h_4: y4
+h_5: y5
+h_6: y6
+h_7: y7
+h_8: y8
+C: compiled
+endC
+endxbe
+xbe name=vsi3_1 evaluate=yes allow_xmixed=yes
+Jacobian: variable
+input_vars: g1 g2 g3 g4 g5 g6
+output_vars: va vb vc
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  vdc=10
++  x_high=1
++  xhby2=0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=3
+h_1: va
+h_2: vb
+h_3: vc
+C: compiled
+endC
+endxbe
+xbe name=xor_2 evaluate=yes allow_xmixed=yes
+Jacobian: constant
+input_vars: x1 x2
+output_vars: y
+cct_nodes:
+be_v:
+iparms:
+sparms:
+rparms:
++  x_high = 1
++  xhby2 = 0
+igparms:
+aux_vars:
+gvars:
+n_functions=0
+n_matrix_ddt=0
+n_matrix_alg=1
+h_1: y
+C: compiled
+endC
+endxbe

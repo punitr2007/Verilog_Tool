@@ -16,11 +16,23 @@ pub struct SimulationResult {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+pub struct HdlFileInfo {
+    pub name: String,
+    pub is_testbench: bool,
+    pub lang: String,
+    pub size: usize,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
 pub struct LoadProjectResult {
     pub success: bool,
     pub dir_path: String,
     pub design: String,
     pub testbench: String,
+    pub files: Vec<HdlFileInfo>,
+    pub active_design_file: String,
+    pub active_testbench_file: String,
+    pub lang: String,
     pub has_vcd: bool,
     pub error: Option<String>,
 }
@@ -43,7 +55,7 @@ pub struct ToolsStatus {
 fn get_enhanced_path() -> String {
     let home = std::env::var("HOME").unwrap_or_else(|_| "/home/punit".to_string());
     let current_path = std::env::var("PATH").unwrap_or_default();
-    format!("{}/.local/bin:{}/.local/ghdl/bin:{}", home, home, current_path)
+    format!("{}/.local/ghdl/bin:{}/.local/bin:{}", home, home, current_path)
 }
 
 fn get_runtime_dir() -> PathBuf {
@@ -77,49 +89,136 @@ fn select_folder() -> Option<String> {
 }
 
 #[tauri::command]
-fn load_project(dir_path: Option<String>, lang: String) -> LoadProjectResult {
-    let is_vhdl = lang == "vhdl";
-    let default_dir = if is_vhdl {
-        "/home/punit/xilinx_projects/VHDL_Basics/Lab_Acts/01_logic_gates"
+fn load_project(
+    dir_path: Option<String>,
+    lang: String,
+    design_file: Option<String>,
+    testbench_file: Option<String>,
+) -> LoadProjectResult {
+    let is_vhdl_init = lang == "vhdl";
+    let default_dir = if is_vhdl_init {
+        "/home/punit/Local_Codebase/Projects/Verilog_Tool/workspace/05_vhdl_logic_gates"
     } else {
-        "/home/punit/xilinx_projects/eda_playgrounds_acts"
+        "/home/punit/Local_Codebase/Projects/Verilog_Tool/workspace/01_basic_gates"
     };
 
     let target_dir = dir_path.unwrap_or_else(|| default_dir.to_string());
     let p = Path::new(&target_dir);
 
-    let design_name = if is_vhdl {
-        if p.join("01_logic_gates.vhd").exists() { "01_logic_gates.vhd" } else { "design.vhd" }
+    if !p.exists() {
+        return LoadProjectResult {
+            success: false,
+            dir_path: target_dir,
+            design: String::new(),
+            testbench: String::new(),
+            files: vec![],
+            active_design_file: String::new(),
+            active_testbench_file: String::new(),
+            lang,
+            has_vcd: false,
+            error: Some(format!("Directory not found: {}", p.display())),
+        };
+    }
+
+    let mut files: Vec<HdlFileInfo> = Vec::new();
+    let mut all_file_contents: std::collections::HashMap<String, String> = std::collections::HashMap::new();
+
+    if let Ok(entries) = fs::read_dir(p) {
+        for entry in entries.flatten() {
+            let path = entry.path();
+            if path.is_file() {
+                if let Some(ext) = path.extension().and_then(|e| e.to_str()) {
+                    let ext_lower = ext.to_lowercase();
+                    if ["v", "sv", "vhd", "vhdl"].contains(&ext_lower.as_str()) {
+                        let name = path.file_name().unwrap_or_default().to_string_lossy().to_string();
+                        let content = fs::read_to_string(&path).unwrap_or_default();
+                        let is_vhd = ext_lower == "vhd" || ext_lower == "vhdl";
+                        let name_lower = name.to_lowercase();
+                        let content_lower = content.to_lowercase();
+
+                        let is_tb = name_lower.contains("_tb")
+                            || name_lower.starts_with("tb_")
+                            || name_lower.contains("testbench")
+                            || content_lower.contains("$dumpfile")
+                            || content_lower.contains("stim_proc")
+                            || (is_vhd && content_lower.contains("entity testbench"));
+
+                        files.push(HdlFileInfo {
+                            name: name.clone(),
+                            is_testbench: is_tb,
+                            lang: if is_vhd { "vhdl".to_string() } else { "verilog".to_string() },
+                            size: content.len(),
+                        });
+                        all_file_contents.insert(name, content);
+                    }
+                }
+            }
+        }
+    }
+
+    let mut detected_lang = lang;
+    let vhd_count = files.iter().filter(|f| f.lang == "vhdl").count();
+    let sv_count = files.iter().filter(|f| f.lang == "verilog").count();
+    if vhd_count > 0 && sv_count == 0 {
+        detected_lang = "vhdl".to_string();
+    } else if sv_count > 0 && vhd_count == 0 {
+        detected_lang = "verilog".to_string();
+    }
+
+    let active_des_name = if let Some(req_d) = design_file {
+        req_d
+    } else if let Some(d) = files.iter().find(|f| !f.is_testbench) {
+        d.name.clone()
+    } else if let Some(first) = files.first() {
+        first.name.clone()
+    } else if detected_lang == "vhdl" {
+        "design.vhd".to_string()
     } else {
-        "design.sv"
+        "design.sv".to_string()
     };
-    let tb_name = if is_vhdl { "testbench.vhd" } else { "testbench.sv" };
 
-    let design_path = p.join(design_name);
-    let tb_path = p.join(tb_name);
-    let vcd_path = p.join("dump.vcd");
+    let active_tb_name = if let Some(req_tb) = testbench_file {
+        req_tb
+    } else if let Some(tb) = files.iter().find(|f| f.is_testbench) {
+        tb.name.clone()
+    } else if detected_lang == "vhdl" {
+        "testbench.vhd".to_string()
+    } else {
+        "testbench.sv".to_string()
+    };
 
-    let design = fs::read_to_string(&design_path).unwrap_or_default();
-    let testbench = fs::read_to_string(&tb_path).unwrap_or_default();
-    let has_vcd = vcd_path.exists();
+    let design = all_file_contents.get(&active_des_name).cloned().unwrap_or_default();
+    let testbench = all_file_contents.get(&active_tb_name).cloned().unwrap_or_default();
+    let has_vcd = find_vcd_file(p, &testbench).is_some();
 
     LoadProjectResult {
         success: true,
         dir_path: target_dir,
         design,
         testbench,
+        files,
+        active_design_file: active_des_name,
+        active_testbench_file: active_tb_name,
+        lang: detected_lang,
         has_vcd,
         error: None,
     }
 }
 
 #[tauri::command]
-fn save_project(dir_path: Option<String>, design: String, testbench: String, lang: String) -> SaveProjectResult {
+fn save_project(
+    dir_path: Option<String>,
+    design: String,
+    testbench: String,
+    lang: String,
+    design_file_name: Option<String>,
+    testbench_file_name: Option<String>,
+) -> SaveProjectResult {
     let is_vhdl = lang == "vhdl";
     let default_dir = if is_vhdl {
-        "/home/punit/xilinx_projects/VHDL_Basics/Lab_Acts/01_logic_gates"
+        "/home/punit/Local_Codebase/Projects/Verilog_Tool/workspace/05_vhdl_logic_gates"
     } else {
-        "/home/punit/xilinx_projects/eda_playgrounds_acts"
+        "/home/punit/Local_Codebase/Projects/Verilog_Tool/workspace/01_basic_gates"
     };
 
     let target_dir = dir_path.unwrap_or_else(|| default_dir.to_string());
@@ -135,8 +234,11 @@ fn save_project(dir_path: Option<String>, design: String, testbench: String, lan
         }
     }
 
-    let design_file = p.join(if is_vhdl { "design.vhd" } else { "design.sv" });
-    let tb_file = p.join(if is_vhdl { "testbench.vhd" } else { "testbench.sv" });
+    let d_name = design_file_name.unwrap_or_else(|| if is_vhdl { "design.vhd".to_string() } else { "design.sv".to_string() });
+    let tb_name = testbench_file_name.unwrap_or_else(|| if is_vhdl { "testbench.vhd".to_string() } else { "testbench.sv".to_string() });
+
+    let design_file = p.join(&d_name);
+    let tb_file = p.join(&tb_name);
 
     if let Err(e) = fs::write(&design_file, design) {
         return SaveProjectResult {
@@ -156,7 +258,7 @@ fn save_project(dir_path: Option<String>, design: String, testbench: String, lan
 
     SaveProjectResult {
         success: true,
-        message: format!("Saved successfully to {}", target_dir),
+        message: format!("Saved {} and {} successfully to {}", d_name, tb_name, target_dir),
         error: None,
     }
 }
@@ -243,6 +345,8 @@ fn run_simulation(
     mut testbench: String,
     target_dir: Option<String>,
     lang: String,
+    design_file_name: Option<String>,
+    testbench_file_name: Option<String>,
 ) -> SimulationResult {
     let start_time = Instant::now();
     let is_vhdl = lang == "vhdl";
@@ -253,8 +357,11 @@ fn run_simulation(
         .map(PathBuf::from)
         .unwrap_or_else(get_runtime_dir);
 
-    let design_file = sim_dir.join(if is_vhdl { "design.vhd" } else { "design.sv" });
-    let tb_file = sim_dir.join(if is_vhdl { "testbench.vhd" } else { "testbench.sv" });
+    let d_name = design_file_name.unwrap_or_else(|| if is_vhdl { "design.vhd".to_string() } else { "design.sv".to_string() });
+    let tb_name = testbench_file_name.unwrap_or_else(|| if is_vhdl { "testbench.vhd".to_string() } else { "testbench.sv".to_string() });
+
+    let design_file = sim_dir.join(&d_name);
+    let tb_file = sim_dir.join(&tb_name);
     let simv_file = sim_dir.join("simv");
     let default_vcd_file = sim_dir.join("dump.vcd");
 
@@ -306,7 +413,30 @@ fn run_simulation(
     }
 
     if is_vhdl {
-        let top_entity = "testbench";
+        let mut top_entity = "testbench".to_string();
+        if let Some(start) = testbench.find("entity") {
+            let after = &testbench[start + 6..].trim_start();
+            if let Some(space_idx) = after.find(|c: char| c.is_whitespace()) {
+                let ent = &after[..space_idx];
+                if !ent.is_empty() && ent.to_lowercase() != "is" {
+                    top_entity = ent.to_string();
+                }
+            }
+        }
+
+        let mut other_vhd_files = Vec::new();
+        if let Ok(entries) = fs::read_dir(&sim_dir) {
+            for entry in entries.flatten() {
+                let p = entry.path();
+                if let Some(ext) = p.extension().and_then(|e| e.to_str()) {
+                    let ext_lower = ext.to_lowercase();
+                    if (ext_lower == "vhd" || ext_lower == "vhdl") && p != design_file && p != tb_file {
+                        other_vhd_files.push(format!("\"{}\"", p.display()));
+                    }
+                }
+            }
+        }
+
         let ghdl_cmd = format!(
             "ghdl -a --std=08 \"{}\" \"{}\" && ghdl -e --std=08 {} && ghdl -r --std=08 {} --vcd=\"{}\" --stop-time=1000ns",
             design_file.display(),
@@ -358,13 +488,16 @@ fn run_simulation(
             },
         }
     } else {
-        // Verilog with Icarus
-        let compile_out = Command::new("iverilog")
-            .arg("-g2012")
+        let mut compile_cmd = Command::new("iverilog");
+        compile_cmd.arg("-g2012")
+            .arg("-I")
+            .arg(&sim_dir)
             .arg("-o")
             .arg(&simv_file)
             .arg(&design_file)
-            .arg(&tb_file)
+            .arg(&tb_file);
+
+        let compile_out = compile_cmd
             .current_dir(&sim_dir)
             .env("PATH", &env_path)
             .output();
@@ -436,7 +569,6 @@ fn run_simulation(
     }
 }
 
-#[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![

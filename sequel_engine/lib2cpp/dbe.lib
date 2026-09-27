@@ -1,0 +1,447 @@
+dbe name=adc1
+input_nodes:
+output_nodes: d0
+analog_nodes: vin
+iparms:
+sparms:
+rparms:
++  vref=5
++  dly=1n
++  vrefb2=0
+n_logical=1
+stparms:
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=adc4
+input_nodes:
+output_nodes: d0 d1 d2 d3
+analog_nodes: vin
+iparms:
+sparms:
+rparms:
++  vref=5
++  dly=1n
+n_logical=4
+stparms:
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=and_2
+input_nodes: a1 a2
+output_nodes: b
+analog_nodes:
+iparms:
+sparms:
+rparms: dlyhl=5n dlylh=5n
+n_logical=0
+stparms: state_sv=0
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=clock
+input_nodes:
+output_nodes: a
+analog_nodes:
+iparms: i0=0
+sparms:
+rparms:
++  t1=1
++  t2=1
++  tperiod=2
++  t0=0
+n_logical=1
+stparms:
+igparms: ig0=0
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=clock1
+input_nodes:
+output_nodes: a
+analog_nodes:
+iparms: i0=0
+sparms:
+rparms:
++  t10=1
++  t20=1
++  tp0=2
++  t00=0
++  t1new=1
++  t2new=1
++  tpnew=0
++  t0new=0
++  t_change=10
+n_logical=1
+stparms:
+igparms: ig0=0
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=clock_random
+input_nodes:
+output_nodes: a
+analog_nodes:
+iparms: i0=0
+sparms:
+rparms:
++  t1=1
++  t2=1
++  tperiod=2
++  t0=0
++  a0=0.5
+n_logical=1
+stparms:
+igparms: ig0=0
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=cmprtr1
+input_nodes:
+output_nodes: d_out
+analog_nodes: vplus vminus
+iparms:
+sparms:
+rparms: dlylh=10n dlyhl=10n
+n_logical=1
+stparms:
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=counter_2
+input_nodes: clk mode reset
+output_nodes: q0 q1
+analog_nodes:
+iparms:
+sparms:
+rparms: dly=5n
+n_logical=2
+stparms: q_sv=0
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=counter_4
+input_nodes: clk mode reset
+output_nodes: q0 q1 q2 q3
+analog_nodes:
+iparms:
+sparms:
+rparms: dly=5n
+n_logical=4
+stparms: q_sv=0
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=counter_4_gnrl
+input_nodes: clk mode
+output_nodes: q0 q1 q2 q3
+analog_nodes:
+iparms:
++  state_begin=0
++  state_end=15
++  flag_binary=1
+sparms:
+rparms: dly=5n
+n_logical=12
+stparms: q_sv=0
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=counter_8
+input_nodes: clk mode reset
+output_nodes: q0 q1 q2 q3 q4 q5 q6 q7
+analog_nodes:
+iparms:
+sparms:
+rparms: dly=5n
+n_logical=8
+stparms: q_sv=0
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=counter_8_gnrl
+input_nodes: clk mode
+output_nodes: q0 q1 q2 q3 q4 q5 q6 q7
+analog_nodes:
+iparms:
++  state_begin=0
++  state_end=255
++  flag_binary=1
+sparms:
+rparms: dly=5n
+n_logical=24
+stparms: q_sv=0
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=decimal_4
+input_nodes: a0 a1 a2 a3
+output_nodes:
+analog_nodes:
+iparms:
+sparms:
+rparms: dly=1n
+n_logical=1
+stparms:
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=decimal_8
+input_nodes: a0 a1 a2 a3 a4 a5 a6 a7
+output_nodes:
+analog_nodes:
+iparms:
+sparms:
+rparms: dly=1n
+n_logical=1
+stparms:
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=demux_1_to_4
+input_nodes: c0 c1 e x
+output_nodes: y0 y1 y2 y3
+analog_nodes:
+iparms:
+sparms:
+rparms: dly=5n
+n_logical=4
+stparms: state_sv=0
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=dff
+input_nodes: clk d sd rd
+output_nodes: q qbar
+analog_nodes:
+iparms:
+sparms:
+rparms:
++  dlyhl=5n
++  dlylh=5n
+n_logical=1
+stparms: state_sv=0 q_sv=0
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=dff1
+input_nodes: clk d sd rd
+output_nodes: q qbar
+analog_nodes:
+iparms:
+sparms:
+rparms:
++  dlyhl=5n
++  dlylh=5n
+n_logical=1
+stparms: state_sv=0 q_sv=0
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=dsrc
+input_nodes:
+output_nodes: a
+analog_nodes:
+iparms: i0=0 n=2
+sparms:
+rparms:
++   t1 =1  t2 =1  t3 =1  t4 =1  t5 =1
++   t6 =1  t7 =1  t8 =1  t9 =1  t10=1
++   t11=1  t12=1  t13=1  t14=1  t15=1
++   t16=1  t17=1  t18=1  t19=1  t20=1
+n_logical=0
+stparms:
+igparms: ig0=0
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=dsrc1
+input_nodes:
+output_nodes: a
+analog_nodes:
+iparms: i0=0
+sparms:
+rparms:
+n_logical=0
+stparms:
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=jkff
+input_nodes: clk j k sd rd
+output_nodes: q qbar
+analog_nodes:
+iparms:
+sparms:
+rparms: dlyhl=5n dlylh=5n
+n_logical=1
+stparms: state_sv=0 q_sv=0
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=jkff1
+input_nodes: clk j k sd rd
+output_nodes: q qbar
+analog_nodes:
+iparms:
+sparms:
+rparms: dlyhl=5n dlylh=5n
+n_logical=1
+stparms: state_sv=0 q_sv=0
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=mux_4_to_1
+input_nodes: x0 x1 x2 x3 c0 c1 e
+output_nodes: y
+analog_nodes:
+iparms:
+sparms:
+rparms: dly=5n
+n_logical=1
+stparms: state_sv=0
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=nand_2
+input_nodes: a1 a2
+output_nodes: b
+analog_nodes:
+iparms:
+sparms:
+rparms: dlyhl=5n dlylh=5n
+n_logical=0
+stparms: state_sv=0
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=nor_2
+input_nodes: a1 a2
+output_nodes: b
+analog_nodes:
+iparms:
+sparms:
+rparms: dlyhl=5n dlylh=5n
+n_logical=0
+stparms: state_sv=0
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=not
+input_nodes: a
+output_nodes: abar
+analog_nodes:
+iparms:
+sparms:
+rparms: dlyhl=5n dlylh=5n
+n_logical=0
+stparms: state_sv=0
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=or_2
+input_nodes: a1 a2
+output_nodes: b
+analog_nodes:
+iparms:
+sparms:
+rparms: dlyhl=5n dlylh=5n
+n_logical=0
+stparms: state_sv=0
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=rsff1
+input_nodes: r s sd rd
+output_nodes: q qbar
+analog_nodes:
+iparms:
+sparms:
+rparms:
++  dlyhl=5n
++  dlylh=5n
+n_logical=1
+stparms: state_sv=0 q_sv=0
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=rsff2
+input_nodes: r s
+output_nodes: q qbar
+analog_nodes:
+iparms: q_dc=0
+sparms:
+rparms:
++  dlyhl=5n
++  dlylh=5n
+n_logical=1
+stparms: state_sv=0 q_sv=0
+igparms: q_ig=0
+aux_var:
+C: compiled
+endC
+enddbe
+dbe name=xor
+input_nodes: a1 a2
+output_nodes: b
+analog_nodes:
+iparms:
+sparms:
+rparms: dlyhl=5n dlylh=5n
+n_logical=0
+stparms: state_sv=0
+igparms:
+aux_var:
+C: compiled
+endC
+enddbe

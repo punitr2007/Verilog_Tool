@@ -1,0 +1,61 @@
+title: Buck converter
+
+greal delt1=0.2u
+
+begin_circuit
+   eelement name=vsrc type=vsrcdc p=a n=0 vdc=50
+   eelement name=s1 type=switch_g1 p=a n=b
++     ron=0.1 roff=10M g_in=g1
+   gelement name=clock1 type=clock_1 y=g1
++    frequency=25k duty_cycle=0.6
++    g_high=10 dt1=0.5u dt2=0.5u
+   eelement name=s2 type=diode_r p=0 n=b  ron=0.1 roff=10M
+   eelement name=l1 type=l p=b n=c l=600u
+   eelement name=r1 type=r p=c n=0 r=50
+   eelement name=c1 type=c p=c n=0 c=100u
+   refnode=0
+   outvar: 
++     vo=nodev_of_c
++     il1=i1_of_l1
++     g1=var_of_g1
++     iload=i1_of_r1
++     isrc=i1_of_vsrc
+end_circuit
+
+begin_solve
+   solve_type=startup
+   initial_sol initialize
+   method: t_startup=0
+end_solve
+
+begin_solve
+   solve_type=ssw
+   initial_sol previous
+   method:
+#    back_euler=yes
++    trapezoidal=yes
++    itmax_trns=100000
++    t_start=0 ssw_period=40u delt_const=0.2u
++    ssw_dmp=no ssw_itmax_newton=20 ssw_dmp_k=0.01
++    ssw_dmp_newt_max=10
++    norm_2=1e-6 ssw_norm=1e-14
+   begin_output
+      filename=buck_1.dat limit_lines=200001
+      variables: g1 il1 vo iload isrc
+   end_output
+end_solve
+end_cf
+begin_solve
+   solve_type=trns
+   initial_sol previous
+   begin_output
+      filename=buck_1.dat limit_lines=200001
+      variables: g1 il1 vo iload isrc
+   end_output
+   method:
++    back_euler=yes
++    t_start=0 t_end=120u delt_const=0.2u itmax_trns=200001
++    norm_2=1e-6
+end_solve
+
+end_cf

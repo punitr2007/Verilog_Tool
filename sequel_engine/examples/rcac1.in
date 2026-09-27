@@ -1,0 +1,29 @@
+# Header
+title: Circuit File
+
+# CircuitBlock
+begin_circuit
+  eelement type=c name=ece_c$0 p=b n=0 c=1u
+  eelement type=r name=ece_r$1 p=a n=b r=1k
+  eelement type=vsrcac name=ece_vsrcac$2 p=a n=0 a=1
+  refnode=0
+  outvar: vb_ac=nodev_ac_of_b
+  outvar: ir1ac=i1ac_of_ece_r$1
+  outvar: vb=nodev_of_b
+end_circuit
+
+# Solve Blocks
+
+# Solve Block 1
+begin_solve
+  solve_type=ac
+  vary_freq from 1 to 100k type=log n_points=50
+  method: wrt_debug_smat=yes
+  begin_output
+      filename=rcac1.dat limit_lines=10000 append=no
+      variables: phase_of_vb_ac mag_of_vb_ac phase_of_ir1ac mag_of_ir1ac
+  end_output
+end_solve
+
+end_cf
+

@@ -1,0 +1,310 @@
+ece name=c group=linear allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   i1=cur(p)_of_c1
++   v1=v1_of_c1
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms: v0sv=0
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++    c=1
++    k_scale=1
+  rparms_derived:
+  ebe name=c1 type=c p=p n=n
++    c=c
++    k_scale=k_scale
++    v0sv=v0sv
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
++   i1ac=cur(p)_of_c1
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=c1 type=c p=p n=n
++    c=c
++    k_scale=k_scale
+end_ac
+endece
+ece name=mos_bsim1_n group=devices allow_ac=yes
+begin_dc
+  mainnodes: s d g b
+  auxnodes: sprime dprime
+  outvar:
++   i1=cur(term1)_of_mos1
++   i2=cur(term2)_of_mos1
++   igate=cur(gate)_of_mos1
++   ibulk=cur(bulk)_of_mos1
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
++  xpart=1
++  limit_vds_pos=0
++  flag_jac=0
+  sparms: model_file=none
+  rparms:
++  w=5u  l=5u
++  vfb=-9.73820e-01  lvfb=3.67458e-01 wvfb=-4.72340e-02
++  phi=7.46556e-01 lphi=-1.92454e-24  wphi=8.06093e-24
++  k1=1.49134e+00 lk1=-4.98139e-01  wk1=2.78225e-01
++  k2=3.15199e-01 lk2=-6.95350e-02 wk2=-1.40057e-01
++  eta=-1.19300e-02  leta=5.44713e-02 weta=-2.67784e-02
++  muz=5.98328e+02 dl=6.38067e-01 dw=1.35520e-01
++  u0=5.27788e-02  lu0=4.85686e-02 wu0=-8.55329e-02
++  u1=1.09730e-01  lu1=7.28376e-01 wu1=-4.22283e-01
++  x2mz=7.18857e+00 lx2mz=-2.47335e+00  wx2mz=7.12327e+01
++  x2e=-3.00000e-03 lx2e=-7.20276e-03 wx2e=-5.57093e-03
++  x3e=3.71969e-04 lx3e=-3.16123e-03 wx3e=-3.80806e-03
++  x2u0=1.30153e-03  lx2u0=3.81838e-04  wx2u0=2.53131e-02
++  x2u1=-2.04836e-02  lx2u1=3.48053e-02  wx2u1=4.44747e-02
++  mus=7.79064e+02  lmus=3.62270e+02 wmus=-2.71207e+02
++  x2ms=-2.65485e+00  lx2ms=3.68637e+01  wx2ms=1.12899e+02
++  x3ms=1.18139e+01  lx3ms=7.24951e+01 wx3ms=-5.25361e+01
++  x3u1=2.12924e-02  lx3u1=5.85329e-02 wx3u1=-5.29634e-02
++  tox=4.35000e-02  temp=300.15       vdd=5.00000e+00
++  cgdo=3.79886e-010 cgso=3.79886e-010 cgbo=3.78415e-010
++  n0=1 ln0=0 wn0=0
++  nb=0 lnb=0 wnb=0
++  nd=0 lnd=0 wnd=0
++  rsh=54.7     cj=3.245600e-04     cjsw=2.543000e-10
++  js=1.000000e-08     pb=0.8
++  pbsw=0.8     mj=0.60438     mjsw=0.244194     wdf=0     dell=0
++  ad=0    as=0
++  pd=0    ps=0
++  nrs=1   nrd=1
+  rparms_derived:
+  ebe type=mos_bsim1 name=mos1
++   term1=sprime term2=dprime gate=g bulk=b
++   mostype=1 xpart=xpart
++   limit_vds_pos=limit_vds_pos
++   l=l w=w ad=ad as=as pd=pd
++   ps=ps vfb=vfb lvfb=lvfb wvfb=wvfb phi=phi
++   lphi=lphi wphi=wphi k1=k1 lk1=lk1 wk1=wk1
++   k2=k2 lk2=lk2 wk2=wk2 eta=eta leta=leta
++   weta=weta x2e=x2e lx2e=lx2e wx2e=wx2e x3e=x3e
++   lx3e=lx3e wx3e=wx3e dl=dl dw=dw muz=muz
++   x2mz=x2mz lx2mz=lx2mz wx2mz=wx2mz mus=mus x2ms=x2ms
++   lx2ms=lx2ms wx2ms=wx2ms x3ms=x3ms lx3ms=lx3ms wx3ms=wx3ms
++   u0=u0 lu0=lu0 wu0=wu0 x2u0=x2u0 lx2u0=lx2u0
++   wx2u0=wx2u0 u1=u1 lu1=lu1 wu1=wu1 x2u1=x2u1
++   lx2u1=lx2u1 wx2u1=wx2u1 x3u1=x3u1 lx3u1=lx3u1 wx3u1=wx3u1
++   n0=n0 ln0=ln0 wn0=wn0 nb=nb lnb=lnb
++   wnb=wnb nd=nd lnd=lnd wnd=wnd tox=tox
++   temp=temp vdd=vdd cgso=cgso cgdo=cgdo cgbo=cgbo
++   pb=pb mj=mj pbsw=pbsw mjsw=mjsw
++   cj=cj cjsw=cjsw wdf=wdf
++   js=js lmus=lmus wmus=wmus
++   flag_jac=flag_jac
+  ebe type=mos_r p=s n=sprime rsh=rsh nsquares=nrs
+  ebe type=mos_r p=d n=dprime rsh=rsh nsquares=nrd
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=mos1 type=mos_bsim1
++   gate=g term2=dprime term1=sprime bulk=b
+  ebe_ac type=mos_r name=rd p=d n=dprime
++   rsh=rsh nsquares=nrd
+  ebe_ac type=mos_r name=rs p=s n=sprime
++   rsh=rsh nsquares=nrs
+  acparm_map: 1 1
+end_ac
+endece
+ece name=mos_bsim1_p group=devices allow_ac=yes
+begin_dc
+  mainnodes: s d g b
+  auxnodes: sprime dprime
+  outvar:
++   i1=cur(term1)_of_mos1
++   i2=cur(term2)_of_mos1
++   igate=cur(gate)_of_mos1
++   ibulk=cur(bulk)_of_mos1
++   pwr_elec=pwr_elec_of_ece
++   pwr_elec_ac=pwr_elec_ac_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
++  xpart=1
++  limit_vds_pos=0
+  sparms: model_file=none
+  rparms:
++  w=5u  l=5u
++  vfb=-2.65334e-01  lvfb=6.50066e-02  wvfb=1.48093e-01
++  phi=6.75823e-01 lphi=-1.61406e-24  wphi=8.03764e-24
++  k1=5.68962e-01  lk1=3.88845e-02 wk1=-5.33948e-02
++  k2=-5.52938e-02  lk2=1.17906e-01 wk2=-6.89149e-02
++  eta=-1.51784e-02  leta=5.87976e-02 weta=-7.51570e-04
++  muz=2.10669e+02 dl=8.44240e-01 dw=1.62551e-01
++  u0=1.04713e-01  lu0=5.50950e-02 wu0=-7.56659e-02
++  u1=1.46638e-02  lu1=2.13581e-01 wu1=-1.22509e-01
++  x2mz=8.76354e+00 lx2mz=-3.64793e+00  wx2mz=4.30934e+00
++  x2e=-2.13631e-03 lx2e=-2.94140e-03 wx2e=-2.48293e-03
++  x3e=2.78813e-04 lx3e=-1.60711e-03 wx3e=-4.57237e-03
++  x2u0=3.93706e-03 lx2u0=-5.66051e-04  wx2u0=5.69621e-04
++  x2u1=1.07707e-04  lx2u1=8.85125e-03  wx2u1=1.71537e-03
++  mus=2.06464e+02  lmus=1.39151e+02 wmus=-4.95671e+01
++  x2ms=5.86401e+00  lx2ms=6.98887e+00  wx2ms=5.55782e+00
++  x3ms=-2.03430e-01  lx3ms=1.16170e+01 wx3ms=-3.44342e+00
++  x3u1=-1.17893e-02  lx3u1=5.72098e-04  wx3u1=8.29791e-03
++  tox=4.35000e-02  temp=300.15       vdd=5.00000e+00
++  cgdo=5.02635e-010 cgso=5.02635e-010 cgbo=3.85017e-010
++  n0=1 ln0=0 wn0=0
++  nb=0 lnb=0 wnb=0
++  nd=0 lnd=0 wnd=0
++  rsh=27.9    cj=1.037500e-04    cjsw=2.169400e-10
++  js=1e-8    pb=0.8
++  pbsw=0.8    mj=0.66036    mjsw=0.178543    wdf=0    dell=0
++  ad=0    as=0
++  pd=0    ps=0
++  nrs=1   nrd=1
+  rparms_derived:
+  ebe type=mos_bsim1 name=mos1
++   term1=sprime term2=dprime gate=g bulk=b
++   mostype=-1 xpart=xpart
++   limit_vds_pos=limit_vds_pos
++   l=l w=w ad=ad as=as pd=pd
++   ps=ps vfb=vfb lvfb=lvfb wvfb=wvfb phi=phi
++   lphi=lphi wphi=wphi k1=k1 lk1=lk1 wk1=wk1
++   k2=k2 lk2=lk2 wk2=wk2 eta=eta leta=leta
++   weta=weta x2e=x2e lx2e=lx2e wx2e=wx2e x3e=x3e
++   lx3e=lx3e wx3e=wx3e dl=dl dw=dw muz=muz
++   x2mz=x2mz lx2mz=lx2mz wx2mz=wx2mz mus=mus x2ms=x2ms
++   lx2ms=lx2ms wx2ms=wx2ms x3ms=x3ms lx3ms=lx3ms wx3ms=wx3ms
++   u0=u0 lu0=lu0 wu0=wu0 x2u0=x2u0 lx2u0=lx2u0
++   wx2u0=wx2u0 u1=u1 lu1=lu1 wu1=wu1 x2u1=x2u1
++   lx2u1=lx2u1 wx2u1=wx2u1 x3u1=x3u1 lx3u1=lx3u1 wx3u1=wx3u1
++   n0=n0 ln0=ln0 wn0=wn0 nb=nb lnb=lnb
++   wnb=wnb nd=nd lnd=lnd wnd=wnd tox=tox
++   temp=temp vdd=vdd cgso=cgso cgdo=cgdo cgbo=cgbo
++   pb=pb mj=mj pbsw=pbsw mjsw=mjsw
++   cj=cj cjsw=cjsw wdf=wdf
++   js=js lmus=lmus wmus=wmus
+  ebe type=mos_r p=s n=sprime rsh=rsh nsquares=nrs
+  ebe type=mos_r p=d n=dprime rsh=rsh nsquares=nrd
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=mos1 type=mos_bsim1
++   gate=g term2=dprime term1=sprime bulk=b
+  ebe_ac type=mos_r name=rd p=d n=dprime
++   rsh=rsh nsquares=nrd
+  ebe_ac type=mos_r name=rs p=s n=sprime
++   rsh=rsh nsquares=nrs
+  acparm_map: 1 1
+end_ac
+endece
+ece name=vpulse group=sources allow_ac=no
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   v1=v1_of_v0
++   i1=cur_p_of_v0
++   pwr_elec=pwr_elec_of_ece
+  bias:
+  stparms:
+  igparms: vn0=0
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   v_1=0
++   v_2=0
++   t_1=0
++   t_2=0
++   delt_1=0
++   delt_2=0
+  rparms_derived:
+  ebe name=v0 type=vpulse p=p n=n
++   v_1=v_1
++   v_2=v_2
++   t_1=t_1
++   t_2=t_2
++   delt_1=delt_1
++   delt_2=delt_2
++   vn0=vn0
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac:
+  ind_nodes_ac:
+  ind_branches_ac:
+end_ac
+endece
+ece name=vsrcdc group=sources allow_ac=yes
+begin_dc
+  mainnodes: p n
+  auxnodes:
+  outvar:
++   i1=cur(n)_of_v0
++   v1=v1_of_v0
++   pwr_elec=pwr_elec_of_ece
+  bias:
+  stparms:
+  igparms:
+  ind_nodes:
+  ind_branches:
+  digital_nodes:
+  main_var:
+  xvar:
+  iparms:
+  sparms:
+  rparms:
++   vdc=0
++   k_scale=1
++   t_ramp_1=0
++   t_ramp_2=0
+  rparms_derived:
+  ebe name=v0 type=vsrcdc p=p n=n
++   vdc=vdc
++   k_scale=k_scale
++   t_ramp_1=t_ramp_1
++   t_ramp_2=t_ramp_2
+end_dc
+C: compiled
+endC
+begin_ac
+  outvar_ac: i1ac=cur(n)_of_v0
+  ind_nodes_ac:
+  ind_branches_ac:
+  ebe_ac name=v0 type=vsrcac p=p n=n a=0 phi=0
+end_ac
+endece

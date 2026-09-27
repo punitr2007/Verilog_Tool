@@ -1,0 +1,28 @@
+title: RC example
+
+begin_circuit
+   eelement name=v1 type=vsrcdc p=b n=a vdc=10.0
+   eelement name=r1 type=r p=b n=c r=5
+   eelement name=c1 type=c p=c n=a c=1
+   refnode=a
+   outvar: ic=i1_of_r1 vc=v1_of_c1
+end_circuit
+
+begin_solve
+   solve_type=startup
+   initial_sol initialize
+   set_stparm v0sv_of_c1=1
+   method: t_startup=0
+end_solve
+
+begin_solve
+   solve_type=trns
+   initial_sol previous
+   begin_output
+      filename=rc1a.dat
+      variables: vc
+   end_output
+   method: trapezoidal=yes
++    t_start=0 t_end=25 delt_const=1.0
+end_solve
+end_cf

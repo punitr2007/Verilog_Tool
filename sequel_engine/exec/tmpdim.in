@@ -1,0 +1,25 @@
+# order of the variables in the following is not important
+# (since strings are compared with keywords while reading)
+#
+# M_ECT_ND_TMP: number of electical nodes (circuit)
+# M_GCT_VR_TMP: number of general variables (circuit)
+# M_DCT_ND_TMP: number of digital nodes (circuit)
+# F_MNZ_W decides mnz_w = F_MNZ_W*mnz_m
+#
+M_ECT_ND_TMP      2000
+M_GCT_VR_TMP      1000
+M_DCT_ND_TMP      1000
+M_XCT_VR_TMP      1000
+MNZ_EBCE         20000
+MNZ_GBCE         20000
+MNZ_XBCE         20000
+MNZ_EBCE_AC      20000
+MNZ_GBCE_AC      20000
+MNZ_XBCE_AC      20000
+F_MNZ_W             20
+M_MATTTLOP2      10000
+M_MATTTLOP3      10000
+M_AVERAGE_MV_GBE    20
+M_RMS_MV_GBE        20
+M_AVERAGE_MV_XBE    20
+M_RMS_MV_XBE        20

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HDL EDA Studio | Verilog & VHDL Unified IDE</title>
+  <title>HDL EDA Studio | Verilog, VHDL & SEQUEL Mixed-Signal IDE</title>
   <link rel="stylesheet" href="styles.css">
   <!-- Monaco Editor Loader -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
@@ -15,22 +15,25 @@
     <div class="brand-group">
       <a href="#" class="brand-logo" onclick="return false;">
         <div class="brand-icon-box">⚡</div>
-        <span class="brand-title">HDL EDA Studio <span class="brand-version">v2.0</span></span>
+        <span class="brand-title">HDL EDA Studio <span class="brand-version">v2.1</span></span>
       </a>
       <div class="engine-status-pill" id="engine-status-pill">
         <span class="pulse-dot"></span>
-        <span id="engine-status-text">Icarus & GHDL Engine</span>
+        <span id="engine-status-text">Icarus, GHDL & SEQUEL Engine</span>
       </div>
     </div>
 
     <div class="nav-actions">
-      <!-- HDL Mode Segmented Control -->
-      <div class="segmented-control" id="lang-segmented-control" role="group" aria-label="HDL Language Mode">
-        <button class="segment-btn active" data-lang="verilog" id="btn-mode-verilog" title="SystemVerilog / Verilog mode">
+      <!-- HDL / Engine Mode Segmented Control -->
+      <div class="segmented-control" id="lang-segmented-control" role="group" aria-label="Simulation Engine Mode">
+        <button class="segment-btn active" data-lang="verilog" id="btn-mode-verilog" title="SystemVerilog / Verilog mode (Icarus)">
           <span>⚡</span> SystemVerilog
         </button>
-        <button class="segment-btn" data-lang="vhdl" id="btn-mode-vhdl" title="VHDL mode">
+        <button class="segment-btn" data-lang="vhdl" id="btn-mode-vhdl" title="VHDL mode (GHDL)">
           <span>📐</span> VHDL
+        </button>
+        <button class="segment-btn" data-lang="sequel" id="btn-mode-sequel" title="SEQUEL Mixed-Signal & Circuit Simulation (IIT Bombay)">
+          <span>🔌</span> SEQUEL
         </button>
       </div>
 
@@ -41,6 +44,11 @@
         </select>
         <span class="select-arrow">▼</span>
       </div>
+
+      <!-- SEQUEL Hub Trigger -->
+      <button class="btn btn-secondary" id="btn-open-sequel-hub" title="Open SEQUEL Circuit Explorer & GSEIM Interactive Animations">
+        <span>🔌</span> SEQUEL Hub
+      </button>
 
       <!-- Project Actions -->
       <button class="btn btn-secondary" id="btn-load-local" title="Load design and testbench from project folder">
@@ -78,6 +86,7 @@
           <div class="panel-title-group">
             <span class="panel-file-icon" id="design-icon">📄</span>
             <span class="panel-filename" id="design-filename">design.sv</span>
+            <select id="design-file-select" class="panel-file-select" title="Switch design file from project folder" style="display:none;"></select>
             <span class="panel-badge module" id="design-badge">Module</span>
           </div>
           <div class="panel-actions">
@@ -94,6 +103,7 @@
           <div class="panel-title-group">
             <span class="panel-file-icon" id="testbench-icon">🧪</span>
             <span class="panel-filename" id="testbench-filename">testbench.sv</span>
+            <select id="tb-file-select" class="panel-file-select" title="Switch testbench file from project folder" style="display:none;"></select>
             <span class="panel-badge stimulus" id="testbench-badge">Stimulus</span>
           </div>
           <div class="panel-actions">
@@ -113,107 +123,290 @@
           <button class="tab-nav-btn active" id="tab-waveform-btn">
             <span>📈</span> Waveform Viewer
           </button>
+          <button class="tab-nav-btn" id="tab-schematic-btn">
+            <span>🔲</span> RTL Schematic
+          </button>
           <button class="tab-nav-btn" id="tab-console-btn">
-            <span>🖥️</span> Simulation Console
+            <span>🖥️</span> Console Output
           </button>
         </div>
 
-        <!-- Waveform Toolbar -->
-        <div class="waveform-toolbar" id="waveform-controls">
-          <div class="cursor-pill">
-            <span class="label">Time:</span>
-            <span class="value" id="cursor-time-display">0 ns</span>
+        <!-- Waveform Toolbar Controls -->
+        <div class="toolbar-controls" id="waveform-controls">
+          <!-- Radix Selection -->
+          <div class="radix-control-group">
+            <span class="toolbar-label">Radix:</span>
+            <select id="radix-select" class="toolbar-select" title="Change multi-bit bus value format">
+              <option value="hex">HEX (0x..)</option>
+              <option value="bin">BIN (b..)</option>
+              <option value="dec">DEC (0..9)</option>
+              <option value="ascii">ASCII</option>
+            </select>
           </div>
 
-          <div class="toolbar-group">
-            <span style="font-size: 11px; color: var(--text-muted); margin-right: 2px;">Radix:</span>
-            <div class="custom-select-wrapper">
-              <select id="radix-select" class="custom-select" style="padding-top: 3px; padding-bottom: 3px;">
-                <option value="hex">HEX (0x..)</option>
-                <option value="bin">BIN (b..)</option>
-                <option value="dec">DEC (0..9)</option>
-                <option value="ascii">ASCII</option>
-              </select>
-              <span class="select-arrow">▼</span>
-            </div>
+          <div class="toolbar-divider"></div>
+
+          <!-- Zoom Actions -->
+          <div class="btn-group">
+            <button class="btn-icon" id="btn-zoom-in" title="Zoom In (+)">🔍+</button>
+            <button class="btn-icon" id="btn-zoom-out" title="Zoom Out (-)">🔍-</button>
+            <button class="btn-icon" id="btn-zoom-fit" title="Zoom to Fit">Fit</button>
           </div>
 
-          <div class="toolbar-group">
-            <button class="toolbar-btn" id="btn-zoom-in" title="Zoom In (+)">🔍+</button>
-            <button class="toolbar-btn" id="btn-zoom-out" title="Zoom Out (-)">🔍-</button>
-            <span class="zoom-indicator" id="zoom-indicator-text">100%</span>
-            <button class="toolbar-btn" id="btn-zoom-fit" title="Zoom to Fit">↔ Fit</button>
-            <button class="toolbar-btn" id="btn-export-waveform" title="Export Waveform Image (PNG)">📷 Export</button>
+          <span class="zoom-indicator" id="zoom-indicator-text">100%</span>
+
+          <div class="toolbar-divider"></div>
+
+          <!-- Waveform Image Export -->
+          <button class="btn btn-secondary btn-sm" id="btn-export-waveform" title="Export waveform as PNG image">
+            <span>📷</span> Export Image
+          </button>
+        </div>
+
+        <!-- Schematic Toolbar Controls -->
+        <div class="toolbar-controls" id="schematic-controls" style="display: none;">
+          <div class="btn-group">
+            <button class="btn-icon" id="btn-schem-zoom-in" title="Zoom In (+)">🔍+</button>
+            <button class="btn-icon" id="btn-schem-zoom-out" title="Zoom Out (-)">🔍-</button>
+            <button class="btn-icon" id="btn-schem-zoom-fit" title="Reset View">Fit</button>
           </div>
+
+          <div class="toolbar-divider"></div>
+
+          <button class="btn btn-secondary btn-sm" id="btn-export-schematic-svg" title="Export vector SVG">
+            <span>📐</span> Export SVG
+          </button>
+          <button class="btn btn-secondary btn-sm" id="btn-export-schematic-png" title="Export PNG image">
+            <span>📷</span> Export PNG
+          </button>
         </div>
       </div>
 
-      <!-- Waveform Tab Content -->
-      <div class="tab-pane active" id="waveform-tab">
-        <div class="waveform-workspace">
-          <!-- Signal Names Left Panel -->
+      <!-- Tab Content: Waveform Viewer -->
+      <div class="tab-content active" id="waveform-tab">
+        <div class="waveform-container">
+          <!-- Left: Signal List & Value Readout -->
           <div class="signal-sidebar">
-            <div class="signal-search-bar">
-              <input type="text" id="signal-search-input" class="signal-search-input" placeholder="🔍 Filter signals..." autocomplete="off">
+            <div class="signal-search-box">
+              <input type="text" id="signal-search-input" placeholder="🔍 Filter signals..." autocomplete="off" />
             </div>
-            <div class="signal-columns-header">
-              <span>Signal</span>
-              <span>Value</span>
+            <div class="signal-sidebar-header">
+              <span class="col-name">Signal / Bus</span>
+              <span class="col-val">Value @ Cursor</span>
             </div>
-            <div class="signal-list-scroll" id="signal-list">
-              <!-- Dynamically populated signals -->
+            <div class="signal-list" id="signal-list">
+              <div class="empty-signals-state">No signals loaded. Run simulation to view waveforms.</div>
             </div>
           </div>
 
-          <!-- Waveform Canvas Right Area -->
-          <div class="waveform-canvas-container">
-            <div class="timeline-header-box" id="timeline-header"></div>
-            <div class="waveform-viewport-box" id="waveform-viewport"></div>
+          <!-- Right: Timing Diagram Canvas & Ruler -->
+          <div class="waveform-viewport-wrapper">
+            <div class="timeline-header" id="timeline-header"></div>
+            <div class="waveform-viewport" id="waveform-viewport">
+              <canvas id="waveform-canvas" class="waveform-canvas"></canvas>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Console Tab Content -->
-      <div class="tab-pane" id="console-tab">
+      <!-- Tab Content: RTL Schematic Viewer -->
+      <div class="tab-content" id="schematic-tab">
+        <div class="schematic-viewport" id="schematic-container">
+          <div class="empty-schematic-state">
+            <div class="schem-icon">🔲</div>
+            <h3>Interactive RTL Schematic</h3>
+            <p>Run simulation or switch to RTL view to inspect synthesized gates, ports, and interconnections.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content: Console Output -->
+      <div class="tab-content" id="console-tab">
         <div class="console-wrapper">
-          <div class="console-action-bar">
-            <span class="console-status-chip" id="console-status-chip">Compiler Output & Logs</span>
-            <div class="toolbar-group">
-              <button class="toolbar-btn" id="btn-copy-console" title="Copy Console Logs">📋 Copy Logs</button>
-              <button class="toolbar-btn" id="btn-clear-console" title="Clear Console">🗑️ Clear</button>
+          <div class="console-toolbar">
+            <span class="console-title">Simulator Logs & Compilation Messages</span>
+            <div class="console-actions">
+              <button class="btn-icon-text" id="btn-copy-console" title="Copy Console Logs">📋 Copy</button>
+              <button class="btn-icon-text" id="btn-clear-console" title="Clear Console">🗑️ Clear</button>
             </div>
           </div>
-          <div class="console-output-area" id="console-output">
-            <div class="log-line info">⚡ HDL EDA Studio Ready. Press "Run Simulation" or Ctrl+Enter to compile & simulate.</div>
-          </div>
+          <div class="console-output" id="console-output"></div>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- Bottom Status Bar -->
-  <footer class="status-bar">
-    <div class="status-section">
-      <div class="status-item">
-        <span class="status-dot"></span>
-        <span id="compiler-status-label">Icarus Verilog & GHDL Ready</span>
-      </div>
-      <div class="status-item">
-        <span id="status-message">Project: /home/punit/xilinx_projects/eda_playgrounds_acts</span>
-      </div>
+  <!-- Studio Status Bar -->
+  <footer class="studio-footer">
+    <div class="footer-left">
+      <span class="status-item" id="status-message">Project: /workspace/01_basic_gates</span>
     </div>
-    <div class="status-section">
-      <div class="status-item">
-        <span id="hdl-std-label">Mode: SystemVerilog-2012</span>
-      </div>
-      <div class="status-item">
-        <span id="sim-time-badge" style="font-family: var(--font-mono); color: var(--accent-cyan); font-weight: 600;">Sim: -- ms</span>
-      </div>
+    <div class="footer-right">
+      <span class="status-badge" id="sim-time-badge">Sim: 0 ms</span>
+      <span class="status-badge" id="hdl-std-label">Mode: SystemVerilog-2012 (Icarus)</span>
     </div>
   </footer>
 
-  <!-- Toast Container -->
-  <div class="toast-container" id="toast-container"></div>
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Hidden native file inputs -->
+  <input type="file" id="folder-input-picker" webkitdirectory directory multiple style="display:none;" />
+  <input type="file" id="files-input-picker" multiple accept=".v,.sv,.vhd,.vhdl,.in" style="display:none;" />
+
+  <!-- Load Folder Modal -->
+  <div class="modal-overlay" id="folder-modal">
+    <div class="modal-box modal-box-lg">
+      <div class="modal-header">
+        <div class="modal-title">📂 Open HDL / SEQUEL Project Folder</div>
+        <button class="modal-close-btn" id="btn-close-folder-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 12px; color: var(--text-secondary); font-size: 13px;">
+          Choose a workspace directory containing your hardware design files (<code>.sv</code>, <code>.v</code>, <code>.vhd</code>, or <code>.in</code>).
+        </p>
+
+        <!-- Path Input Field with Action Button -->
+        <div style="display: flex; gap: 8px; margin-bottom: 14px;">
+          <input type="text" id="folder-path-input" class="modal-input" placeholder="/home/punit/Local_Codebase/Projects/Verilog_Tool/workspace/01_basic_gates" style="flex: 1;" />
+          <button class="btn btn-primary" id="btn-confirm-load-folder">
+            <span>📂</span> Load Folder
+          </button>
+        </div>
+
+        <!-- Quick Presets -->
+        <div style="margin-bottom: 14px;">
+          <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 6px;">
+            Workspace Presets
+          </div>
+          <div class="quick-paths-grid">
+            <button class="quick-path-chip" data-path="/home/punit/Local_Codebase/Projects/Verilog_Tool/workspace/01_basic_gates">
+              ⚡ 01_basic_gates (SV)
+            </button>
+            <button class="quick-path-chip" data-path="/home/punit/Local_Codebase/Projects/Verilog_Tool/workspace/02_counter_4bit">
+              ⚡ 02_counter_4bit (SV)
+            </button>
+            <button class="quick-path-chip" data-path="/home/punit/Local_Codebase/Projects/Verilog_Tool/workspace/03_fsm_detector">
+              ⚡ 03_fsm_detector (SV)
+            </button>
+            <button class="quick-path-chip" data-path="/home/punit/Local_Codebase/Projects/Verilog_Tool/workspace/05_vhdl_logic_gates">
+              📐 05_vhdl_logic_gates (VHDL)
+            </button>
+            <button class="quick-path-chip" data-path="/home/punit/Local_Codebase/Projects/Verilog_Tool/workspace/06_sequel_buck_ssw">
+              🔌 06_sequel_buck_ssw (SEQUEL)
+            </button>
+          </div>
+        </div>
+
+        <!-- System File Pickers -->
+        <div style="display: flex; gap: 10px; padding-top: 12px; border-top: 1px solid var(--border-color);">
+          <button class="btn btn-secondary" id="btn-trigger-folder-picker" title="Pick directory using browser folder picker">
+            <span>📁</span> Browse OS Folder...
+          </button>
+          <button class="btn btn-secondary" id="btn-trigger-files-picker" title="Pick individual HDL source files">
+            <span>📄</span> Select Files Directly...
+          </button>
+        </div>
+
+        <!-- Preview of Found Files -->
+        <div id="modal-folder-preview" style="display: none; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-color);">
+          <div style="font-size: 12px; font-weight: 600; color: var(--accent-cyan); margin-bottom: 6px;" id="modal-preview-title">
+            Found Files:
+          </div>
+          <div class="modal-files-list" id="modal-files-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEQUEL Mixed-Signal & GSEIM Hub Modal -->
+  <div class="modal-overlay" id="sequel-hub-modal">
+    <div class="modal-box modal-box-xl">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <div class="modal-title">🔌 SEQUEL Mixed-Signal & GSEIM Power Electronics Hub</div>
+          <div class="modal-subtitle">443 Circuit Topologies • 216 Interactive Animations • IIT Bombay Simulation Engine</div>
+        </div>
+        <button class="modal-close-btn" id="btn-close-sequel-hub">&times;</button>
+      </div>
+
+      <!-- Hub Navigation Tabs -->
+      <div class="hub-tabs-header">
+        <button class="hub-tab-btn active" id="hub-tab-circuits-btn">⚡ Circuits & Schematics (443)</button>
+        <button class="hub-tab-btn" id="hub-tab-animations-btn">🎬 Interactive Animations (216)</button>
+        <button class="hub-tab-btn" id="hub-tab-docs-btn">📚 Course & Theory Slides</button>
+      </div>
+
+      <div class="modal-body hub-modal-body">
+        <!-- Search and Filter Bar -->
+        <div class="hub-filter-bar">
+          <input type="text" id="hub-search-input" class="hub-search-input" placeholder="🔍 Search circuits, converters, inverters, filters, opamps..." />
+          <select id="hub-category-select" class="hub-category-select">
+            <option value="">All Categories</option>
+          </select>
+        </div>
+
+        <!-- View 1: Circuits Grid -->
+        <div class="hub-view-container active" id="hub-circuits-view">
+          <div class="hub-cards-grid" id="hub-circuits-grid">
+            <div class="hub-loading">Loading SEQUEL circuit catalog...</div>
+          </div>
+        </div>
+
+        <!-- View 2: Animations Grid & Player -->
+        <div class="hub-view-container" id="hub-animations-view">
+          <div class="animation-player-layout">
+            <div class="animation-list-sidebar" id="hub-animations-list"></div>
+            <div class="animation-player-frame-wrapper">
+              <div class="animation-player-header" id="animation-player-header">
+                <span id="active-anim-title">Select an interactive GSEIM simulation to preview</span>
+                <a id="active-anim-link" href="#" target="_blank" class="btn btn-secondary btn-sm" style="display:none;">Open in Fullscreen ↗</a>
+              </div>
+              <iframe id="animation-iframe" class="animation-iframe" src="about:blank"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- View 3: Theory & Slides -->
+        <div class="hub-view-container" id="hub-docs-view">
+          <div class="hub-docs-grid">
+            <div class="hub-doc-card">
+              <div class="doc-icon">📘</div>
+              <div class="doc-info">
+                <h4>SEQUEL User's Manual (Part 1)</h4>
+                <p>Circuit simulation fundamentals, element definitions, DC, AC, and Transient analysis.</p>
+                <a href="/sequel_hub/docs/sequel_manual_1.pdf" target="_blank" class="btn btn-secondary btn-sm">Read Manual ↗</a>
+              </div>
+            </div>
+            <div class="hub-doc-card">
+              <div class="doc-icon">📘</div>
+              <div class="doc-info">
+                <h4>SEQUEL User's Manual (Part 2)</h4>
+                <p>Steady-State Waveform (SSW) solver, event-driven digital logic, and user-defined C++ models.</p>
+                <a href="/sequel_hub/docs/sequel_manual_2.pdf" target="_blank" class="btn btn-secondary btn-sm">Read Manual ↗</a>
+              </div>
+            </div>
+            <div class="hub-doc-card">
+              <div class="doc-icon">📊</div>
+              <div class="doc-info">
+                <h4>Circuit Simulation Techniques</h4>
+                <p>Lecture slide deck by Prof. M.B. Patil covering numerical algorithms and matrix formulation.</p>
+                <a href="/circuit_sim_1.pdf" target="_blank" class="btn btn-secondary btn-sm">View Slides ↗</a>
+              </div>
+            </div>
+            <div class="hub-doc-card">
+              <div class="doc-icon">📊</div>
+              <div class="doc-info">
+                <h4>Circuit Simulation: Transient Analysis</h4>
+                <p>In-depth coverage of integration methods (Trapezoidal, Backward Euler, Gear) and convergence.</p>
+                <a href="/circuit_sim_2.pdf" target="_blank" class="btn btn-secondary btn-sm">View Slides ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Keyboard Shortcuts Modal -->
   <div class="modal-overlay" id="shortcuts-modal">
@@ -230,6 +423,14 @@
         <div class="shortcut-row">
           <span>Save Design & Testbench</span>
           <div class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>S</kbd></div>
+        </div>
+        <div class="shortcut-row">
+          <span>Open Load Folder Dialog</span>
+          <div class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>O</kbd></div>
+        </div>
+        <div class="shortcut-row">
+          <span>Open SEQUEL Hub</span>
+          <div class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>H</kbd></div>
         </div>
         <div class="shortcut-row">
           <span>Zoom In / Out Waveform</span>
@@ -253,6 +454,7 @@
 
   <!-- Scripts -->
   <script src="waveform.js"></script>
+  <script src="schematic.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

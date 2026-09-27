@@ -1,0 +1,625 @@
+gbe_ac name=const
+main_vars: y
+iparms:
+sparms:
+rparms: c1=0 c2=0 k_scale=1
+aux_vars:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=d_filter_z0_p1
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  b0=1
++  b1=1
++  delt_sample=0.001
+aux_vars:
+no_functions=1
+f_1:  x y
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=d_filter_z0_p2
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  b0=1
++  b1=1
++  b2=1
++  delt_sample=0.001
+aux_vars:
+no_functions=1
+f_1:  x y
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=d_filter_z1
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  delt_sample=0.001
+aux_vars:
+no_functions=1
+f_1:  x y
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=d_filter_z1_p1
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  a1=1
++  b0=1
++  b1=1
++  delt_sample=0.001
+aux_vars:
+no_functions=1
+f_1:  x y
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=d_filter_z2_p2
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  a1=1
++  a2=1
++  b0=1
++  b1=1
++  b2=1
++  delt_sample=1e-3
+aux_vars:
+no_functions=1
+f_1:  x y
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=ddt
+main_vars:  x y
+iparms:
+sparms:
+rparms:
+aux_vars:
+no_functions=1
+f_1: x y
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=ddt_1
+main_vars:  x y
+iparms:
+sparms:
+rparms: k=1
+aux_vars:
+no_functions=1
+f_1: x y
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=diff_2
+main_vars: x1 x2 y
+iparms:
+sparms:
+rparms: k1=1 k2=1
+aux_vars:
+no_functions=1
+f_1: x1 x2 y
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=divscl
+main_vars:  x y
+iparms:
+sparms:
+rparms: a=1
+aux_vars:
+no_functions=1
+f_1: x y
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=dummy
+main_vars: x
+iparms:
+sparms:
+rparms:
+aux_vars:
+no_functions=0
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=filter_bp2
+main_vars: x y
+iparms:
++  flag_asympt=0
+sparms:
+rparms:
++  f0=1
++  k=1
++  B=0.5
+aux_vars:
++  x1
++  x2
++  y1
+no_functions=4
+f_1:  y  y1
+f_2:  x  x1
+f_3:  x1 x2
+f_4:  x y y1 x1 x2
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=filter_bs2
+main_vars: x y
+iparms:
++  flag_asympt=0
+sparms:
+rparms:
++  f0=1
++  k=1
++  B=0.5
+aux_vars:
++  x1
++  x2
++  y1
+no_functions=4
+f_1:  y  y1
+f_2:  x  x1
+f_3:  x1 x2
+f_4:  x y y1 x1 x2
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=filter_hp2
+main_vars: x y
+iparms:
++  flag_asympt=0
+sparms:
+rparms:
++  fc=1
++  k=1
++  xi=0.1
+aux_vars:
++  x1
++  x2
++  y1
+no_functions=4
+f_1:  y  y1
+f_2:  x  x1
+f_3:  x1 x2
+f_4:  x y y1 x1 x2
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=filter_lp2
+main_vars: x y
+iparms:
++  flag_asympt=0
+sparms:
+rparms:
++  fc=1
++  k=1
++  xi=0.1
+aux_vars:
++  y1
+no_functions=2
+f_1:  y y1
+f_2:  x y y1
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=filter_z0_p1
+main_vars: x y
+iparms:
++  flag_asympt=0
+sparms:
+rparms:
++  a0=1
++  b0=1
++  b1=1
++  f0=0.159155
+aux_vars:
+no_functions=1
+f_1:  x y
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=filter_z0_p2
+main_vars: x y
+iparms:
++  flag_asympt=0
+sparms:
+rparms:
++  a0=1
++  b0=1
++  b1=1
++  b2=1
++  f0=0.159155
+aux_vars:
++  y1
+no_functions=2
+f_1:  y y1
+f_2:  x y y1
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=filter_z0_p3
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  b0=1
++  b1=1
++  b2=1
++  b3=1
++  f0=0.159155
+aux_vars:
++  y1
++  y2
+no_functions=3
+f_1:  y  y1
+f_2:  y1 y2
+f_3:  x y y1 y2
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=filter_z0_p4
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  b0=1
++  b1=1
++  b2=1
++  b3=1
++  b4=1
++  f0=0.159155
+aux_vars:
++  y1
++  y2
++  y3
+no_functions=4
+f_1:  y  y1
+f_2:  y1 y2
+f_3:  y2 y3
+f_4:  x y y1 y2 y3
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=filter_z0_p5
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  b0=1
++  b1=1
++  b2=1
++  b3=1
++  b4=1
++  b5=1
++  f0=0.159155
+aux_vars:
++  y1
++  y2
++  y3
++  y4
+no_functions=5
+f_1:  y  y1
+f_2:  y1 y2
+f_3:  y2 y3
+f_4:  y3 y4
+f_5:  x y y1 y2 y3 y4
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=filter_z1
+main_vars: x y
+iparms:
++  flag_asympt=0
+sparms:
+rparms:
++  a0=1
++  a1=1
++  f0=0.159155
+aux_vars:
++  x1
+no_functions=2
+f_1:  x x1
+f_2:  x y x1
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=filter_z1_p1
+main_vars: x y
+iparms:
++  flag_asympt=0
+sparms:
+rparms:
++  a0=1
++  a1=1
++  b0=1
++  b1=1
++  f0=0.159155
+aux_vars:
++  x1
+no_functions=2
+f_1:  x x1
+f_2:  x y x1
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=filter_z1_p2
+main_vars: x y
+iparms:
++  flag_asympt=0
+sparms:
+rparms:
++  a0=1
++  a1=1
++  b0=1
++  b1=1
++  b2=1
++  f0=0.159155
+aux_vars:
++  x1
++  y1
+no_functions=3
+f_1:  y  y1
+f_2:  x  x1
+f_3:  x y y1 x1
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=filter_z2
+main_vars: x y
+iparms:
++  flag_asympt=0
+sparms:
+rparms:
++  a0=1
++  a1=1
++  a2=1
++  f0=0.159155
+aux_vars:
++  x1
++  x2
+no_functions=3
+f_1:  x  x1
+f_2:  x1 x2
+f_3:  x y x1 x2
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=filter_z2_p2
+main_vars: x y
+iparms:
++  flag_asympt=0
+sparms:
+rparms:
++  a0=1
++  a1=1
++  a2=1
++  b0=1
++  b1=1
++  b2=1
++  f0=0.159155
+aux_vars:
++  x1
++  x2
++  y1
+no_functions=4
+f_1:  y  y1
+f_2:  x  x1
+f_3:  x1 x2
+f_4:  x y y1 x1 x2
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=filter_z3_p3
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  a1=1
++  a2=1
++  a3=1
++  b0=1
++  b1=1
++  b2=1
++  b3=1
++  f0=0.159155
+aux_vars:
++  x1
++  x2
++  x3
++  y1
++  y2
+no_functions=6
+f_1:  y  y1
+f_2:  y1 y2
+f_3:  x  x1
+f_4:  x1 x2
+f_5:  x2 x3
+f_6:  x y y1 y2 x1 x2 x3
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=filter_z4_p4
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  a1=1
++  a2=1
++  a3=1
++  a4=1
++  b0=1
++  b1=1
++  b2=1
++  b3=1
++  b4=1
++  f0=0.159155
+aux_vars:
++  x1
++  x2
++  x3
++  x4
++  y1
++  y2
++  y3
+no_functions=8
+f_1:  y  y1
+f_2:  y1 y2
+f_3:  y2 y3
+f_4:  x  x1
+f_5:  x1 x2
+f_6:  x2 x3
+f_7:  x3 x4
+f_8:  x y y1 y2 y3 x1 x2 x3 x4
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=filter_z5_p5
+main_vars: x y
+iparms:
+sparms:
+rparms:
++  a0=1
++  a1=1
++  a2=1
++  a3=1
++  a4=1
++  a5=1
++  b0=1
++  b1=1
++  b2=1
++  b3=1
++  b4=1
++  b5=1
++  f0=0.159155
+aux_vars:
++  x1
++  x2
++  x3
++  x4
++  x5
++  y1
++  y2
++  y3
++  y4
+no_functions=10
+f_1:   y  y1
+f_2:   y1 y2
+f_3:   y2 y3
+f_4:   y3 y4
+f_5:   x  x1
+f_6:   x1 x2
+f_7:   x2 x3
+f_8:   x3 x4
+f_9:   x4 x5
+f_10:  x y y1 y2 y3 y4 x1 x2 x3 x4 x5
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=intgrtr
+main_vars:  x y
+iparms:
+sparms:
+rparms: k=1
+aux_vars:
+no_functions=1
+f_1: x y
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=multscl
+main_vars:  x y
+iparms:
+sparms:
+rparms: a=1
+aux_vars:
+no_functions=1
+f_1: x y
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=pstprc_div2 postproc=yes
+main_vars: x1 x2 y
+iparms:
+sparms:
+rparms:
+aux_vars:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=srcac
+main_vars: y
+iparms:
+sparms:
+rparms: a=0. phi=0
+aux_vars:
+no_functions=1
+f_1: y
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=sum_2
+main_vars: x1 x2 y
+iparms:
+sparms:
+rparms: k1=1 k2=1
+aux_vars:
+no_functions=1
+f_1: x1 x2 y
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=sum_3
+main_vars: x1 x2 x3 y
+iparms:
+sparms:
+rparms:
++  k1=1
++  k2=1
++  k3=1
+aux_vars:
+no_functions=1
+f_1: x1 x2 x3 y
+C: compiled
+endC
+endgbe_ac
+gbe_ac name=sum_5
+main_vars: x1 x2 x3 x4 x5 y
+iparms:
+sparms:
+rparms:
++  k1=1
++  k2=1
++  k3=1
++  k4=1
++  k5=1
+aux_vars:
+no_functions=1
+f_1: x1 x2 x3 x4 x5 y
+C: compiled
+endC
+endgbe_ac
